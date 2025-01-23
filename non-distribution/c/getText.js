@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 /*
+trivial change
 Extract all text from an HTML page.
 Usage: ./getText.js <input > output
 */
