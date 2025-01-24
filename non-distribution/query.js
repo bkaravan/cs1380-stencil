@@ -19,7 +19,7 @@ Examples:
 ./query.js A B C # Search for "A B C" in the global index. This should return all lines that contain "A B C" as part of a 3-gram.
 
 Note: Since you will be removing stopwords from the search query, you will not find any matches for words in the stopwords list.
-
+  
 The simplest way to use existing components is to call them using execSync.
 For example, `execSync(`echo "${input}" | ./c/process.sh`, {encoding: 'utf-8'});`
 */
