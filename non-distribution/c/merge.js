@@ -52,7 +52,7 @@ const rl = readline.createInterface({
 // 1. Read the incoming local index data from standard input (stdin) line by line.
 let localIndex = '';
 rl.on('line', (line) => {
-  localIndex += line + "\n";
+  localIndex += line + '\n';
 });
 
 rl.on('close', () => {
@@ -64,14 +64,13 @@ rl.on('close', () => {
 
   if (!globalIndexFile) {
     console.error('Error: Missing global index file argument.');
-    process.exit(1); 
+    process.exit(1);
   }
 
   // using provided fs to read
   fs.readFile(globalIndexFile, 'utf8', (err, data) => {
     printMerged(err, data);
   });
-
 });
 
 const printMerged = (err, data) => {
@@ -93,21 +92,21 @@ const printMerged = (err, data) => {
   // 3. For each line in `localIndexLines`, parse them and add them to the `local` object where keys are terms and values contain `url` and `freq`.
   for (const line of localIndexLines) {
     // might need to skip empty lines
-    const lineSplit = line.split("|").map(part => part.trim());
+    const lineSplit = line.split('|').map((part) => part.trim());
     if (lineSplit.length < 3) continue;
-    let term = lineSplit[0];
-    let url = lineSplit[2];
-    let freq = Number(lineSplit[1]);    
+    const term = lineSplit[0];
+    const url = lineSplit[2];
+    const freq = Number(lineSplit[1]);
     local[term] = {url, freq};
   }
 
   // 4. For each line in `globalIndexLines`, parse them and add them to the `global` object where keys are terms and values are arrays of `url` and `freq` objects.
   // Use the .trim() method to remove leading and trailing whitespace from a string.
   for (const line of globalIndexLines) {
-    const lineSplit = line.split("|").map(part => part.trim());
-    const pairSplit = lineSplit[1].split(" ").map(part => part.trim());
-    let term = lineSplit[0];
-    const urlfs = []
+    const lineSplit = line.split('|').map((part) => part.trim());
+    const pairSplit = lineSplit[1].split(' ').map((part) => part.trim());
+    const term = lineSplit[0];
+    const urlfs = [];
     // can use a flatmap here, but kind of an overkill
     for (let i = 0; i < pairSplit.length; i += 2) {
       urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
@@ -134,7 +133,7 @@ const printMerged = (err, data) => {
   //    - Each line contains a term, followed by a pipe (`|`), followed by space-separated pairs of `url` and `freq`.
 
   for (const term in global) {
-    const pairs = global[term].map(entry => `${entry.url} ${entry.freq}`).join(' ');
+    const pairs = global[term].map((entry) => `${entry.url} ${entry.freq}`).join(' ');
     const line = `${term} | ${pairs}`;
     console.log(line);
   }

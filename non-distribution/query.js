@@ -19,7 +19,7 @@ Examples:
 ./query.js A B C # Search for "A B C" in the global index. This should return all lines that contain "A B C" as part of a 3-gram.
 
 Note: Since you will be removing stopwords from the search query, you will not find any matches for words in the stopwords list.
-  
+
 The simplest way to use existing components is to call them using execSync.
 For example, `execSync(`echo "${input}" | ./c/process.sh`, {encoding: 'utf-8'});`
 */
@@ -27,10 +27,30 @@ For example, `execSync(`echo "${input}" | ./c/process.sh`, {encoding: 'utf-8'});
 
 const fs = require('fs');
 const {execSync} = require('child_process');
-const path = require('path');
+// const path = require('path');
 
 
 function query(indexFile, args) {
+  const term = execSync(`echo "${args}" | ./c/process.sh | ./c/stem.js`, {encoding: 'utf-8'})
+      .split('\n')
+      .join(' ');
+
+  fs.readFile(indexFile, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading the file:', err);
+      return;
+    }
+
+    const lines = data.split(/\r?\n/);
+
+    // Manually iterate over the lines
+    for (const line of lines) {
+      if (line.search(term) >= 0) {
+        console.log(line);
+      }
+    }
+  },
+  );
 }
 
 const args = process.argv.slice(2); // Get command-line arguments

@@ -23,11 +23,11 @@ const rl = readline.createInterface({
   input: process.stdin,
 });
 
-let html = "";
+let html = '';
 
 rl.on('line', (line) => {
   // 2. Read HTML input from standard input (stdin) line by line using the `readline` module.
-  html += line + "\n";
+  html += line + '\n';
 });
 
 rl.on('close', () => {
@@ -39,12 +39,12 @@ rl.on('close', () => {
   //  - select all anchor (`<a>`) elements) with an `href` attribute using `querySelectorAll`.
   //  - extract the value of the `href` attribute for each anchor element.
 
-  document.querySelectorAll("a[href]").forEach(anchor => {
-    const href = anchor.getAttribute("href");
+  document.querySelectorAll('a[href]').forEach((anchor) => {
+    const href = anchor.getAttribute('href');
     const absURL = new URL(href, baseURL).href;
     // 5. Print each absolute URL to the console, one per line.
     console.log(absURL);
-  })
+  });
 });
 
 
