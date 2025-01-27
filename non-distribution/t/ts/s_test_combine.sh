@@ -1,7 +1,6 @@
 #!/bin/bash
 # This is a student test
 
-T_FOLDER=${T_FOLDER:-t}
 R_FOLDER=${R_FOLDER:-}
 
 cd "$(dirname "$0")/..$R_FOLDER" || exit 1
@@ -9,7 +8,7 @@ cd "$(dirname "$0")/..$R_FOLDER" || exit 1
 DIFF=${DIFF:-diff}
 
 
-if $DIFF <(cat ./d/d4.txt | ./../c/combine.sh | sed 's/\t*$//' | sed 's/\s/ /g' | sort | uniq) <(cat "$T_FOLDER"/d/d5.txt | sed 's/\t*$//' | sed 's/\s/ /g' | sort | uniq) >&2;
+if $DIFF <(cat ./d/d4.txt | ./../c/combine.sh | sed 's/\t*$//' | sed 's/\s/ /g' | sort | uniq) <(cat ./d/d5.txt | sed 's/\t*$//' | sed 's/\s/ /g' | sort | uniq) >&2;
 then
     echo "$0 success: ngrams are identical"
     exit 0
