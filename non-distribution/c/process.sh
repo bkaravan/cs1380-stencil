@@ -10,11 +10,6 @@
 # iconv to translate to ascii
 # grep? 
 
-tr '[:space:]' '\n' |       
-tr -c '[:alpha:]' ' ' | # rather than removing non-letter characters, we swap them with spaces
-tr -s ' ' '\n' |      # then squeeze them changing to newlines
-tr '[:upper:]' '[:lower:]' | 
-iconv -t ascii | 
-grep -vxFf d/stopwords.txt  
+c/process.js
 
 
