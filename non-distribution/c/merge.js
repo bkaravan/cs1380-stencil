@@ -124,6 +124,7 @@ const printMerged = (err, data) => {
   for (const term in local) {
     if (term in global) {
       global[term].push(local[term]);
+      // technically, might be faster to resort everything at the end
       global[term].sort(compare);
     } else {
       global[term] = [local[term]];
