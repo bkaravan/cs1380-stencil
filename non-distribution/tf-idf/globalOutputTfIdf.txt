@@ -1,0 +1,1292 @@
+check stuff level | https://cs.brown.edu/courses/csci1380/sandbox/1 0.40235947810852507 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.35765286942980007
+check stuff | https://cs.brown.edu/courses/csci1380/sandbox/1 0.30099320108148403 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.2675495120724302 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.3439922298074103
+check | https://cs.brown.edu/courses/csci1380/sandbox/1 0.22907268296853878 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.2036201626387011 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.2617973519640443 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html 0.3665162927496621
+level check stuff | https://cs.brown.edu/courses/csci1380/sandbox/1 0.26823965207235 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.17882643471490003
+level check | https://cs.brown.edu/courses/csci1380/sandbox/1 0.26823965207235 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.17882643471490003
+level right | https://cs.brown.edu/courses/csci1380/sandbox/1 0.134119826036175 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.17882643471490003
+level | https://cs.brown.edu/courses/csci1380/sandbox/1 0.40235947810852507 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.35765286942980007
+link check stuff | https://cs.brown.edu/courses/csci1380/sandbox/1 0.10033106702716134 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.1337747560362151 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.17199611490370514
+link check | https://cs.brown.edu/courses/csci1380/sandbox/1 0.07635756098951292 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.10181008131935056 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.13089867598202215 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html 0.18325814637483104
+link | https://cs.brown.edu/courses/csci1380/sandbox/1 0.057762265046662105 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.07701635339554948 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.09902102579427789 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html 0.13862943611198905 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.006729584277281021
+right | https://cs.brown.edu/courses/csci1380/sandbox/1 0 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html 0 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0
+simpl link check | https://cs.brown.edu/courses/csci1380/sandbox/1 0.07635756098951292 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.10181008131935056 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.13089867598202215 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html 0.18325814637483104
+simpl link | https://cs.brown.edu/courses/csci1380/sandbox/1 0.07635756098951292 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.10181008131935056 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.13089867598202215 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html 0.18325814637483104
+simpl | https://cs.brown.edu/courses/csci1380/sandbox/1 0.07635756098951292 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.10181008131935056 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.13089867598202215 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html 0.18325814637483104
+stuff level check | https://cs.brown.edu/courses/csci1380/sandbox/1 0.26823965207235 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.17882643471490003
+stuff level right | https://cs.brown.edu/courses/csci1380/sandbox/1 0.134119826036175 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.17882643471490003
+stuff level | https://cs.brown.edu/courses/csci1380/sandbox/1 0.40235947810852507 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.35765286942980007
+stuff | https://cs.brown.edu/courses/csci1380/sandbox/1 0.30099320108148403 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/index.html 0.2675495120724302 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.3439922298074103
+check stuff check | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.32894072757057796
+check stuff right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.32894072757057796
+stuff check stuff | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.32894072757057796
+stuff check | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.32894072757057796
+stuff right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html 0.32894072757057796
+check check right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html 0.4605170185988092
+check check | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html 0.4605170185988092
+check right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html 0.4605170185988092
+link check check | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html 0.4605170185988092
+action distanc challeng | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+action distanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+action | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+albert einstein spooki | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+albert einstein | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+albert | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+aspect quantum mechan | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+aspect quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+aspect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.03352995650904375 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.01562561080033107
+boggl chang particl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+boggl chang | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+boggl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+causal quantum entangl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+causal quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+causal | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+challeng classic concept | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+challeng classic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+challeng | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.03352995650904375 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.022353304339362504
+chang particl instantli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+chang particl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+chang | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+classic concept space | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+classic concept | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+classic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.04470660867872501 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.03352995650904375
+comput cryptographi right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+comput cryptographi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.17882643471490003 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.03352995650904375
+concept space causal | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+concept space | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+concept | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+cryptographi right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+cryptographi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.03352995650904375 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.022353304339362504
+distanc challeng classic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+distanc challeng | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+distanc mind boggl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+distanc mind | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+distanc separ phenomenon | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+distanc separ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+distanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.10058986952713127 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.017121679919511704
+einstein spooki action | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+einstein spooki | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+einstein | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+entangl fundament aspect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+entangl fundament | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+entangl occur pair | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+entangl occur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+entangl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.09594104554141858
+famous albert einstein | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+famous albert | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+famous | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+field quantum comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+field quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+field | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.03352995650904375 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.022353304339362504
+fundament aspect quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+fundament aspect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+fundament | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+implic field quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+implic field | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+implic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+independ particl separ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+independ particl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+independ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.03352995650904375 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.022668139611747892
+influenc distanc separ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+influenc distanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+influenc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+instantli influenc distanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+instantli influenc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+instantli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+interact quantum particl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+interact quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+interact | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+mechan implic field | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+mechan implic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+mechan | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+mind boggl chang | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+mind boggl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+mind | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+occur pair particl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+occur pair | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+occur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+pair particl interact | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+pair particl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+pair | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+particl independ particl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+particl independ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+particl instantli influenc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+particl instantli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+particl interact quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+particl interact | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+particl separ distanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+particl separ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+particl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.19188209108283716
+phenomenon famous albert | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+phenomenon famous | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+phenomenon quantum entangl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+phenomenon quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+phenomenon | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.09594104554141858
+physic phenomenon quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+physic phenomenon | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+physic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+quantum comput cryptographi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+quantum comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.08941321735745002 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.03352995650904375
+quantum entangl fundament | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+quantum entangl occur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+quantum entangl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.09594104554141858
+quantum mechan implic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+quantum mechan | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+quantum particl independ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+quantum particl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+quantum physic phenomenon | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+quantum physic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.17882643471490003 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.20117973905426254
+realm quantum physic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+realm quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+realm | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+separ distanc mind | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+separ distanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+separ phenomenon famous | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+separ phenomenon | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+separ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.09594104554141858
+space causal quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+space causal | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+space | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.03352995650904375 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.022668139611747892
+spooki action distanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+spooki action | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+spooki | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2a/index.html 0.04797052277070929
+abil exist multipl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+abil exist | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+abil | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+basic unit quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+basic unit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+basic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+bit basic unit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+bit basic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+bit qubit qubit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+bit qubit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+bit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.06396069702761238
+build maintain stabl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+build maintain | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+build | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+calcul solv minut | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+calcul solv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+calcul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+capabl comput power | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+capabl comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+capabl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+challeng qubit highli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+challeng qubit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+classic comput bit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+classic comput thousand | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+classic comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.06396069702761238
+complex simul build | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+complex simul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+complex | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.022353304339362504 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.01562561080033107
+comput bit basic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput bit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput classic comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput classic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput cut edg | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput cut | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput potenti revolution | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput potenti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput power effici | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput power | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput quantum bit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput repres leap | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput repres | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput thousand quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+comput thousand | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+cryptographi materi scienc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+cryptographi materi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+cut edg pursuit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+cut edg | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+cut | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+develop practic scalabl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+develop practic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+develop | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+edg pursuit modern | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+edg pursuit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+edg | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+effici right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+effici | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+environment interfer develop | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+environment interfer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+environment | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+exist multipl simultan | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+exist multipl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+exist | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.022353304339362504 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.022668139611747892
+extraordinari abil exist | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+extraordinari abil | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+extraordinari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+field cryptographi materi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+field cryptographi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+highli sensit environment | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+highli sensit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+highli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+incred challeng qubit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+incred challeng | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+incred | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+interfer develop practic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+interfer develop | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+interfer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+leap tradit comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+leap tradit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+leap | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+maintain stabl quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+maintain stabl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+maintain | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+materi scienc complex | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+materi scienc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+materi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.022353304339362504 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.022668139611747892
+minut classic comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+minut classic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+minut | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+modern technolog promis | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+modern technolog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+modern | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+multipl simultan principl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+multipl simultan | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+multipl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+potenti revolution field | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+potenti revolution | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+potenti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+power effici right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+power effici | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+power | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.022353304339362504 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.01562561080033107
+practic scalabl quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+practic scalabl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+practic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+principl quantum superposit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+principl quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+principl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+process vast calcul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+process vast | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+process | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+promis unlock capabl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+promis unlock | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+promis | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+pursuit modern technolog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+pursuit modern | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+pursuit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum bit qubit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum bit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum comput cut | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum comput potenti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum comput quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum comput repres | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum incred challeng | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum incred | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum process vast | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum process | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum superposit quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+quantum superposit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+qubit extraordinari abil | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+qubit extraordinari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+qubit highli sensit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+qubit highli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+qubit qubit extraordinari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+qubit qubit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+qubit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.09594104554141858
+repres leap tradit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+repres leap | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+repres | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+revolution field cryptographi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+revolution field | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+revolution | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+scalabl quantum comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+scalabl quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+scalabl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+scienc complex simul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+scienc complex | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+scienc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+sensit environment interfer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+sensit environment | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+sensit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+simul build maintain | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+simul build | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+simul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+simultan principl quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+simultan principl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+simultan | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+solv minut classic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+solv minut | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+solv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+stabl quantum incred | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+stabl quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+stabl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+superposit quantum process | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+superposit quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+superposit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+technolog promis unlock | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+technolog promis | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+technolog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+thousand quantum comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+thousand quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+thousand | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+tradit comput classic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+tradit comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+tradit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+unit quantum comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+unit quantum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+unit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.022353304339362504 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.022668139611747892
+unlock capabl comput | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+unlock capabl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+unlock | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+vast calcul solv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+vast calcul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.03198034851380619
+vast | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.03424335983902341 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1a/level_2b/index.html 0.022353304339362504
+aesthet profound impact | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+aesthet profound | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+aesthet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+affect mood emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+affect mood | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+affect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+anxieti artist vincent | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+anxieti artist | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+anxieti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+applic color psycholog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+applic color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+applic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+art aesthet profound | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+art aesthet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+art psycholog underscor | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+art psycholog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+art therapi color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+art therapi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+art | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.06706558523283629
+artist leverag centuri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+artist leverag | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+artist vincent van | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+artist vincent | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+artist | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+artwork color psycholog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+artwork color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+artwork | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+aspect art therapi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+aspect art | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+associ artist leverag | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+associ artist | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+associ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+atmospher paint van | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+atmospher paint | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+atmospher | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+blue hand frequent | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+blue hand | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+blue yellow creat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+blue yellow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+blue | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.03125122160066214 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.016422835841164288
+calm seren creat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+calm seren | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+calm | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+caution anxieti artist | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+caution anxieti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+caution | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+centuri instanc red | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+centuri instanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+centuri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+claud monet master | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+claud monet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+claud | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+cognit right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+cognit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color art aesthet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color art | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color convei complex | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color convei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color evok strong | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color evok | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color individu express | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color individu | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color psycholog aspect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color psycholog color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color psycholog properti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+color psycholog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.06706558523283629
+color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.10937927560231749 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.016422835841164288
+complex emot atmospher | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+complex emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+context caution anxieti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+context caution | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+context | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+convei complex emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+convei complex | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+convei piec artwork | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+convei piec | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+convei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+creat sens peac | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+creat sens | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+creat vibrant turbul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+creat vibrant | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+creat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.03125122160066214 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.032845671682328575
+danger power color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+danger power | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+danger | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+element human emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+element human | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+element | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot atmospher paint | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot atmospher | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot blue hand | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot blue | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot cognit right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot cognit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot convei piec | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot convei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot issu fascin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot issu | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot turmoil studi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot turmoil | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.13413117046567258
+energi danger power | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+energi danger | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+energi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+evok feel happi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+evok feel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+evok strong emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+evok strong | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+evok | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+express feel emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+express feel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+express | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+fascin intersect art | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+fascin intersect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+fascin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.018699810854574592 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.008896026523050049 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.009747773743342075 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.01290550326583317
+feel emot issu | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+feel emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+feel happi optim | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+feel happi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+feel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+frequent link calm | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+frequent link | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+frequent | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+gogh claud monet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+gogh claud | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+gogh starri night | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+gogh starri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+gogh | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+hand frequent link | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+hand frequent | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+hand | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.01562561080033107 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.016422835841164288
+happi optim context | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+happi optim | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+happi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+human emot cognit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+human emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+human | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.01562561080033107 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.022668139611747892
+impact psycholog affect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+impact psycholog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+impact visual element | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+impact visual | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+impact | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+individu express feel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+individu express | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+individu | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+instanc red passion | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+instanc red | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+instanc swirl blue | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+instanc swirl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+instanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+intersect art psycholog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+intersect art | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+intersect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+issu fascin intersect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+issu fascin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+issu | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+leverag centuri instanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+leverag centuri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+leverag | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+link calm seren | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+link calm | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+master color psycholog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+master color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+master | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+monet master color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+monet master | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+monet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+mood emot convei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+mood emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+mood | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+night instanc swirl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+night instanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+night | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.01562561080033107 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.016422835841164288
+optim context caution | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+optim context | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+optim | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+paint van gogh | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+paint van | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+paint | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+passion energi danger | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+passion energi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+passion | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+peac tranquil yellow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+peac tranquil | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+peac | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+piec artwork color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+piec artwork | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+piec | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+power color evok | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+power color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+profound impact psycholog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+profound impact visual | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+profound impact | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+profound | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+properti associ artist | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+properti associ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+properti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+psycholog affect mood | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+psycholog affect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+psycholog aspect art | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+psycholog aspect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+psycholog color convei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+psycholog color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+psycholog properti associ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+psycholog properti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+psycholog underscor profound | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+psycholog underscor | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+psycholog | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.11177597538806047
+red passion energi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+red passion | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+red | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+reflect emot turmoil | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+reflect emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+reflect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+sens peac tranquil | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+sens peac | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+sens | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+seren creat sens | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+seren creat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+seren | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+sky reflect emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+sky reflect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+sky | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+starri night instanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+starri night | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+starri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+strong emot blue | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+strong emot | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+strong | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+studi applic color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+studi applic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+studi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+swirl blue yellow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+swirl blue | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+swirl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+therapi color individu | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+therapi color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+therapi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+tranquil yellow evok | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+tranquil yellow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+tranquil | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+turbul sky reflect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+turbul sky | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+turbul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+turmoil studi applic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+turmoil studi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+turmoil | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+underscor profound impact | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+underscor profound | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+underscor | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+van gogh claud | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+van gogh starri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+van gogh | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+van | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+vibrant turbul sky | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+vibrant turbul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+vibrant | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+vincent van gogh | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+vincent van | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+vincent | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+visual element human | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+visual element | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+visual | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.01562561080033107 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.016422835841164288
+yellow creat vibrant | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+yellow creat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+yellow evok feel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+yellow evok | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.022355195077612095
+yellow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html 0.04471039015522419
+adventur avid travel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+adventur avid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+adventur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+avid travel combin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+avid travel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+avid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+baikal deepest freshwat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+baikal deepest | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+baikal | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+china offer divers | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+china offer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+china | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+combin histor signific | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+combin histor | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+combin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+commenc complet railwai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+commenc complet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+commenc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+complet railwai vital | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+complet railwai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+complet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+connect moscow west | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+connect moscow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+connect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+consid lifetim adventur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+consid lifetim | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+consid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+contin right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+contin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+countri eastern seaboard | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+countri eastern | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+countri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+cross time zone | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+cross time | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+cross | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+cultur experi journei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+cultur experi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+cultur travel opt | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+cultur travel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+cultur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.03424335983902341 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.022668139611747892
+deepest freshwat lake | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+deepest freshwat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+deepest | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+distanc kilomet mile | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+distanc kilomet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+divers landscap cultur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+divers landscap | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+divers russia geographi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+divers russia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+divers | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+divert mongolia china | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+divert mongolia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+divert | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+eastern seaboard journei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+eastern seaboard | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+eastern | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+engin cross time | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+engin cross | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+engin marvel uniqu | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+engin marvel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+engin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+eurasian contin right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+eurasian contin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+eurasian | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+experi journei tran | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+experi journei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+experi sheer scale | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+experi sheer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+experi showcas russia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+experi showcas | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+experi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.07348675828704401
+fascin span impress | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+fascin span | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+feat engin cross | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+feat engin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+feat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+freshwat lake commenc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+freshwat lake | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+freshwat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+geographi cultur travel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+geographi cultur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+geographi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+histor signific engin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+histor signific | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+histor | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+immers vast eurasian | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+immers vast | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+immers | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+impress distanc kilomet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+impress distanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+impress | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+includ ural mountain | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+includ ural | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+includ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.017121679919511704 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.022668139611747892
+journei railwai offer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+journei railwai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+journei tran siberian | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+journei tran | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+journei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+kilomet mile tran | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+kilomet mile | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+kilomet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+lake baikal deepest | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+lake baikal | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+lake commenc complet | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+lake commenc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+lake | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+landscap cultur experi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+landscap cultur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+landscap includ ural | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+landscap includ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+landscap | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+lifetim adventur avid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+lifetim adventur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+lifetim | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+marvel uniqu immers | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+marvel uniqu | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+marvel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+mile tran siberian | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+mile tran | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+mile | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.017121679919511704 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.022668139611747892
+mongolia china offer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+mongolia china | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+mongolia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+mongolian divert mongolia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+mongolian divert | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+mongolian | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+moscow west russia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+moscow west | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+moscow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+mountain plain siberia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+mountain plain | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+mountain | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+offer divers landscap | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+offer divers | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+offer uniqu travel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+offer uniqu | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+offer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+opt rout tran | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+opt rout | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+opt | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+plain siberia shore | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+plain siberia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+plain | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+provid unparallel experi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+provid unparallel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+provid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+railwai connect moscow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+railwai connect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+railwai consid lifetim | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+railwai consid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+railwai offer uniqu | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+railwai offer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+railwai railwai connect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+railwai railwai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+railwai vital transport | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+railwai vital | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+railwai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.1224779304784067
+remark feat engin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+remark feat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+remark | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+rout remark feat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+rout remark | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+rout tran mongolian | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+rout tran | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+rout | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+russia geographi cultur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+russia geographi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+russia vast vari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+russia vast | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+russia vladivostok countri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+russia vladivostok | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+russia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.07348675828704401
+scale divers russia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+scale divers | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+scale | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+seaboard journei railwai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+seaboard journei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+seaboard | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+sheer scale divers | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+sheer scale | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+sheer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+shore lake baikal | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+shore lake | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+shore | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+showcas russia vast | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+showcas russia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+showcas | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+siberia shore lake | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+siberia shore | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+siberia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+siberian railwai consid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+siberian railwai railwai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+siberian railwai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+siberian | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+signific engin marvel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+signific engin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+signific | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+span impress distanc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+span impress | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+span | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+time zone provid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+time zone | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+time | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+tran mongolian divert | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+tran mongolian | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+tran siberian railwai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+tran siberian | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+tran | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.07348675828704401
+transport rout remark | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+transport rout | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+transport | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+travel combin histor | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+travel combin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+travel experi showcas | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+travel experi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+travel opt rout | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+travel opt | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+travel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.05136503975853511 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.016422835841164288
+uniqu immers vast | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+uniqu immers | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+uniqu travel experi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+uniqu travel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+uniqu | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.048991172191362675
+unparallel experi sheer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+unparallel experi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+unparallel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+ural mountain plain | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+ural mountain | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+ural | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vari landscap includ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vari landscap | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.017121679919511704 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.016422835841164288
+vast eurasian contin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vast eurasian | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vast vari landscap | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vast vari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vital transport rout | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vital transport | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vital | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vladivostok countri eastern | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vladivostok countri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+vladivostok | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+west russia vladivostok | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+west russia | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+west | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+zone provid unparallel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+zone provid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+zone | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html 0.024495586095681338
+add item collect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+add item | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+add | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+agenc research scholar | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+agenc research | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+agenc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+bibl perfect vellum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+bibl perfect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+bibl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+book print materi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+book print | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+book shelf space | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+book shelf | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+book | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.06486155191532524
+bookshelv collect includ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+bookshelv collect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+bookshelv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+collect dai emphas | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+collect dai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+collect hold item | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+collect hold | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+collect includ book | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+collect includ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+collect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.09729232787298785
+congress add item | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+congress add | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+congress govern agenc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+congress govern | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+congress washington feder | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+congress washington | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+congress | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.09729232787298785
+copi exist record | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+copi exist | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+copi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+creativ librari serv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+creativ librari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+creativ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+cultur institut unit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+cultur institut | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+dai emphas grow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+dai emphas | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+dai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+declar independ gutenberg | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+declar independ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+declar | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+draft declar independ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+draft declar | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+draft | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+emphas grow natur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+emphas grow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+emphas | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+establish institut rich | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+establish institut | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+establish | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+exist record librari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+exist record | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+fascin immens collect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+fascin immens | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+feder cultur institut | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+feder cultur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+feder | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+global knowledg histori | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+global knowledg | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+global | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+govern agenc research | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+govern agenc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+govern | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+grow natur repositori | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+grow natur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+grow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+gutenberg bibl perfect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+gutenberg bibl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+gutenberg | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+histori fascin immens | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+histori fascin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+histori librari congress | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+histori librari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+histori | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.06486155191532524
+hold item mile | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+hold item | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+hold | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+human knowledg creativ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+human knowledg | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+immens collect hold | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+immens collect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+immens | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+includ book print | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+includ book | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+independ gutenberg bibl | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+independ gutenberg | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+institut rich histori | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+institut rich | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+institut unit largest | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+institut unit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+institut | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.06486155191532524
+item collect dai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+item collect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+item mile bookshelv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+item mile | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+item | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.06486155191532524
+knowledg creativ librari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+knowledg creativ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+knowledg histori librari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+knowledg histori | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+knowledg | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.06486155191532524
+languag rough draft | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+languag rough | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+languag | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+largest librari term | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+largest librari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+largest | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+librari congress add | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+librari congress washington | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+librari congress | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.06486155191532524
+librari serv resourc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+librari serv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+librari term book | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+librari term | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+librari treasur trove | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+librari treasur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+librari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.1621538797883131
+materi languag rough | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+materi languag | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+mile bookshelv collect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+mile bookshelv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+natur repositori human | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+natur repositori | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+natur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.06569134336465715 https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.022668139611747892
+perfect vellum copi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+perfect vellum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+perfect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+print materi languag | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+print materi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+print | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+public worldwid right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+public worldwid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+public | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+record librari treasur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+record librari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+record | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+repositori human knowledg | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+repositori human | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+repositori | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+research scholar public | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+research scholar | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+research | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+resourc congress govern | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+resourc congress | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+resourc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+rich histori fascin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+rich histori | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+rich | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+rough draft declar | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+rough draft | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+rough | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+scholar public worldwid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+scholar public | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+scholar | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+serv resourc congress | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+serv resourc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+serv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+shelf space establish | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+shelf space | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+shelf | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+space establish institut | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+space establish | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+term book shelf | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+term book | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+term | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+treasur trove global | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+treasur trove | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+treasur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+trove global knowledg | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+trove global | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+trove | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+unit largest librari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+unit largest | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+vellum copi exist | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+vellum copi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+vellum | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+washington feder cultur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+washington feder | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+washington | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+worldwid right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+worldwid | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html 0.03243077595766262
+bacteria jelli fungi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bacteria jelli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bacteria | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+beach caus bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+beach caus | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+beach | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+beauti bioluminesc enchant | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+beauti bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+beauti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+biologi beauti bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+biologi beauti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+biologi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc blue green | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc blue | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc creat magic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc creat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc enchant mysteri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc enchant | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc fascin varieti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc fascin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc light vari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc phytoplankton water | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc phytoplankton | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc product emiss | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc product | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc understood captiv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc understood | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.18796613004033028
+blend biologi beauti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+blend biologi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+blend | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+blue green wavelength | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+blue green | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+call luciferas color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+call luciferas | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+call luciferin enzym | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+call luciferin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+call | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.04699153251008257
+captiv subject scientif | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+captiv subject | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+captiv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+caus bioluminesc phytoplankton | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+caus bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+caus | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+chemic reaction involv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+chemic reaction | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+chemic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+color bioluminesc light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+color bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+creat chemic reaction | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+creat chemic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+creat magic scene | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+creat magic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+creatur fish bacteria | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+creatur fish | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+creatur lure prei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+creatur lure | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+creatur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.04699153251008257
+dark ocean depth | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+dark ocean | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+dark | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+deep sea creatur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+deep sea | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+deep | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+depth firefli hand | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+depth firefli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+depth | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+displai firefli warm | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+displai firefli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+displai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+emiss light live | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+emiss light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+emiss | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+emit molecul call | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+emit molecul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+emit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+enchant mysteri natur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+enchant mysteri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+enchant natur phenomena | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+enchant natur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+enchant | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.04699153251008257
+enzym call luciferas | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+enzym call | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+enzym | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+farthest water visual | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+farthest water | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+farthest | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+fascin enchant natur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+fascin enchant | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+fascin varieti purpos | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+fascin varieti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+firefli bioluminesc fascin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+firefli bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+firefli hand light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+firefli hand | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+firefli warm summer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+firefli warm | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+firefli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.07048729876512386
+fish bacteria jelli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+fish bacteria | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+fish | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+fungi insect firefli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+fungi insect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+fungi speci reason | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+fungi speci | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+fungi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.04699153251008257
+glow wave beach | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+glow wave | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+glow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+green wavelength travel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+green wavelength | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+green | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+hand light mate | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+hand light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+insect firefli bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+insect firefli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+insect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+involv light emit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+involv light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+involv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+jelli fungi insect | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+jelli fungi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+jelli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light creat chemic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light creat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light displai firefli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light displai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light emit molecul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light emit | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light live organ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light live | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light mate signal | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light mate | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light vari marin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light vari | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.14097459753024771
+live organ marin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+live organ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+live | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+luciferas color bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+luciferas color | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+luciferas | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+luciferin enzym call | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+luciferin enzym | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+luciferin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+lure prei mate | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+lure prei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+lure | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+magic scene natur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+magic scene | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+magic | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+marin bioluminesc blue | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+marin bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+marin creatur fish | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+marin creatur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+marin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.04699153251008257
+mate dark ocean | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+mate dark | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+mate signal fungi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+mate signal | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+mate | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.04699153251008257
+mesmer light displai | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+mesmer light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+mesmer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+molecul call luciferin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+molecul call | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+molecul | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+mysteri natur right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+mysteri natur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+mysteri | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+natur deep sea | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+natur deep | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+natur glow wave | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+natur glow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+natur phenomena bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+natur phenomena | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+natur right | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+night blend biologi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+night blend | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+ocean depth firefli | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+ocean depth | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+ocean | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+organ marin creatur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+organ marin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+organ | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+phenomena bioluminesc product | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+phenomena bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+phenomena | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+phytoplankton water mesmer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+phytoplankton water | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+phytoplankton | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+prei mate dark | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+prei mate | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+prei | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+product emiss light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+product emiss | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+product | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+purpos natur deep | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+purpos natur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+purpos | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+reaction involv light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+reaction involv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+reaction | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+reason bioluminesc understood | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+reason bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+reason | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+scene natur glow | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+scene natur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+scene | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+scientif light creat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+scientif light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+scientif | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+sea creatur lure | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+sea creatur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+sea | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+signal fungi speci | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+signal fungi | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+signal | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+speci reason bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+speci reason | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+speci | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+subject scientif light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+subject scientif | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+subject | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+summer night blend | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+summer night | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+summer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+travel farthest water | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+travel farthest | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+understood captiv subject | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+understood captiv | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+understood | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+vari marin bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+vari marin | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+varieti purpos natur | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+varieti purpos | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+varieti | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+visual bioluminesc creat | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+visual bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+warm summer night | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+warm summer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+warm | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+water mesmer light | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+water mesmer | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+water visual bioluminesc | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+water visual | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+water | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.04699153251008257
+wave beach caus | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+wave beach | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+wave | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+wavelength travel farthest | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+wavelength travel | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284
+wavelength | https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html 0.023495766255041284

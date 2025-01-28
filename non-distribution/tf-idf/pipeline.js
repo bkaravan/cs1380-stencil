@@ -1,14 +1,10 @@
 #!/usr/bin/env node
 
-//pipeline:
+// pipeline:
 
 // cat "$1" |
 //   c/merge.js d/global-index.txt |
 //   sort -o d/global-index.txt
-
-// THE SECOND ARGUMENT IS A FILE WITH ALL URLS EXPLORED 
-// while it kills some parallelism, the only other way I can think of is to rewrite the whole engine
-// in JS, and I am not sure if I have time for it
 
 // process part
 const fs = require('fs');
@@ -21,173 +17,180 @@ const http = require('http');
 
 // not sure what this number is tbh, might be 3
 
-const global = {}
+const global = {};
+const wordsToDocFreq = {};
+const urlToTotalWords = {};
 
 // fills output with n-grams
 function computeNgrams(output, filteredWords) {
-    const buffer = filteredWords.filter(Boolean);
+  const buffer = filteredWords.filter(Boolean);
 
-    const bigrams = [];
-    for (let i = 0; i < buffer.length - 1; i++) {
-      bigrams.push([buffer[i], buffer[i + 1]]);
+  const bigrams = [];
+  for (let i = 0; i < buffer.length - 1; i++) {
+    bigrams.push([buffer[i], buffer[i + 1]]);
+  }
+
+  const trigrams = [];
+  for (let i = 0; i < buffer.length - 2; i++) {
+    trigrams.push([buffer[i], buffer[i + 1], buffer[i + 2]]);
+  }
+
+  const together = buffer.concat(bigrams).concat(trigrams);
+
+  for (const item of together) {
+    if (Array.isArray(item)) {
+      output.push(item.join('\t'));
+    } else {
+      output.push(item);
     }
-  
-    const trigrams = [];
-    for (let i = 0; i < buffer.length - 2; i++) {
-      trigrams.push([buffer[i], buffer[i + 1], buffer[i + 2]]);
-    }
-  
-    const together = buffer.concat(bigrams).concat(trigrams);
-  
-    for (const item of together) {
-      if (Array.isArray(item)) {
-        output.push(item.join('\t'));
-      } else {
-        output.push(item);
-      }
-    }
+  }
 }
 
 function invert(data, url) {
-    const result = data
-    // basically python's defaultdict, counting how many times each line occurs
-        .reduce((acc, line) => {
+  const result = data
+  // basically python's defaultdict, counting how many times each line occurs
+      .reduce((acc, line) => {
         const key = line.trim();
         acc[key] = (acc[key] || 0) + 1;
         return acc;
-        }, {});
+      }, {});
 
-    // Entries creates a stream of KV pairs
-    const output = Object.entries(result)
-    // each entry counts the first three words
-        .map(([words, count]) => {
+  // Entries creates a stream of KV pairs
+  const output = Object.entries(result)
+  // each entry counts the first three words
+      .map(([words, count]) => {
         const parts = words.split(/\s+/).slice(0, 3).join(' ');
+        // update words to doc freq for every n-gram
+        if (parts in wordsToDocFreq) {
+          wordsToDocFreq[parts][url] = count;
+        } else {
+          wordsToDocFreq[parts] = {};
+          wordsToDocFreq[parts][url] = count;
+        }
         return `${parts} | ${count} |`;
-        })
-        .sort()
-        // adding the url at the end
-        .map((line) => `${line} ${url}`)
-        .join('\n');
-    return output
+      })
+      .sort()
+  // adding the url at the end
+      .map((line) => `${line} ${url}`)
+      .join('\n');
+  return output;
 }
 
 const compare = (a, b) => {
-    if (a.freq > b.freq) {
-      return -1;
-    } else if (a.freq < b.freq) {
-      return 1;
-    } else {
-      return 0;
-    }
-  };
+  if (a.freq > b.freq) {
+    return -1;
+  } else if (a.freq < b.freq) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
 
 function processDocument(data, url) {
-    const stopSet = new Set(fs.readFileSync('../d/stopwords.txt', 'utf8').split('\n').map((word) => word.trim()).filter(Boolean));
+  const stopSet = new Set(fs.readFileSync('../d/stopwords.txt', 'utf8').split('\n').map((word) => word.trim()).filter(Boolean));
 
-    const processedWords = data.replace(/\s+/g, '\n')
-        .replace(/[^a-zA-Z]/g, ' ')
-        .replace(/\s+/g, '\n')
-        .toLowerCase();
-    const stemmer = natural.PorterStemmer;
-    // stemming and filtering
-    const filteredWords = processedWords.split('\n').filter((word) => word && !stopSet.has(word)).map(word => stemmer.stem(word));
-    
-    // combine part
-    const combinedGrams = [];
-    computeNgrams(combinedGrams, filteredWords);
+  const processedWords = data.replace(/\s+/g, '\n')
+      .replace(/[^a-zA-Z]/g, ' ')
+      .replace(/\s+/g, '\n')
+      .toLowerCase();
+  const stemmer = natural.PorterStemmer;
+  // stemming and filtering
+  const filteredWords = processedWords.split('\n').filter((word) => word && !stopSet.has(word)).map((word) => stemmer.stem(word));
 
-    // invert part
-    const inverted = invert(combinedGrams, url);
+  // update one ds
+  urlToTotalWords[url] = filteredWords.length;
 
-    // DOUBLE CHECK INDEXING PIPELINE
-    mergeGlobal(inverted);
+  // combine part
+  const combinedGrams = [];
+  computeNgrams(combinedGrams, filteredWords);
+
+  // invert part
+  const inverted = invert(combinedGrams, url);
+
+  // DOUBLE CHECK INDEXING PIPELINE
+  mergeGlobal(inverted);
 }
 
 const mergeGlobal = (localIndex) => {
-  
-    // Split the data into an array of lines
-    const localIndexLines = localIndex.split('\n');
-  
-    localIndexLines.pop();
-  
-    const local = {};
-  
-    // 3. For each line in `localIndexLines`, parse them and add them to the `local` object where keys are terms and values contain `url` and `freq`.
-    for (const line of localIndexLines) {
-      // might need to skip empty lines
-      const lineSplit = line.split('|').map((part) => part.trim());
-      if (lineSplit.length < 3) continue;
-      const term = lineSplit[0];
-      const url = lineSplit[2];
-      const freq = Number(lineSplit[1]);
-      local[term] = {url, freq};
-    }
-  
-    for (const term in local) {
-      if (term in global) {
-        global[term].push(local[term]);
-        // technically, might be faster to resort everything at the end
-        global[term].sort(compare);
-      } else {
-        global[term] = [local[term]];
-      }
-    }
+  // Split the data into an array of lines
+  const localIndexLines = localIndex.split('\n');
 
-    const writeStream = fs.createWriteStream("gloablOutput.txt", { flags: 'w' });
-    
-    for (const term in global) {
-      const pairs = global[term].map((entry) => `${entry.url} ${entry.freq}`).join(' ');
-      const line = `${term} | ${pairs}`;
-      writeStream.write(line + '\n');
+  const local = {};
+
+  // 3. For each line in `localIndexLines`, parse them and add them to the `local` object where keys are terms and values contain `url` and `freq`.
+  for (const line of localIndexLines) {
+    // might need to skip empty lines
+    const lineSplit = line.split('|').map((part) => part.trim());
+    if (lineSplit.length < 3) continue;
+    const term = lineSplit[0];
+    const url = lineSplit[2];
+    const freq = Number(lineSplit[1]);
+    local[term] = {url, freq};
+  }
+
+  for (const term in local) {
+    if (term in global) {
+      global[term].push(local[term]);
+      // technically, might be faster to resort everything at the end
+      global[term].sort(compare);
+    } else {
+      global[term] = [local[term]];
     }
+  }
 };
 
 class MyEngine {
   constructor() {
-    // Instead of files, use Sets and arrays to store data
-    this.urls = new Set();          // Represents urls.txt
-    this.visited = new Set();       // Represents visited.txt
-    this.content = '';             // Represents content.txt
+    this.urls = new Set();
+    this.visited = new Set();
+    this.content = '';
     this.agent = new https.Agent({
-      rejectUnauthorized: false
+      rejectUnauthorized: false,
     });
+    this.stopGenerator = false;
   }
 
-  makeRequest(url, maxRedirects = 5) {
+  makeRequest(url, maxRedirects = 2, timeout = 200) {
     return new Promise((resolve, reject) => {
       const options = {
-        rejectUnauthorized: false, // Ignore SSL certificate errors
+        rejectUnauthorized: false, // Ignore SSL certificate errors (like curl -k)
         headers: {
-          'Accept': 'text/html,application/xhtml+xml,application/xml'
-        }
+          'Accept': 'text/html,application/xhtml+xml,application/xml', // Standard Accept header
+        },
+        timeout: timeout, // Timeout for the request
       };
-  
+
       const client = url.startsWith('https') ? https : http;
-  
+
       const req = client.get(url, options, (res) => {
         if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-          // Handle redirect
+          // Handle redirects (like curl -L)
           if (maxRedirects === 0) {
             reject(new Error('Too many redirects'));
             return;
           }
           const redirectUrl = new URL(res.headers.location, url).toString();
-          resolve(this.makeRequest(redirectUrl, maxRedirects - 1)); // Recursive call
+          resolve(this.makeRequest(redirectUrl, maxRedirects - 1, timeout)); // Recursive call to follow redirect
         } else if (res.statusCode !== 200) {
-          reject(new Error(`HTTP error! status: ${res.statusCode}`));
+          reject(new Error(`HTTP error! status: ${res.statusCode}`)); // Handle HTTP errors
         } else {
           let data = '';
           res.on('data', (chunk) => {
-            data += chunk;
+            data += chunk; // Accumulate the response
           });
           res.on('end', () => {
-            resolve(data);
+            resolve(data); // Resolve with the full response when done
           });
         }
       });
-  
+
       req.on('error', (error) => {
-        reject(error);
+        reject(error); // Handle network or request errors
+      });
+
+      req.on('timeout', () => {
+        req.destroy(); // Destroy the request on timeout
+        reject(new Error('Request timed out'));
       });
     });
   }
@@ -195,20 +198,18 @@ class MyEngine {
   async crawlUrl(url) {
     console.log(`[engine] crawling ${url}`);
     try {
-      // Simulate myCrawl.sh
       this.content = await this.crawl(url);
-      //console.log(this.content);
-      
+      // console.log(this.content);
+
       console.log(`[engine] indexing ${url}`);
-      // Simulate myInd.sh
+
       await this.index(this.content, url);
-      
     } catch (error) {
       console.error(`Error processing ${url}:`, error);
     }
   }
 
-  // Mock function to simulate crawling
+
   async crawl(url) {
     this.visited.add(url);
 
@@ -216,13 +217,9 @@ class MyEngine {
       // Fetch the page content
       const html = await this.makeRequest(url);
 
-      // Process in parallel, similar to the tee in the bash script
-      const [newUrls, textContent] = await Promise.all([
-        // Call getURLs.js
-        processUrls(html, url),
-        // Call getText.js
-        convert(html)
-      ]);
+      // call helpers from the pipeline
+      const newUrls = processUrls(html, url);
+      const textContent = convert(html);
 
       // Add new URLs that haven't been visited yet
       for (const newUrl of newUrls) {
@@ -232,22 +229,23 @@ class MyEngine {
       }
 
       return textContent;
-
     } catch (error) {
       console.error(`Error crawling ${url}:`, error);
       return '';
     }
   }
 
-  // Mock function to simulate indexing
   async index(content, url) {
-    // Replace this with actual indexing logic
+    // indexing pipeline starts here
     processDocument(content, url);
   }
 
-  // Method to add new URLs to crawl
   addUrl(url) {
     this.urls.add(url);
+  }
+
+  getVisited() {
+    return this.visited.size;
   }
 
   // Main engine method
@@ -260,208 +258,115 @@ class MyEngine {
         console.log('Stopping due to stop command');
         break;
       }
-      
+
       await this.crawlUrl(url);
 
       // Check if we've visited all available URLs
       if (this.visited.size >= this.urls.size) {
         console.log('Stopping - all URLs have been visited');
+        this.stopGenerator = true;
         break;
       }
     }
   }
 
   // Generator function to simulate tail -f behavior
-  async *urlGenerator() {
+  async* urlGenerator() {
     const processed = new Set();
-    
-    while (true) {
+
+    while (!this.stopGenerator) {
+      const newUrls = [];
       for (const url of this.urls) {
         if (!processed.has(url)) {
           processed.add(url);
           yield url;
+          // Queue new URLs for later addition
+          newUrls.push(url);
         }
       }
-      
+
+      for (const url of newUrls) {
+        this.urls.add(url);
+      }
+
       // Simulate waiting for new URLs
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      if (this.urls.size === processed.size) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
     }
   }
 }
 
-function main() {
+// tf-idf
+
+function computeTf() {
+  const retDict = {};
+
+  for (const [word, nested] of Object.entries(wordsToDocFreq)) {
+    retDict[word] = {};
+    for (const [url, count] of Object.entries(nested)) {
+      if (word in retDict) {
+        retDict[word][url] = count /
+          urlToTotalWords[url];
+      } else {
+        retDict[word] = {};
+        retDict[word][url] = count /
+          urlToTotalWords[url];
+      }
+    }
+  }
+
+  return retDict;
+}
+
+
+function computeIdf(pageCount) {
+  const retDict = {};
+  for (const [word, nested] of Object.entries(wordsToDocFreq)) {
+    const wordIdf = Math.log(
+        pageCount/Object.keys(nested).length);
+    retDict[word] = wordIdf;
+  }
+
+  return retDict;
+}
+
+function computeTfIdf(pageCount) {
+  const tfDict = computeTf();
+  const idfDict = computeIdf(pageCount);
+
+  for (const [word, nested] of Object.entries(tfDict)) {
+    for (const [url, count] of Object.entries(nested)) {
+      tfDict[word][url] = count * idfDict[word];
+    }
+  }
+
+  return tfDict;
+}
+
+async function main() {
   const crawler = new MyEngine();
 
-  // Add some URLs to crawl
+  // we can modify this to be the argument for the script too if we want
   crawler.addUrl('https://cs.brown.edu/courses/csci1380/sandbox/1');
 
-  // Start the crawler
-  crawler.run().catch(console.error);
+  await crawler.run().catch(console.error);
+
+  // can do tf-idf here
+  const tfIdfDict = computeTfIdf(crawler.getVisited());
+
+  const writeStream = fs.createWriteStream('globalOutputTfIdf.txt', {flags: 'w'});
+
+  for (const term in global) {
+    const pairs = global[term].map((entry) => `${entry.url} ${tfIdfDict[term][entry.url]}`).sort(compare).join(' ');
+    const line = `${term} | ${pairs}`;
+    writeStream.write(line + '\n');
+  }
+
+  writeStream.end();
 }
 
 
 main();
 
 
-
-// some idea from cs200 search
-
-// def process_document(self, title: str, id: int, body: str) -> list[str]:
-// """
-// Takes in a document title, id, and body, and returns a list of the
-// tokens in the document title and body.
-
-// A "token" is a word, not including stopwords, that has been stemmed. For
-// links, only the link text (not destination) are included in the returned
-// list.
-
-
-// Parameters:
-//     title       the title of the document
-//     id          the id of the document
-//     body        the text of the document
-// Returns:
-//     a list of the tokens in the title and the body
-
-// Process documents assumes that the ids to titles and titles to ids have
-// already been filled
-// """
-
-// # find every word to go through in title and body
-// all_tokens = re.findall(self.tokenization_regex, title)
-// all_tokens += re.findall(self.tokenization_regex, body)
-// ret_list = []
-// # add a counter to calculate maxes
-// cur_max = 1
-
-// for word in all_tokens:
-//     # check if the word is a link
-//     if self.word_is_link(word):
-//         # if it is, split it
-//         a, b = self.split_link(word)
-//         # check that the link is in the corpus
-//         if b in self.titles_to_ids.keys():
-//             # check if we have added it before
-//             if id in self.ids_to_links.keys():
-//                 cur_set = self.ids_to_links[id]
-//                 cur_set.add(self.titles_to_ids[b])
-//                 self.ids_to_links.update({id: cur_set})
-//             else:
-//                 self.ids_to_links.update({id: {self.titles_to_ids[b]}})
-//         # add the text to things that need stemming
-//         all_tokens += a
-//     else:
-//         after_stem = self.stem_and_stop(word)
-//         # if the word is not a stopword
-//         if after_stem != '':
-//             # if we have already seen this owrd
-//             if after_stem in self.words_to_doc_frequency.keys():
-//                 cur_dict = self.words_to_doc_frequency[after_stem]
-//                 # if it has been on this page, increase its count and
-//                 # check the max counter
-//                 if id in cur_dict.keys():
-//                     cur_dict[id] += 1
-//                     if cur_dict[id] > cur_max:
-//                         cur_max = cur_dict[id]
-//                 # otherwise update it to 1
-//                 else:
-//                     cur_dict.update({id: 1})
-//             # if it's a new word put it in the word frequency with 1
-//             else:
-//                 self.words_to_doc_frequency.update(
-//                     {after_stem: {id: 1}})
-//             ret_list.append(after_stem)
-
-// # after all of this we will know the highest count of the word for this
-// # page with this counter
-// self.ids_to_max_counts.update({id: cur_max})
-// return ret_list
-
-// def parse(self):
-// """
-// Reads in an xml file, parses titles and ids, tokenizes text, removes
-// stop words, does stemming, and processes links.
-
-// Updates ids_to_titles, titles_to_ids, words_to_doc_frequency,
-// ids_to_max_counts, and ids_to_links
-// """
-
-// # load XML + root
-// wiki_tree = et.parse(self.wiki)
-// wiki_xml_root = wiki_tree.getroot()
-
-// # loop through every document once to fill in ids to titles and titles to ids
-// for wiki_page in wiki_xml_root:
-//     title = wiki_page.find("title").text.strip()
-//     id = int(wiki_page.find("id").text.strip())
-//     self.ids_to_titles.update({id: title})
-//     self.titles_to_ids.update({title: id}) 
-
-// # loop through the second time using process_document on each page
-// for wiki_page in wiki_xml_root:
-//     title = wiki_page.find("title").text.strip()
-//     id = int(wiki_page.find("id").text.strip())
-//     self.process_document(
-//         title, id, wiki_page.find("text").text.strip())
-
-// def compute_tf(self) -> dict[str, dict[int, float]]:
-// """
-// Computes tf metric based on words_to_doc frequency
-
-// Assumes parse has already been called to populate the relevant data
-// structures.
-
-// Returns:
-//     a dictionary mapping every word to its term frequency
-// """
-
-// ret_dict = {}
-
-// for word in self.words_to_doc_frequency:
-//     # for every word make a dictionary and compute it
-//     ret_dict[word] = {}
-//     for id in self.words_to_doc_frequency[word]:
-//         ret_dict[word][id] = self.words_to_doc_frequency[word][id] / \
-//             self.ids_to_max_counts[id]
-
-// return ret_dict
-
-// def compute_idf(self) -> dict[str, float]:
-// """
-// Computes idf metric based on words_to_doc_frequency
-
-// Assumes parse has already been called to populate the relevant data
-// structures.
-
-// Returns:
-//     a dictionary mapping every word to its inverse term frequency
-// """
-// ret_dict = {}
-// # as many ids as many pages in the doc
-// total_page_count = len(self.ids_to_titles)
-// for word in self.words_to_doc_frequency:
-//     word_idf = math.log(
-//         total_page_count/len(self.words_to_doc_frequency[word]))
-//     ret_dict.update({word: word_idf})
-
-// return ret_dict
-
-// def compute_term_relevance(self) -> dict[str, dict[int, float]]:
-// """
-// Computes term relevance based on tf and idf
-
-// Assumes parse has already been called to populate the relevant data
-// structures.
-
-// Returns:
-//     a dictionary mapping every every term to a dictionary mapping a page
-//     id to the relevance metric for that term and page
-// """
-// tf_dict = self.compute_tf()
-// idf_dict = self.compute_idf()
-
-// for word in tf_dict:
-//     for id in tf_dict[word]:
-//         tf_dict[word][id] = tf_dict[word][id] * idf_dict[word]
-
-// return tf_dict

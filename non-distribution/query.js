@@ -60,4 +60,6 @@ if (args.length < 1) {
 }
 
 const indexFile = 'd/global-index.txt'; // Path to the global index file
+// const indexFileTf = "tf-idf/globalOutputTfIdf.txt";
 query(indexFile, args);
+// query(indexFileTf, args);
