@@ -20,16 +20,11 @@ const https = require('https');
 const http = require('http');
 
 // not sure what this number is tbh, might be 3
-// const urlFile = process.argv[2];
-// const globalIndexFile = "../d/global-index.txt";
 
-
-let filteredWords = [];
-let inverted = [];
 const global = {}
 
 // fills output with n-grams
-function computeNgrams(output) {
+function computeNgrams(output, filteredWords) {
     const buffer = filteredWords.filter(Boolean);
 
     const bigrams = [];
@@ -86,8 +81,8 @@ const compare = (a, b) => {
     }
   };
 
-function processDocument() {
-    const stopSet = new Set(fs.readFileSync('d/stopwords.txt', 'utf8').split('\n').map((word) => word.trim()).filter(Boolean));
+function processDocument(data, url) {
+    const stopSet = new Set(fs.readFileSync('../d/stopwords.txt', 'utf8').split('\n').map((word) => word.trim()).filter(Boolean));
 
     const processedWords = data.replace(/\s+/g, '\n')
         .replace(/[^a-zA-Z]/g, ' ')
@@ -95,22 +90,20 @@ function processDocument() {
         .toLowerCase();
     const stemmer = natural.PorterStemmer;
     // stemming and filtering
-    filteredWords = processedWords.split('\n').filter((word) => stemmer.stem(word) && !stopSet.has(word));
+    const filteredWords = processedWords.split('\n').filter((word) => word && !stopSet.has(word)).map(word => stemmer.stem(word));
     
     // combine part
     const combinedGrams = [];
-    computeNgrams(combinedGrams);
+    computeNgrams(combinedGrams, filteredWords);
 
     // invert part
-    inverted = invert(combinedGrams);
-    
-    // using provided fs to read
+    const inverted = invert(combinedGrams, url);
 
     // DOUBLE CHECK INDEXING PIPELINE
-    merged(localIndex);
+    mergeGlobal(inverted);
 }
 
-const merged = (localIndex) => {
+const mergeGlobal = (localIndex) => {
   
     // Split the data into an array of lines
     const localIndexLines = localIndex.split('\n');
@@ -130,13 +123,6 @@ const merged = (localIndex) => {
       local[term] = {url, freq};
     }
   
-    // 5. Merge the local index into the global index:
-    // - For each term in the local index, if the term exists in the global index:
-    //     - Append the local index entry to the array of entries in the global index.
-    //     - Sort the array by `freq` in descending order.
-    // - If the term does not exist in the global index:
-    //     - Add it as a new entry with the local index's data.
-  
     for (const term in local) {
       if (term in global) {
         global[term].push(local[term]);
@@ -146,19 +132,17 @@ const merged = (localIndex) => {
         global[term] = [local[term]];
       }
     }
-    // 6. Print the merged index to the console in the same format as the global index file:
-    //    - Each line contains a term, followed by a pipe (`|`), followed by space-separated pairs of `url` and `freq`.
-    
-    // TODO: instead of this, we will write the final global index to a file 
 
-    // for (const term in global) {
-    //   const pairs = global[term].map((entry) => `${entry.url} ${entry.freq}`).join(' ');
-    //   const line = `${term} | ${pairs}`;
-    //   console.log(line);
-    // }
+    const writeStream = fs.createWriteStream("gloablOutput.txt", { flags: 'w' });
+    
+    for (const term in global) {
+      const pairs = global[term].map((entry) => `${entry.url} ${entry.freq}`).join(' ');
+      const line = `${term} | ${pairs}`;
+      writeStream.write(line + '\n');
+    }
 };
 
-class UrlCrawler {
+class MyEngine {
   constructor() {
     // Instead of files, use Sets and arrays to store data
     this.urls = new Set();          // Represents urls.txt
@@ -217,7 +201,7 @@ class UrlCrawler {
       
       console.log(`[engine] indexing ${url}`);
       // Simulate myInd.sh
-      await this.mockIndex(this.content, url);
+      await this.index(this.content, url);
       
     } catch (error) {
       console.error(`Error processing ${url}:`, error);
@@ -256,9 +240,9 @@ class UrlCrawler {
   }
 
   // Mock function to simulate indexing
-  async mockIndex(content, url) {
+  async index(content, url) {
     // Replace this with actual indexing logic
-    return true;
+    processDocument(content, url);
   }
 
   // Method to add new URLs to crawl
@@ -306,7 +290,7 @@ class UrlCrawler {
 }
 
 function main() {
-  const crawler = new UrlCrawler();
+  const crawler = new MyEngine();
 
   // Add some URLs to crawl
   crawler.addUrl('https://cs.brown.edu/courses/csci1380/sandbox/1');
