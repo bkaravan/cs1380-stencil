@@ -12,30 +12,21 @@
 
 // process part
 const fs = require('fs');
-const readline = require('readline');
+// const readline = require('readline');
 const natural = require('natural');
-
-const rl = readline.createInterface({
-  input: process.stdin,
-});
+const processUrls = require('./tfGetUrls');
+const {convert} = require('html-to-text');
+const https = require('https');
+const http = require('http');
 
 // not sure what this number is tbh, might be 3
-const urlFile = process.argv[2];
-const globalIndexFile = "../d/global-index.txt";
+// const urlFile = process.argv[2];
+// const globalIndexFile = "../d/global-index.txt";
 
-if (!urlFile) {
-  console.error('Messed up the url file');
-  process.exit(1);
-}
-
-
-let data = '';
-rl.on('line', (line) => {
-  data += line + '\n';
-});
 
 let filteredWords = [];
 let inverted = [];
+const global = {}
 
 // fills output with n-grams
 function computeNgrams(output) {
@@ -95,7 +86,7 @@ const compare = (a, b) => {
     }
   };
 
-rl.on('close', () => {
+function processDocument() {
     const stopSet = new Set(fs.readFileSync('d/stopwords.txt', 'utf8').split('\n').map((word) => word.trim()).filter(Boolean));
 
     const processedWords = data.replace(/\s+/g, '\n')
@@ -114,26 +105,19 @@ rl.on('close', () => {
     inverted = invert(combinedGrams);
     
     // using provided fs to read
-    fs.readFile(globalIndexFile, 'utf8', (err, data) => {
-        printMerged(err, data);
-    });
-});
 
-const printMerged = (err, data) => {
-    if (err) {
-      console.error('Error reading file:', err);
-      return;
-    }
+    // DOUBLE CHECK INDEXING PIPELINE
+    merged(localIndex);
+}
+
+const merged = (localIndex) => {
   
     // Split the data into an array of lines
     const localIndexLines = localIndex.split('\n');
-    const globalIndexLines = data.split('\n');
   
     localIndexLines.pop();
-    globalIndexLines.pop();
   
     const local = {};
-    const global = {};
   
     // 3. For each line in `localIndexLines`, parse them and add them to the `local` object where keys are terms and values contain `url` and `freq`.
     for (const line of localIndexLines) {
@@ -144,20 +128,6 @@ const printMerged = (err, data) => {
       const url = lineSplit[2];
       const freq = Number(lineSplit[1]);
       local[term] = {url, freq};
-    }
-  
-    // 4. For each line in `globalIndexLines`, parse them and add them to the `global` object where keys are terms and values are arrays of `url` and `freq` objects.
-    // Use the .trim() method to remove leading and trailing whitespace from a string.
-    for (const line of globalIndexLines) {
-      const lineSplit = line.split('|').map((part) => part.trim());
-      const pairSplit = lineSplit[1].split(' ').map((part) => part.trim());
-      const term = lineSplit[0];
-      const urlfs = [];
-      // can use a flatmap here, but kind of an overkill
-      for (let i = 0; i < pairSplit.length; i += 2) {
-        urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
-      }
-      global[term] = urlfs; // Array of {url, freq} objects
     }
   
     // 5. Merge the local index into the global index:
@@ -178,13 +148,175 @@ const printMerged = (err, data) => {
     }
     // 6. Print the merged index to the console in the same format as the global index file:
     //    - Each line contains a term, followed by a pipe (`|`), followed by space-separated pairs of `url` and `freq`.
+    
+    // TODO: instead of this, we will write the final global index to a file 
+
+    // for (const term in global) {
+    //   const pairs = global[term].map((entry) => `${entry.url} ${entry.freq}`).join(' ');
+    //   const line = `${term} | ${pairs}`;
+    //   console.log(line);
+    // }
+};
+
+class UrlCrawler {
+  constructor() {
+    // Instead of files, use Sets and arrays to store data
+    this.urls = new Set();          // Represents urls.txt
+    this.visited = new Set();       // Represents visited.txt
+    this.content = '';             // Represents content.txt
+    this.agent = new https.Agent({
+      rejectUnauthorized: false
+    });
+  }
+
+  makeRequest(url, maxRedirects = 5) {
+    return new Promise((resolve, reject) => {
+      const options = {
+        rejectUnauthorized: false, // Ignore SSL certificate errors
+        headers: {
+          'Accept': 'text/html,application/xhtml+xml,application/xml'
+        }
+      };
   
-    for (const term in global) {
-      const pairs = global[term].map((entry) => `${entry.url} ${entry.freq}`).join(' ');
-      const line = `${term} | ${pairs}`;
-      console.log(line);
+      const client = url.startsWith('https') ? https : http;
+  
+      const req = client.get(url, options, (res) => {
+        if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+          // Handle redirect
+          if (maxRedirects === 0) {
+            reject(new Error('Too many redirects'));
+            return;
+          }
+          const redirectUrl = new URL(res.headers.location, url).toString();
+          resolve(this.makeRequest(redirectUrl, maxRedirects - 1)); // Recursive call
+        } else if (res.statusCode !== 200) {
+          reject(new Error(`HTTP error! status: ${res.statusCode}`));
+        } else {
+          let data = '';
+          res.on('data', (chunk) => {
+            data += chunk;
+          });
+          res.on('end', () => {
+            resolve(data);
+          });
+        }
+      });
+  
+      req.on('error', (error) => {
+        reject(error);
+      });
+    });
+  }
+
+  async crawlUrl(url) {
+    console.log(`[engine] crawling ${url}`);
+    try {
+      // Simulate myCrawl.sh
+      this.content = await this.crawl(url);
+      //console.log(this.content);
+      
+      console.log(`[engine] indexing ${url}`);
+      // Simulate myInd.sh
+      await this.mockIndex(this.content, url);
+      
+    } catch (error) {
+      console.error(`Error processing ${url}:`, error);
     }
-  };
+  }
+
+  // Mock function to simulate crawling
+  async crawl(url) {
+    this.visited.add(url);
+
+    try {
+      // Fetch the page content
+      const html = await this.makeRequest(url);
+
+      // Process in parallel, similar to the tee in the bash script
+      const [newUrls, textContent] = await Promise.all([
+        // Call getURLs.js
+        processUrls(html, url),
+        // Call getText.js
+        convert(html)
+      ]);
+
+      // Add new URLs that haven't been visited yet
+      for (const newUrl of newUrls) {
+        if (!this.visited.has(newUrl)) {
+          this.urls.add(newUrl);
+        }
+      }
+
+      return textContent;
+
+    } catch (error) {
+      console.error(`Error crawling ${url}:`, error);
+      return '';
+    }
+  }
+
+  // Mock function to simulate indexing
+  async mockIndex(content, url) {
+    // Replace this with actual indexing logic
+    return true;
+  }
+
+  // Method to add new URLs to crawl
+  addUrl(url) {
+    this.urls.add(url);
+  }
+
+  // Main engine method
+  async run() {
+    // Create an async iterator to simulate tail -f behavior
+    const urlIterator = this.urlGenerator();
+
+    for await (const url of urlIterator) {
+      if (url === 'stop') {
+        console.log('Stopping due to stop command');
+        break;
+      }
+      
+      await this.crawlUrl(url);
+
+      // Check if we've visited all available URLs
+      if (this.visited.size >= this.urls.size) {
+        console.log('Stopping - all URLs have been visited');
+        break;
+      }
+    }
+  }
+
+  // Generator function to simulate tail -f behavior
+  async *urlGenerator() {
+    const processed = new Set();
+    
+    while (true) {
+      for (const url of this.urls) {
+        if (!processed.has(url)) {
+          processed.add(url);
+          yield url;
+        }
+      }
+      
+      // Simulate waiting for new URLs
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
+}
+
+function main() {
+  const crawler = new UrlCrawler();
+
+  // Add some URLs to crawl
+  crawler.addUrl('https://cs.brown.edu/courses/csci1380/sandbox/1');
+
+  // Start the crawler
+  crawler.run().catch(console.error);
+}
+
+
+main();
 
 
 
