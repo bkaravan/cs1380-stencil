@@ -1,11 +1,5 @@
 #!/usr/bin/env node
 
-// pipeline:
-
-// cat "$1" |
-//   c/merge.js d/global-index.txt |
-//   sort -o d/global-index.txt
-
 // process part
 const fs = require('fs');
 // const readline = require('readline');
@@ -14,8 +8,6 @@ const processUrls = require('./tfGetUrls');
 const {convert} = require('html-to-text');
 const https = require('https');
 const http = require('http');
-
-// not sure what this number is tbh, might be 3
 
 const global = {};
 const wordsToDocFreq = {};
@@ -76,6 +68,7 @@ function invert(data, url) {
   return output;
 }
 
+// sorting for global index
 const compare = (a, b) => {
   if (a.freq > b.freq) {
     return -1;
@@ -86,6 +79,20 @@ const compare = (a, b) => {
   }
 };
 
+// sorting for tf at the end
+const compareTf = (a, b) => {
+  aFreq = Number(a.split(" ")[1])
+  bFreq = Number(b.split(" ")[1])
+  if (aFreq > bFreq) {
+    return -1;
+  } else if (aFreq < bFreq) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+
+// entry point of indexing from the engine
 function processDocument(data, url) {
   const stopSet = new Set(fs.readFileSync('../d/stopwords.txt', 'utf8').split('\n').map((word) => word.trim()).filter(Boolean));
 
@@ -96,6 +103,8 @@ function processDocument(data, url) {
   const stemmer = natural.PorterStemmer;
   // stemming and filtering
   const filteredWords = processedWords.split('\n').filter((word) => word && !stopSet.has(word)).map((word) => stemmer.stem(word));
+  
+  //console.log(filteredWords.length);
 
   // update one ds
   urlToTotalWords[url] = filteredWords.length;
@@ -119,7 +128,6 @@ const mergeGlobal = (localIndex) => {
 
   // 3. For each line in `localIndexLines`, parse them and add them to the `local` object where keys are terms and values contain `url` and `freq`.
   for (const line of localIndexLines) {
-    // might need to skip empty lines
     const lineSplit = line.split('|').map((part) => part.trim());
     if (lineSplit.length < 3) continue;
     const term = lineSplit[0];
@@ -148,8 +156,11 @@ class MyEngine {
       rejectUnauthorized: false,
     });
     this.stopGenerator = false;
+    // not required for implementation, just nicer for testing
+    this.banned = new Set();
   }
 
+  // 40 lines of code to do curl -skL
   makeRequest(url, maxRedirects = 2, timeout = 200) {
     return new Promise((resolve, reject) => {
       const options = {
@@ -223,7 +234,7 @@ class MyEngine {
 
       // Add new URLs that haven't been visited yet
       for (const newUrl of newUrls) {
-        if (!this.visited.has(newUrl)) {
+        if (!this.visited.has(newUrl) && !this.banned.has(newUrl)) {
           this.urls.add(newUrl);
         }
       }
@@ -242,6 +253,10 @@ class MyEngine {
 
   addUrl(url) {
     this.urls.add(url);
+  }
+
+  addBannedUrl(url) {
+    this.banned.add(url);
   }
 
   getVisited() {
@@ -323,7 +338,7 @@ function computeTf() {
 function computeIdf(pageCount) {
   const retDict = {};
   for (const [word, nested] of Object.entries(wordsToDocFreq)) {
-    const wordIdf = Math.log(
+    const wordIdf = Math.log10(
         pageCount/Object.keys(nested).length);
     retDict[word] = wordIdf;
   }
@@ -350,6 +365,33 @@ async function main() {
   // we can modify this to be the argument for the script too if we want
   crawler.addUrl('https://cs.brown.edu/courses/csci1380/sandbox/1');
 
+  // FOR TESTING: limiting the corpus to level one so that we can manually compute
+  // some tf-idf
+  // to run on the whole corpus, comment out these lines
+  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html");
+  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html");
+  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html");
+  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html");
+  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html");
+  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html");
+
+  // this way, corpus is 4 documents: 
+  // entry url
+  // level_1a
+  // level_1a/level_2a
+  // level_1a/level_2b
+
+  // for example:
+  // quantum: 6 appearances in one doc, 8 in the other
+  // there are total 48 and 72 words in one doc and the other
+  // doc 1:
+  // tf: 6 / 48 = 0.125, idf = log(4/2) = 0.3, tf-idf = 0.125 * 0.3 = 0.0376
+  // doc 2:
+  // tf: 8 / 72 = 0.(1), idf = log(4/2) = 0.3, tf-idf = 0.(1) * 0.3 = 0.0334
+
+  // which is exactly what we will see in the output file! 
+  // we sort terms by tf-idf and can use different query logic now, if needed
+
   await crawler.run().catch(console.error);
 
   // can do tf-idf here
@@ -358,7 +400,7 @@ async function main() {
   const writeStream = fs.createWriteStream('globalOutputTfIdf.txt', {flags: 'w'});
 
   for (const term in global) {
-    const pairs = global[term].map((entry) => `${entry.url} ${tfIdfDict[term][entry.url]}`).sort(compare).join(' ');
+    const pairs = global[term].map((entry) => `${entry.url} ${tfIdfDict[term][entry.url]}`).sort(compareTf).join(' ');
     const line = `${term} | ${pairs}`;
     writeStream.write(line + '\n');
   }

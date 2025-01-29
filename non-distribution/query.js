@@ -31,9 +31,9 @@ const {execSync} = require('child_process');
 
 
 function query(indexFile, args) {
-  const term = execSync(`echo "${args}" | ./c/process.sh | ./c/stem.js`, {encoding: 'utf-8'})
-      .split('\n')
-      .join(' ');
+  // const term = execSync(`echo "${args}" | ./c/process.sh | ./c/stem.js`, {encoding: 'utf-8'})
+  //     .split('\n')
+  //     .join(' ');
 
   fs.readFile(indexFile, 'utf8', (err, data) => {
     if (err) {
@@ -43,12 +43,24 @@ function query(indexFile, args) {
 
     const lines = data.split(/\r?\n/);
 
-    // Manually iterate over the lines
+    const terms = ["abjur fly", "love live", "zeleia lycia"];
+
+    for (let i = 0; i < 100; i++) {
+      const searchStartTime = process.hrtime.bigint();
+      const term = terms[i % 3];
     for (const line of lines) {
       if (line.search(term) >= 0) {
         console.log(line);
       }
     }
+    const searchEndTime = process.hrtime.bigint();
+    const searchDurationNs = searchEndTime - searchStartTime;
+
+    // Convert nanoseconds to seconds + nanoseconds
+    const searchDurationSec = Number(searchDurationNs) / 1e9;
+    console.log(`[Timing] Search execution: ${searchDurationSec.toFixed(9)} s (${searchDurationNs} ns)`);
+    }
+    //Manually iterate over the lines
   },
   );
 }

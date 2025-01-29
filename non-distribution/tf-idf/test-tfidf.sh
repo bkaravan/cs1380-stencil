@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# this test assumes no tf-idf yet, and just checks the whole pipeline from one file
 R_FOLDER=${R_FOLDER:-}
 
 cd "$(dirname "$0")" || exit 1
@@ -12,9 +10,7 @@ DIFF_PERCENT=${DIFF_PERCENT:-0}
 
 EXIT=0
 
-sort globalOutput.txt > globalOutputSort.txt
-
-if DIFF_PERCENT=$DIFF_PERCENT ./../t/gi-diff.js <(sort globalOutput.txt) <(sort ./../t/d/i.txt) >&2;
+if DIFF_PERCENT=$DIFF_PERCENT ./../t/gi-diff.js <(sort globalOutputTfIdf.txt) <(sort tfIdfByHand.txt) >&2;
 then
     echo "$0 success: global-index is identical"
 else
