@@ -15,6 +15,27 @@
 
 
 function serialize(object) {
+  const out = {}
+  switch (typeof object) {
+    case "string":
+    case "number":
+    case "boolean":
+      out["type"] = typeof object;
+      out["value"] = object;
+      break;
+    case "undefined":
+      out["type"] = "undefined";
+      out["value"] = "";
+      break;
+    case "object":
+      if (object === null) { 
+        out["type"] = "null";
+        out["value"] = "";
+      }
+      break;
+  }
+
+  return JSON.stringify(out);
 }
 
 
