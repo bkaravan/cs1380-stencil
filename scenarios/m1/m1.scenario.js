@@ -1,16 +1,25 @@
 const distribution = require('../../config.js');
 const util = distribution.util;
 
+function incr(a) {
+  return a + 1;
+}
+
 test('(3 pts) (scenario) 40 bytes object', () => {
   /*
           Come up with a JavaScript object, which when serialized,
           will result in a string that is 40 bytes in size.
       */
-  let object = "this is a 40";
-  console.log(typeof object);
+  let object = new Date();
+
 
   const serialized = util.serialize(object);
+  const des = util.deserialize(serialized);
+  console.log(typeof object);
+  console.log(object.toString());
   console.log(serialized);
+  console.log(des);
+  console.log(typeof des);
   expect(serialized.length).toBe(40);
 });
 
@@ -35,6 +44,8 @@ test('(3 pts) (scenario) string deserialized into target object', () => {
 
   const object = {a: 1, b: 'two', c: false};
   const deserialized = util.deserialize(string);
+  console.log(object.toString());
+  console.log(deserialized["c"]);
   expect(object).toEqual(deserialized);
 });
 
