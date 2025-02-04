@@ -6,7 +6,7 @@ while read -r url; do
 
   if [[ "$url" == "stop" ]]; then
     # stop the engine if it sees the string "stop" 
-    break;
+    exit;
   fi
 
   # start_time=$(date +%s.%N)  # Capture start time with nanoseconds
