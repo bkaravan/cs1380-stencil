@@ -44,8 +44,15 @@ function serialize(object) {
         }
       } else if (object instanceof Date) {
         // handle Date conversion
+        out["type"] = "date";
+        out["value"] = object.toISOString();
       } else if (object instanceof Error) {
         // handle Error conversion
+        out["type"] = "error";
+        out["value"] = {}
+        out["value"]["name"] = serialize(object.name);
+        out["value"]["message"] = serialize(object.message);
+        out["value"]["cause"] = serialize(object.cause);  
       } else {
         // random object
         // this will require more work for lab part
@@ -88,6 +95,16 @@ function deserialize(string) {
         out.push(deserialize(parsed['value'][ind]))
       }
       break;
+    case "date":
+      return new Date(parsed["value"]);
+    case "error":
+      const err = new Error(deserialize(parsed["value"]["message"]));
+      err.name = deserialize(parsed["value"]["name"]);
+      const cause = deserialize(parsed["value"]["cause"])
+      if (cause !== undefined) {
+        err.cause = cause;
+      }
+      return err;
   }
   return out
 }
