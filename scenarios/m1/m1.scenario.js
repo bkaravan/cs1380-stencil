@@ -6,20 +6,8 @@ test('(3 pts) (scenario) 40 bytes object', () => {
           Come up with a JavaScript object, which when serialized,
           will result in a string that is 40 bytes in size.
       */
-  const x = {a: 1, b: 2, c: 3};
-  const object = {prop1: x, b: x, c: x};
-  object.self = object;
-
+  const object = "this is a 40";
   const serialized = util.serialize(object);
-  const des = util.deserialize(serialized);
-  console.log(typeof object);
-  console.log(object.toString());
-  console.log(serialized);
-  console.log(des);
-  console.log(typeof des);
-  // for (const k in des["self"]) {
-  //   console.log(k)
-  // }
   expect(serialized.length).toBe(40);
 });
 
@@ -36,8 +24,8 @@ test('(3 pts) (scenario) object fix', () => {
 
 test('(3 pts) (scenario) string deserialized into target object', () => {
   /*
-          Come up with a string that when deserialized, results in the following object:
-          {a: 1, b: "two", c: false}
+      Come up with a string that when deserialized, results in the following object:
+      {a: 1, b: "two", c: false}
       */
   let string = '{"type":"object","value":{"a":"{\\"type\\":\\"number\\",\\"value\\":\\"1\\"}","b":"{\\"type\\":\\"string\\",\\"value\\":\\"two\\"}","c":"{\\"type\\":\\"boolean\\",\\"value\\":\\"false\\"}"}}';;
 

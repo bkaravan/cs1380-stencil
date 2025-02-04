@@ -1,3 +1,18 @@
+const natives = require('repl')._builtinLibs;
+
+function checkNativeFunction(fn) {
+  for (const mod of natives) {
+      const moduleExports = require(mod);
+      for (const key in moduleExports) {
+          if (moduleExports[key] === fn) {
+              return `${mod}.${key}`;
+          }
+      }
+  }
+
+  return "unknown";
+}
+
 function serialize(object) {
   const idMap = new Map();
 
@@ -15,8 +30,14 @@ function serialize(object) {
         out["value"] = "";
         break;
       case "function":
-        out["type"] = "function";
-        out["value"] = object.toString();
+        const isNative = checkNativeFunction(object);
+        if (isNative === "unknown") {
+          out["type"] = "function";
+          out["value"] = object.toString();
+        } else {
+          out["type"] = "native"
+          out["value"] = isNative;
+        }
         break;
       case "object":
         if (object === null) { 
@@ -85,6 +106,15 @@ function deserialize(string) {
       // mallicious acting possible!!
       case "function":
         return eval("(" + parsed["value"] + ")");
+      case "native":
+        for (const mod of natives) {
+          const moduleExports = require(mod);
+          for (const key in moduleExports) {
+            if (`${mod}.${key}` === parsed["value"]) {
+              return moduleExports[key];
+            }
+          }
+      }
       case "object":
         out = {}
         if (parentObj === undefined) {
@@ -92,7 +122,6 @@ function deserialize(string) {
         } else {
           idMap.set(parentObj, out)
         }
-        //console.log(idMap.size)
         for (const k in parsed['value']) {
           out[k] = deserializeRe(parsed['value'][k], k)
         }
@@ -121,8 +150,7 @@ function deserialize(string) {
       case "reference":
         // need a map that stores references
         // console.log(idMap.size)
-        console.log(parsed["value"] == [])
-        if (parsed["value"] == []) {
+        if (parsed["value"].length === 0) {
           //console.log(idMap.get("root"))
           return idMap.get("root")
         }

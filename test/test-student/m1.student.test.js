@@ -10,6 +10,9 @@ const distribution = require('../../config.js');
 
 test('(1 pts) student test', () => {
   // Fill out this test case...
+  
+  // testing some basic types
+
     throw new Error('Not implemented');
 });
 
