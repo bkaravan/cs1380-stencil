@@ -1,8 +1,7 @@
 function serialize(object) {
   const idMap = new Map();
-  let idCount = 0;
 
-  function serializeRe(object) {
+  function serializeRe(object, parentObj = undefined) {
     const out = {}
     switch (typeof object) {
       case "string":
@@ -18,10 +17,16 @@ function serialize(object) {
       case "function":
         if (idMap.has(object)) {
           out["type"] = "reference";
-          out["value"] = [`"${idMap.get(object)}"`];
+          out["value"] = idMap.get(object);
           return JSON.stringify(out);
         }
-        idMap.set(object, idCount++);
+
+        if (parentObj === undefined) {
+          idMap.set(object, []);
+        } else {
+          idMap.set(object, [parentObj])
+        }
+
         out["type"] = "function";
         out["value"] = object.toString();
         break;
@@ -34,17 +39,21 @@ function serialize(object) {
 
         if (idMap.has(object)) {
           out["type"] = "reference";
-          out["value"] = [`"${idMap.get(object)}"`];
+          out["value"] = idMap.get(object);
           return JSON.stringify(out);
         }
-        
-        idMap.set(object, idCount++);
+
+        if (parentObj === undefined) {
+          idMap.set(object, []);
+        } else {
+          idMap.set(object, [parentObj])
+        }
         
         if (Array.isArray(object)) {
           out["type"] = "array";
           out["value"] = {}
           for (let i = 0; i < object.length; i++) {
-            out["value"][i] = serializeRe(object[i])
+            out["value"][i] = serializeRe(object[i], i)
           }
         } else if (object instanceof Date) {
           out["type"] = "date";
@@ -59,7 +68,7 @@ function serialize(object) {
           out["type"] = "object"
           out["value"] = {}
           for (const k in object) {
-            out["value"][k] = serializeRe(object[k]);
+            out["value"][k] = serializeRe(object[k], k);
           }
         }
         break;
@@ -67,7 +76,7 @@ function serialize(object) {
     return JSON.stringify(out);
   }
 
-  return serializeRe(object);
+  return serializeRe(object, undefined);
 }
 
 
@@ -112,7 +121,8 @@ function deserialize(string) {
         }
         return err;
       case "reference":
-        
+        // need a map that stores references
+        // basically, need to return reference from the ID map
     }
     return out
   }

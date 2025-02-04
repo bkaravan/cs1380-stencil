@@ -7,7 +7,8 @@ test('(3 pts) (scenario) 40 bytes object', () => {
           will result in a string that is 40 bytes in size.
       */
   const x = {a: 1, b: 2, c: 3};
-  const object = {a: x, b: x, c: 1};
+  const object = {prop1: x, b: x, c: x};
+  object.self = object;
 
   const serialized = util.serialize(object);
   const des = util.deserialize(serialized);
@@ -16,6 +17,9 @@ test('(3 pts) (scenario) 40 bytes object', () => {
   console.log(serialized);
   console.log(des);
   console.log(typeof des);
+  // for (const k in des["self"]) {
+  //   console.log(k)
+  // }
   expect(serialized.length).toBe(40);
 });
 
