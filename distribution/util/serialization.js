@@ -15,18 +15,6 @@ function serialize(object) {
         out["value"] = "";
         break;
       case "function":
-        if (idMap.has(object)) {
-          out["type"] = "reference";
-          out["value"] = idMap.get(object);
-          return JSON.stringify(out);
-        }
-
-        if (parentObj === undefined) {
-          idMap.set(object, []);
-        } else {
-          idMap.set(object, [parentObj])
-        }
-
         out["type"] = "function";
         out["value"] = object.toString();
         break;
@@ -82,9 +70,8 @@ function serialize(object) {
 
 function deserialize(string) {
   const idMap = new Map();
-  let currentId = 0;
 
-  function deserializeRe(string) {
+  function deserializeRe(string, parentObj = undefined) {
     const parsed = JSON.parse(string)
     let out; 
     switch (parsed["type"]) {
@@ -100,29 +87,47 @@ function deserialize(string) {
         return eval("(" + parsed["value"] + ")");
       case "object":
         out = {}
+        if (parentObj === undefined) {
+          idMap.set("root", out);
+        } else {
+          idMap.set(parentObj, out)
+        }
+        //console.log(idMap.size)
         for (const k in parsed['value']) {
-          out[k] = deserialize(parsed['value'][k])
+          out[k] = deserializeRe(parsed['value'][k], k)
         }
         break;
       case "array":
         out = []
+        if (parentObj === undefined) {
+          idMap.set("root", out);
+        } else {
+          idMap.set(parentObj, out)
+        }
         for (const ind in parsed['value']) {
-          out.push(deserialize(parsed['value'][ind]))
+          out.push(deserializeRe(parsed['value'][ind], ind))
         }
         break;
       case "date":
         return new Date(parsed["value"]);
       case "error":
-        const err = new Error(deserialize(parsed["value"]["message"]));
-        err.name = deserialize(parsed["value"]["name"]);
-        const cause = deserialize(parsed["value"]["cause"])
+        const err = new Error(deserializeRe(parsed["value"]["message"]));
+        err.name = deserializeRe(parsed["value"]["name"]);
+        const cause = deserializeRe(parsed["value"]["cause"])
         if (cause !== undefined) {
           err.cause = cause;
         }
         return err;
       case "reference":
         // need a map that stores references
-        // basically, need to return reference from the ID map
+        // console.log(idMap.size)
+        console.log(parsed["value"] == [])
+        if (parsed["value"] == []) {
+          //console.log(idMap.get("root"))
+          return idMap.get("root")
+        }
+        //console.log(idMap.get(parsed["value"][0]))
+        return idMap.get(parsed["value"][0]);
     }
     return out
   }
