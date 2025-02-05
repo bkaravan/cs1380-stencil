@@ -78,4 +78,24 @@ distribution.all.comm.send(['sid'], {node: node, service: 'status', method: 'get
 
 # Results and Reflections
 
-> ...
+> # M1: Serialization / Deserialization
+
+
+## Summary
+
+> My implementation is within distribution/util/serializaiton.js file. I levereged switch statements and took the recursive approach to serialize objects/arrays, as well JSON.parsee and JSON.stringify. The main challange was definitely figuring out the circular reference part for the lab. I was trying to use a map from objects to IDs first, but then I came with a way to pass in the parent of the current recursive call, so that the map can be updated with it instead. 
+
+
+My implementation comprises of 1software components, totaling around 150 lines of code. As mentioned, key challenges included figuring out the proper object map for circular references, and traversing the native functions (which was just a way of getting used to how it's done in JS).
+
+
+## Correctness & Performance Characterization
+
+
+> Describe how you characterized the correctness and performance of your implementation
+
+
+*Correctness*: I wrote 5 tests; these tests take 0.736s to execute. This includes objects with all kinds of features that we want to serialize: objects, arrays, dates, errors, and permutations of basic types. I noticed that both my implementation and the provided library are struggling to serialize/deserialize an object with a named function within it, and I was wondering if this is intended.
+
+
+*Performance*: The latency of various subsystems is described in the `"latency"` portion of package.json. Latency is measured in ms, since it is rather quick to serialize/deserialize an in-memory object. The characteristics of my development machines are summarized in the `"dev"` portion of package.json.
