@@ -15,15 +15,12 @@ const routes = require('../local/routes')
 const start = function(callback) {
   const server = http.createServer((req, res) => {
     /* Your server will be listening for PUT requests. */
-
     // Write some code...
     if (req.method !== "PUT") {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('Expecting only PUT requests');
     }
 
-
-    /*
+    /*w
       The path of the http request will determine the service to be used.
       The url will have the form: http://node_ip:node_port/service/method
     */
@@ -31,13 +28,12 @@ const start = function(callback) {
     const parsedUrl = url.parse(req.url, true); // Parse URL
     const pathParts = parsedUrl.pathname.split('/').filter(Boolean); // Remove empty parts
 
-    if (pathParts.length < 2) {
-        res.writeHead(400, { 'Content-Type': 'text/plain' });
-        res.end('Invalid request. Expected format: /service/method');
+    if (pathParts.length < 3) {
+        res.end('Invalid request. Expected format: /gid/service/method');
     }
-
-    const service = pathParts[0]; 
-    const method = pathParts[1];  
+    const gid = pathParts[0]
+    const service = pathParts[1]; 
+    const method = pathParts[2];  
 
 
     /*
@@ -57,10 +53,10 @@ const start = function(callback) {
 
     // Write some code...
 
-    let body = [];
+    let body = "";
 
     req.on('data', (chunk) => {
-      body += chunk;
+      body += chunk.toString();
     });
 
     req.on('end', () => {
@@ -72,23 +68,33 @@ const start = function(callback) {
       */
 
       // Write some code...
-      body = body.toString();
       try {
         des = util.deserialize(body);
         routes.get(service, (e, v) => {
           // what to do with method??
-          console.log(v);
-          res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.write(v);
-          res.end();
+          if (e) {
+            log(e)
+            res.writeHead(500);
+            res.end(util.serialize(e));
+          } else {
+            // can we error because this method does not exist?
+            // TODO: double check that
+            v[method](...des.message, (e, v) => {
+              if (e) {
+                log(e);
+                res.writeHead(500);
+                res.end(util.serialize(e));
+              } else {
+                res.write(util.serialize(v));
+                res.end();
+              }
+            });
+          }
         });
       } catch (e) {
-        console.log(e);
-        res.writeHead(400, { 'Content-Type': 'text/plain' });
+        log(e);
         res.end('JSON parse failed, check serialization');
       }
-
-
     });
   });
 

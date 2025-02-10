@@ -14,10 +14,8 @@ status.get = function(configuration, callback) {
   callback = callback || function() { };
   // TODO: more error checks?
   
-  let e = false;
-  let v = false;
-
-  console.log(configuration);
+  let e = null;
+  let v = null;
 
   if (!configuration) {
     e = new Error("Missing configuration")

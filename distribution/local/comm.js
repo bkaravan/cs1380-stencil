@@ -23,14 +23,16 @@ function send(message, remote, callback) {
 
     if (!message) {
         callback(new Error("No message argument"), null);
+        return;
     } else if (!remote) {
         callback(new Error("No remote argument"), null);
+        return;
     }
 
     const sending = {message, remote}
     const serializedInput = util.serialize(sending);
     const node = remote.node;
-    const path = `local/${remote.service}/${remote.method}`
+    const path = `/local/${remote.service}/${remote.method}`
 
     const options = {
         hostname: node.ip, // Change this to the correct host if needed
@@ -38,22 +40,25 @@ function send(message, remote, callback) {
         path: path,
         method: 'PUT',
         // not sure if these are needed
-        headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(serializedInput)
-        }
     };
 
     // Create the HTTP request
     const req = http.request(options, (res) => {
         let responseData = '';
+        console.log('here')
 
         res.on('data', (chunk) => {
             responseData += chunk.toString();
         });
 
+        console.log(responseData);
+
         res.on('end', () => {
-            callback(null, responseData);
+            if (res.statusCode !== 200) {
+                callback(util.deserialize(responseData), null);
+            } else {
+                callback(null, util.deserialize(responseData));
+            }
         });
     });
 

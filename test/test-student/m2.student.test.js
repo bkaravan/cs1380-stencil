@@ -26,8 +26,20 @@ test('(1 pts) student test', (done) => {
 
 
 // test('(1 pts) student test', (done) => {
-//   // Fill out this test case...
-//     done(new Error('Not implemented'));
+//   const remote = {node: {ip:"127.0.0.1", port: "1234"}, service: 'routes', method: 'get'};
+//   const message = [
+//     'status',
+//   ];
+//   local.comm.send(message, remote, (e, v) => {
+//     try {
+//       expect(e).toBeFalsy();
+//       //console.log(v);
+//       expect(v).toBeDefined();
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   });
 // });
 
 
