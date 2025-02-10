@@ -1,5 +1,12 @@
 /** @typedef {import("../types").Callback} Callback */
 
+const local = {
+    status: require('./status'),
+    comm: require('./comm'),
+  };
+
+const serviceMap = new Map();
+
 
 /**
  * @param {string} configuration
@@ -7,6 +14,20 @@
  * @return {void}
  */
 function get(configuration, callback) {
+    callback = callback || function() { };
+
+    let e = null;
+
+    if (!configuration) {
+        e = new Error("missing configuration");
+    }
+    else if (!(serviceMap.has(configuration))) {
+        e = new Error("Service not found");
+    }
+
+    let v = serviceMap.get(configuration);
+
+    callback(e, v);
 }
 
 /**
@@ -16,6 +37,27 @@ function get(configuration, callback) {
  * @return {void}
  */
 function put(service, configuration, callback) {
+    callback = callback || function() { };
+
+    let e = null;
+    let v = null;
+
+    if (!service) {
+        e = new Error("service not provided");
+        callback(e, v);
+        return;
+    }
+
+    if (!configuration) {
+        e = new Error("missing configuration");
+    } else if (serviceMap.has(configuration)) {
+        e = new Error("Service already exists");
+    } else {
+        serviceMap.set(configuration, service);
+        v = configuration;
+    }
+
+    callback(e, v);
 }
 
 /**
@@ -23,6 +65,24 @@ function put(service, configuration, callback) {
  * @param {Callback} callback
  */
 function rem(configuration, callback) {
+    callback = callback || function() { };
+
+    let e = null;
+    let v = null;
+
+    if (!configuration) {
+        e = new Error("missing configuration");
+    }
+    else if (!(serviceMap.has(configuration))) {
+        e = new Error("Service not found");
+    }
+
+    v = serviceMap.delete(configuration);
+
+    callback(e, v);
 };
 
 module.exports = {get, put, rem};
+serviceMap.set("routes", module.exports);
+serviceMap.set("status", local.status);
+serviceMap.set("comm", local.comm);

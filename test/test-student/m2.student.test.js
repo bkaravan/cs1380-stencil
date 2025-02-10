@@ -7,11 +7,21 @@
 */
 
 const distribution = require('../../config.js');
+const local = distribution.local;
+const id = distribution.util.id;
+
+const config = distribution.node.config;
 
 test('(1 pts) student test', (done) => {
-  // Fill out this test case...
-    //done(new Error('Not implemented'));
-    done();
+  local.status.get('sid', (e, v) => {
+    try {
+      expect(e).toBeFalsy();
+      expect(v).toBe(id.getSID(config));
+      done();
+    } catch (error) {
+      done(error);
+    }
+  });
 });
 
 

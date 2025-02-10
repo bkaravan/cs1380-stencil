@@ -1,6 +1,8 @@
 const http = require('http');
 const url = require('url');
 const log = require('../util/log');
+const util = require('../util/util');
+const routes = require('../local/routes')
 
 
 /*
@@ -15,6 +17,10 @@ const start = function(callback) {
     /* Your server will be listening for PUT requests. */
 
     // Write some code...
+    if (req.method !== "PUT") {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Expecting only PUT requests');
+    }
 
 
     /*
@@ -22,8 +28,16 @@ const start = function(callback) {
       The url will have the form: http://node_ip:node_port/service/method
     */
 
+    const parsedUrl = url.parse(req.url, true); // Parse URL
+    const pathParts = parsedUrl.pathname.split('/').filter(Boolean); // Remove empty parts
 
-    // Write some code...
+    if (pathParts.length < 2) {
+        res.writeHead(400, { 'Content-Type': 'text/plain' });
+        res.end('Invalid request. Expected format: /service/method');
+    }
+
+    const service = pathParts[0]; 
+    const method = pathParts[1];  
 
 
     /*
@@ -46,6 +60,7 @@ const start = function(callback) {
     let body = [];
 
     req.on('data', (chunk) => {
+      body += chunk;
     });
 
     req.on('end', () => {
@@ -57,7 +72,21 @@ const start = function(callback) {
       */
 
       // Write some code...
-
+      body = body.toString();
+      try {
+        des = util.deserialize(body);
+        routes.get(service, (e, v) => {
+          // what to do with method??
+          console.log(v);
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.write(v);
+          res.end();
+        });
+      } catch (e) {
+        console.log(e);
+        res.writeHead(400, { 'Content-Type': 'text/plain' });
+        res.end('JSON parse failed, check serialization');
+      }
 
 
     });
