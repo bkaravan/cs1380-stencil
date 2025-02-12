@@ -14,6 +14,7 @@ const serviceMap = new Map();
  * @return {void}
  */
 function get(configuration, callback) {
+    global.moreStatus.counts++;
     callback = callback || function() { };
 
     let e = null;
@@ -42,6 +43,7 @@ function get(configuration, callback) {
  * @return {void}
  */
 function put(service, configuration, callback) {
+    global.moreStatus.counts++;
     callback = callback || function() { };
 
     let e = null;
@@ -74,6 +76,7 @@ function put(service, configuration, callback) {
  * @param {Callback} callback
  */
 function rem(configuration, callback) {
+    global.moreStatus.counts++;
     callback = callback || function() { };
 
     let e = null;

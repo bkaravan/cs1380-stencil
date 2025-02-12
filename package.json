@@ -26,21 +26,38 @@
     "@brown-ds/distribution": "latest"
   },
   "report": {
-    "hours": 12,
-    "loc": 250,
-    "dev": {
+    "m1hours": 12,
+    "m1loc": 250,
+    "m1dev": {
       "cpu-no": 16,
       "mem-gb": 3,
       "ssd-gb": 1007
     },
-    "throughput": {
+    "m1throughput": {
       "dev": [],
       "aws": []
     },
-    "latency": {
+    "m1latency": {
       "dev": [0.2],
       "aws": [0.32]
     },
-    "dloc": 250
+    "m1dloc": 250,
+
+    "m2hours": 14,
+    "m2loc": 300,
+    "m2dev": {
+      "cpu-no": 16,
+      "mem-gb": 3,
+      "ssd-gb": 1007
+    },
+    "m2throughput": {
+      "send": [777.60],
+      "rpc": [312.10]
+    },
+    "m2latency": {
+      "send": [1.286],
+      "rpc": [3.204]
+    },
+    "m2dloc": 400
   }
 }

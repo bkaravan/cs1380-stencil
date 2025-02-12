@@ -16,9 +16,14 @@ const start = function(callback) {
   const server = http.createServer((req, res) => {
     /* Your server will be listening for PUT requests. */
     // Write some code...
+
+
     if (req.method !== "PUT") {
-      res.end('Expecting only PUT requests');
+      res.writeHead(500);
+      res.end(util.serialize(new Error('Expecting only PUT requests')));
     }
+
+    // update the counter on any put request
 
     /*w
       The path of the http request will determine the service to be used.
@@ -29,7 +34,8 @@ const start = function(callback) {
     const pathParts = parsedUrl.pathname.split('/').filter(Boolean); // Remove empty parts
 
     if (pathParts.length < 3) {
-        res.end('Invalid request. Expected format: /gid/service/method');
+      res.writeHead(500);
+      res.end(util.serialize(new Error(`Invalid request. Expected format: /gid/service/method`)));
     }
     const gid = pathParts[0]
     const service = pathParts[1]; 

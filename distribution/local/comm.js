@@ -3,6 +3,7 @@
 
 const http = require('node:http');
 const util = require('../util/serialization');
+const { type } = require("node:os");
 
 
 /**
@@ -19,13 +20,15 @@ const util = require('../util/serialization');
  * @return {void}
  */
 function send(message, remote, callback) {
+    global.moreStatus.counts++;
     callback = callback || function() {};
 
-    if (!message) {
-        callback(new Error("No message argument"), null);
-        return;
-    } else if (!remote) {
-        callback(new Error("No remote argument"), null);
+    if (arguments.length < 3) {
+        if (typeof message === "function") {
+            message(new Error("not enough arguments, need message, remote, callback"), null);
+        } else {
+            remote(new Error("not enough arguments, need message, remote, callback"), null);
+        }
         return;
     }
 

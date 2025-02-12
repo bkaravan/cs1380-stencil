@@ -11,6 +11,7 @@ global.moreStatus = {
 };
 
 status.get = function(configuration, callback) {
+  global.moreStatus.counts++;
   callback = callback || function() { };
   // TODO: more error checks?
   
