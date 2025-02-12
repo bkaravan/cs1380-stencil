@@ -73,27 +73,31 @@ const start = function(callback) {
         routes.get(service, (e, v) => {
           // what to do with method??
           if (e) {
-            log(e)
             res.writeHead(500);
             res.end(util.serialize(e));
           } else {
             // can we error because this method does not exist?
             // TODO: double check that
-            v[method](...des.message, (e, v) => {
-              if (e) {
-                log(e);
-                res.writeHead(500);
-                res.end(util.serialize(e));
-              } else {
-                res.write(util.serialize(v));
-                res.end();
-              }
-            });
+            if (!(method in v)) {
+              res.writeHead(500);
+              res.end(util.serialize(new Error(`no method ${method} in service ${service}`)));
+            } else {
+              v[method](...des.message, (e, v) => {
+                if (e) {
+                  res.writeHead(500);
+                  res.end(util.serialize(e));
+                } else {
+                  res.write(util.serialize(v));
+                  res.end();
+                }
+              });
+            }
+
           }
         });
       } catch (e) {
-        log(e);
-        res.end('JSON parse failed, check serialization');
+        res.writeHead(500);
+        res.end(util.serialize(e));
       }
     });
   });

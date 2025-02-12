@@ -1,8 +1,46 @@
 const log = require('../util/log');
+const id = require('../util/id');
+const ser = require('../util/serialization');
+const comm = require('../local/comm');
 
+// serialize arguments and send them to the node where f resides,
+// call f on that node, passing the deserialized arguments to f upon call,
+// serialize the return value and send it back to the node issuing the call to g, and
+// pass the results to g's caller.
+
+global.toLocal = new Map();
 
 function createRPC(func) {
   // Write some code...
+
+  // put func to a map with some id/name
+  const funcName = id.getID(ser.serialize(func));
+  global.toLocal.set(funcName, {call: func});
+  // send this to whoever asked
+  function stub(...args) {
+    let cb = args.pop() || function() {};
+
+    let r = {
+      node: `${ser.serialize(global.nodeConfig)}`,
+      service: `${funcName}`,
+      method: "call", //rpc.call?
+    }
+
+    // r.node.replace("_NODE_INFO_", JSON.stringify(global.nodeConfig));
+    // r.service.replace("_SERVICE_", funcName);
+    //console.log(r);
+
+    // send this to whoever is asking, puttting THIS NODE's info
+    comm.send(args, r, (e, v) => {
+      if (e) {
+        cb(e);
+      } else {
+        cb(null, v);
+      }
+    });
+  }
+
+  return stub
 }
 
 /*

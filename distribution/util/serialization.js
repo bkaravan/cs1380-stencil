@@ -89,11 +89,11 @@ function serialize(object) {
 }
 
 
-function deserialize(string) {
+function deserialize(stringMain) {
   const idMap = new Map();
 
   function deserializeRe(string, parentObj = undefined) {
-    const parsed = JSON.parse(string)
+    const parsed = JSON.parse(string);
     let out; 
     switch (parsed["type"]) {
       case "string": return parsed["value"]
@@ -160,7 +160,7 @@ function deserialize(string) {
     return out
   }
 
-  return deserializeRe(string);
+  return deserializeRe(stringMain);
 }
 
 module.exports = {

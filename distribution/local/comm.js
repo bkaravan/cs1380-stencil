@@ -29,9 +29,17 @@ function send(message, remote, callback) {
         return;
     }
 
+
+    let node;
+    if (typeof remote.node === "string") {
+        node = util.deserialize(remote.node);
+        remote.node = node;
+    } else {
+        node = remote.node;
+    }
+    //console.log(remote);
     const sending = {message, remote}
     const serializedInput = util.serialize(sending);
-    const node = remote.node;
     const path = `/local/${remote.service}/${remote.method}`
 
     const options = {
@@ -42,16 +50,14 @@ function send(message, remote, callback) {
         // not sure if these are needed
     };
 
+
     // Create the HTTP request
     const req = http.request(options, (res) => {
         let responseData = '';
-        console.log('here')
 
         res.on('data', (chunk) => {
             responseData += chunk.toString();
         });
-
-        console.log(responseData);
 
         res.on('end', () => {
             if (res.statusCode !== 200) {

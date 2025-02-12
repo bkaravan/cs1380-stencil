@@ -21,11 +21,16 @@ function get(configuration, callback) {
     if (!configuration) {
         e = new Error("missing configuration");
     }
-    else if (!(serviceMap.has(configuration))) {
+    else if (!(serviceMap.has(configuration)) && !(global.toLocal.has(configuration))) {
         e = new Error("Service not found");
     }
 
-    let v = serviceMap.get(configuration);
+    let v = null;
+    if (serviceMap.has(configuration)) {
+        v = serviceMap.get(configuration);
+    } else {
+        v = global.toLocal.get(configuration);
+    }
 
     callback(e, v);
 }
@@ -50,9 +55,13 @@ function put(service, configuration, callback) {
 
     if (!configuration) {
         e = new Error("missing configuration");
-    } else if (serviceMap.has(configuration)) {
-        e = new Error("Service already exists");
-    } else {
+    }
+    // looking at future milestones, this might break actually 
+    // because it looks like it will reput everything local in here
+    // else if (serviceMap.has(configuration)) {
+    //     e = new Error("Service already exists");
+    // } 
+    else {
         serviceMap.set(configuration, service);
         v = configuration;
     }
