@@ -4,7 +4,6 @@ const log = require('../util/log');
 const util = require('../util/util');
 const routes = require('../local/routes')
 
-
 /*
     The start function will be called to start your node.
     It will take a callback as an argument.
