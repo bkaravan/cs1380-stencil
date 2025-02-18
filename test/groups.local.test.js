@@ -144,7 +144,6 @@ test('(2 pts) local.groups.put(dummy)/rem(n1)/get(dummy)', (done) => {
 
   distribution.local.groups.put('dummy', g, (e, v) => {
     distribution.local.groups.rem('dummy', '507aa', (e, v) => {
-      console.log(v);
       const expectedGroup = {
         '12ab0': {ip: '127.0.0.1', port: 8081},
       };

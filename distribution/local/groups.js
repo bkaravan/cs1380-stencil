@@ -70,6 +70,9 @@ groups.del = function(name, callback) {
     }
     const target = groupMap.get(name);
     groupMap.delete(name);
+    Object.keys(target).forEach(sid => {
+        groupMap.get('all').delete(sid);
+    }) 
     callback(null, target);
 };
 

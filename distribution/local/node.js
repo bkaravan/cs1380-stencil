@@ -74,8 +74,9 @@ const start = function(callback) {
 
       // Write some code...
       try {
+        const getConfig = {"service" : service, "gid" : gid}
         des = util.deserialize(body);
-        routes.get(service, (e, v) => {
+        routes.get(getConfig, (e, v) => {
           // what to do with method??
           if (e) {
             res.writeHead(500);

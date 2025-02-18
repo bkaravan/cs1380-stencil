@@ -20,10 +20,31 @@ function get(configuration, callback) {
     let e = null;
 
     if (!configuration) {
-        e = new Error("missing configuration");
+        callback(new Error("missing configuration"), null);
+        return;
     }
-    else if (!(serviceMap.has(configuration)) && !(global.toLocal.has(configuration))) {
-        e = new Error("Service not found");
+
+    if (typeof configuration === "object") {
+        if (!("gid" in configuration) || !("service" in configuration)) {
+            callback(new Error("Object configuration without gid or service"), null);
+            return;
+        }
+        const name = configuration.gid;
+        if (name !== "local") {
+            const place = global.distribution.name;
+            if (!configuration.service in place) {
+                callback(new Error("Can't find specified service in this group"), null);
+                return;
+            }
+            callback(null, place.configuration.service);
+            return;
+        }
+        configuration = configuration.service;
+    }
+
+    if (!(serviceMap.has(configuration)) && !(global.toLocal.has(configuration))) {
+        callback(new Error("Service not found"), null);
+        return;
     }
 
     let v = null;

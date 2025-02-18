@@ -43,7 +43,12 @@ function send(message, remote, callback) {
     //console.log(remote);
     const sending = {message, remote}
     const serializedInput = util.serialize(sending);
-    const path = `/local/${remote.service}/${remote.method}`
+
+    let group = "local";
+    if ("gid" in remote) {
+        group = remote["gid"];
+    }
+    const path = `/${group}/${remote.service}/${remote.method}`
 
     const options = {
         hostname: node.ip, // Change this to the correct host if needed
