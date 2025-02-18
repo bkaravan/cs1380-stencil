@@ -8,29 +8,50 @@
 
 const distribution = require('../../config.js');
 
-test('(1 pts) student test', (done) => {
-  // Fill out this test case...
-    done(new Error('Not implemented'));
-});
 
+// const config1 = { "ip": "127.0.0.1",
+//   "port": 8080,
+//   "onStart": (server) => console.log('hi!') };
+// const distribution1 = require('../../config.js')(config1);
 
-test('(1 pts) student test', (done) => {
-  // Fill out this test case...
-    done(new Error('Not implemented'));
-});
+// const config2 = { "ip": "127.0.0.1",
+//   "port": 8081,
+//   "onStart": (server) => console.log('hi 2!') };
+// const distribution2 =  require('../../config.js')(config2);
 
-
-test('(1 pts) student test', (done) => {
-  // Fill out this test case...
-    done(new Error('Not implemented'));
-});
+// const config3= { "ip": "127.0.0.1",
+//   "port": 8082,
+//   "onStart": (server) => console.log('hi 33333!') };
 
 test('(1 pts) student test', (done) => {
   // Fill out this test case...
-    done(new Error('Not implemented'));
+  // console.log(distribution1.util.serialize("this is a string"));
+  // console.log(distribution2.util.serialize({"nice": "weather"}));
+  // distribution1.local.status.get('sid', (e, v) => {
+  //   const distribution3 =  require('../../config.js')(config3);
+  // })
+  console.log();
+  done();
 });
 
-test('(1 pts) student test', (done) => {
-  // Fill out this test case...
-    done(new Error('Not implemented'));
-});
+
+// test('(1 pts) student test', (done) => {
+//   // Fill out this test case...
+//     done(new Error('Not implemented'));
+// });
+
+
+// test('(1 pts) student test', (done) => {
+//   // Fill out this test case...
+//     done(new Error('Not implemented'));
+// });
+
+// test('(1 pts) student test', (done) => {
+//   // Fill out this test case...
+//     done(new Error('Not implemented'));
+// });
+
+// test('(1 pts) student test', (done) => {
+//   // Fill out this test case...
+//     done(new Error('Not implemented'));
+// });
