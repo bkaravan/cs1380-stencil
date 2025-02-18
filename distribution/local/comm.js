@@ -22,7 +22,6 @@ const { type } = require("node:os");
 function send(message, remote, callback) {
     global.moreStatus.counts++;
     callback = callback || function() {};
-
     if (arguments.length < 3) {
         if (typeof message === "function") {
             message(new Error("not enough arguments, need message, remote, callback"), null);

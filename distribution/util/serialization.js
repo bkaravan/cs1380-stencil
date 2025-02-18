@@ -94,6 +94,7 @@ function deserialize(stringMain) {
 
   function deserializeRe(string, parentObj = undefined) {
     const parsed = JSON.parse(string);
+    // console.log(parsed);
     let out; 
     switch (parsed["type"]) {
       case "string": return parsed["value"]

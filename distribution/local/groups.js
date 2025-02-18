@@ -88,6 +88,7 @@ groups.add = function(name, node, callback) {
 
     if (groupMap.has(name)) {
         groupMap.get(name)[id.getSID(node)] = node;
+        groupMap.get('all').set(id.getSID(node), node);
     }
     if (callback) {
         callback(null, groupMap.get(name));

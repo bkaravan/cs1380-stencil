@@ -16,31 +16,26 @@ function createRPC(func) {
   // put func to a map with some id/name
   const funcName = id.getID(ser.serialize(func));
   global.toLocal.set(funcName, {call: func});
+  
   // send this to whoever asked
-  function stub(...args) {
+  const stub = `
     let cb = args.pop() || function() {};
 
     let r = {
-      node: `${ser.serialize(global.nodeConfig)}`,
-      service: `${funcName}`,
-      method: "call", //rpc.call?
-    }
-
-    // r.node.replace("_NODE_INFO_", JSON.stringify(global.nodeConfig));
-    // r.service.replace("_SERVICE_", funcName);
-    //console.log(r);
-
-    // send this to whoever is asking, puttting THIS NODE's info
-    comm.send(args, r, (e, v) => {
+      node: ${JSON.stringify(global.nodeConfig)},
+      service: '${funcName}',
+      method: 'call',
+    };
+    
+    distribution.local.comm.send(args, r, (e, v) => {
       if (e) {
         cb(e);
       } else {
         cb(null, v);
       }
-    });
-  }
-
-  return stub
+    });`;
+  const newFunc = new Function('...args', stub);  // Note: added 'args' parameter
+  return newFunc;
 }
 
 /*

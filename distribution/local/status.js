@@ -1,4 +1,7 @@
 const log = require('../util/log');
+const { spawn } = require('child_process');
+const wire = require('../util/wire');
+const path = require('path');
 
 const status = {};
 
@@ -11,7 +14,6 @@ global.moreStatus = {
 status.get = function(configuration, callback) {
   global.moreStatus.counts++;
   callback = callback || function() { };
-  // TODO: more error checks?
   
   let e = null;
   let v = null;
@@ -44,9 +46,55 @@ status.get = function(configuration, callback) {
 
 
 status.spawn = function(configuration, callback) {
+
+  configuration.onStart = configuration.onStart || function() {};
+
+  if (!configuration.port || !configuration.ip) {
+    callback(new Error("missing ip or port in configuration"), null);
+    return;
+  }
+
+  let RPCcb = wire.createRPC(wire.toAsync(callback));
+  
+  function g(local, rpc) {
+    const functionBody = `
+      let local = ${local.toString()};
+      let rpc = ${rpc.toString()};
+
+      try {
+      local();
+      rpc(null, global.nodeConfig, () => {});
+      } catch(e) {
+        rpc(e, null, () => {}); 
+      } 
+    `
+    return new Function(functionBody);
+  }
+
+  const comboOnStart = g(configuration.onStart, RPCcb);
+
+  configuration.onStart = comboOnStart;
+
+  // hopefully this gets us to distribution executable
+  const distributionPath = path.join(__dirname, '../../distribution.js');
+
+  spawn('node', [distributionPath, "--config", global.distribution.util.serialize(configuration)], {
+    detached : true, stdio : "inherit"
+  });
+
 };
 
 status.stop = function(callback) {
+  callback = callback || function() {};
+
+  // respond to request
+  callback(null, global.nodeConfig);
+
+  // shut down the server after some time
+  setTimeout(() => {
+    global.distribution.node.server.close()
+  }, 3000);
+  process.exit();
 };
 
 module.exports = status;
