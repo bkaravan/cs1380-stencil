@@ -1,5 +1,7 @@
 /** @typedef {import("../types").Callback} Callback */
 
+const { config } = require("yargs");
+
 const local = {
     status: require('./status'),
     comm: require('./comm'),
@@ -25,29 +27,27 @@ function get(configuration, callback) {
     }
 
     if (typeof configuration === "object") {
-        if (!("gid" in configuration) || !("service" in configuration)) {
-            callback(new Error("Object configuration without gid or service"), null);
-            return;
-        }
-        const name = configuration.gid;
-        if (name !== "local") {
-            // console.log("should get here");
-            // console.log(name);
-            // console.log('\n')
-
-            const place = global.distribution[name];
-            // console.log(place);
-            const service = configuration.service;
-            // console.log(service);
-            
-            if (!(service in place)) {
-                callback(new Error("Can't find specified service in this group"), null);
+        if (configuration.gid) {
+            const name = configuration.gid;
+            if (name !== "local") {
+                // console.log("should get here");
+                // console.log(name);
+                // console.log('\n')
+    
+                const place = global.distribution[name];
+                // console.log(place);
+                const service = configuration.service;
+                // console.log(service);
+                
+                if (!(service in place)) {
+                    callback(new Error("Can't find specified service in this group"), null);
+                    return;
+                }
+                // console.log("should get here");
+                // console.log(place.configuration.service);
+                callback(null, place[service]);
                 return;
             }
-            // console.log("should get here");
-            // console.log(place.configuration.service);
-            callback(null, place[service]);
-            return;
         }
         configuration = configuration.service;
     }

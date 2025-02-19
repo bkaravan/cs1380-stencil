@@ -45,7 +45,7 @@ function send(message, remote, callback) {
 
     let group = "local";
     let error = null;
-    if (remote.gid) {
+    if (remote.gid && remote.gid !== "local") {
         group = remote.gid;
         error = {};
     }

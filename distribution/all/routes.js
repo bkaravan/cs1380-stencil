@@ -1,4 +1,5 @@
 /** @typedef {import("../types").Callback} Callback */
+const comm = require('./comm');
 
 function routes(config) {
   const context = {};
@@ -10,6 +11,11 @@ function routes(config) {
    * @param {Callback} callback
    */
   function put(service, name, callback = () => { }) {
+    const remote = {service: "routes", method: "put"};
+      // needs individual?
+      comm(context).send([service, name], remote, (e, v) => {
+        callback(e, v);
+      })
   }
 
   /**
