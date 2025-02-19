@@ -128,3 +128,32 @@ My implementation comprises 5 software components, totaling around 300 lines of 
 
 > How would you explain the implementation of `createRPC` to someone who has no background in computer science — i.e., with the minimum jargon possible?
 Imagine that you have a friend who has a jar of cookies. Only he knows how many cookies are in that jar. Sometimes, you really wonder just how many cookies are in that jar, but you don't know. To tell you, your friend wrote down instructions on how to ask him and his phone number. Now, anytime you wonder, you call his phone and get his number of cookies, even if they change sometimes. 
+
+# M3: Node Groups & Gossip Protocols
+
+## Summary
+
+> Milestone three covered the local group protocol as well as extensions to comm, get, and routes. The main focus was to be able to support groups of nodes, which is defined in the all protocol that uses context and function closures to properly function within each group. The key challanges included the extra credit portions as well as communicating the new error method (node to error) map, since even an empty object can apparantly pass the if (e) check. Remember to update the `report` section of the `package.json` file with the total number of hours it took you to complete each task of M3 (`hours`) and the lines of code per task.
+
+
+My implementation comprises around 7 new software components, totaling ~500 added lines of code over the previous implementation. Key challenges included figuring out what does starting distribution.gid object means and how to populate it in groups put, solving bugs that occurred due to new modifications of local get/comm/routes/node, extra credit spawn and stop. I think the error handling might be better off to be an object for every milestone - I had a problem that since I started returning an empty node to error map, my code would think that there is some error and not propagate my actual values map. The other challanges were more conceptual. It is a bit unclear on whether we should use process.exit(), and if so, at what point (just after calling server.stop? do we need a timeout there?)
+
+
+## Correctness & Performance Characterization
+
+> Describe how you characterized the correctness and performance of your implementation
+
+
+*Correctness* -- I added my own 5 tests and worked on 4 scenarios, that all run in about 2s
+
+
+*Performance* -- average spawn time for a node is around 120ms, while the gossip time for a group of 6 nodes took around 515 ms. 
+
+
+## Key Feature
+
+> What is the point of having a gossip protocol? Why doesn't a node just send the message to _all_ other nodes in its group?
+The key feature of a gossip protocol is being very fast and scalable. It relies on a probabilistic guarantee that when a 
+node group is large enough (n >> 100 from lecture), it is enough to just choose a log(n) number of nodes to share the "gossip" with.
+Since every node chooses who to share the gossip with at some probability, the chances are very high for everyone to see the message 
+without the need to overwhelm/slow down the network by just communicating with every node individually. 

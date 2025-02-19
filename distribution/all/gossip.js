@@ -1,6 +1,4 @@
-const { recv } = require("../local/gossip");
-
-const gossip = function(config) {
+ const gossip = function(config) {
   const context = {};
   context.gid = config.gid || 'all';
   context.subset = config.subset || function(lst) {
@@ -15,6 +13,8 @@ const gossip = function(config) {
         // apply the function to nodes in our group
         const targetSize = context.subset(Object.keys(v));
         const selectedNodes = new Set();
+        // console.log(v);
+        // console.log('\n');
 
 
         // add nodes until we reach desired size
@@ -28,14 +28,21 @@ const gossip = function(config) {
         let counter = targetSize;
         
         // do we need to take care of already established ones?
-        const metaMessage = {}
+        let metaMessage = {}
 
-        metaMessage.message = payload;
-        metaMessage.remote = remote;
-        metaMessage.mid = global.distribution.util.id.getMID(payload.message);
-        metaMessage.gid = context.gid;
+        if (!payload.gid || !payload.mid) {
+          metaMessage.message = payload;
+          metaMessage.remote = remote;
+          metaMessage.mid = global.distribution.util.id.getMID(payload.message);
+          metaMessage.gid = context.gid;
+        } else {
+          metaMessage = payload;
+        }
 
         for (const sid of selectedNodes) {
+          // console.log('this id: ');
+          // console.log(sid);
+          // console.log('\n');
           const node = v[sid];
           const nodeRecv = {
             "node" : node,
@@ -62,9 +69,13 @@ const gossip = function(config) {
     },
 
     at: (period, func, callback) => {
+      const intervalID = setInterval(func, period);
+      callback(null, intervalID);
     },
 
     del: (intervalID, callback) => {
+      clearInterval(intervalID);
+      callback(null, intervalID);
     },
   };
 };

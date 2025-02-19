@@ -58,6 +58,15 @@
       "send": [1.286],
       "rpc": [3.204]
     },
-    "m2dloc": 400
+    "m2dloc": 400,
+
+    "m3hours": 18,
+    "m3loc": 500,
+    "m3dev": {
+      "cpu-no": 16,
+      "mem-gb": 3,
+      "ssd-gb": 1007
+    },
+    "m3dloc": 500
   }
 }

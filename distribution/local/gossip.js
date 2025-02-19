@@ -16,9 +16,10 @@ gossip.recv = function(payload, callback) {
     seenMessages.add(payload.mid);
     const message = payload.message;
     const remote = payload.remote;
+    const group = payload.gid;
 
     // gossip yourself
-    global.distribution[payload.gid].gossip.send(payload, remote);
+    global.distribution[group].gossip.send(payload, remote);
     remote.node = global.nodeConfig;
 
     global.distribution.local.comm.send(message, remote, (e, v) => {
