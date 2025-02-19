@@ -43,9 +43,9 @@ groups.put = function(config, group, callback) {
         groupMap.get('all').set(sid, group[sid]);
     }) 
 
-    global.distribution[name] = {};
-
     // do we need to add config here?
+    // config is for gid
+    global.distribution[name] = {};
     global.distribution[name].status = require('../all/status')(config);
     global.distribution[name].groups = require('../all/groups')(config);
     global.distribution[name].routes = require('../all/routes')(config);
@@ -53,7 +53,7 @@ groups.put = function(config, group, callback) {
     global.distribution[name].gossip = require('../all/gossip')(config);
     global.distribution[name].mem = require('../all/mem')(config);
     global.distribution[name].store = require('../all/store')(config);
-    global.distribution[name].mr = require('../all/mr')(config);    
+    global.distribution[name].mr = require('../all/mr')(config);  
 
     callback(null, groupMap.get(name));
 };
@@ -77,14 +77,6 @@ groups.del = function(name, callback) {
 };
 
 groups.add = function(name, node, callback) {
-    // if (arguments.length !== 3) {
-    //     if (typeof name === "function") {
-    //         name(new Error("invalid arguments, expected name, node, and callback"), null);
-    //     } else {
-    //         node(new Error("invalid arguments, expected name, node, and callback"), null);
-    //     }
-    //     return;
-    // }
 
     if (groupMap.has(name)) {
         groupMap.get(name)[id.getSID(node)] = node;
@@ -96,14 +88,6 @@ groups.add = function(name, node, callback) {
 };
 
 groups.rem = function(name, node, callback) {
-    // if (arguments.length !== 3) {
-    //     if (typeof name === "function") {
-    //         name(new Error("invalid arguments, expected name, node, and callback"), null);
-    //     } else {
-    //         node(new Error("invalid arguments, expected name, node, and callback"), null);
-    //     }
-    //     return;
-    // }
 
     // do we need to delete completely if it's the last node?
     if (groupMap.has(name)) {

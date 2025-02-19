@@ -34,7 +34,7 @@ function createRPC(func) {
         cb(null, v);
       }
     });`;
-  const newFunc = new Function('...args', stub);  // Note: added 'args' parameter
+  const newFunc = new Function('...args', stub);
   return newFunc;
 }
 

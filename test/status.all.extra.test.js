@@ -27,6 +27,9 @@ test('(10 pts) all.status.spawn/stop()', (done) => {
 
       distribution.local.groups.get('group4', (e, v) => {
         try {
+          // console.log(v);
+          // console.log(id.getSID(nodeToSpawn));
+          // console.log('\n');
           expect(e).toBeFalsy();
           expect(v[id.getSID(nodeToSpawn)]).toBeDefined();
         } catch (error) {

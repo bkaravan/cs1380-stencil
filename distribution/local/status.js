@@ -86,15 +86,9 @@ status.spawn = function(configuration, callback) {
 
 status.stop = function(callback) {
   callback = callback || function() {};
-
-  // respond to request
   callback(null, global.nodeConfig);
-
-  // shut down the server after some time
-  setTimeout(() => {
-    global.distribution.node.server.close()
-  }, 3000);
-  process.exit();
+  global.distribution.node.server.close();
+  process.exit(0);
 };
 
 module.exports = status;

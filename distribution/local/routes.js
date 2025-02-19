@@ -31,12 +31,22 @@ function get(configuration, callback) {
         }
         const name = configuration.gid;
         if (name !== "local") {
-            const place = global.distribution.name;
-            if (!configuration.service in place) {
+            // console.log("should get here");
+            // console.log(name);
+            // console.log('\n')
+
+            const place = global.distribution[name];
+            // console.log(place);
+            const service = configuration.service;
+            // console.log(service);
+            
+            if (!(service in place)) {
                 callback(new Error("Can't find specified service in this group"), null);
                 return;
             }
-            callback(null, place.configuration.service);
+            // console.log("should get here");
+            // console.log(place.configuration.service);
+            callback(null, place[service]);
             return;
         }
         configuration = configuration.service;
@@ -81,9 +91,6 @@ function put(service, configuration, callback) {
     }
     // looking at future milestones, this might break actually 
     // because it looks like it will reput everything local in here
-    // else if (serviceMap.has(configuration)) {
-    //     e = new Error("Service already exists");
-    // } 
     else {
         serviceMap.set(configuration, service);
         v = configuration;

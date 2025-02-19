@@ -44,17 +44,18 @@ function send(message, remote, callback) {
     const serializedInput = util.serialize(sending);
 
     let group = "local";
-    if ("gid" in remote) {
-        group = remote["gid"];
+    let error = null;
+    if (remote.gid) {
+        group = remote.gid;
+        error = {};
     }
     const path = `/${group}/${remote.service}/${remote.method}`
 
     const options = {
-        hostname: node.ip, // Change this to the correct host if needed
-        port: node.port,            // Change this to the correct port
+        hostname: node.ip, 
+        port: node.port,       
         path: path,
         method: 'PUT',
-        // not sure if these are needed
     };
 
 
@@ -70,13 +71,15 @@ function send(message, remote, callback) {
             if (res.statusCode !== 200) {
                 callback(util.deserialize(responseData), null);
             } else {
-                callback(null, util.deserialize(responseData));
+                callback(error, util.deserialize(responseData));
             }
+            // console.log(responseData);
+            // console.log('\n');
         });
     });
 
     req.on('error', (err) => {
-        callback(err, null);
+        callback(new Error(err), null);
     });
 
     // Send the request body
