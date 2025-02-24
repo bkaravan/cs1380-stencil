@@ -73,7 +73,6 @@ const start = function(callback) {
       */
 
       // Write some code...
-      let last_v = null;
       try {
         const getConfig = {"service" : service, "gid" : gid}
         des = util.deserialize(body);
@@ -83,26 +82,16 @@ const start = function(callback) {
             res.writeHead(500);
             res.end(util.serialize(e));
           } else {
-            // can we error because this method does not exist?
-            // TODO: double check that
-            last_v = v;
             if (!(method in v)) {
               res.writeHead(500);
               res.end(util.serialize(new Error(`no method ${method} in service ${service}`)));
             } else {
-              if (method === "get") {
-                // console.log("logging stuff")
-                // console.log(v);
-                // console.log(...des.message);
-                // console.log('done logging');
-              }
+
               v[method](...des.message, (e, v) => {
                 if (e instanceof Error) {
                   res.writeHead(500);
                   res.end(util.serialize(e));
-                  // console.log('this error');
-                  // console.log(e);
-                  // console.log('\n');         
+        
                 } else {
                   res.write(util.serialize(v));
                   res.end();
@@ -113,9 +102,6 @@ const start = function(callback) {
           }
         });
       } catch (e) {
-        // console.log(e)
-        // console.log(method);
-        // console.log(last_v);
         res.writeHead(500);
         res.end(util.serialize(e));
       }

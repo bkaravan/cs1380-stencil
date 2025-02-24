@@ -1,6 +1,5 @@
 /** @typedef {import("../types").Callback} Callback */
 
-const { config } = require("yargs");
 
 const local = {
     status: require('./status'),
@@ -30,21 +29,14 @@ function get(configuration, callback) {
         if (configuration.gid) {
             const name = configuration.gid;
             if (name !== "local") {
-                // console.log("should get here");
-                // console.log(name);
-                // console.log('\n')
     
                 const place = global.distribution[name];
-                // console.log(place);
                 const service = configuration.service;
-                // console.log(service);
-                
+
                 if (!(service in place)) {
                     callback(new Error("Can't find specified service in this group"), null);
                     return;
                 }
-                // console.log("should get here");
-                // console.log(place.configuration.service);
                 callback(null, place[service]);
                 return;
             }
