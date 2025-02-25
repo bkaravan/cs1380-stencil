@@ -36,7 +36,10 @@ function put(state, configuration, callback) {
 function get(configuration, callback) {
 
     // console.log(configuration);
-
+    if (!configuration) {
+        callback(new Error("no support for null get yet"));
+        return;
+    }
     if (typeof configuration === "object") {
         let gid = configuration.gid || "local";
         let sid = global.moreStatus.sid;
@@ -54,6 +57,11 @@ function get(configuration, callback) {
 }
 
 function del(configuration, callback) {
+
+    if (!configuration) {
+        callback(new Error("no support for null get yet"));
+        return;
+    }
 
     // support for objects
     if (typeof configuration === "object") {

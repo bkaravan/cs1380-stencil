@@ -33,8 +33,6 @@ function store(config) {
         }
 
         const chosenSid = context.hash(kid, nids).substring(0, 5);
-        // console.log(chosenSid);
-        // console.log(context.hash);
 
         let node; 
         if (v instanceof Map) {

@@ -8,7 +8,7 @@ const fs = require("fs");
 const path = require("path");
 const id = require('../util/id')
 
-const basePath = "/usr/src/app/store";
+const basePath = path.resolve(__dirname, "../../store");
 
 function makeAlphaNumeric(key) {
   return key.replace(/[^a-zA-Z0-9]/g, ''); // Remove non-alphanumeric characters
@@ -50,9 +50,7 @@ function get(configuration, callback) {
 
   let key;
   let gid = "local";
-  if (!configuration) {
-    key = id.getID(state);
-  } else if (typeof configuration === "string") {
+  if (typeof configuration === "string") {
     key = makeAlphaNumeric(configuration);
   } else if (configuration.key) {
     key = makeAlphaNumeric(configuration.key);
@@ -86,9 +84,7 @@ function del(configuration, callback) {
 
   let key;
   let gid = "local";
-  if (!configuration) {
-    key = id.getID(state);
-  } else if (typeof configuration === "string") {
+  if (typeof configuration === "string") {
     key = makeAlphaNumeric(configuration);
   } else if (configuration.key) {
     key = makeAlphaNumeric(configuration.key);
