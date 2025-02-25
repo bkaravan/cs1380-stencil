@@ -36,7 +36,7 @@ function put(state, configuration, callback) {
 
   // might need to hash this but will be ugly, but hypothetically, it's enough to distinguish
   //const filename = id.getID(`${gid}-${sid}-${key}`);
-  const filename = `${gid}-${sid}-${key}`;
+  const filename = `${sid}-${gid}-${key}`;
 
   const toStore = global.distribution.util.serialize(state);
 
@@ -47,36 +47,65 @@ function put(state, configuration, callback) {
 }
 
 function get(configuration, callback) {
-
-  let key;
-  let gid = "local";
-  if (typeof configuration === "string") {
-    key = makeAlphaNumeric(configuration);
-  } else if (configuration.key) {
-    key = makeAlphaNumeric(configuration.key);
-    gid = configuration.gid || "local";
-  } else {
-    callback(new Error("unsupported configuration"));
-    return;
-  }
-
   const sid = global.moreStatus.sid;
 
-  //const filename = id.getID(`${gid}-${sid}-${key}`);
-  const filename = `${gid}-${sid}-${key}`;
+  if (!configuration || !configuration.key) {
+    fs.readdir(basePath, (err, files) => {
+      if (err) {
+          callback(err);
+          return;
+      }
+      const foundFiles = []
+      // console.log('here')
+      files.forEach(file => {
+        // an easier approach is to create a folder hierarchy, but it's fine
+        if (configuration && configuration.gid) {
+          if (file.includes(sid) && file.includes(configuration.gid)) {
+            foundFiles.push(file.substring(file.lastIndexOf('-') + 1))
+          }
+        } else {
+          if (file.includes(sid)) {
+            foundFiles.push(file.substring(file.lastIndexOf('-') + 1))
+          }
+        }
 
-  fs.readFile(path.join(basePath, filename), 'utf8', (err, data) => {
-    if (err) {
-      if (err.code === "ENOENT") {
-        callback(new Error(`No file ${filename} found`));
+      });
+      callback(null, foundFiles);
+      return;
+    });
+  } else {
+    let key;
+    let gid = "local";
+    if (typeof configuration === "string") {
+      key = makeAlphaNumeric(configuration);
+    } else if (configuration.key) {
+      key = makeAlphaNumeric(configuration.key);
+      gid = configuration.gid || "local";
     } else {
-        callback(new Error(err.message));
+      callback(new Error("unsupported configuration"));
+      return;
     }
-    return;
+  
+    
+  
+    //const filename = id.getID(`${gid}-${sid}-${key}`);
+    const filename = `${sid}-${gid}-${key}`;
+  
+    fs.readFile(path.join(basePath, filename), 'utf8', (err, data) => {
+      if (err) {
+        if (err.code === "ENOENT") {
+          callback(new Error(`No file ${filename} found`));
+      } else {
+          callback(new Error(err.message));
+      }
+      return;
+    }
+    const toRetrieve = global.distribution.util.deserialize(data);
+    callback(null, toRetrieve);
+  })
   }
-  const toRetrieve = global.distribution.util.deserialize(data);
-  callback(null, toRetrieve);
-})
+
+ 
 
 }
 
@@ -97,12 +126,12 @@ function del(configuration, callback) {
   const sid = global.moreStatus.sid;
 
   //const filename = id.getID(`${gid}-${sid}-${key}`);
-  const filename = `${gid}-${sid}-${key}`;
+  const filename = `${sid}-${gid}-${key}`;
 
   fs.readFile(path.join(basePath, filename), 'utf8', (err, data) => {
     if (err) {
       if (err.code === "ENOENT") {
-        callback(new Error(`No file ${configuration} found`));
+        callback(new Error(`No file ${filename} found`));
     } else {
         callback(new Error(err.message));
     }

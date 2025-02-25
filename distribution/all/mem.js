@@ -1,4 +1,5 @@
 const id = require('../util/id');
+const comm = require('../all/comm');
 
 
 function mem(config) {
@@ -11,8 +12,19 @@ function mem(config) {
   return {
     get: (configuration, callback) => {
       callback = callback || function() {};
-      global.distribution.local.groups.get(context.gid, (e, v) => {
 
+      if (!configuration) {
+        //
+        configuration = {key: null, gid: context.gid};
+        const remote = {service: "mem", method: "get"};
+        comm(context).send([configuration], remote, (e, v) => {
+          // console.log('here\n')
+          let values = [];
+          Object.values(v).forEach(lst => {values = values.concat(lst)});
+          callback(e, values);
+        })
+      } else {
+      global.distribution.local.groups.get(context.gid, (e, v) => {
         const nids = []
         if (v instanceof Map) {
           for (const [sid, node] of v) {
@@ -50,6 +62,9 @@ function mem(config) {
           callback(e, v);
         })
       })
+      }
+
+      
     },
 
     put: (state, configuration, callback) => {

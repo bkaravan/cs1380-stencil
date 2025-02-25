@@ -86,12 +86,10 @@ const start = function(callback) {
               res.writeHead(500);
               res.end(util.serialize(new Error(`no method ${method} in service ${service}`)));
             } else {
-
               v[method](...des.message, (e, v) => {
                 if (e instanceof Error) {
                   res.writeHead(500);
                   res.end(util.serialize(e));
-        
                 } else {
                   res.write(util.serialize(v));
                   res.end();

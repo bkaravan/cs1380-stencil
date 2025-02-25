@@ -23,7 +23,7 @@ function put(state, configuration, callback) {
         let gid = configuration.gid || "local";
         let sid = global.moreStatus.sid;
         let key = configuration.key || id.getID(state);
-        configuration = `${gid}-${sid}-${key}`;
+        configuration = `${sid}-${gid}-${key}`;
     }
     // hash it because why not
     //configuration = id.getID(configuration);
@@ -35,16 +35,31 @@ function put(state, configuration, callback) {
 
 function get(configuration, callback) {
 
-    // console.log(configuration);
-    if (!configuration) {
-        callback(new Error("no support for null get yet"));
+    // implementing null
+    if (!configuration || !configuration.key) {
+        if (configuration && configuration.gid) {
+            // look for specific keys
+            const toRet = []
+            for (const [config, _] of memMap) {
+                if (config.includes(configuration.gid)) {
+                    const key = config.substring(config.lastIndexOf('-') + 1);
+                    toRet.push(key)
+                }
+            }
+            callback(null, toRet);
+            return;
+        }
+
+        // give everything
+        callback(null, [...memMap.keys()])
         return;
     }
+
     if (typeof configuration === "object") {
         let gid = configuration.gid || "local";
         let sid = global.moreStatus.sid;
         let key = configuration.key || id.getID(state);
-        configuration = `${gid}-${sid}-${key}`;
+        configuration = `${sid}-${gid}-${key}`;
     }
 
     //configuration = id.getID(configuration);
@@ -68,7 +83,7 @@ function del(configuration, callback) {
         let gid = configuration.gid || "local";
         let sid = global.moreStatus.sid;
         let key = configuration.key || id.getID(state);
-        configuration = `${gid}-${sid}-${key}`;
+        configuration = `${sid}-${gid}-${key}`;
     }
 
     //configuration = id.getID(configuration);

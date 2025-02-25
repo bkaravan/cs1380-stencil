@@ -52,7 +52,6 @@ function comm(config) {
       Object.keys(v).forEach(sid => {
         const node = v[sid];
         configuration.node = node;
-        // TODO: should we change this to local????
         commLocal.send(message, configuration, (e, v) => {
           if (e) {
             errors[sid] = e;
