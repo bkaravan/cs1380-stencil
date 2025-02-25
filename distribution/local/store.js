@@ -34,7 +34,9 @@ function put(state, configuration, callback) {
 
   const sid = global.moreStatus.sid;
 
-  const filename = id.getID(`${gid}-${sid}-${key}`);
+  // might need to hash this but will be ugly, but hypothetically, it's enough to distinguish
+  //const filename = id.getID(`${gid}-${sid}-${key}`);
+  const filename = `${gid}-${sid}-${key}`;
 
   const toStore = global.distribution.util.serialize(state);
 
@@ -62,7 +64,8 @@ function get(configuration, callback) {
 
   const sid = global.moreStatus.sid;
 
-  const filename = id.getID(`${gid}-${sid}-${key}`);
+  //const filename = id.getID(`${gid}-${sid}-${key}`);
+  const filename = `${gid}-${sid}-${key}`;
 
   fs.readFile(path.join(basePath, filename), 'utf8', (err, data) => {
     if (err) {
@@ -81,15 +84,6 @@ function get(configuration, callback) {
 
 function del(configuration, callback) {
 
-  // if (typeof configuration === "string") {
-  //   configuration = makeAlphaNumeric(configuration);
-  // } else {
-  //   callback(new Error("Unsupported configuration"));
-  //   return;
-  // }
-
-  // const filePath = path.join(basePath, configuration);
-
   let key;
   let gid = "local";
   if (!configuration) {
@@ -106,8 +100,10 @@ function del(configuration, callback) {
 
   const sid = global.moreStatus.sid;
 
-  const filename = id.getID(`${gid}-${sid}-${key}`);
-  fs.readFile(filename, 'utf8', (err, data) => {
+  //const filename = id.getID(`${gid}-${sid}-${key}`);
+  const filename = `${gid}-${sid}-${key}`;
+
+  fs.readFile(path.join(basePath, filename), 'utf8', (err, data) => {
     if (err) {
       if (err.code === "ENOENT") {
         callback(new Error(`No file ${configuration} found`));
@@ -117,7 +113,7 @@ function del(configuration, callback) {
     return;
   }
   const toRetrieve = global.distribution.util.deserialize(data);
-  fs.unlink(filename, (err) => {
+  fs.unlink(path.join(basePath, filename), (err) => {
     callback(err, toRetrieve);
   })
 })

@@ -55,10 +55,42 @@ function naiveHash(kid, nids) {
 }
 
 function consistentHash(kid, nids) {
+  const ring = []
+  const backMap = {}
+  nids.forEach(nid => {
+    const currId = idToNum(nid);
+    ring.push(currId);
+    backMap[currId] = nid;
+  });
+
+  const kidId = idToNum(kid);
+  ring.push(kidId);
+  ring.sort((a, b) => a - b);
+  let chosen = -1;
+  for (let i = 0; i < ring.length; i++) {
+    if (ring[i] === kidId) {
+      chosen = ring[(i + 1) % ring.length];
+      break;
+    }
+  }
+  return backMap[chosen];
 }
 
 
 function rendezvousHash(kid, nids) {
+  const rendezvousIds = []
+  const backMap = {}
+
+  nids.forEach(nid => {
+    const concat = kid + nid;
+    const concatId = idToNum(getID(concat));
+    backMap[concatId] = nid;
+    rendezvousIds.push(concatId);
+  })
+
+  rendezvousIds.sort((a, b) => a - b);
+
+  return backMap[rendezvousIds[nids.length - 1]];
 }
 
 module.exports = {
