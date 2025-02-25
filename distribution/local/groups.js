@@ -31,7 +31,7 @@ groups.put = function(config, group, callback) {
     }
 
     if (typeof config === "string") {
-        groupMap.set(config, group);
+        // groupMap.set(config, group);
         config = {"gid": config};
     }
 
