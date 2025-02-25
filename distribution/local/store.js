@@ -70,7 +70,7 @@ function get(configuration, callback) {
   fs.readFile(path.join(basePath, filename), 'utf8', (err, data) => {
     if (err) {
       if (err.code === "ENOENT") {
-        callback(new Error(`No file ${configuration} found`));
+        callback(new Error(`No file ${filename} found`));
     } else {
         callback(new Error(err.message));
     }

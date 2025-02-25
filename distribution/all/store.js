@@ -1,3 +1,4 @@
+const id = require('../util/id');
 
 function store(config) {
   const context = {};
@@ -12,10 +13,16 @@ function store(config) {
       global.distribution.local.groups.get(context.gid, (e, v) => {
 
         const nids = []
-        Object.keys(v).forEach(sid => {
+        if (v instanceof Map) {
+          for (const [sid, node] of v) {
+            nids.push(id.getNID(node));
+          }
+        } else { 
+          Object.keys(v).forEach(sid => {
           const node = v[sid];
           nids.push(id.getNID(node));
-        })
+          })
+        }
         let kid;
         if (typeof configuration === "object") {
           kid = id.getID(configuration.key);
@@ -26,26 +33,49 @@ function store(config) {
         }
 
         const chosenSid = context.hash(kid, nids).substring(0, 5);
+        // console.log(chosenSid);
+        // console.log(context.hash);
 
-        const remote = {node: v[chosenSid], service: "store", method: "get"};
+        let node; 
+        if (v instanceof Map) {
+          node = v.get(chosenSid);
+        } else {
+          node = v[chosenSid];
+        }
 
-        global.distribution.local.send([configuration], remote, (e, v) => {
+        const remote = {node: node, service: "store", method: "get"};
+
+        global.distribution.local.comm.send([configuration], remote, (e, v) => {
           callback(e, v);
         })
       })
     },
 
-    put: (state, configuration, callback) => {
+    put: (state, configuration, callback) =>{
       callback = callback || function() {};
       global.distribution.local.groups.get(context.gid, (e, v) => {
 
         const nids = []
-        Object.keys(v).forEach(sid => {
+
+        if (v instanceof Map) {
+          for (const [sid, node] of v) {
+            nids.push(id.getNID(node));
+          }
+        } else { 
+          Object.keys(v).forEach(sid => {
           const node = v[sid];
           nids.push(id.getNID(node));
-        })
+          })
+        }
+
+
         let kid;
-        if (typeof configuration === "object") {
+        if (!configuration) {
+          kid = id.getID(state);
+          configuration = {key: kid, gid: context.gid};
+          kid = id.getID(kid);
+        }
+        else if (typeof configuration === "object") {
           kid = id.getID(configuration.key);
           configuration.gid = context.gid;
         } else {
@@ -55,9 +85,16 @@ function store(config) {
 
         const chosenSid = context.hash(kid, nids).substring(0, 5);
 
-        const remote = {node: v[chosenSid], service: "store", method: "put"};
+        let node; 
+        if (v instanceof Map) {
+          node = v.get(chosenSid);
+        } else {
+          node = v[chosenSid];
+        }
 
-        global.distribution.local.send([state, configuration], remote, (e, v) => {
+        const remote = {node: node, service: "store", method: "put"};
+
+        global.distribution.local.comm.send([state, configuration], remote, (e, v) => {
           callback(e, v);
         })
       })
@@ -68,10 +105,16 @@ function store(config) {
       global.distribution.local.groups.get(context.gid, (e, v) => {
 
         const nids = []
-        Object.keys(v).forEach(sid => {
+        if (v instanceof Map) {
+          for (const [sid, node] of v) {
+            nids.push(id.getNID(node));
+          }
+        } else { 
+          Object.keys(v).forEach(sid => {
           const node = v[sid];
           nids.push(id.getNID(node));
-        })
+          })
+        }
         let kid;
         if (typeof configuration === "object") {
           kid = id.getID(configuration.key);
@@ -83,9 +126,16 @@ function store(config) {
 
         const chosenSid = context.hash(kid, nids).substring(0, 5);
 
-        const remote = {node: v[chosenSid], service: "store", method: "del"};
+        let node; 
+        if (v instanceof Map) {
+          node = v.get(chosenSid);
+        } else {
+          node = v[chosenSid];
+        }
 
-        global.distribution.local.send([configuration], remote, (e, v) => {
+        const remote = {node: node, service: "store", method: "del"};
+
+        global.distribution.local.comm.send([configuration], remote, (e, v) => {
           callback(e, v);
         })
       })

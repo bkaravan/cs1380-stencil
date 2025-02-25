@@ -1,10 +1,11 @@
-const distribution = require('@brown-ds/distribution');
+
 const id = require('../util/id')
 
 const memMap = new Map();
 
 function put(state, configuration, callback) {
     callback = callback || function() {}
+
 
     if (arguments.length < 3) {
         if (typeof state === "function") {
@@ -20,12 +21,12 @@ function put(state, configuration, callback) {
         configuration = id.getID(state);
     } else if (typeof configuration === "object") {
         let gid = configuration.gid || "local";
-        let sid = global.distribution.status.moreStatus.sid;
-        let key = configuration.key;
+        let sid = global.moreStatus.sid;
+        let key = configuration.key || id.getID(state);
         configuration = `${gid}-${sid}-${key}`;
     }
     // hash it because why not
-    configuration = id.getID(configuration);
+    //configuration = id.getID(configuration);
 
     memMap.set(configuration, state);
 
@@ -34,14 +35,16 @@ function put(state, configuration, callback) {
 
 function get(configuration, callback) {
 
+    // console.log(configuration);
+
     if (typeof configuration === "object") {
         let gid = configuration.gid || "local";
-        let sid = global.distribution.status.moreStatus.sid;
-        let key = configuration.key;
+        let sid = global.moreStatus.sid;
+        let key = configuration.key || id.getID(state);
         configuration = `${gid}-${sid}-${key}`;
     }
 
-    configuration = id.getID(configuration);
+    //configuration = id.getID(configuration);
     if (!memMap.has(configuration)) {
         callback(new Error(`no such value: ${configuration} in mem`));
         return;
@@ -55,12 +58,12 @@ function del(configuration, callback) {
     // support for objects
     if (typeof configuration === "object") {
         let gid = configuration.gid || "local";
-        let sid = global.distribution.status.moreStatus.sid;
-        let key = configuration.key;
+        let sid = global.moreStatus.sid;
+        let key = configuration.key || id.getID(state);
         configuration = `${gid}-${sid}-${key}`;
     }
 
-    configuration = id.getID(configuration);
+    //configuration = id.getID(configuration);
     if (!memMap.has(configuration)) {
         callback(new Error(`no such value: ${configuration} in mem`));
         return;

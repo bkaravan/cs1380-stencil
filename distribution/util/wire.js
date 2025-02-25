@@ -8,14 +8,14 @@ const comm = require('../local/comm');
 // serialize the return value and send it back to the node issuing the call to g, and
 // pass the results to g's caller.
 
-global.toLocal = new Map();
+global.toLocalMap = new Map();
 
 function createRPC(func) {
   // Write some code...
 
   // put func to a map with some id/name
   const funcName = id.getID(ser.serialize(func));
-  global.toLocal.set(funcName, {call: func});
+  global.toLocalMap.set(funcName, {call: func});
   
   // send this to whoever asked
   const stub = `

@@ -14,10 +14,16 @@ function mem(config) {
       global.distribution.local.groups.get(context.gid, (e, v) => {
 
         const nids = []
-        Object.keys(v).forEach(sid => {
+        if (v instanceof Map) {
+          for (const [sid, node] of v) {
+            nids.push(id.getNID(node));
+          }
+        } else { 
+          Object.keys(v).forEach(sid => {
           const node = v[sid];
           nids.push(id.getNID(node));
-        })
+          })
+        }
         let kid;
         if (typeof configuration === "object") {
           kid = id.getID(configuration.key);
@@ -28,10 +34,19 @@ function mem(config) {
         }
 
         const chosenSid = context.hash(kid, nids).substring(0, 5);
+        // console.log(chosenSid);
+        // console.log(context.hash);
 
-        const remote = {node: v[chosenSid], service: "mem", method: "get"};
+        let node; 
+        if (v instanceof Map) {
+          node = v.get(chosenSid);
+        } else {
+          node = v[chosenSid];
+        }
 
-        global.distribution.local.send([configuration], remote, (e, v) => {
+        const remote = {node: node, service: "mem", method: "get"};
+
+        global.distribution.local.comm.send([configuration], remote, (e, v) => {
           callback(e, v);
         })
       })
@@ -42,12 +57,26 @@ function mem(config) {
       global.distribution.local.groups.get(context.gid, (e, v) => {
 
         const nids = []
-        Object.keys(v).forEach(sid => {
+
+        if (v instanceof Map) {
+          for (const [sid, node] of v) {
+            nids.push(id.getNID(node));
+          }
+        } else { 
+          Object.keys(v).forEach(sid => {
           const node = v[sid];
           nids.push(id.getNID(node));
-        })
+          })
+        }
+
+
         let kid;
-        if (typeof configuration === "object") {
+        if (!configuration) {
+          kid = id.getID(state);
+          configuration = {key: kid, gid: context.gid};
+          kid = id.getID(kid);
+        }
+        else if (typeof configuration === "object") {
           kid = id.getID(configuration.key);
           configuration.gid = context.gid;
         } else {
@@ -57,9 +86,16 @@ function mem(config) {
 
         const chosenSid = context.hash(kid, nids).substring(0, 5);
 
-        const remote = {node: v[chosenSid], service: "mem", method: "put"};
+        let node; 
+        if (v instanceof Map) {
+          node = v.get(chosenSid);
+        } else {
+          node = v[chosenSid];
+        }
 
-        global.distribution.local.send([state, configuration], remote, (e, v) => {
+        const remote = {node: node, service: "mem", method: "put"};
+
+        global.distribution.local.comm.send([state, configuration], remote, (e, v) => {
           callback(e, v);
         })
       })
@@ -70,10 +106,16 @@ function mem(config) {
       global.distribution.local.groups.get(context.gid, (e, v) => {
 
         const nids = []
-        Object.keys(v).forEach(sid => {
+        if (v instanceof Map) {
+          for (const [sid, node] of v) {
+            nids.push(id.getNID(node));
+          }
+        } else { 
+          Object.keys(v).forEach(sid => {
           const node = v[sid];
           nids.push(id.getNID(node));
-        })
+          })
+        }
         let kid;
         if (typeof configuration === "object") {
           kid = id.getID(configuration.key);
@@ -85,9 +127,16 @@ function mem(config) {
 
         const chosenSid = context.hash(kid, nids).substring(0, 5);
 
-        const remote = {node: v[chosenSid], service: "mem", method: "del"};
+        let node; 
+        if (v instanceof Map) {
+          node = v.get(chosenSid);
+        } else {
+          node = v[chosenSid];
+        }
 
-        global.distribution.local.send([configuration], remote, (e, v) => {
+        const remote = {node: node, service: "mem", method: "del"};
+
+        global.distribution.local.comm.send([configuration], remote, (e, v) => {
           callback(e, v);
         })
       })

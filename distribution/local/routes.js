@@ -44,7 +44,7 @@ function get(configuration, callback) {
         configuration = configuration.service;
     }
 
-    if (!(serviceMap.has(configuration)) && !(global.toLocal.has(configuration))) {
+    if (!(serviceMap.has(configuration)) && !(global.toLocalMap.has(configuration))) {
         callback(new Error("Service not found"), null);
         return;
     }
@@ -53,7 +53,7 @@ function get(configuration, callback) {
     if (serviceMap.has(configuration)) {
         v = serviceMap.get(configuration);
     } else {
-        v = global.toLocal.get(configuration);
+        v = global.toLocalMap.get(configuration);
     }
 
     callback(e, v);
