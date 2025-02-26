@@ -153,6 +153,65 @@ function store(config) {
     },
 
     reconf: (configuration, callback) => {
+      const prevNids = []
+      Object.values(configuration).forEach(node => prevNids.push(id.getNID(node)));
+
+      global.distribution.local.groups.get(context.gid, (e, v) => {
+        if (e instanceof Error) {
+          console.log(e);
+          callback(e);
+          return;
+        }
+        const groupNodes = v;
+        const newNids = []
+        Object.values(v).forEach(node => newNids.push(id.getNID(node)));
+        store(config).get(null, (e, v) => {
+          if (e instanceof Error)  {
+            callback(e);
+            return;
+          }
+          // new keys are in v;
+          const infoMap = {}
+          for (const key of v) {
+            const kid = id.getID(key);
+            const nid1 = context.hash(kid, newNids);
+            const nid2 = context.hash(kid, prevNids);
+
+            if (nid1 !== nid2) {
+              const newNode = groupNodes[nid1.substring(0, 5)];
+              const prevNode = configuration[nid2.substring(0, 5)];
+              infoMap[key] = {newNode, prevNode};
+            }
+          }
+
+          let remaining = Object.keys(infoMap).length;
+
+          Object.keys(infoMap).forEach(key => {
+            // let's try just with del. what's the need for get?
+            let remote = {node: infoMap[key].prevNode, service: "store", method: "del"};
+            let messageConfig = {key: key, gid: context.gid};
+            global.distribution.local.comm.send([messageConfig], remote, (e, v) => {
+              if (e instanceof Error)  {
+                callback(e);
+                return;
+              }
+              remote.node = infoMap[key].newNode;
+              remote.method = "put";
+              global.distribution.local.comm.send([v, messageConfig], remote, (e, v) => {
+                if (e instanceof Error)  {
+                  callback(e);
+                  return;
+                }
+                remaining--;
+                if (!remaining) {
+                  // what should be return value? new nodes? new get?
+                  callback(null, true);
+                }
+              })
+            })
+          })
+        })
+      })
     },
   };
 };

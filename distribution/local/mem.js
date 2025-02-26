@@ -36,7 +36,7 @@ function put(state, configuration, callback) {
 function get(configuration, callback) {
 
     // implementing null
-    if (!configuration || !configuration.key) {
+    if (!configuration || (typeof configuration === "object" && !configuration.key)) {
         if (configuration && configuration.gid) {
             // look for specific keys
             const toRet = []

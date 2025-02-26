@@ -49,7 +49,7 @@ function put(state, configuration, callback) {
 function get(configuration, callback) {
   const sid = global.moreStatus.sid;
 
-  if (!configuration || !configuration.key) {
+  if (!configuration || (typeof configuration === "object" && !configuration.key)) {
     fs.readdir(basePath, (err, files) => {
       if (err) {
           callback(err);
