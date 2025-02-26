@@ -8,6 +8,85 @@
 
 const distribution = require('../../config.js');
 const id = distribution.util.id;
+const { performance } = require('perf_hooks');
+
+function makeid(length) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+}
+
+// jest.setTimeout(30000);
+
+// test('(1 pts) student test', (done) => {
+//   // Fill out this test case...
+//   // test for aws communications
+
+//   const n0 = {ip: '127.0.0.1', port: 10000};
+//   const n1 = {ip: "3.141.197.31", port: 1234};
+//   const n2 = {ip: "18.221.129.123", port: 1234};
+//   const n3 = {ip: "3.16.38.196", port: 1234};
+
+//   const mygroupConfig = {gid: 'mygroup'};
+//   const myAwsGroup = {}
+//   myAwsGroup[id.getSID(n0)] = n0;
+//   myAwsGroup[id.getSID(n1)] = n1;
+//   myAwsGroup[id.getSID(n2)] = n2;
+//   myAwsGroup[id.getSID(n3)] = n3;
+//   // const user = {first: 'Radahn', last: 'Malenia'};
+//   // const key = 'You are screwed';
+
+//   const keyVals = {}
+
+//   const startGen = performance.now();
+
+//   for (let i = 0; i < 1000; i++) {
+//     const key = makeid(15);
+//     const val = makeid(10);
+//     keyVals[key] = val;
+//   }
+
+//   const stopGen = performance.now();
+
+//   console.log(`Generation took ${stopGen - startGen} ms`);
+
+//   // Create the groups
+//   distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
+//     distribution.mygroup.groups
+//         .put(mygroupConfig, myAwsGroup, (e, v) => {
+//           let count = 0;
+//           const startInsert = performance.now();
+//           Object.keys(keyVals).forEach(key => {
+//             distribution.mygroup.store.put(keyVals[key], key, (e, v) => {
+
+//               count += 1;
+//               if (count === Object.keys(keyVals).length) {
+//                 const stopInsert = performance.now();
+//                 console.log(`Insertion took ${stopInsert - startInsert} ms`)
+//                 count = 0;
+//                 const startQ = performance.now();
+//                 Object.keys(keyVals).forEach(key => {
+//                   distribution.mygroup.store.get(key, (e, v) => {
+//                     count += 1;
+//                     if (count === Object.keys(keyVals).length) {
+//                       const stopQ = performance.now();
+//                       console.log(`Query took ${stopQ - startQ} ms`)
+//                       setTimeout(() => done(), 500);
+//                     }
+//                   })
+//                 })
+//               }
+//             })
+//           })
+//         })
+//       });
+// });
 
 test('(1 pts) student test', (done) => {
   // Fill out this test case...
