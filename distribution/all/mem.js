@@ -19,7 +19,6 @@ function mem(config) {
         configuration = {key: null, gid: context.gid};
         const remote = {service: "mem", method: "get"};
         comm(context).send([configuration], remote, (e, v) => {
-          // console.log('here\n')
           let values = [];
           Object.values(v).forEach(lst => {values = values.concat(lst)});
           callback(e, values);
@@ -47,8 +46,6 @@ function mem(config) {
         }
 
         const chosenSid = context.hash(kid, nids).substring(0, 5);
-        // console.log(chosenSid);
-        // console.log(context.hash);
 
         let node; 
         if (v instanceof Map) {
