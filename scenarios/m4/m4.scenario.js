@@ -157,7 +157,6 @@ test('(5 pts) (scenario) use mem.reconf', (done) => {
         done(error);
         return;
       }
-
       // Write checks for the rest of the items...
       done(); // Only call `done()` once all checks are written
     });

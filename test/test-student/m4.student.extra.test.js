@@ -8,6 +8,19 @@
 const distribution = require('../../config.js');
 const id = distribution.util.id;
 
+// function for period checks
+function healthcheck(config, prevGroup) {
+    distribution.local.groups.get(config.gid, (e, v) => {
+        const groupSize1 = Object.keys(prevGroup).length;
+        const groupSize2 = Object.keys(v).length;
+        if (groupSize1 !== groupSize2) {
+            distribution[config.gid][config.service].reconf(prevGroup, (e, v) => {
+                return (e, v);
+            })
+        }
+    })
+}
+
 test('(15 pts) detect the need to reconfigure', (done) => {
 
     // steal the setup from the extra test 
@@ -16,7 +29,7 @@ test('(15 pts) detect the need to reconfigure', (done) => {
 
     // sleep on some time
     // remove the node
-    // checkPlacements? 
+    // checkPlacements and delete the interval
     const users = [
         {first: 'Emma', last: 'Watson'},
         {first: 'John', last: 'Krasinski'},
@@ -118,23 +131,32 @@ test('(15 pts) detect the need to reconfigure', (done) => {
                 // Then, we remove n3 from the list of nodes,
                 // and run reconf() with the new list of nodes
                 // Note: In this scenario, we are removing a node that has no items in it.
-                distribution.local.groups.rem('mygroup', id.getSID(n3), (e, v) => {
-                  distribution.mygroup.groups.rem(
-                      'mygroup',
-                      id.getSID(n3),
-                      (e, v) => {
-                        distribution.mygroup.mem.reconf(groupCopy, (e, v) => {
-                          checkPlacement();
-                        });
-                      });
+                const atConfig = {gid: "mygroup", service: "mem"}
+                distribution.mygroup.gossip.at(500, () => healthcheck(atConfig, groupCopy), (e, v) => {
+                    const atId = v;
+                    // wait for a bit, then remove the nodes
+                    setTimeout(() => {
+                        distribution.local.groups.rem('mygroup', id.getSID(n3), (e, v) => {
+                            distribution.mygroup.groups.rem(
+                                'mygroup',
+                                id.getSID(n3),
+                                (e, v) => {
+                                    // by this time, at, should have caught the change
+                                    // sleep a bit again before checkPlacement;
+                                    setTimeout(() => {
+                                    distribution.mygroup.gossip.del(atId, (e, v) => {
+                                        checkPlacement();
+                                    }) 
+                                }, 500);
+                            });
+                        }); 
+                    },1500)
                 });
               });
             });
           });
         });
       });
-    done();
-    //done(new Error('Not implemented'));
 });
 
 
@@ -158,12 +180,6 @@ const n6 = {ip: '127.0.0.1', port: 9006};
 beforeAll((done) => {
   // First, stop the nodes if they are running
   const remote = {service: 'status', method: 'stop'};
-
-  const fs = require('fs');
-  const path = require('path');
-
-  fs.rmSync(path.join(__dirname, '../store'), {recursive: true, force: true});
-  fs.mkdirSync(path.join(__dirname, '../store'));
 
   remote.node = n1;
   distribution.local.comm.send([], remote, (e, v) => {

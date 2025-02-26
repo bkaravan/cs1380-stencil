@@ -163,6 +163,7 @@ function mem(config) {
           callback(e);
           return;
         }
+
         const groupNodes = v;
         const newNids = []
         Object.values(v).forEach(node => newNids.push(id.getNID(node)));
@@ -187,30 +188,34 @@ function mem(config) {
 
           let remaining = Object.keys(infoMap).length;
 
-          Object.keys(infoMap).forEach(key => {
-            // let's try just with del. what's the need for get?
-            let remote = {node: infoMap[key].prevNode, service: "mem", method: "del"};
-            let messageConfig = {key: key, gid: context.gid};
-            global.distribution.local.comm.send([messageConfig], remote, (e, v) => {
-              if (e instanceof Error)  {
-                callback(e);
-                return;
-              }
-              remote.node = infoMap[key].newNode;
-              remote.method = "put";
-              global.distribution.local.comm.send([v, messageConfig], remote, (e, v) => {
+          if (remaining > 0) {
+            Object.keys(infoMap).forEach(key => {
+              // let's try just with del. what's the need for get?
+              let remote = {node: infoMap[key].prevNode, service: "mem", method: "del"};
+              let messageConfig = {key: key, gid: context.gid};
+              global.distribution.local.comm.send([messageConfig], remote, (e, v) => {
                 if (e instanceof Error)  {
                   callback(e);
                   return;
                 }
-                remaining--;
-                if (!remaining) {
-                  // what should be return value? new nodes? new get?
-                  callback(null, true);
-                }
+                remote.node = infoMap[key].newNode;
+                remote.method = "put";
+                global.distribution.local.comm.send([v, messageConfig], remote, (e, v) => {
+                  if (e instanceof Error)  {
+                    callback(e);
+                    return;
+                  }
+                  remaining--;
+                  if (!remaining) {
+                    // what should be return value? new nodes? new get?
+                    callback(null, true);
+                  }
+                })
               })
             })
-          })
+          } else {
+            callback(null, true);
+          }
         })
       })
     },
