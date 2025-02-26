@@ -133,7 +133,9 @@ Imagine that you have a friend who has a jar of cookies. Only he knows how many 
 
 ## Summary
 
-> Milestone three covered the local group protocol as well as extensions to comm, get, and routes. The main focus was to be able to support groups of nodes, which is defined in the all protocol that uses context and function closures to properly function within each group. The key challanges included the extra credit portions as well as communicating the new error method (node to error) map, since even an empty object can apparantly pass the if (e) check. Remember to update the `report` section of the `package.json` file with the total number of hours it took you to complete each task of M3 (`hours`) and the lines of code per task.
+> M3 summary
+
+Milestone three covered the local group protocol as well as extensions to comm, get, and routes. The main focus was to be able to support groups of nodes, which is defined in the all protocol that uses context and function closures to properly function within each group. The key challanges included the extra credit portions as well as communicating the new error method (node to error) map, since even an empty object can apparantly pass the if (e) check. Remember to update the `report` section of the `package.json` file with the total number of hours it took you to complete each task of M3 (`hours`) and the lines of code per task.
 
 
 My implementation comprises around 7 new software components, totaling ~500 added lines of code over the previous implementation. Key challenges included figuring out what does starting distribution.gid object means and how to populate it in groups put, solving bugs that occurred due to new modifications of local get/comm/routes/node, extra credit spawn and stop. I think the error handling might be better off to be an object for every milestone - I had a problem that since I started returning an empty node to error map, my code would think that there is some error and not propagate my actual values map. The other challanges were more conceptual. It is a bit unclear on whether we should use process.exit(), and if so, at what point (just after calling server.stop? do we need a timeout there?)
@@ -153,7 +155,51 @@ My implementation comprises around 7 new software components, totaling ~500 adde
 ## Key Feature
 
 > What is the point of having a gossip protocol? Why doesn't a node just send the message to _all_ other nodes in its group?
+
 The key feature of a gossip protocol is being very fast and scalable. It relies on a probabilistic guarantee that when a 
 node group is large enough (n >> 100 from lecture), it is enough to just choose a log(n) number of nodes to share the "gossip" with.
 Since every node chooses who to share the gossip with at some probability, the chances are very high for everyone to see the message 
 without the need to overwhelm/slow down the network by just communicating with every node individually. 
+
+
+# M4: Distributed Storage
+
+
+## Summary
+
+> Summarize your implementation, including key challenges you encountered
+
+The main challanges of the milestone were, yet again, getting used to the asynchronous behaivor in javascript. While the 1380 part was relatively straightforward, with some difficulty regarding designing the file system storage, it only had relatively small bugs. 
+
+After implementing Extra Credit, specifically the get part, I relied on concepts that did not work for event-driven programming. In particular, my function would enter an if case, where at the end, a return statement is called. However, that return statement was inside a callback, which is async. So, my function would exit out of the if statement, and since there was no explicit else, it would run other logic which would ruin the function. The biggest challange for me is still mastering event-driven paradigm and asynch behavior. 
+
+
+Remember to update the `report` section of the `package.json` file with the total number of hours it took you to complete each task of M4 (`hours`) and the lines of code per task.
+
+
+## Correctness & Performance Characterization
+
+> Describe how you characterized the correctness and performance of your implementation
+
+
+*Correctness* -- calling npm test m4 runs in about 4.5s. In addition to the provided tests, I created my own 5 tests, that cover additional cases for hashing, store/mem interactions, and null get implementation. In addition, as per EC3, I created an extra test that sets up a group of nodes, and creates a "health check" with gossip.at. Then, after a certain time period, a node is remove from the group, and the "health check" function catches it and reconfigures the group. 
+
+
+*Performance* -- as instructed, i created 3 aws instances, public IPs are which are recorded in the first (commented out) test in m4.student.test.js. After running 1000 random strings as keys and values, here are breakdowns for memory and store systems:
+
+Memory:
+- Generation time: 16.74 ms / 60000 gens/s
+- Insertion time: 908.485 ms / 1100 insert/s
+- Query time: 677.937 ms / 1475 query/s
+
+Store:
+- Generation time: 15.43 ms / 64800 gens/s
+- Insertion time: 1112.35 ms / 890 insert/s
+- Query time: 1044.99 ms / 956.9 query/s
+
+
+## Key Feature
+
+> Why is the `reconf` method designed to first identify all the keys to be relocated and then relocate individual objects instead of fetching all the objects immediately and then pushing them to their corresponding locations?
+
+The key idea behind this design choice is to minimize the amount of objects that need to be relocated. If we fetched all of the objects first, rehash them, and reput them, we would be doing a lot of unnecessary work, since using something like consistent hashing is designed to minimize this. Instead, we are only working with a subset of key-value pairs that need to be relocated, which makes reconf faster and more efficient. 
