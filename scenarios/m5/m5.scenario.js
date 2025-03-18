@@ -1,5 +1,6 @@
 const distribution = require('../../config.js');
 const id = distribution.util.id;
+const log = distribution.util.log;
 
 const ncdcGroup = {};
 const dlibGroup = {};
@@ -94,9 +95,19 @@ test('(10 pts) (scenario) all.mr:dlib', (done) => {
 */
 
   const mapper = (key, value) => {
+    const out = []
+    value.split(" ").forEach(word => {
+      let x = {};
+      x[word] = 1;
+      out.push(x);
+    })
+    return out;
   };
 
   const reducer = (key, values) => {
+    const out = {};
+    out[key] = values.reduce((a, b) => a + b);
+    return out;
   };
 
   const dataset = [
@@ -169,10 +180,42 @@ test('(10 pts) (scenario) all.mr:tfidf', (done) => {
 */
 
   const mapper = (key, value) => {
+    const out = []
+    const words = value.split(" ");
+    words.forEach(word => {
+      out.push({[word]: {document: key, count: 1, total: words.length}});
+    })
+
+    return out;
   };
 
   // Reduce function: calculate TF-IDF for each word
   const reducer = (key, values) => {
+    const docStats = {}
+    
+    values.forEach(value => {
+      const doc = value.document;
+      if (!docStats[doc]) {
+        docStats[doc] = {count: 0, total: value.total}
+      }
+      docStats[doc].count += value.count;
+    }) 
+
+    const totalDocs = 3;
+    const containingDocs = Object.keys(docStats).length;
+
+    const idf = Math.log10(totalDocs / containingDocs);
+
+    const tfIdf = {};
+
+    Object.keys(docStats).forEach(doc => {
+      const stats = docStats[doc];
+      const tf = stats.count / stats.total;
+      const result = tf * idf;
+      tfIdf[doc] = parseFloat(result.toFixed(2));
+    })
+
+    return {[key] : tfIdf};
   };
 
   const dataset = [
@@ -233,25 +276,25 @@ test('(10 pts) (scenario) all.mr:tfidf', (done) => {
   - Run the map reduce.
 */
 
-test('(10 pts) (scenario) all.mr:crawl', (done) => {
-    done(new Error('Implement this test.'));
-});
+// test('(10 pts) (scenario) all.mr:crawl', (done) => {
+//     done(new Error('Implement this test.'));
+// });
 
-test('(10 pts) (scenario) all.mr:urlxtr', (done) => {
-    done(new Error('Implement the map and reduce functions'));
-});
+// test('(10 pts) (scenario) all.mr:urlxtr', (done) => {
+//     done(new Error('Implement the map and reduce functions'));
+// });
 
-test('(10 pts) (scenario) all.mr:strmatch', (done) => {
-    done(new Error('Implement the map and reduce functions'));
-});
+// test('(10 pts) (scenario) all.mr:strmatch', (done) => {
+//     done(new Error('Implement the map and reduce functions'));
+// });
 
-test('(10 pts) (scenario) all.mr:ridx', (done) => {
-    done(new Error('Implement the map and reduce functions'));
-});
+// test('(10 pts) (scenario) all.mr:ridx', (done) => {
+//     done(new Error('Implement the map and reduce functions'));
+// });
 
-test('(10 pts) (scenario) all.mr:rlg', (done) => {
-    done(new Error('Implement the map and reduce functions'));
-});
+// test('(10 pts) (scenario) all.mr:rlg', (done) => {
+//     done(new Error('Implement the map and reduce functions'));
+// });
 
 /*
     This is the setup for the test scenario.
