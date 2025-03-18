@@ -16,19 +16,31 @@ function put(state, configuration, callback) {
         return
     }
 
+    let append = false;
     // need to account for gid and sid
     if (!configuration) {
         configuration = id.getID(state);
     } else if (typeof configuration === "object") {
+        if (configuration.action && configuration.action === "append") {
+            append = true;
+        }
         let gid = configuration.gid || "local";
         let sid = global.moreStatus.sid;
         let key = configuration.key || id.getID(state);
         configuration = `${sid}-${gid}-${key}`;
     }
+    
     // hash it because why not
-    //configuration = id.getID(configuration);
-
-    memMap.set(configuration, state);
+    if (append) {
+        if (memMap.has(configuration)) {
+            memMap.get(configuration).push(state)
+        } else {
+            memMap.set(configuration, [state]);
+        }
+    }
+    else {
+        memMap.set(configuration, state);
+    }
 
     callback(null, memMap.get(configuration));
 };
