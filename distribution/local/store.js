@@ -109,6 +109,7 @@ function get(configuration, callback) {
       }
       return;
     }
+    // console.log(data);
     const toRetrieve = global.distribution.util.deserialize(data);
     callback(null, toRetrieve);
   })

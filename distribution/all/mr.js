@@ -2,6 +2,7 @@
 const routes = require('./routes');
 const comm = require('./comm');
 const id = require('../util/id')
+const log = require('../util/log')
 
 
 /**
@@ -68,9 +69,14 @@ function mr(config) {
                 let processedCount = 0;
                 
                 data.forEach(item => {
-                    global.distribution[groupId].store.get(item, (error, value) => {
+                    let storage = global.distribution[groupId].store;
+                    if (this.memory) {
+                        storage = global.distribution[groupId].mem;
+                    }
+                    storage.get(item, (error, value) => {
                         if (error) {
                             callback(error);
+                            return
                         } else {
                             processedCount++;
                             const mappedValue = this.mapper(item, value);
@@ -81,6 +87,7 @@ function mr(config) {
                                 mappedResults.push(mappedValue);
                             }
                             
+
                             if (processedCount == data.length) {
                                 let finalResults = mappedResults;
                                 // if compaction is defined, we run it here before
@@ -88,7 +95,12 @@ function mr(config) {
                                 if (this.compact) {
                                     finalResults = this.compact(item, mappedResults);
                                 }
-                                global.distribution.local.store.put(finalResults, operationId + '_map', (error, result) => {
+                                let localStorage = global.distribution.local.store;
+                                if (this.memory) {
+                                    localStorage = global.distribution.local.mem;
+                                }
+                                localStorage.put(finalResults, operationId + 'map', (error, result) => {
+                                    // console.log(result);
                                     callback(error, finalResults);
                                 });
                             }
@@ -99,7 +111,11 @@ function mr(config) {
         },
         
         shuffle: function(groupId, operationId, callback) {
-            global.distribution.local.store.get(operationId + '_map', (error, data) => {
+            let localStorage = global.distribution.local.store;
+            if (this.memory) {
+                localStorage = global.distribution.local.mem;
+            }
+            localStorage.get(operationId + 'map', (error, data) => {
                 if (!error) {
                     let processedCount = 0;
                     
@@ -110,16 +126,16 @@ function mr(config) {
                             key: key,
                             action: 'append'
                         }, (error, result) => {
-                          // console.log(error);
-                          // console.log(result);
+
                             processedCount++;
                             if (processedCount == data.length) {
+                                // this data is just what the node processed, 
+                                // not actually 
                                 callback(null, data);
                             }
                         });
                     });
                 } else {
-                    console.log(error);
                     callback(error);
                 }
             });
@@ -136,22 +152,36 @@ function mr(config) {
                 if (keys.length == 0) {
                     callback(null, null);
                 }
-                
-                keys.forEach(key => 
+
+                // console.log(keys);
+                keys.forEach(key => {
+                    // console.log(key);
                     global.distribution.local.mem.get({
                         key: key,
                         gid: groupId
                     }, (error, values) => {
-                        const reducedValue = this.reducer(key, values);
-                        results = results.concat(reducedValue);
+                        
+                        // when doing just in-memory storage, this will fail
+                        // some keys have different values 
+                        try {
+                            const reducedValue = this.reducer(key, values);
+                            results = results.concat(reducedValue);
+                        } catch (e) {
+                            // do nothing, since we still want to process this key
+                            // but if it doesn't work with the reducer, we just 
+                            // ignore it
+                        }
                         processedCount++;
                         
                         if (processedCount == keys.length) {
-                            // at this point, we need to add stuff to our new group
-                            // if it is defined
+                            // at this point, either callback like normal
+                            // or store results in the out group if it was provided
                             if (this.out) {
-                                // store under finalResult, we can retrieve in a test later
-                                global.distribution[this.out].store.put(results, 'finalResult', (e, v) => {
+                                let storage = global.distribution[this.out].store;
+                                if (this.memory) {
+                                    storage = global.distribution[this.out].mem;
+                                }
+                                storage.put(results, key, (e, v) => {
                                     callback(null, results)
                                 })
                             } else {
@@ -159,7 +189,7 @@ function mr(config) {
                             }
                         }
                     })
-                );
+            });
             });
         }
     };
@@ -196,8 +226,6 @@ function mr(config) {
                 };
                 
                 for (const nodeId in nodes) {
-                    // console.log(nodeId);
-                    // console.log('got here\n');
                     const mapParams = [keyDistribution[nodeId], context.gid, inputId];
                     
                     global.distribution.local.comm.send(mapParams, {
@@ -217,11 +245,15 @@ function mr(config) {
                                     service: 'mr-' + inputId,
                                     method: 'reduce'
                                 };
+
                                 
                                 comm(context).send([context.gid, inputId], reduceRequest, (error, reduceResults) => {
                                     let finalResults = [];
+
+                                    // console.log(error);
                                     
                                     for (const result of Object.values(reduceResults)) {
+
                                         if (result !== null) {
                                             finalResults = finalResults.concat(result);
                                         }
@@ -238,18 +270,17 @@ function mr(config) {
         });
     }
 
-    if (this.out) {
-        const outGroupConfig = {gid: this.out};
+    if (configuration.out) {
+        const outGroupConfig = {gid: configuration.out};
         global.distribution.local.groups.get(context.gid, (e, nodes) => {
             // nodes is every node we have 
             // first, we will setup the output group. then, we call mapReduce
             global.distribution.local.groups.put(outGroupConfig, nodes, (e, v) => {
-                global.distribution[this.out].groups.put(outGroupConfig, nodes, (e, v) => {
+                global.distribution[configuration.out].groups.put(outGroupConfig, nodes, (e, v) => {
                     mapReduce();
                 })
             })
         })
-
     } else {
         mapReduce();
     }

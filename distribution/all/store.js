@@ -79,7 +79,6 @@ function store(config) {
           })
         }
 
-
         let kid;
         if (!configuration) {
           kid = id.getID(state);
