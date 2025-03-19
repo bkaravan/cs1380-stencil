@@ -172,7 +172,7 @@ test('(1 pts) student test', (done) => {
               /* Gossip only provides weak guarantees */
               try {
                 const end = performance.now();
-                console.log(`Execution time: ${end - start} ms`)
+               // console.log(`Execution time: ${end - start} ms`)
                 expect(count).toBeGreaterThanOrEqual(nExpected);
                 done();
               } catch (error) {
@@ -200,18 +200,18 @@ test('(1 pts) student test', (done) => {
       expect(v.ip).toEqual(nodeToSpawn2.ip);
       expect(v.port).toEqual(nodeToSpawn2.port);
       const end2 = performance.now();
-      console.log(`Execution spawn: ${end2 - start2} ms`)
+     // console.log(`Execution spawn: ${end2 - start2} ms`)
     } catch (error) {
       done(error);
     }
-    const start = performance.now();
+    //const start = performance.now();
     distribution.group4.status.spawn(nodeToSpawn, (e, v) => {
       try {
         expect(e).toBeFalsy();
         expect(v.ip).toEqual(nodeToSpawn.ip);
         expect(v.port).toEqual(nodeToSpawn.port);
-        const end = performance.now();
-        console.log(`Execution spawn: ${end - start} ms`)
+       // const end = performance.now();
+       // console.log(`Execution spawn: ${end - start} ms`)
       } catch (error) {
         done(error);
       }

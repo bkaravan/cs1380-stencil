@@ -41,7 +41,7 @@ test('(1 pts) student test', () => {
 
   const end = performance.now();
 
-  console.log(`Execution time 1: ${(end - start) / 4.0} ms`);
+//  console.log(`Execution time 1: ${(end - start) / 4.0} ms`);
   times.push((end - start) / 4.0);
 
   expect(desX + desY).toEqual(8);
@@ -65,7 +65,7 @@ test('(1 pts) student test', () => {
 
   const end = performance.now();
 
-  console.log(`Execution time 2: ${end - start} ms`)
+//  console.log(`Execution time 2: ${end - start} ms`)
   times.push(end - start);
 
   expect(deserialized).toEqual(object);
@@ -86,7 +86,7 @@ test('(1 pts) student test', () => {
 
     const end = performance.now();
 
-    console.log(`Execution time 3: ${end - start} ms`)
+   // console.log(`Execution time 3: ${end - start} ms`)
     times.push(end - start);
 
     expect(deserialized.message).toEqual("Not implemented");
@@ -108,7 +108,7 @@ test('(1 pts) student test', () => {
 
   const end = performance.now();
 
-  console.log(`Execution time 4: ${end - start} ms`)
+ // console.log(`Execution time 4: ${end - start} ms`)
   times.push(end - start);
 
 
@@ -126,7 +126,7 @@ test('(1 pts) student test', () => {
 
   const end1 = performance.now();
 
-  console.log(`Execution time 5: ${end1 - start1} ms`)
+ // console.log(`Execution time 5: ${end1 - start1} ms`)
   times.push(end1 - start1);
 });
 

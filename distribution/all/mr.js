@@ -53,7 +53,12 @@ function mr(config) {
     const mapReduceService = {
         mapper: configuration.map,
         reducer: configuration.reduce,
-        
+        // extra credit fields
+        compact: configuration.compact || null,
+        out: configuration.out || null,
+        memory: configuration.memory || false,
+        rounds: configuration.rounds || 1,
+
         map: function(data, groupId, operationId, callback) {
             if (data.length == 0) {
                 callback(null, []);
@@ -65,11 +70,7 @@ function mr(config) {
                 data.forEach(item => {
                     global.distribution[groupId].store.get(item, (error, value) => {
                         if (error) {
-                            // console.log("PRINTINT ITEM\n")
-                            // console.log(item)
-                            // console.log("DONE")
-                            // console.log(error);
-                            // callback(error);
+                            callback(error);
                         } else {
                             processedCount++;
                             const mappedValue = this.mapper(item, value);
@@ -81,9 +82,15 @@ function mr(config) {
                             }
                             
                             if (processedCount == data.length) {
-                                global.distribution.local.store.put(mappedResults, operationId + '_map', (error, result) => {
-                                    callback(error, mappedResults);
-                              });
+                                let finalResults = mappedResults;
+                                // if compaction is defined, we run it here before
+                                // putting all of the mapped results into storage
+                                if (this.compact) {
+                                    finalResults = this.compact(item, mappedResults);
+                                }
+                                global.distribution.local.store.put(finalResults, operationId + '_map', (error, result) => {
+                                    callback(error, finalResults);
+                                });
                             }
                         }
                     });
@@ -113,7 +120,7 @@ function mr(config) {
                     });
                 } else {
                     console.log(error);
-                    callback(error, {});
+                    callback(error);
                 }
             });
         },
@@ -140,7 +147,16 @@ function mr(config) {
                         processedCount++;
                         
                         if (processedCount == keys.length) {
-                            callback(null, results);
+                            // at this point, we need to add stuff to our new group
+                            // if it is defined
+                            if (this.out) {
+                                // store under finalResult, we can retrieve in a test later
+                                global.distribution[this.out].store.put(results, 'finalResult', (e, v) => {
+                                    callback(null, results)
+                                })
+                            } else {
+                                callback(null, results);
+                            }
                         }
                     })
                 );
@@ -164,60 +180,80 @@ function mr(config) {
         return keyGroups;
     };
     
-
-    // first, send the service to everyone
-    routes(context).put(mapReduceService, 'mr-' + inputId, (e, v) => {
-        global.distribution.local.groups.get(context.gid, (e, nodes) => {
-            // get all of the ndoes and distribute the keys
-            const keyDistribution = distributeKeys(configuration.keys, nodes);
-            let completedNodes = 0;
-            const totalNodes = Object.keys(nodes).length;
-            const mapRequest = {
-                service: 'mr-' + inputId,
-                method: 'map'
-            };
-            
-            for (const nodeId in nodes) {
-              // console.log(nodeId);
-              // console.log('got here\n');
-              const mapParams = [keyDistribution[nodeId], context.gid, inputId];
-              
-              global.distribution.local.comm.send(mapParams, {
-                  node: nodes[nodeId],
-                  ...mapRequest
-              }, (error, mapResult) => {
-                  ++completedNodes;
-                  
-                  if (completedNodes == totalNodes) {
-                      const shuffleRequest = {
-                          service: 'mr-' + inputId,
-                          method: 'shuffle'
-                      };
-                      
-                      comm(context).send([context.gid, inputId], shuffleRequest, (error, shuffleResult) => {
-                          const reduceRequest = {
-                              service: 'mr-' + inputId,
-                              method: 'reduce'
-                          };
-                          
-                          comm(context).send([context.gid, inputId], reduceRequest, (error, reduceResults) => {
-                              let finalResults = [];
-                              
-                              for (const result of Object.values(reduceResults)) {
-                                  if (result !== null) {
-                                      finalResults = finalResults.concat(result);
-                                  }
-                              }
-                              
-                              cb(null, finalResults);
-                              return;
-                          });
-                      });
-                  }
-              });
-            }
+    // wrapped this in a function for an easier if/statement for 
+    // persisten distribution for EC2
+    function mapReduce() {
+        // first, send the service to everyone
+        routes(context).put(mapReduceService, 'mr-' + inputId, (e, v) => {
+            global.distribution.local.groups.get(context.gid, (e, nodes) => {
+                // get all of the ndoes and distribute the keys
+                const keyDistribution = distributeKeys(configuration.keys, nodes);
+                let completedNodes = 0;
+                const totalNodes = Object.keys(nodes).length;
+                const mapRequest = {
+                    service: 'mr-' + inputId,
+                    method: 'map'
+                };
+                
+                for (const nodeId in nodes) {
+                    // console.log(nodeId);
+                    // console.log('got here\n');
+                    const mapParams = [keyDistribution[nodeId], context.gid, inputId];
+                    
+                    global.distribution.local.comm.send(mapParams, {
+                        node: nodes[nodeId],
+                        ...mapRequest
+                    }, (error, mapResult) => {
+                        ++completedNodes;
+                        
+                        if (completedNodes == totalNodes) {
+                            const shuffleRequest = {
+                                service: 'mr-' + inputId,
+                                method: 'shuffle'
+                            };
+                            
+                            comm(context).send([context.gid, inputId], shuffleRequest, (error, shuffleResult) => {
+                                const reduceRequest = {
+                                    service: 'mr-' + inputId,
+                                    method: 'reduce'
+                                };
+                                
+                                comm(context).send([context.gid, inputId], reduceRequest, (error, reduceResults) => {
+                                    let finalResults = [];
+                                    
+                                    for (const result of Object.values(reduceResults)) {
+                                        if (result !== null) {
+                                            finalResults = finalResults.concat(result);
+                                        }
+                                    }
+                                    
+                                    cb(null, finalResults);
+                                    return;
+                                });
+                            });
+                        }
+                    });
+                }
+            });
         });
-    });
+    }
+
+    if (this.out) {
+        const outGroupConfig = {gid: this.out};
+        global.distribution.local.groups.get(context.gid, (e, nodes) => {
+            // nodes is every node we have 
+            // first, we will setup the output group. then, we call mapReduce
+            global.distribution.local.groups.put(outGroupConfig, nodes, (e, v) => {
+                global.distribution[this.out].groups.put(outGroupConfig, nodes, (e, v) => {
+                    mapReduce();
+                })
+            })
+        })
+
+    } else {
+        mapReduce();
+    }
+    
 }
 
   return {exec};
