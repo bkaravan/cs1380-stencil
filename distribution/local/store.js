@@ -40,10 +40,19 @@ function put(state, configuration, callback) {
 
   const toStore = global.distribution.util.serialize(state);
 
+  if (!fs.existsSync(basePath)) {
+    fs.mkdir(basePath, () => {
   // filename will need to become more sophisticated to store across groups
-  fs.writeFile(path.join(basePath, filename), toStore, (error) => {
-    callback(error, state);
-  })
+      fs.writeFile(path.join(basePath, filename), toStore, (error) => {
+        callback(error, state);
+      })
+    })
+  } else {
+    fs.writeFile(path.join(basePath, filename), toStore, (error) => {
+      callback(error, state);
+    })
+  }
+
 }
 
 function get(configuration, callback) {

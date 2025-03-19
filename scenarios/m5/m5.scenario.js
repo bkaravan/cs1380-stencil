@@ -161,7 +161,14 @@ test('(10 pts) (scenario) all.mr:dlib', (done) => {
       cntr++;
       // Once the dataset is in place, run the map reduce
       if (cntr === dataset.length) {
-        doMapReduce();
+        distribution.dlib.store.get(null, (e, v) => {
+          console.log("PRINTING DATASET")
+          v.forEach(key => distribution.dlib.store.get(key, (e,v) => {
+            console.log(v);
+          }))
+          console.log("DONE WITH DATASET")
+          doMapReduce();
+        })
       }
     });
   });

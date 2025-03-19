@@ -44,56 +44,13 @@ function mr(config) {
    * @param {Callback} cb
    * @return {void}
    */
-  // function exec(configuration, cb) {
-
-  //   if (!configuration.map || !configuration.reduce || !configuration.keys) {
-  //     cb(new Error("incomplete configuration for exec"));
-  //     return;
-  //   }
-    
-    
-  //   // step 1: create the mr-id service
-  //   const mrService = {};
-  //   mrService.mapper = configuration.map;
-  //   mrService.reducer = configuration.reduce;
-
-  //   const notify = (config, cb) => {
-  //     // some information probably?
-  //     return "I got notified";
-  //   }
-
-  //   mrService.notify = notify;
-
-
-  //   // how to make nodes execute on their end? 
-  //   // create a local mr file?
-
-  //   // step 2: send it to everyone (notify method?)
-  //   routes(context).put(mrService, "mr1", (e, v) => {
-  //     // we have put the service onto every node
-  //     const remote = {service: "routes", method: "get"};
-      
-  //     comm(context).send(["mr1"], remote, (e, v) => {
-  //       Object.keys(v).forEach(node => {
-  //         const service = v[node];
-  //         console.log(service.notify());
-  //       })
-  //       // console.log(v);
-  //       console.log('\n');
-  //       //console.log(v.notify()); 
-  //       cb(e, v);
-  //     });
-  //   })
-
-
-  //   // step 3: keep track of what is going on and send new messages
-  //   // step 4: aggregate results
-  // }
 
   function exec(configuration, cb) {
+    // get the hash of the input
     const inputId = id.getID(configuration);
     
-    const mapReduceOperations = {
+    // define the service
+    const mapReduceService = {
         mapper: configuration.map,
         reducer: configuration.reduce,
         
@@ -107,19 +64,27 @@ function mr(config) {
                 
                 data.forEach(item => {
                     global.distribution[groupId].store.get(item, (error, value) => {
-                        processedCount++;
-                        const mappedValue = this.mapper(item, value);
-                        
-                        if (Array.isArray(mappedValue)) {
-                            mappedResults.push(...mappedValue);
+                        if (error) {
+                            // console.log("PRINTINT ITEM\n")
+                            // console.log(item)
+                            // console.log("DONE")
+                            // console.log(error);
+                            // callback(error);
                         } else {
-                            mappedResults.push(mappedValue);
-                        }
-                        
-                        if (processedCount == data.length) {
-                            global.distribution.local.store.put(mappedResults, operationId + '_map', (error, result) => {
-                                callback(error, mappedResults);
-                          });
+                            processedCount++;
+                            const mappedValue = this.mapper(item, value);
+                            
+                            if (Array.isArray(mappedValue)) {
+                                mappedResults.push(...mappedValue);
+                            } else {
+                                mappedResults.push(mappedValue);
+                            }
+                            
+                            if (processedCount == data.length) {
+                                global.distribution.local.store.put(mappedResults, operationId + '_map', (error, result) => {
+                                    callback(error, mappedResults);
+                              });
+                            }
                         }
                     });
                 });
@@ -199,8 +164,11 @@ function mr(config) {
         return keyGroups;
     };
     
-    routes(context).put(mapReduceOperations, 'mr-' + inputId, (e, v) => {
+
+    // first, send the service to everyone
+    routes(context).put(mapReduceService, 'mr-' + inputId, (e, v) => {
         global.distribution.local.groups.get(context.gid, (e, nodes) => {
+            // get all of the ndoes and distribute the keys
             const keyDistribution = distributeKeys(configuration.keys, nodes);
             let completedNodes = 0;
             const totalNodes = Object.keys(nodes).length;
