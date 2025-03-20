@@ -287,9 +287,87 @@ test('(10 pts) (scenario) all.mr:tfidf', (done) => {
 //     done(new Error('Implement this test.'));
 // });
 
-// test('(10 pts) (scenario) all.mr:urlxtr', (done) => {
-//     done(new Error('Implement the map and reduce functions'));
-// });
+test('(10 pts) (scenario) all.mr:urlxtr', (done) => {
+      /*
+    Implement the map and reduce functions.
+    The map function should use JSDOM to parse the HTML content and extract all URLs.
+    The reduce function should create a URL index that shows which pages link to which other pages.
+  */
+
+  const mapper = (key, value) => {
+    // take the setup from non-distribution
+    const { JSDOM } = require('jsdom');
+    const dom = new JSDOM(value);
+    const document = dom.window.document;
+    const urls = [];
+    
+    const baseURL = `http://example.com/${key}`;
+    
+    document.querySelectorAll('a[href]').forEach((anchor) => {
+      const href = anchor.getAttribute('href');
+      const absURL = new URL(href, baseURL).href;
+      urls.push({[absURL]: {sourceDoc: key}});
+    });
+    
+    return urls;
+  };
+
+  const reducer = (key, values) => {
+    const sourceDocs = [];
+    
+    values.forEach(value => {
+      sourceDocs.push(value.sourceDoc);
+    });
+    
+    return {[key]: sourceDocs};
+  };
+
+  // Sample dataset with HTML pages containing links
+  const dataset = [
+    {'doc1': '<html><body><h1>Page 1</h1><p>Welcome to my page.</p><a href="/page2">Link to page 2</a></body></html>'},
+    {'doc2': '<html><body><h1>Page 2</h1><p>This is page 2.</p><a href="/page3">Link to page 3</a><a href="/page1">Back to page 1</a></body></html>'},
+    {'doc3': '<html><body><h1>Page 3</h1><p>Final page.</p><a href="/page2">Back to page 2</a></body></html>'}
+  ];
+
+  // Expected result after MapReduce - using absolute URLs
+  const expected = [
+    {'http://example.com/page2': ['doc1', 'doc3']},
+    {'http://example.com/page3': ['doc2']},
+    {'http://example.com/page1': ['doc2']}
+  ];
+
+  const doMapReduce = (cb) => {
+    distribution.urlxtrGroup.store.get(null, (e, v) => {
+      try {
+        expect(v.length).toBe(dataset.length);
+      } catch (e) {
+        done(e);
+      }
+
+      distribution.urlxtrGroup.mr.exec({keys: v, map: mapper, reduce: reducer}, (e, v) => {
+        try {
+          expect(v).toEqual(expect.arrayContaining(expected));
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+  };
+
+  let cntr = 0;
+
+  dataset.forEach((o) => {
+    const key = Object.keys(o)[0];
+    const value = o[key];
+    distribution.urlxtrGroup.store.put(value, key, (e, v) => {
+      cntr++;
+      if (cntr === dataset.length) {
+        doMapReduce();
+      }
+    });
+  });
+});
 
 // test('(10 pts) (scenario) all.mr:strmatch', (done) => {
 //     done(new Error('Implement the map and reduce functions'));
@@ -365,7 +443,12 @@ beforeAll((done) => {
               const tfidfConfig = {gid: 'tfidf'};
               distribution.local.groups.put(tfidfConfig, tfidfGroup, (e, v) => {
                 distribution.tfidf.groups.put(tfidfConfig, tfidfGroup, (e, v) => {
-                  done();
+                  const urlxtrGroupConfig = {gid: 'urlxtrGroup'};
+                  distribution.local.groups.put(urlxtrGroupConfig, urlxtrGroup, (e, v) => {
+                    distribution.tfidf.groups.put(urlxtrGroupConfig, urlxtrGroup, (e, v) => {
+                      done();
+                    });
+                  });
                 });
               });
             });

@@ -2,7 +2,6 @@
 const routes = require('./routes');
 const comm = require('./comm');
 const id = require('../util/id')
-const log = require('../util/log')
 
 
 /**
@@ -130,7 +129,7 @@ function mr(config) {
                             processedCount++;
                             if (processedCount == data.length) {
                                 // this data is just what the node processed, 
-                                // not actually 
+                                // not actually shuffled to node
                                 callback(null, data);
                             }
                         });
@@ -212,7 +211,7 @@ function mr(config) {
     
     // wrapped this in a function for an easier if/statement for 
     // persisten distribution for EC2
-    function mapReduce() {
+    function mapReduce(callback) {
         // first, send the service to everyone
         routes(context).put(mapReduceService, 'mr-' + inputId, (e, v) => {
             global.distribution.local.groups.get(context.gid, (e, nodes) => {
@@ -245,7 +244,6 @@ function mr(config) {
                                     service: 'mr-' + inputId,
                                     method: 'reduce'
                                 };
-
                                 
                                 comm(context).send([context.gid, inputId], reduceRequest, (error, reduceResults) => {
                                     let finalResults = [];
@@ -259,7 +257,7 @@ function mr(config) {
                                         }
                                     }
                                     
-                                    cb(null, finalResults);
+                                    callback(null, finalResults);
                                     return;
                                 });
                             });
@@ -270,6 +268,47 @@ function mr(config) {
         });
     }
 
+    let localCnt = 0;
+    function startMR(cnt, rounds) {
+        mapReduce((e, v) => {
+            const mrResults = v;
+            cnt++
+            if (cnt === rounds) {
+                cb(e, mrResults)
+            } else {
+                // probably need to reset the data here, but otherwise should (?)
+                // the only problem with this step is that in case out is specified, then 
+                // it would contain every intermediate result
+                let storage = global.distribution[context.gid].store;
+                if (mapReduceService.memory) {
+                    storage = global.distribution[context.gid].mem;
+                }
+                storage.get(null, (e, keys) => {
+                    let keyCount = 0;
+                    keys.forEach(key => {
+                        storage.del(key, (e, v) => {
+                            keyCount++;
+                            if (keyCount === keys.length) {
+                                // we are done removing, now put new data
+                                let newKeyCount = 0;
+                                Object.keys(mrResults).forEach(newKey => {
+                                    const val = mrResults[newKey]
+                                    storage.put(val, newKey, (e, v) => {
+                                        newKeyCount++;
+                                        if (newKeyCount === mrResults.length) {
+                                            // start the new round of MR
+                                            startMR(cnt, rounds)
+                                        }
+                                    })
+                                })
+                            }
+                        })
+                    })
+                })
+            }
+        })
+    }
+
     if (configuration.out) {
         const outGroupConfig = {gid: configuration.out};
         global.distribution.local.groups.get(context.gid, (e, nodes) => {
@@ -277,13 +316,15 @@ function mr(config) {
             // first, we will setup the output group. then, we call mapReduce
             global.distribution.local.groups.put(outGroupConfig, nodes, (e, v) => {
                 global.distribution[configuration.out].groups.put(outGroupConfig, nodes, (e, v) => {
-                    mapReduce();
+                    startMR(localCnt, mapReduceService.rounds)
                 })
             })
         })
-    } else {
-        mapReduce();
+    } 
+    else {
+        startMR(localCnt, mapReduceService.rounds)
     }
+    
     
 }
 
