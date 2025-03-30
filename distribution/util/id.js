@@ -55,9 +55,9 @@ function naiveHash(kid, nids) {
 }
 
 function consistentHash(kid, nids) {
-  const ring = []
-  const backMap = {}
-  nids.forEach(nid => {
+  const ring = [];
+  const backMap = {};
+  nids.forEach((nid) => {
     const currId = idToNum(nid);
     ring.push(currId);
     backMap[currId] = nid;
@@ -78,15 +78,15 @@ function consistentHash(kid, nids) {
 
 
 function rendezvousHash(kid, nids) {
-  const rendezvousIds = []
-  const backMap = {}
+  const rendezvousIds = [];
+  const backMap = {};
 
-  nids.forEach(nid => {
+  nids.forEach((nid) => {
     const concat = kid + nid;
     const concatId = idToNum(getID(concat));
     backMap[concatId] = nid;
     rendezvousIds.push(concatId);
-  })
+  });
 
   rendezvousIds.sort((a, b) => a - b);
 

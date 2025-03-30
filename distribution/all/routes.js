@@ -11,11 +11,11 @@ function routes(config) {
    * @param {Callback} callback
    */
   function put(service, name, callback = () => { }) {
-    const remote = {service: "routes", method: "put"};
-      // needs individual?
-      comm(context).send([service, name], remote, (e, v) => {
-        callback(e, v);
-      })
+    const remote = {service: 'routes', method: 'put'};
+    // needs individual?
+    comm(context).send([service, name], remote, (e, v) => {
+      callback(e, v);
+    });
   }
 
   /**

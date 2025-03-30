@@ -95,12 +95,12 @@ test('(10 pts) (scenario) all.mr:dlib', (done) => {
 */
 
   const mapper = (key, value) => {
-    const out = []
-    value.split(" ").forEach(word => {
-      let x = {};
+    const out = [];
+    value.split(' ').forEach((word) => {
+      const x = {};
       x[word] = 1;
       out.push(x);
-    })
+    });
     return out;
   };
 
@@ -162,13 +162,13 @@ test('(10 pts) (scenario) all.mr:dlib', (done) => {
       // Once the dataset is in place, run the map reduce
       if (cntr === dataset.length) {
         distribution.dlib.store.get(null, (e, v) => {
-          console.log("PRINTING DATASET")
-          v.forEach(key => distribution.dlib.store.get(key, (e,v) => {
+          console.log('PRINTING DATASET');
+          v.forEach((key) => distribution.dlib.store.get(key, (e, v) => {
             console.log(v);
-          }))
-          console.log("DONE WITH DATASET")
+          }));
+          console.log('DONE WITH DATASET');
           doMapReduce();
-        })
+        });
       }
     });
   });
@@ -187,26 +187,26 @@ test('(10 pts) (scenario) all.mr:tfidf', (done) => {
 */
 
   const mapper = (key, value) => {
-    const out = []
-    const words = value.split(" ");
-    words.forEach(word => {
+    const out = [];
+    const words = value.split(' ');
+    words.forEach((word) => {
       out.push({[word]: {document: key, count: 1, total: words.length}});
-    })
+    });
 
     return out;
   };
 
   // Reduce function: calculate TF-IDF for each word
   const reducer = (key, values) => {
-    const docStats = {}
-    
-    values.forEach(value => {
+    const docStats = {};
+
+    values.forEach((value) => {
       const doc = value.document;
       if (!docStats[doc]) {
-        docStats[doc] = {count: 0, total: value.total}
+        docStats[doc] = {count: 0, total: value.total};
       }
       docStats[doc].count += value.count;
-    }) 
+    });
 
     const totalDocs = 3;
     const containingDocs = Object.keys(docStats).length;
@@ -215,14 +215,14 @@ test('(10 pts) (scenario) all.mr:tfidf', (done) => {
 
     const tfIdf = {};
 
-    Object.keys(docStats).forEach(doc => {
+    Object.keys(docStats).forEach((doc) => {
       const stats = docStats[doc];
       const tf = stats.count / stats.total;
       const result = tf * idf;
       tfIdf[doc] = parseFloat(result.toFixed(2));
-    })
+    });
 
-    return {[key] : tfIdf};
+    return {[key]: tfIdf};
   };
 
   const dataset = [
@@ -288,52 +288,49 @@ test('(10 pts) (scenario) all.mr:tfidf', (done) => {
 // });
 
 test('(10 pts) (scenario) all.mr:urlxtr', (done) => {
-      /*
+  /*
     Implement the map and reduce functions.
     The map function should use JSDOM to parse the HTML content and extract all URLs.
     The reduce function should create a URL index that shows which pages link to which other pages.
   */
 
   const mapper = (key, value) => {
-    // take the setup from non-distribution
-    const { JSDOM } = require('jsdom');
-    const dom = new JSDOM(value);
-    const document = dom.window.document;
+    // Extract URLs from HTML content
+
+    // JSDOM is not found in the library so using regex instead
+    const urlRegex = /<a\s+(?:[^>]*?\s+)?href="([^"]*)"[^>]*>/g;
     const urls = [];
-    
-    const baseURL = `http://example.com/${key}`;
-    
-    document.querySelectorAll('a[href]').forEach((anchor) => {
-      const href = anchor.getAttribute('href');
-      const absURL = new URL(href, baseURL).href;
-      urls.push({[absURL]: {sourceDoc: key}});
-    });
-    
+    let match;
+
+    while ((match = urlRegex.exec(value)) !== null) {
+      // key is the document ID, match[1] is the extracted URL
+      urls.push({[match[1]]: {sourceDoc: key}});
+    }
+
     return urls;
   };
 
   const reducer = (key, values) => {
+    // key is the URL, values are documents that link to this URL
     const sourceDocs = [];
-    
-    values.forEach(value => {
+
+    values.forEach((value) => {
       sourceDocs.push(value.sourceDoc);
     });
-    
+
     return {[key]: sourceDocs};
   };
 
-  // Sample dataset with HTML pages containing links
   const dataset = [
-    {'doc1': '<html><body><h1>Page 1</h1><p>Welcome to my page.</p><a href="/page2">Link to page 2</a></body></html>'},
-    {'doc2': '<html><body><h1>Page 2</h1><p>This is page 2.</p><a href="/page3">Link to page 3</a><a href="/page1">Back to page 1</a></body></html>'},
-    {'doc3': '<html><body><h1>Page 3</h1><p>Final page.</p><a href="/page2">Back to page 2</a></body></html>'}
+    {'doc1': '<html><body><h1>Page 1</h1><p>Welcome to my page.</p><a href="url2">Link to page 2</a></body></html>'},
+    {'doc2': '<html><body><h1>Page 2</h1><p>This is page 2.</p><a href="url3">Link to page 3</a><a href="url1">Back to page 1</a></body></html>'},
+    {'doc3': '<html><body><h1>Page 3</h1><p>Final page.</p><a href="url2">Back to page 2</a></body></html>'},
   ];
 
-  // Expected result after MapReduce - using absolute URLs
   const expected = [
-    {'http://example.com/page2': ['doc1', 'doc3']},
-    {'http://example.com/page3': ['doc2']},
-    {'http://example.com/page1': ['doc2']}
+    {'url2': ['doc1', 'doc3']},
+    {'url3': ['doc2']},
+    {'url1': ['doc2']},
   ];
 
   const doMapReduce = (cb) => {

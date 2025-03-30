@@ -24,13 +24,12 @@ function comm(config) {
    * @param {Callback} callback
    */
   function send(message, configuration, callback) {
-
     // enforce all three
     if (arguments.length < 3) {
-      if (typeof message === "function") {
-          message(new Error("not enough arguments, need message, remote, callback"), null);
+      if (typeof message === 'function') {
+        message(new Error('not enough arguments, need message, remote, callback'), null);
       } else {
-          remote(new Error("not enough arguments, need message, remote, callback"), null);
+        remote(new Error('not enough arguments, need message, remote, callback'), null);
       }
       return;
     }
@@ -49,7 +48,7 @@ function comm(config) {
       }
       let remainingNodes = Object.keys(v).length;
 
-      Object.keys(v).forEach(sid => {
+      Object.keys(v).forEach((sid) => {
         const node = v[sid];
         configuration.node = node;
         commLocal.send(message, configuration, (e, v) => {

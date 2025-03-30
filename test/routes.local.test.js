@@ -105,7 +105,7 @@ test('(3 pts) comm: routes.get()', (done) => {
     local.comm.send(message, remote, (e, v) => {
       try {
         expect(e).toBeFalsy();
-        //console.log(v);
+        // console.log(v);
         expect(v).toBeDefined();
         done();
       } catch (error) {

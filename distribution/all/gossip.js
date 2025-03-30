@@ -1,4 +1,4 @@
- const gossip = function(config) {
+const gossip = function(config) {
   const context = {};
   context.gid = config.gid || 'all';
   context.subset = config.subset || function(lst) {
@@ -9,7 +9,6 @@
     send: (payload, remote, callback) => {
       callback = callback || function() {};
       global.distribution.local.groups.get(context.gid, (e, v) => {
-
         // apply the function to nodes in our group
         const targetSize = context.subset(Object.keys(v));
         const selectedNodes = new Set();
@@ -23,12 +22,12 @@
           selectedNodes.add(Object.keys(v)[index]);
         }
 
-        const errors = {}
-        const values = {}
+        const errors = {};
+        const values = {};
         let counter = targetSize;
-        
+
         // do we need to take care of already established ones?
-        let metaMessage = {}
+        let metaMessage = {};
 
         if (!payload.gid || !payload.mid) {
           metaMessage.message = payload;
@@ -45,17 +44,15 @@
           // console.log('\n');
           const node = v[sid];
           const nodeRecv = {
-            "node" : node,
-            'service' : "gossip",
-            "method" : "recv",
-          }
+            'node': node,
+            'service': 'gossip',
+            'method': 'recv',
+          };
 
           global.distribution.local.comm.send([metaMessage], nodeRecv, (e, v) => {
-
             if (e) {
               errors[sid] = e;
-            }
-            else {
+            } else {
               values[sid] = v;
             }
 
@@ -63,9 +60,9 @@
             if (counter === 0) {
               callback(errors, values);
             }
-          })
+          });
         }
-      })
+      });
     },
 
     at: (period, func, callback) => {

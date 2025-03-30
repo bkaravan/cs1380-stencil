@@ -9,23 +9,23 @@
 const util = require('@brown-ds/distribution/distribution/util/util.js');
 const distribution = require('../../config.js');
 
-const { performance } = require('perf_hooks');
+const {performance} = require('perf_hooks');
 
 const times = [];
 
 test('(1 pts) student test', () => {
   // Fill out this test case..
-  //console.log(util.deserialize(string))
+  // console.log(util.deserialize(string))
 });
 
 test('(1 pts) student test', () => {
   // Fill out this test case...
-  
+
   // testing some basic types
   const x = 3;
   const y = 5;
   const a = true;
-  const st = "some string";
+  const st = 'some string';
 
   const start = performance.now();
 
@@ -41,12 +41,12 @@ test('(1 pts) student test', () => {
 
   const end = performance.now();
 
-//  console.log(`Execution time 1: ${(end - start) / 4.0} ms`);
+  //  console.log(`Execution time 1: ${(end - start) / 4.0} ms`);
   times.push((end - start) / 4.0);
 
   expect(desX + desY).toEqual(8);
   expect(desA).toEqual(true);
-  expect(desStr).toEqual("some string");
+  expect(desStr).toEqual('some string');
 });
 
 
@@ -54,7 +54,7 @@ test('(1 pts) student test', () => {
   // Fill out this test case...
 
   // testing some nested objects
-  const y = {one: 1, two : "two"}
+  const y = {one: 1, two: 'two'};
   const x = {a: y, b: 2, c: 3};
   const object = {a: x, b: y, c: 1};
 
@@ -65,7 +65,7 @@ test('(1 pts) student test', () => {
 
   const end = performance.now();
 
-//  console.log(`Execution time 2: ${end - start} ms`)
+  //  console.log(`Execution time 2: ${end - start} ms`)
   times.push(end - start);
 
   expect(deserialized).toEqual(object);
@@ -76,23 +76,23 @@ test('(1 pts) student test', () => {
   // Fill out this test case...
 
   // testing error and date
-    const err = new Error('Not implemented');
-    const date = new Date();
+  const err = new Error('Not implemented');
+  const date = new Date();
 
-    const start = performance.now();
+  const start = performance.now();
 
-    const serialized = util.serialize(err);
-    const deserialized = util.deserialize(serialized);
+  const serialized = util.serialize(err);
+  const deserialized = util.deserialize(serialized);
 
-    const end = performance.now();
+  const end = performance.now();
 
-   // console.log(`Execution time 3: ${end - start} ms`)
-    times.push(end - start);
+  // console.log(`Execution time 3: ${end - start} ms`)
+  times.push(end - start);
 
-    expect(deserialized.message).toEqual("Not implemented");
+  expect(deserialized.message).toEqual('Not implemented');
 
-    const serializedDate = util.serialize(date);
-    expect(date.toString()).toEqual(util.deserialize(serializedDate).toString());
+  const serializedDate = util.serialize(date);
+  expect(date.toString()).toEqual(util.deserialize(serializedDate).toString());
 });
 
 test('(1 pts) student test', () => {
@@ -108,13 +108,15 @@ test('(1 pts) student test', () => {
 
   const end = performance.now();
 
- // console.log(`Execution time 4: ${end - start} ms`)
+  // console.log(`Execution time 4: ${end - start} ms`)
   times.push(end - start);
 
 
   expect(deserialized).toBe(process.abort);
-  
-  const f = function(a, b) {return a * b;};
+
+  const f = function(a, b) {
+    return a * b;
+  };
   const original = [f];
   const serializedF = util.serialize(original);
   const deserializedF = util.deserialize(serializedF);
@@ -126,14 +128,14 @@ test('(1 pts) student test', () => {
 
   const end1 = performance.now();
 
- // console.log(`Execution time 5: ${end1 - start1} ms`)
+  // console.log(`Execution time 5: ${end1 - start1} ms`)
   times.push(end1 - start1);
 });
 
 test('(1 pts) student test', () => {
   // Fill out this test case...
   // testing circular references
-  const original = {a : 1, b : 2, c : [1]};
+  const original = {a: 1, b: 2, c: [1]};
   original.self = original;
   original.self2 = original;
 
@@ -144,7 +146,7 @@ test('(1 pts) student test', () => {
 
   const end = performance.now();
 
-  console.log(`Execution time 6: ${end - start} ms`)
+  console.log(`Execution time 6: ${end - start} ms`);
   times.push(end - start);
   expect(deserialized).toEqual(original);
 

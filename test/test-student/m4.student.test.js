@@ -8,7 +8,7 @@
 
 const distribution = require('../../config.js');
 const id = distribution.util.id;
-const { performance } = require('perf_hooks');
+const {performance} = require('perf_hooks');
 
 function makeid(length) {
   let result = '';
@@ -162,7 +162,7 @@ test('(1 pts) student test', (done) => {
       } catch (error) {
         done(error);
       }
-    })
+    });
   });
 });
 
@@ -188,7 +188,7 @@ test('(1 pts) student test', (done) => {
       } catch (error) {
         done(error);
       }
-    })
+    });
   });
 });
 
@@ -204,7 +204,7 @@ test('(1 pts) student test', (done) => {
     'nier',
     'nine sols',
     'ghost of tsushima',
-    'god of war'
+    'god of war',
   ];
 
   distribution.mygroup.mem.put(users[0], keys[0], (e, v) => {
@@ -245,7 +245,7 @@ test('(1 pts) student test', (done) => {
               return;
             }
           });
-        })
+        });
       });
     });
   });

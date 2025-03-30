@@ -16,7 +16,7 @@ function createRPC(func) {
   // put func to a map with some id/name
   const funcName = id.getID(ser.serialize(func));
   global.toLocalMap.set(funcName, {call: func});
-  
+
   // send this to whoever asked
   const stub = `
     let cb = args.pop() || function() {};

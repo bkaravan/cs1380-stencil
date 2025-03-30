@@ -2,7 +2,7 @@ const http = require('http');
 const url = require('url');
 const log = require('../util/log');
 const util = require('../util/util');
-const routes = require('../local/routes')
+const routes = require('../local/routes');
 
 /*
     The start function will be called to start your node.
@@ -17,14 +17,14 @@ const start = function(callback) {
     // Write some code...
 
 
-    if (req.method !== "PUT") {
+    if (req.method !== 'PUT') {
       res.writeHead(500);
       res.end(util.serialize(new Error('Expecting only PUT requests')));
     }
 
     // update the counter on any put request
 
-    /*w
+    /* w
       The path of the http request will determine the service to be used.
       The url will have the form: http://node_ip:node_port/service/method
     */
@@ -36,8 +36,8 @@ const start = function(callback) {
       res.writeHead(500);
       res.end(util.serialize(new Error(`Invalid request. Expected format: /gid/service/method`)));
     }
-    const gid = pathParts[0]
-    const service = pathParts[1]; 
+    const gid = pathParts[0];
+    const service = pathParts[1];
     const method = pathParts[2];
 
 
@@ -58,14 +58,13 @@ const start = function(callback) {
 
     // Write some code...
 
-    let body = "";
+    let body = '';
 
     req.on('data', (chunk) => {
       body += chunk.toString();
     });
 
     req.on('end', () => {
-
       /* Here, you can handle the service requests.
       Use the local routes service to get the service you need to call.
       You need to call the service with the method and arguments provided in the request.
@@ -74,7 +73,7 @@ const start = function(callback) {
 
       // Write some code...
       try {
-        const getConfig = {"service" : service, "gid" : gid}
+        const getConfig = {'service': service, 'gid': gid};
         des = util.deserialize(body);
         routes.get(getConfig, (e, v) => {
           // what to do with method??
@@ -96,7 +95,6 @@ const start = function(callback) {
                 }
               });
             }
-
           }
         });
       } catch (e) {

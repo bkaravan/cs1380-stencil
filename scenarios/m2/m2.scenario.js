@@ -29,27 +29,27 @@ test('(2 pts) (scenario) collect errors and successful results', (done) => {
 
   // Sample service
   const appleDeliveryService = (callback) => {
-    callback(false, "good apples");
+    callback(false, 'good apples');
   };
 
   const pineappleDeliveryService = (callback) => {
     // ...
-    callback(new Error("bad pineapples"), "good pineapples");
+    callback(new Error('bad pineapples'), 'good pineapples');
   };
 
   const bananaDeliveryService = (callback) => {
-    callback(false, "good bananas");
+    callback(false, 'good bananas');
     // ...
   };
 
   const peachDeliveryService = (callback) => {
     // ..
-    callback(false, "good peaches");
+    callback(false, 'good peaches');
   };
 
   const mangoDeliveryService = (callback) => {
     // ...
-    callback(new Error("bad mangoes", ""))
+    callback(new Error('bad mangoes', ''));
   };
 
   const services = [
@@ -102,7 +102,7 @@ test('(5 pts) (scenario) use rpc', (done) => {
 
   const node = {ip: '127.0.0.1', port: 9009};
 
-  let addOneRPC = distribution.util.wire.createRPC(distribution.util.wire.toAsync(addOne));
+  const addOneRPC = distribution.util.wire.createRPC(distribution.util.wire.toAsync(addOne));
 
   const rpcService = {
     addOne: addOneRPC,

@@ -81,8 +81,8 @@ const compare = (a, b) => {
 
 // sorting for tf at the end
 const compareTf = (a, b) => {
-  aFreq = Number(a.split(" ")[1])
-  bFreq = Number(b.split(" ")[1])
+  aFreq = Number(a.split(' ')[1]);
+  bFreq = Number(b.split(' ')[1]);
   if (aFreq > bFreq) {
     return -1;
   } else if (aFreq < bFreq) {
@@ -103,8 +103,8 @@ function processDocument(data, url) {
   const stemmer = natural.PorterStemmer;
   // stemming and filtering
   const filteredWords = processedWords.split('\n').filter((word) => word && !stopSet.has(word)).map((word) => stemmer.stem(word));
-  
-  //console.log(filteredWords.length);
+
+  // console.log(filteredWords.length);
 
   // update one ds
   urlToTotalWords[url] = filteredWords.length;
@@ -368,14 +368,14 @@ async function main() {
   // FOR TESTING: limiting the corpus to level one so that we can manually compute
   // some tf-idf
   // to run on the whole corpus, comment out these lines
-  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html");
-  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html");
-  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html");
-  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html");
-  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html");
-  crawler.addBannedUrl("https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html");
+  crawler.addBannedUrl('https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/index.html');
+  crawler.addBannedUrl('https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/index.html');
+  crawler.addBannedUrl('https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_3/index.html');
+  crawler.addBannedUrl('https://cs.brown.edu/courses/csci1380/sandbox/1/level_1b/fact_4/index.html');
+  crawler.addBannedUrl('https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_5/index.html');
+  crawler.addBannedUrl('https://cs.brown.edu/courses/csci1380/sandbox/1/level_1c/fact_6/index.html');
 
-  // this way, corpus is 4 documents: 
+  // this way, corpus is 4 documents:
   // entry url
   // level_1a
   // level_1a/level_2a
@@ -389,7 +389,7 @@ async function main() {
   // doc 2:
   // tf: 8 / 72 = 0.(1), idf = log(4/2) = 0.3, tf-idf = 0.(1) * 0.3 = 0.0334
 
-  // which is exactly what we will see in the output file! 
+  // which is exactly what we will see in the output file!
   // we sort terms by tf-idf and can use different query logic now, if needed
 
   await crawler.run().catch(console.error);
