@@ -11,6 +11,8 @@ const strmatchGroup = {};
 const ridxGroup = {};
 const rlgGroup = {};
 
+const {performance} = require('perf_hooks');
+
 
 /*
     The local node will be the orchestrator.
@@ -248,8 +250,11 @@ test('(10 pts) (scenario) all.mr:tfidf', (done) => {
         done(e);
       }
 
+      const start = performance.now();
       distribution.tfidf.mr.exec({keys: v, map: mapper, reduce: reducer}, (e, v) => {
+        const end = performance.now();
         try {
+          // console.log(`Execution time: ${end - start} ms`)
           expect(v).toEqual(expect.arrayContaining(expected));
           done();
         } catch (e) {

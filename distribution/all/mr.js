@@ -95,8 +95,11 @@ function mr(config) {
                   let finalResults = mappedResults;
                   // if compaction is defined, we run it here before
                   // putting all of the mapped results into storage
+                  // console.log(finalResults);
                   if (this.compact) {
                     finalResults = this.compact(item, mappedResults);
+                    // console.log(finalResults);
+                    // console.log('\n');
                   }
                   let localStorage = global.distribution.local.store;
                   if (this.memory) {
@@ -234,7 +237,7 @@ function mr(config) {
               node: nodes[nodeId],
               ...mapRequest,
             }, (error, mapResult) => {
-                console.log(error);
+                // console.log(error);
               ++completedNodes;
 
               if (completedNodes == totalNodes) {
@@ -244,14 +247,14 @@ function mr(config) {
                 };
 
                 comm(context).send([context.gid, inputId], shuffleRequest, (error, shuffleResult) => {
-                    console.log(error);
+                    // console.log(error);
                   const reduceRequest = {
                     service: 'mr-' + inputId,
                     method: 'reduce',
                   };
 
                   comm(context).send([context.gid, inputId], reduceRequest, (error, reduceResults) => {
-                    console.log(error);
+                    // console.log(error);
                     let finalResults = [];
 
                     // console.log(error);
@@ -289,14 +292,13 @@ function mr(config) {
             storage = global.distribution[context.gid].mem;
           }
           let keyCount = 0;
-          console.log('here\n');
           configuration.keys.forEach(key => {
             storage.del(key, (e, v) => {
               keyCount++;
               if (keyCount === configuration.keys.length) {
                 // we are done removing, now put new data
                 let newKeyCount = 0;
-                console.log(mrResults);
+                // console.log(mrResults);
                 const newKeys = []
                 mrResults.forEach(res => {
                   Object.keys(res).forEach(miniKey => {

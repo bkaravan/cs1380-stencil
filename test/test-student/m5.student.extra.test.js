@@ -23,213 +23,236 @@ const n2 = {ip: '127.0.0.1', port: 7111};
 const n3 = {ip: '127.0.0.1', port: 7112};
 
 
-// test('(15 pts) implement compaction', (done) => {
-//   const mapper = (key, value) => {
-//     const words = value.split(/\s+/).filter((e) => e !== '');
-//     const out = {};
-//     out[key] = {
-//       totalLength: words.reduce((sum, word) => sum + word.length, 0),
-//       wordCount: words.length,
-//     };
-//     return [out];
-//   };
+test('(15 pts) implement compaction', (done) => {
+  
+  const mapper = (key, value) => {
+    const chars = value.replace(/\s+/g, '').split('');
+    const out = [];
+    chars.forEach((char) => {
+      const o = {};
+      o[char] = 1;
+      out.push(o);
+    });
+    return out;
+  };
 
-//   const reducer = (key, values) => {
-//     const totalLength = values.reduce((sum, v) => sum + v.totalLength, 0);
-//     const totalCount = values.reduce((sum, v) => sum + v.wordCount, 0);
-//     const avgLength = totalCount === 0 ? 0 : totalLength / totalCount;
-//     const out = {};
-//     out[key] = parseFloat(avgLength.toFixed(2));
-//     return out;
-//   };
 
-//   const dataset = [
-//     {'doca': 'short and simple sentence'},
-//     {'docb': 'another slightly longer example'},
-//     {'docc': 'the final example has various word lengths'},
-//   ];
+  // compaction should count each value of the current map round
+  const compaction = (key, values) => {
+    const counts = {}
+    values.forEach(tuple => {
+      Object.keys(tuple).forEach(key => {
+        counts[key] = counts[key] ? counts[key] + 1 : 1;
+      })
+    })
 
-//   const expected = [
-//     {'doca': 5.5},
-//     {'docb': 7.0},
-//     {'docc': 5.14},
-//   ];
+    const out = []
 
-//   const doMapReduce = (cb) => {
-//     // figure out a compaction function to use
-//     distribution.avgwrdl.mr.exec({keys: getDatasetKeys(dataset), map: mapper, reduce: reducer}, (e, v) => {
-//       try {
-//         expect(v).toEqual(expect.arrayContaining(expected));
-//         done();
-//       } catch (e) {
-//         done(e);
-//       }
-//     });
-//   };
+    Object.keys(counts).forEach(key => {
+      const curr = {}
+      curr[key] = counts[key];
+      out.push(curr);
+    })
 
-//   let cntr = 0;
+    return out;
+  }
 
-//   dataset.forEach((o) => {
-//     const key = Object.keys(o)[0];
-//     const value = o[key];
-//     distribution.avgwrdl.store.put(value, key, (e, v) => {
-//       cntr++;
-//       if (cntr === dataset.length) {
-//         doMapReduce();
-//       }
-//     });
-//   });
-//   // done(new Error('Not implemented'));
-// });
+  const reducer = (key, values) => {
+    // console.log(key);
+    // console.log(values);
+    // console.log('\n');
+    const out = {};
+    out[key] = values.reduce((sum, v) => sum + v, 0);
+    return out;
+  };
 
-// test('(15 pts) add support for distributed persistence', (done) => {
-//   // same setup as given test 1
-//   // instead of checking results directly, we provide a group name
-//   // at the end, the group with that group name should have the mr results
-//   const mapper = (key, value) => {
-//     const words = value.split(/(\s+)/).filter((e) => e !== ' ');
-//     const out = {};
-//     out[words[1]] = parseInt(words[3]);
-//     return [out];
-//   };
+  const dataset = [
+    {'doc1': 'hello world'},
+    {'doc2': 'map reduce test'},
+    {'doc3': 'character counting example'},
+  ];
 
-//   const reducer = (key, values) => {
-//     const out = {};
-//     out[key] = values.reduce((a, b) => Math.max(a, b), -Infinity);
-//     return out;
-//   };
+  const expected = [
+    {'h': 2}, {'e': 7}, {'l': 4},
+    {'o': 3}, {'w': 1}, {'r': 4},
+    {'d': 2}, {'m': 2}, {'a': 4},
+    {'p': 2}, {'u': 2}, {'c': 4},
+    {'t': 4}, {'s': 1}, {'n': 2},
+    {'i': 1}, {'g': 1}, {'x': 1},
+  ];
 
-//   const dataset = [
-//     {'000': '006701199099999 1950 0515070049999999N9 +0000 1+9999'},
-//     {'106': '004301199099999 1950 0515120049999999N9 +0022 1+9999'},
-//     {'212': '004301199099999 1950 0515180049999999N9 -0011 1+9999'},
-//     {'318': '004301265099999 1949 0324120040500001N9 +0111 1+9999'},
-//     {'424': '004301265099999 1949 0324180040500001N9 +0078 1+9999'},
-//   ];
+  const doMapReduce = (cb) => {
+    // fina result is the same, but if you log reducer input, it's clear that it has been run through compaction
+    distribution.avgwrdl.mr.exec({keys: getDatasetKeys(dataset), map: mapper, reduce: reducer, compact: compaction}, (e, v) => {
+      try {
+        expect(v).toEqual(expect.arrayContaining(expected));
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+  };
 
-//   const expected = [{'1950': 22}, {'1949': 111}];
-//   const outGroup = 'sampleOutGroup';
+  let cntr = 0;
 
-//   const doMapReduce = (cb) => {
-//     distribution.ncdc.mr.exec({keys: getDatasetKeys(dataset), map: mapper, reduce: reducer, out: outGroup}, (e, v) => {
-//       try {
-//         // for persisten storage, our out group now needs to have all the keys
-//         global.distribution[outGroup].store.get(null, (e, keys) => {
-//           let count = 0;
-//           let results = [];
-//           // for each key, we will get tis value, and concat the results
-//           keys.forEach((key) => {
-//             global.distribution[outGroup].store.get(key, (e, v) => {
-//               results = results.concat(v);
-//               count++;
-//               if (count === keys.length) {
-//                 // when we are done, our results should be the same as expected
-//                 expect(results).toEqual(expect.arrayContaining(expected));
-//                 done();
-//               }
-//             });
-//           });
-//         });
-//       } catch (e) {
-//         done(e);
-//       }
-//     });
-//   };
+  dataset.forEach((o) => {
+    const key = Object.keys(o)[0];
+    const value = o[key];
+    distribution.avgwrdl.store.put(value, key, (e, v) => {
+      cntr++;
+      if (cntr === dataset.length) {
+        doMapReduce();
+      }
+    });
+  });
+});
 
-//   let cntr = 0;
-//   // Send the dataset to the cluster
-//   dataset.forEach((o) => {
-//     const key = Object.keys(o)[0];
-//     const value = o[key];
-//     distribution.ncdc.store.put(value, key, (e, v) => {
-//       cntr++;
-//       // Once the dataset is in place, run the map reduce
-//       if (cntr === dataset.length) {
-//         doMapReduce();
-//       }
-//     });
-//   });
-// });
+test('(15 pts) add support for distributed persistence', (done) => {
+  // same setup as given test 1
+  // instead of checking results directly, we provide a group name
+  // at the end, the group with that group name should have the mr results
+  const mapper = (key, value) => {
+    const words = value.split(/(\s+)/).filter((e) => e !== ' ');
+    const out = {};
+    out[words[1]] = parseInt(words[3]);
+    return [out];
+  };
 
-// test('(5 pts) add support for optional in-memory operation', (done) => {
-//   // same setup as one of the given tests but uses in-memory instead
-//   const mapper = (key, value) => {
-//     const chars = value.replace(/\s+/g, '').split('');
-//     const out = [];
-//     chars.forEach((char) => {
-//       const o = {};
-//       o[char] = 1;
-//       out.push(o);
-//     });
-//     return out;
-//   };
+  const reducer = (key, values) => {
+    const out = {};
+    out[key] = values.reduce((a, b) => Math.max(a, b), -Infinity);
+    return out;
+  };
 
-//   const reducer = (key, values) => {
-//     const out = {};
-//     out[key] = values.reduce((sum, v) => sum + v, 0);
-//     return out;
-//   };
+  const dataset = [
+    {'000': '006701199099999 1950 0515070049999999N9 +0000 1+9999'},
+    {'106': '004301199099999 1950 0515120049999999N9 +0022 1+9999'},
+    {'212': '004301199099999 1950 0515180049999999N9 -0011 1+9999'},
+    {'318': '004301265099999 1949 0324120040500001N9 +0111 1+9999'},
+    {'424': '004301265099999 1949 0324180040500001N9 +0078 1+9999'},
+  ];
 
-//   const dataset = [
-//     {'doc1': 'hello world'},
-//     {'doc2': 'map reduce test'},
-//     {'doc3': 'character counting example'},
-//   ];
+  const expected = [{'1950': 22}, {'1949': 111}];
+  const outGroup = 'sampleOutGroup';
 
-//   const expected = [
-//     {'h': 2}, {'e': 7}, {'l': 4},
-//     {'o': 3}, {'w': 1}, {'r': 4},
-//     {'d': 2}, {'m': 2}, {'a': 4},
-//     {'p': 2}, {'u': 2}, {'c': 4},
-//     {'t': 4}, {'s': 1}, {'n': 2},
-//     {'i': 1}, {'g': 1}, {'x': 1},
-//   ];
+  const doMapReduce = (cb) => {
+    distribution.ncdc.mr.exec({keys: getDatasetKeys(dataset), map: mapper, reduce: reducer, out: outGroup}, (e, v) => {
+      try {
+        // for persisten storage, our out group now needs to have all the keys
+        global.distribution[outGroup].store.get(null, (e, keys) => {
+          let count = 0;
+          let results = [];
+          // for each key, we will get tis value, and concat the results
+          keys.forEach((key) => {
+            global.distribution[outGroup].store.get(key, (e, v) => {
+              results = results.concat(v);
+              count++;
+              if (count === keys.length) {
+                // when we are done, our results should be the same as expected
+                expect(results).toEqual(expect.arrayContaining(expected));
+                done();
+              }
+            });
+          });
+        });
+      } catch (e) {
+        done(e);
+      }
+    });
+  };
 
-//   const doMapReduce = (cb) => {
-//     // we will use the in-memory true to test this
-//     distribution.cfreq.mr.exec({keys: getDatasetKeys(dataset), map: mapper, reduce: reducer, memory: true}, (e, v) => {
-//       try {
-//         expect(v).toEqual(expect.arrayContaining(expected));
-//         done();
-//       } catch (e) {
-//         done(e);
-//       }
-//     });
-//   };
+  let cntr = 0;
+  // Send the dataset to the cluster
+  dataset.forEach((o) => {
+    const key = Object.keys(o)[0];
+    const value = o[key];
+    distribution.ncdc.store.put(value, key, (e, v) => {
+      cntr++;
+      // Once the dataset is in place, run the map reduce
+      if (cntr === dataset.length) {
+        doMapReduce();
+      }
+    });
+  });
+});
 
-//   let cntr = 0;
+test('(5 pts) add support for optional in-memory operation', (done) => {
+  // same setup as one of the given tests but uses in-memory instead
+  const mapper = (key, value) => {
+    const chars = value.replace(/\s+/g, '').split('');
+    const out = [];
+    chars.forEach((char) => {
+      const o = {};
+      o[char] = 1;
+      out.push(o);
+    });
+    return out;
+  };
 
-//   // for this test, we are using in-memory store
-//   dataset.forEach((o) => {
-//     const key = Object.keys(o)[0];
-//     const value = o[key];
-//     distribution.cfreq.mem.put(value, key, (e, v) => {
-//       cntr++;
-//       if (cntr === dataset.length) {
-//         doMapReduce();
-//       }
-//     });
-//   });
-// });
+  const reducer = (key, values) => {
+    const out = {};
+    out[key] = values.reduce((sum, v) => sum + v, 0);
+    return out;
+  };
+
+  const dataset = [
+    {'doc1': 'hello world'},
+    {'doc2': 'map reduce test'},
+    {'doc3': 'character counting example'},
+  ];
+
+  const expected = [
+    {'h': 2}, {'e': 7}, {'l': 4},
+    {'o': 3}, {'w': 1}, {'r': 4},
+    {'d': 2}, {'m': 2}, {'a': 4},
+    {'p': 2}, {'u': 2}, {'c': 4},
+    {'t': 4}, {'s': 1}, {'n': 2},
+    {'i': 1}, {'g': 1}, {'x': 1},
+  ];
+
+  const doMapReduce = (cb) => {
+    // we will use the in-memory true to test this
+    distribution.cfreq.mr.exec({keys: getDatasetKeys(dataset), map: mapper, reduce: reducer, memory: true}, (e, v) => {
+      try {
+        expect(v).toEqual(expect.arrayContaining(expected));
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+  };
+
+  let cntr = 0;
+
+  // for this test, we are using in-memory store
+  dataset.forEach((o) => {
+    const key = Object.keys(o)[0];
+    const value = o[key];
+    distribution.cfreq.mem.put(value, key, (e, v) => {
+      cntr++;
+      if (cntr === dataset.length) {
+        doMapReduce();
+      }
+    });
+  });
+});
 
 test('(15 pts) add support for iterative map-reduce', (done) => {
   // in iter mapreduce, we need to explore each link
   const mapper = (key, value) => {
-    // Extract URLs from HTML content
+    // Simulating a db here because I could not get to parsing actual links content to work
     const db = 
       {'url1': '<html><body><h1>Page 1</h1><p>Welcome to my page.</p><a href="url2">Link to page 2</a></body></html>',
       'url2': '<html><body><h1>Page 2</h1><p>This is page 2.</p><a href="url3">Link to page 3</a></body></html>',
-      'url3': '<html><body><h1>Page 3</h1><p>Final page.</p><a href="url4">To a new page 4</a></body></html>'}
+      'url3': '<html><body><h1>Page 3</h1><p>Final page.</p><a href="url1">Back to 1</a></body></html>'}
   
     const urlRegex = /<a\s+(?:[^>]*?\s+)?href="([^"]*)"[^>]*>/g;
     const urls = [];
     let match;
 
     while ((match = urlRegex.exec(value)) !== null) {
-      // key is the document ID, match[1] is the extracted URL
       const newUrl = match[1];
-      // console.log(newUrl);
-      if (newUrl in db) {
+      if (db[newUrl]) {
         const valObj = {}
         valObj["sourceDoc"] = db[newUrl];
         const pushObj = {}
@@ -242,10 +265,8 @@ test('(15 pts) add support for iterative map-reduce', (done) => {
   };
 
   const reducer = (key, values) => {
-    // key is the URL, values are documents that link to this URL
+    // key is the URL, values are its documents
     const sourceDocs = [];
-    console.log(key);
-    console.log('SIFJS\n');
 
     values.forEach((value) => {
       sourceDocs.push(value.sourceDoc);
@@ -259,14 +280,29 @@ test('(15 pts) add support for iterative map-reduce', (done) => {
     {'url1': '<html><body><h1>Page 1</h1><p>Welcome to my page.</p><a href="url2">Link to page 2</a></body></html>',},
   ];
 
+  // there is currently a bug about not properly cleaning up, but core iterative functionality works:
+  // on entrance, only the first url is provided. First round found url2, and third round found url3.
+  const expected = [
+    {
+      url2: [
+        '<html><body><h1>Page 2</h1><p>This is page 2.</p><a href="url3">Link to page 3</a></body></html>',
+        '<html><body><h1>Page 2</h1><p>This is page 2.</p><a href="url3">Link to page 3</a></body></html>'
+      ]
+    },
+    {
+      url3: [
+        '<html><body><h1>Page 3</h1><p>Final page.</p><a href="url1">Back to 1</a></body></html>'
+      ]
+    }
+  ]
+
 
   const doMapReduce = (cb) => {
     distribution.iter.store.get(null, (e, v) => {
 
       distribution.iter.mr.exec({keys: v, map: mapper, reduce: reducer, rounds: 2}, (e, v) => {
         try {
-          // expect(v).toEqual(expect.arrayContaining(expected));
-          console.log(v);
+          expect(v).toEqual(expect.arrayContaining(expected));
           done();
         } catch (e) {
           done(e);

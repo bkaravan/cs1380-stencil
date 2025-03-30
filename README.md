@@ -203,3 +203,37 @@ Store:
 > Why is the `reconf` method designed to first identify all the keys to be relocated and then relocate individual objects instead of fetching all the objects immediately and then pushing them to their corresponding locations?
 
 The key idea behind this design choice is to minimize the amount of objects that need to be relocated. If we fetched all of the objects first, rehash them, and reput them, we would be doing a lot of unnecessary work, since using something like consistent hashing is designed to minimize this. Instead, we are only working with a subset of key-value pairs that need to be relocated, which makes reconf faster and more efficient. 
+
+# M5: Distributed Execution Engine
+
+
+## Summary
+
+> Summarize your implementation, including key challenges you encountered. Remember to update the `report` section of the `package.json` file with the total number of hours it took you to complete each task of M5 (`hours`) and the lines of code per task.
+
+The main challenges of this assignment were its open nature and the extra credit tasks. At first, I did not know where to begin, but eventually I came to the routes idea with sending the whole pipeline as a batch. All extra credit parts were also difficult because they had to augment the flow of map reduce but still keep it working. In particular, iterative mapreduce gave me a lot of trouble, and there is still a clean up bug I did not catch. 
+
+
+My implementation comprises of one main map reduce new software components, totaling 300 added lines of code over the previous implementation plust additional tests and test setups. Key challenges included putting the start of the mapReduce in a correct wrapper function to iterate over map reduce, understand the structure of desired exec in the first place, and debugging key distribution and storage. All of them were solved by spending more and more time with the project with trial and error.
+
+
+## Correctness & Performance Characterization
+
+> Describe how you characterized the correctness and performance of your implementation
+
+
+*Correctness*: I wrote 4 special cases testing every extra credit requirement.
+
+
+*Performance*: My tf-idf worklflow can sustain 111 documents/second, with an average latency of 9 ms seconds per document.
+
+
+## Key Feature
+
+> Which extra features did you implement and how?
+
+- Compaction: implemented as the last stage of the map process, as long as it's defined. Has the same shape of the output as map.
+- Distributed persistance: the beginning of the workflow initializes a new group to store the results, and the last part of the reduce step stores results.
+- In-memory store: careful change of changing between local and in-memory storage throughout the workflow
+- Iteration: map reduce is wrapped in a start function that is called the appropriate number of rounds. Between each round, the results of the previous one 
+are supposed to be cleaned up (a litle buggy at the moment), and the result of the current round is stored across the group. 
