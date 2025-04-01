@@ -45,6 +45,8 @@ function startNodes(cb) {
     myAwsGroup[id.getSID(n2)] = n2;
     myAwsGroup[id.getSID(n3)] = n3;
 
+
+    // if we do aws, we don't need this (in case of manual start up)
     const startNodes = (cb) => {
         distribution.local.status.spawn(n1, (e, v) => {
           distribution.local.status.spawn(n2, (e, v) => {
@@ -57,19 +59,19 @@ function startNodes(cb) {
   
     distribution.node.start((server) => {
         localServer = server;
-    })
 
-    const mygroupConfig = {gid: 'mygroup'};
+        const mygroupConfig = {gid: 'mygroup'};
 
-    startNodes(() => {
-    // This starts up our group
-    distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
-        distribution.mygroup.groups
-            .put(mygroupConfig, myAwsGroup, (e, v) => {
-                // after setup, we run the crawler
-                runCrawler(cb);
-            })
-        });
+        startNodes(() => {
+        // This starts up our group
+        distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
+            distribution.mygroup.groups
+                .put(mygroupConfig, myAwsGroup, (e, v) => {
+                    // after setup, we run the crawler
+                    runCrawler(cb);
+                })
+            });
+        })
     })
 }
 
