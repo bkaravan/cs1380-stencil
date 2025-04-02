@@ -22,8 +22,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "yargs": "^17.7.2",
-    "@brown-ds/distribution": "latest"
+    "@brown-ds/distribution": "latest",
+    "deasync": "^0.1.30",
+    "jsdom": "^26.0.0",
+    "node-fetch": "^3.3.2",
+    "sync-request": "^6.1.0",
+    "yargs": "^17.7.2"
   },
   "report": {
     "m1hours": 12,
@@ -38,11 +42,14 @@
       "aws": []
     },
     "m1latency": {
-      "dev": [0.2],
-      "aws": [0.32]
+      "dev": [
+        0.2
+      ],
+      "aws": [
+        0.32
+      ]
     },
     "m1dloc": 250,
-
     "m2hours": 14,
     "m2loc": 300,
     "m2dev": {
@@ -51,15 +58,22 @@
       "ssd-gb": 1007
     },
     "m2throughput": {
-      "send": [777.60],
-      "rpc": [312.10]
+      "send": [
+        777.6
+      ],
+      "rpc": [
+        312.1
+      ]
     },
     "m2latency": {
-      "send": [1.286],
-      "rpc": [3.204]
+      "send": [
+        1.286
+      ],
+      "rpc": [
+        3.204
+      ]
     },
     "m2dloc": 400,
-
     "m3hours": 18,
     "m3loc": 500,
     "m3dev": {
@@ -68,7 +82,6 @@
       "ssd-gb": 1007
     },
     "m3dloc": 500,
-
     "m4hours": 18,
     "m4loc": 500,
     "m4dev": {
@@ -77,15 +90,30 @@
       "ssd-gb": 1007
     },
     "m4throughput": {
-      "mem": [60000, 1100, 1475], 
-      "store": [64800, 890, 956.9]
+      "mem": [
+        60000,
+        1100,
+        1475
+      ],
+      "store": [
+        64800,
+        890,
+        956.9
+      ]
     },
     "m4latency": {
-      "mem": [16.74, 908.485, 677.937],
-      "store": [15.43, 1112.35, 1044.99]
+      "mem": [
+        16.74,
+        908.485,
+        677.937
+      ],
+      "store": [
+        15.43,
+        1112.35,
+        1044.99
+      ]
     },
     "m4dloc": 500,
-
     "m5hours": 25,
     "m5loc": 450,
     "m5dev": {
@@ -93,7 +121,7 @@
       "mem-gb": 3,
       "ssd-gb": 1007
     },
-    "m5throughput": 111, 
+    "m5throughput": 111,
     "m5latency": 27.02,
     "m5dloc": 600
   }

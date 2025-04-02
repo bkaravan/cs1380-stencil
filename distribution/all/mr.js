@@ -3,6 +3,10 @@ const routes = require('./routes');
 const comm = require('./comm');
 const id = require('../util/id');
 
+// imports for crawling
+const https = require('https');
+const { JSDOM } = require('jsdom'); 
+
 
 /**
  * Map functions used for mapreduce
@@ -169,10 +173,12 @@ function mr(config) {
               try {
                 const reducedValue = this.reducer(key, values);
                 results = results.concat(reducedValue);
+                //console.log(results);
               } catch (e) {
                 // do nothing, since we still want to process this key
                 // but if it doesn't work with the reducer, we just
                 // ignore it
+                console.log(e)
               }
               processedCount++;
 
@@ -256,6 +262,8 @@ function mr(config) {
                   comm(context).send([context.gid, inputId], reduceRequest, (error, reduceResults) => {
                     // console.log(error);
                     let finalResults = [];
+
+                    //console.log(reduceResults);
 
                     // console.log(error);
 
