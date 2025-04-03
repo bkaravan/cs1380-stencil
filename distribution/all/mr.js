@@ -3,7 +3,6 @@ const routes = require('./routes');
 const comm = require('./comm');
 const id = require('../util/id');
 
-
 /**
  * Map functions used for mapreduce
  * @callback Mapper
@@ -26,7 +25,6 @@ const id = require('../util/id');
  * @property {Reducer} reduce
  * @property {string[]} keys
  */
-
 
 /*
   Note: The only method explicitly exposed in the `mr` service is `exec`.
@@ -59,6 +57,7 @@ function mr(config) {
       memory: configuration.memory || false,
       rounds: configuration.rounds || 1,
 
+      // prettier-ignore
       map: function(data, groupId, operationId, callback) {
         // console.log(data);
         // console.log(global.moreStatus.sid);
@@ -68,7 +67,6 @@ function mr(config) {
         } else {
           const mappedResults = [];
           let processedCount = 0;
-
 
           data.forEach((item) => {
             let storage = global.distribution[groupId].store;
@@ -83,13 +81,11 @@ function mr(config) {
                 processedCount++;
                 const mappedValue = this.mapper(item, value);
 
-
                 if (Array.isArray(mappedValue)) {
                   mappedResults.push(...mappedValue);
                 } else {
                   mappedResults.push(mappedValue);
                 }
-
 
                 if (processedCount == data.length) {
                   let finalResults = mappedResults;
@@ -105,10 +101,14 @@ function mr(config) {
                   if (this.memory) {
                     localStorage = global.distribution.local.mem;
                   }
-                  localStorage.put(finalResults, operationId + 'map', (error, result) => {
-                    // console.log(result);
-                    callback(error, finalResults);
-                  });
+                  localStorage.put(
+                      finalResults,
+                      operationId + 'map',
+                      (error, result) => {
+                        // console.log(result);
+                        callback(error, finalResults);
+                      },
+                  );
                 }
               }
             });
@@ -116,28 +116,36 @@ function mr(config) {
         }
       },
 
+      // prettier-ignore
       shuffle: function(groupId, operationId, callback) {
         let localStorage = global.distribution.local.store;
         if (this.memory) {
           localStorage = global.distribution.local.mem;
         }
         localStorage.get(operationId + 'map', (error, data) => {
+          console.warn('SHUFFLE DATA', data);
           if (!error) {
             let processedCount = 0;
             data.forEach((item) => {
               const [key] = Object.keys(item);
               // need to fix this
-              global.distribution[groupId].mem.put(item[key], {
-                key: key,
-                action: 'append',
-              }, (error, result) => {
-                processedCount++;
-                if (processedCount == data.length) {
-                  // this data is just what the node processed,
-                  // not actually shuffled to node
-                  callback(null, data);
-                }
-              });
+              global.distribution[groupId].mem.put(
+                  item[key],
+                  {
+                    key: key,
+                    action: 'append',
+                  },
+                  (error, result) => {
+                    processedCount++;
+                    if (processedCount == data.length) {
+                      // this data is just what the node processed,
+                      // not actually shuffled to node
+                      localStorage.del(operationId + 'map', (error, result) => {
+                        callback(null, data);
+                      });
+                    }
+                  },
+              );
             });
           } else {
             callback(error);
@@ -145,61 +153,69 @@ function mr(config) {
         });
       },
 
+      // prettier-ignore
       reduce: function(groupId, operationId, callback) {
-        global.distribution.local.mem.get({
-          key: null,
-          gid: groupId,
-        }, (error, keys) => {
-          let results = [];
-          let processedCount = 0;
-
-          if (keys.length == 0) {
-            callback(null, null);
-          }
-
-          // console.log(keys);
-          keys.forEach((key) => {
-            // console.log(key);
-            global.distribution.local.mem.get({
-              key: key,
+        global.distribution.local.mem.get(
+            {
+              key: null,
               gid: groupId,
-            }, (error, values) => {
-              // when doing just in-memory storage, this will fail
-              // some keys have different values
-              try {
-                const reducedValue = this.reducer(key, values);
-                results = results.concat(reducedValue);
-              } catch (e) {
-                // do nothing, since we still want to process this key
-                // but if it doesn't work with the reducer, we just
-                // ignore it
-              }
-              processedCount++;
+            },
+            (error, keys) => {
+              let results = [];
+              let processedCount = 0;
 
-              if (processedCount == keys.length) {
-                // at this point, either callback like normal
-                // or store results in the out group if it was provided
-                if (this.out) {
-                  let storage = global.distribution[this.out].store;
-                  if (this.memory) {
-                    storage = global.distribution[this.out].mem;
-                  }
-                  storage.put(results, key, (e, v) => {
-                    callback(null, results);
-                  });
-                } else {
-                  callback(null, results);
-                }
+              if (keys.length == 0) {
+                callback(null, null);
               }
-            });
-          });
-        });
+
+              // console.log(keys);
+              keys.forEach((key) => {
+                // console.log(key);
+                global.distribution.local.mem.get(
+                    {
+                      key: key,
+                      gid: groupId,
+                    },
+                    (error, values) => {
+                    // when doing just in-memory storage, this will fail
+                    // some keys have different values
+                      try {
+                        const reducedValue = this.reducer(key, values);
+                        results = results.concat(reducedValue);
+                      } catch (e) {
+                      // do nothing, since we still want to process this key
+                      // but if it doesn't work with the reducer, we just
+                      // ignore it
+                      }
+                      processedCount++;
+
+                      if (processedCount == keys.length) {
+                        // at this point, either callback like normal
+                        // or store results in the out group if it was provided
+                        if (this.out) {
+                          let storage = global.distribution[this.out].store;
+                          if (this.memory) {
+                            storage = global.distribution[this.out].mem;
+                          }
+                          storage.put(results, key, (e, v) => {
+                            callback(null, results);
+                          });
+                        } else {
+                          callback(null, results);
+                        }
+                      }
+                    },
+                );
+              });
+            },
+        );
       },
     };
 
+    // prettier-ignore
     const distributeKeys = function(keys, nodes) {
       const keyGroups = {};
-      
+
       Object.keys(nodes).forEach((nodeId) => {
         keyGroups[nodeId] = [];
       });
@@ -219,109 +235,131 @@ function mr(config) {
     // persisten distribution for EC2
     function mapReduce(callback) {
       // first, send the service to everyone
-      routes(context).put(mapReduceService, 'mr-' + inputId, (e, v) => {
-        global.distribution.local.groups.get(context.gid, (e, nodes) => {
-          // get all of the ndoes and distribute the keys
-          const keyDistribution = distributeKeys(configuration.keys, nodes);
-          let completedNodes = 0;
-          const totalNodes = Object.keys(nodes).length;
-          const mapRequest = {
-            service: 'mr-' + inputId,
-            method: 'map',
-          };
+      // routes(context).put(mapReduceService, 'mr-' + inputId, (e, v) => {
+      // prettier-ignore
+      global.distribution[context.gid].routes.put(
+          mapReduceService,
+          'mr-' + inputId,
+          (e, v) => {
+            global.distribution.local.groups.get(context.gid, (e, nodes) => {
+              // get all of the ndoes and distribute the keys
+              const keyDistribution = distributeKeys(configuration.keys, nodes);
+              let completedNodes = 0;
+              const totalNodes = Object.keys(nodes).length;
+              const mapRequest = {
+                service: 'mr-' + inputId,
+                method: 'map',
+              };
 
-          for (const nodeId in nodes) {
-            const mapParams = [keyDistribution[nodeId], context.gid, inputId];
-            
-            global.distribution.local.comm.send(mapParams, {
-              node: nodes[nodeId],
-              ...mapRequest,
-            }, (error, mapResult) => {
-                // console.log(error);
-              ++completedNodes;
+              for (const nodeId in nodes) {
+                const mapParams = [keyDistribution[nodeId], context.gid, inputId];
 
-              if (completedNodes == totalNodes) {
-                const shuffleRequest = {
-                  service: 'mr-' + inputId,
-                  method: 'shuffle',
-                };
+                global.distribution.local.comm.send(
+                    mapParams,
+                    {
+                      node: nodes[nodeId],
+                      ...mapRequest,
+                    },
+                    (error, mapResult) => {
+                      ++completedNodes;
 
-                comm(context).send([context.gid, inputId], shuffleRequest, (error, shuffleResult) => {
-                    // console.log(error);
-                  const reduceRequest = {
-                    service: 'mr-' + inputId,
-                    method: 'reduce',
-                  };
+                      if (completedNodes == totalNodes) {
+                        const shuffleRequest = {
+                          service: 'mr-' + inputId,
+                          method: 'shuffle',
+                        };
 
-                  comm(context).send([context.gid, inputId], reduceRequest, (error, reduceResults) => {
-                    // console.log(error);
-                    let finalResults = [];
+                        comm(context).send(
+                            [context.gid, inputId],
+                            shuffleRequest,
+                            (error, shuffleResult) => {
+                              // console.log(error);
+                              const reduceRequest = {
+                                service: 'mr-' + inputId,
+                                method: 'reduce',
+                              };
 
-                    // console.log(error);
+                              comm(context).send(
+                                  [context.gid, inputId],
+                                  reduceRequest,
+                                  (error, reduceResults) => {
+                                    // console.log(error);
+                                    let finalResults = [];
 
-                    for (const result of Object.values(reduceResults)) {
-                      if (result !== null) {
-                        finalResults = finalResults.concat(result);
+                                    // console.log(error);
+
+                                    for (const result of Object.values(reduceResults)) {
+                                      if (result !== null) {
+                                        finalResults = finalResults.concat(result);
+                                      }
+                                    }
+
+                                    callback(null, finalResults);
+                                    return;
+                                  },
+                              );
+                            },
+                        );
                       }
-                    }
-
-                    callback(null, finalResults);
-                    return;
-                  });
-                });
+                    },
+                );
               }
             });
-          }
-        });
-      });
+          },
+      );
     }
 
     const localCnt = 0;
     function startMR(cnt, rounds) {
+      console.warn('ROUND', cnt, configuration.keys);
       mapReduce((e, v) => {
         const mrResults = v;
         cnt++;
-        if (cnt === rounds) {
-          cb(e, mrResults);
-        } else {
-          // probably need to reset the data here, but otherwise should (?)
-          // the only problem with this step is that in case out is specified, then
-          // it would contain every intermediate result
-          let storage = global.distribution[context.gid].store;
-          if (mapReduceService.memory) {
-            storage = global.distribution[context.gid].mem;
-          }
-          let keyCount = 0;
-          configuration.keys.forEach(key => {
-            storage.del(key, (e, v) => {
-              keyCount++;
-              if (keyCount === configuration.keys.length) {
-                // we are done removing, now put new data
-                let newKeyCount = 0;
-                // console.log(mrResults);
-                const newKeys = []
-                mrResults.forEach(res => {
-                  Object.keys(res).forEach(miniKey => {
-                    newKeys.push(miniKey);
-                  })
-                })
-                mrResults.forEach((res) => {
-                  Object.keys(res).forEach(key => {
-                    const val = res[key];
-                    storage.put(val, key, (e, v) => {
-                      newKeyCount++;
-                      if (newKeyCount === newKeys.length) {
-                        // start the new round of MR
-                        configuration.keys = newKeys;
-                        startMR(cnt, rounds);
-                      }
-                    });
-                  })
-                });
-              }
-            });
-          });
+        let storage = global.distribution[context.gid].store;
+        if (mapReduceService.memory) {
+          storage = global.distribution[context.gid].mem;
         }
+
+        let keyCount = 0;
+        const newKeys = [];
+        mrResults.forEach((res) => {
+          Object.keys(res).forEach((miniKey) => {
+            newKeys.push(miniKey);
+          });
+        });
+
+        // now that we consumed these keys, we need to remove them so they
+        // aren't used in the next rounds
+        configuration.keys.forEach((key) => {
+          storage.del(key, (e, v) => {
+            keyCount++;
+            if (keyCount === configuration.keys.length) {
+              if (cnt === rounds) {
+                cb(e, mrResults);
+                return;
+              }
+              let newKeyCount = 0;
+
+              // we are done removing, now put new data
+              // become our new keys, start the next round
+              // console.warn('results', mrResults);
+              mrResults.forEach((res) => {
+                Object.keys(res).forEach((key) => {
+                  const val = res[key];
+                  storage.put(val, key, (e, v) => {
+                    newKeyCount++;
+                    if (newKeyCount === newKeys.length) {
+                      // start the new round of MR
+                      configuration.keys = newKeys;
+                      startMR(cnt, rounds);
+                    }
+                  });
+                });
+              });
+            }
+          });
+        });
+        // }
       });
     }
 
@@ -330,10 +368,15 @@ function mr(config) {
       global.distribution.local.groups.get(context.gid, (e, nodes) => {
         // nodes is every node we have
         // first, we will setup the output group. then, we call mapReduce
+        // prettier-ignore
         global.distribution.local.groups.put(outGroupConfig, nodes, (e, v) => {
-          global.distribution[configuration.out].groups.put(outGroupConfig, nodes, (e, v) => {
-            startMR(localCnt, mapReduceService.rounds);
-          });
+          global.distribution[configuration.out].groups.put(
+              outGroupConfig,
+              nodes,
+              (e, v) => {
+                startMR(localCnt, mapReduceService.rounds);
+              },
+          );
         });
       });
     } else {
@@ -342,6 +385,6 @@ function mr(config) {
   }
 
   return {exec};
-};
+}
 
 module.exports = mr;
