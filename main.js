@@ -7,6 +7,7 @@ const https = require('https');
 
 const { JSDOM } = require('jsdom'); 
 
+
 // Create the readline interface
 const rl = readline.createInterface({
   input: process.stdin,
@@ -72,6 +73,7 @@ async function runCrawler(replCb) {
         return dom.window.document;
       } catch (error) {
         console.error('Error fetching or parsing the page:', error);
+        console.log('current url is ' + url + '\n');
         throw error;
       }
     }
@@ -120,17 +122,233 @@ async function runCrawler(replCb) {
 
     const link = values[0]
 
-    if (link.endsWith("txt")) {
-      // case 1: this is a txt link, so we need to do the text logic
-      console.log("got to the text part with : " + link + "\n");
-    } else {
-      // case 2: this is a redirect link
-      // this is now done in map
-      // const docDom = await fetchAndParse(key);
-      // console.log('here\n');
-      const retObj = {[key]: [link]};
+    if (!link.endsWith("txt")) {
+      // case 1: this is a redirect link
+      const retObj = {[key]: link};
       return retObj;
+    } 
+
+    const fs = require('fs');
+    const path = require('path');
+    const natural = require('natural');
+
+    console.log("got to the text part with : " + link + "\n");
+
+
+    function computeNgrams(output, filteredWords) {
+      const buffer = filteredWords.filter(Boolean);
+    
+      const bigrams = [];
+      for (let i = 0; i < buffer.length - 1; i++) {
+        bigrams.push([buffer[i], buffer[i + 1]]);
+      }
+    
+      const trigrams = [];
+      for (let i = 0; i < buffer.length - 2; i++) {
+        trigrams.push([buffer[i], buffer[i + 1], buffer[i + 2]]);
+      }
+    
+      const together = buffer.concat(bigrams).concat(trigrams);
+    
+      for (const item of together) {
+        if (Array.isArray(item)) {
+          output.push(item.join('\t'));
+        } else {
+          output.push(item);
+        }
+      }
     }
+
+    const compare = (a, b) => {
+      if (a.freq > b.freq) {
+        return -1;
+      } else if (a.freq < b.freq) {
+        return 1;
+      } else {
+        return 0;
+      }
+    };
+
+
+    const basePath = path.resolve("/usr/src/app/globals");
+    const globalIndexFile = path.join(basePath, global.moreStatus.sid);
+
+    const mergeGlobal = (localIndex) => {
+      // Split the data into an array of lines
+      fs.readFile(globalIndexFile, 'utf8', (err, data) => {
+        if (err) {
+          throw err;
+        }
+        
+        const localIndexLines = localIndex.split('\n');
+        const globalIndexLines = data.split('\n').filter(a => a != "");
+    
+        const local = {};
+        const global = {};
+      
+        for (const line of localIndexLines) {
+          // might need to skip empty lines
+          const lineSplit = line.split('|').map((part) => part.trim());
+          if (lineSplit.length < 3) continue;
+          const term = lineSplit[0];
+          const url = lineSplit[2];
+          const freq = Number(lineSplit[1]);
+          local[term] = {url, freq};
+        }
+
+        for (const line of globalIndexLines) {
+          const lineSplit = line.split('|').map((part) => part.trim());
+          const pairSplit = lineSplit[1].split(' ').map((part) => part.trim());
+          const term = lineSplit[0];
+          const urlfs = [];
+          // can use a flatmap here, but kind of an overkill
+          for (let i = 0; i < pairSplit.length; i += 2) {
+            urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
+          }
+          global[term] = urlfs; // Array of {url, freq} objects
+        }
+      
+
+        for (const term in local) {
+          if (term in global) {
+            global[term].push(local[term]);
+            // technically, might be faster to resort everything at the end
+            global[term].sort(compare);
+          } else {
+            global[term] = [local[term]];
+          }
+        }
+
+        const finalData = []
+        for (const term in global) {
+          const pairs = global[term].map((entry) => `${entry.url} ${entry.freq}`).join(' ');
+          const line = `${term} | ${pairs}`;
+          finalData.push(line);
+        }
+
+        const contentToAppend = finalData.join('\n');
+
+        fs.appendFile(globalIndexFile, contentToAppend + '\n', (err) => {
+          if (err) {
+            throw err;
+          }
+          console.log('Data has been appended to the file successfully');
+        });
+
+
+      });
+     
+    };
+
+    function invert(data, url) {
+      const result = data
+      // basically python's defaultdict, counting how many times each line occurs
+          .reduce((acc, line) => {
+            const key = line.trim();
+            acc[key] = (acc[key] || 0) + 1;
+            return acc;
+          }, {});
+    
+      // Entries creates a stream of KV pairs
+      const output = Object.entries(result)
+      // each entry counts the first three words
+          .map(([words, count]) => {
+            const parts = words.split(/\s+/).slice(0, 3).join(' ');
+            // update words to doc freq for every n-gram
+            return `${parts} | ${count} |`;
+          })
+          .sort()
+      // adding the url at the end
+          .map((line) => `${line} ${url}`)
+          .join('\n');
+      return output;
+    }
+
+    function processDocument(data, url) {
+      const stopSet = new Set(fs.readFileSync('./non-distribution/d/stopwords.txt', 'utf8').split('\n').map((word) => word.trim()).filter(Boolean));
+    
+      const processedWords = data.replace(/\s+/g, '\n')
+          .replace(/[^a-zA-Z]/g, ' ')
+          .replace(/\s+/g, '\n')
+          .toLowerCase();
+      const stemmer = natural.PorterStemmer;
+      // stemming and filtering
+      const filteredWords = processedWords.split('\n').filter((word) => word && !stopSet.has(word)).map((word) => stemmer.stem(word));
+    
+      // console.log(filteredWords.length);
+    
+    
+      // combine part
+      const combinedGrams = [];
+      computeNgrams(combinedGrams, filteredWords);
+    
+      // invert part
+      const inverted = invert(combinedGrams, url);
+    
+      // DOUBLE CHECK INDEXING PIPELINE
+      if (!fs.existsSync(basePath)) {
+        fs.mkdir(basePath, () => {
+          fs.writeFile(globalIndexFile, "\n", (err) => {
+            if (err) {
+              throw err;
+            }
+            mergeGlobal(inverted);
+          })
+        });
+      } else {
+        mergeGlobal(inverted);
+      }
+    }
+
+    const deasync = require('deasync');
+
+    let done = false;
+
+    async function fetchTxt(url) {
+      try {
+        // Fetch the HTML content
+        const html = await new Promise((resolve, reject) => {
+          const httpsAgent = new https.Agent({
+            rejectUnauthorized: false // This is the key setting that ignores certificate validation
+          });
+          const req = https.get(url, { 
+            agent: httpsAgent 
+          }, (res) => {
+            let data = '';
+            res.on('data', (chunk) => {
+              data += chunk;
+            });
+            res.on('end', () => {
+              resolve(data);
+            });
+          });
+          
+          req.on('error', (error) => {
+            console.log(error);
+            reject(error);
+          });
+          
+          req.end();
+        });
+        
+        // this should just be txt data
+        return html;
+      } catch (error) {
+        console.error('Error fetching or parsing the page:', error);
+        console.log('current url is ' + url + '\n');
+        throw error;
+      }
+    }
+
+
+    fetchTxt(link).then(html => {
+      processDocument(html, link);
+      done = true;
+    })
+
+    deasync.loopWhile(() => !done);
+    const retObj = {};
+    return retObj;
   };
 
   const start = 'https://atlas.cs.brown.edu/data/gutenberg/';
@@ -145,6 +363,12 @@ async function runCrawler(replCb) {
   const dataset = [
     {[startHash]: start},
   ];
+
+  const dataset1 = [
+    {
+      '9e13a3e4b87ad2d22ecdfe2f00a2bf93ac9d34488b5a1219e8976d388ad55e45': 'https://atlas.cs.brown.edu/data/gutenberg/0/5/'
+    },
+  ]
 
 
   const doMapReduce = (cb) => {
@@ -161,13 +385,13 @@ async function runCrawler(replCb) {
   let cntr = 0;
 
   // Send the dataset to the cluster
-  dataset.forEach((o) => {
+  dataset1.forEach((o) => {
     const key = Object.keys(o)[0];
     const value = o[key];
     distribution.mygroup.store.put(value, key, (e, v) => {
       cntr++;
       // Once the dataset is in place, run the map reduce
-      if (cntr === dataset.length) {
+      if (cntr === dataset1.length) {
         doMapReduce();
       }
     });

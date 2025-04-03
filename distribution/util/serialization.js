@@ -6,6 +6,7 @@ const https = require('https');
 const { JSDOM } = require('jsdom'); 
 
 
+
 function checkNativeFunction(fn) {
   for (const mod of natives) {
     const moduleExports = require(mod);

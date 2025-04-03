@@ -9,10 +9,6 @@ const {convert} = require('html-to-text');
 const https = require('https');
 const http = require('http');
 
-const global = {};
-const wordsToDocFreq = {};
-const urlToTotalWords = {};
-
 // fills output with n-grams
 function computeNgrams(output, filteredWords) {
   const buffer = filteredWords.filter(Boolean);
