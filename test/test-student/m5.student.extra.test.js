@@ -7,6 +7,7 @@
 
 const distribution = require('../../config.js');
 const id = distribution.util.id;
+const path = require('path');
 
 const ncdcGroup = {};
 const avgwrdlGroup = {};
@@ -285,74 +286,224 @@ const n3 = {ip: '127.0.0.1', port: 7112};
 //   });
 // });
 
-test('(15 pts) add support for iterative map-reduce', (done) => {
+// test('(15 pts) add support for iterative map-reduce', (done) => {
+//   // in iter mapreduce, we need to explore each link
+//   const mapper = (key, value) => {
+//     // Simulating a db here because I could not get to parsing actual links content to work
+//     const db = {
+//       url1: '<html><body><h1>Page 1</h1><p>Welcome to my page.</p><a href="url2">Link to page 2</a></body></html>',
+//       url2: '<html><body><h1>Page 2</h1><p>This is page 2.</p><a href="url3">Link to page 3</a></body></html>',
+//       url3: '<html><body><h1>Page 3</h1><p>Final page.</p><a href="url1">Back to 1</a></body></html>',
+//     };
+
+//     const urlRegex = /<a\s+(?:[^>]*?\s+)?href="([^"]*)"[^>]*>/g;
+//     const urls = [];
+//     let match;
+
+//     while ((match = urlRegex.exec(value)) !== null) {
+//       // match = [<a href...tag>, url, ...]
+//       const newUrl = match[1];
+//       // console.warn('fuck jest');
+//       // console.error('match', match);
+//       // console.error('Found URL:', newUrl);
+
+//       // URL to actual document contents
+//       // structure: url -> sourceDoc -> content
+//       if (db[newUrl]) {
+//         const valObj = {};
+//         valObj['sourceDoc'] = db[newUrl];
+//         const pushObj = {};
+//         pushObj[newUrl] = valObj;
+//         urls.push(pushObj);
+//       }
+//     }
+
+//     // all url objects
+//     return urls;
+//   };
+
+//   const reducer = (key, values) => {
+//     // key is the URL, values are its documents
+//     const sourceDocs = [];
+//     values.forEach((value) => {
+//       sourceDocs.push(value.sourceDoc);
+//     });
+
+//     return {[key]: sourceDocs};
+//   };
+
+//   // start with just url 1 and crawl everything
+//   const dataset = [
+//     {
+//       url1: '<html><body><h1>Page 1</h1><p>Welcome to my page.</p><a href="url2">Link to page 2</a></body></html>',
+//     },
+//   ];
+
+//   // there is currently a bug about not properly cleaning up, but core iterative functionality works:
+//   // on entrance, only the first url is provided. First round found url2, and third round found url3.
+//   const expected = [
+//     {
+//       url2: [
+//         '<html><body><h1>Page 2</h1><p>This is page 2.</p><a href="url3">Link to page 3</a></body></html>',
+//       ],
+//     },
+//     {
+//       url3: [
+//         '<html><body><h1>Page 3</h1><p>Final page.</p><a href="url1">Back to 1</a></body></html>',
+//       ],
+//     },
+//   ];
+
+//   // number of rounds will have to dynamically change, we can probably
+//   // keep track of things visited already, and stop when we have no new links
+//   // but for now, we will just run it twice
+//   const doMapReduce = (cb) => {
+//     distribution.iter.store.get(null, (e, v) => {
+//       // prettier-ignore
+//       distribution.iter.mr.exec(
+//           {keys: v, map: mapper, reduce: reducer, rounds: 2},
+//           (e, v) => {
+//             try {
+//               expect(v).toEqual(expect.arrayContaining(expected));
+//               done();
+//             } catch (e) {
+//               done(e);
+//             }
+//           },
+//       );
+//     });
+//   };
+
+//   let cntr = 0;
+
+//   // Send the dataset to the cluster
+//   dataset.forEach((o) => {
+//     const key = Object.keys(o)[0];
+//     const value = o[key];
+//     distribution.iter.store.put(value, key, (e, v) => {
+//       cntr++;
+//       // Once the dataset is in place, run the map reduce
+//       if (cntr === dataset.length) {
+//         doMapReduce();
+//       }
+//     });
+//   });
+// });
+
+test('Try to crawl a small corpora', (done) => {
   // in iter mapreduce, we need to explore each link
   const mapper = (key, value) => {
-    const {JSDOM} = require('jsdom');
-    // TODO: Replace with actual base URL
-    // note it is empty so that we can work with pure urls, be advised we could
-    // have links to different parts of the same document
-    const baseURL = '';
+    // First, install deasync: npm install deasync
+    const deasync = require('deasync');
 
-    // Simulating a db here because I could not get to parsing actual links content to work
-    const db = {
-      url1: '<html><body><h1>Page 1</h1><p>Welcome to my page.</p><a href="url2">Link to page 2</a></body></html>',
-      url2: '<html><body><h1>Page 2</h1><p>This is page 2.</p><a href="url3">Link to page 3</a></body></html>',
-      url3: '<html><body><h1>Page 3</h1><p>Final page.</p><a href="url1">Back to 1</a></body></html>',
-    };
+    let result = null;
+    let done = false;
 
-    // wrap in a JSDOM to parse the HTML
-    const dom = new JSDOM(value);
-    const doc = dom.window._document;
-    const temp = doc.querySelectorAll('a');
-    const res = Array.from(temp).map((item) => {
-      // need to check if it extends the document (it is a directory/node)
-      // or if it is a link to a completely separate website
-      const isAbsolute = /^https?:\/\//i.test(item.href);
-      if (isAbsolute) {
-        return item.href;
+    async function fetchAndParse(url) {
+      try {
+        // Fetch the HTML content
+        const html = await new Promise((resolve, reject) => {
+          const httpsAgent = new https.Agent({
+            rejectUnauthorized: false, // This is the key setting that ignores certificate validation
+          });
+
+          // prettier-ignore
+          const req = https.get(
+              url,
+              {
+                agent: httpsAgent,
+              },
+              (res) => {
+                let data = '';
+                res.on('data', (chunk) => {
+                  data += chunk;
+                });
+                res.on('end', () => {
+                  resolve(data);
+                });
+              },
+          );
+
+          req.on('error', (error) => {
+            console.log(error);
+            reject(error);
+          });
+
+          req.end();
+        });
+
+        const dom = new JSDOM(html);
+        return dom.window.document;
+      } catch (error) {
+        console.error('Error fetching or parsing the page:', error);
+        console.log('current url is ' + url + '\n');
+        throw error;
       }
+    }
 
-      return baseURL + item.href;
+    // Start the async operation
+    // prettier-ignore
+    fetchAndParse(value).then((doc) => {
+      const baseUrl = value;
+      const bannedLinks = new Set([
+        '?C=N;O=D',
+        '?C=M;O=A',
+        '?C=S;O=A',
+        '?C=D;O=A',
+        'books.txt',
+        'donate-howto.txt',
+        'indextree.txt',
+        'retired/',
+        '/data/',
+      ]);
+
+      const links = [...doc.querySelectorAll('a')].map((a) => {
+        try {
+          // Create absolute URLs from relative ones using the URL constructor
+          if (bannedLinks.has(a.href)) {
+            return null;
+          }
+          const absoluteUrl = new URL(a.href, baseUrl).href;
+          return absoluteUrl;
+        } catch (error) {
+          console.error(`Error processing URL: ${a.href}`, error);
+          return null;
+        }
+      }).filter((link) => link !== null);
+
+      result = links.map((link) => {
+        return {[id.getID(link)]: link};
+      });
+      done = true;
+    }).catch((err) => {
+      console.error('Error in operation:', err);
+      result = [];
+      done = true;
     });
 
-    // both are needed for things to print
-    console.warn('res', res);
-    console.error('soreal');
-
-    const urls = [];
-    res.forEach((newUrl) => {
-      const valObj = {};
-      // need to remove it once its been crawled once, or have it in some kind
-      // of seen/visited list, replace this with crawling logic
-      valObj['sourceDoc'] = db[newUrl];
-      const pushObj = {};
-      pushObj[newUrl] = valObj;
-      urls.push(pushObj);
-    });
-
-    return urls;
+    // This will block until the async operation completes
+    deasync.loopWhile(() => !done);
+    return result;
   };
 
   const reducer = (key, values) => {
-    // key is the URL, values are its documents
-    const sourceDocs = [];
-    values.forEach((value) => {
-      sourceDocs.push(value.sourceDoc);
-    });
+    const path = require('path');
+    const link = values[0];
+    const base = 'https://cs.brown.edu/courses/csci1380/sandbox/1/';
+    const newLink = path.join(base, link);
 
-    return {[key]: sourceDocs};
+    const out = {};
+    out[key] = [newLink];
   };
 
   // start with just url 1 and crawl everything
+  const startingUrl = 'https://cs.brown.edu/courses/csci1380/sandbox/1/';
   const dataset = [
     {
-      url1: '<html><body><h1>Page 1</h1><p>Welcome to my page.</p><a href="url2">Link to page 2</a></body></html>',
+      url1: startingUrl,
     },
   ];
 
-  // there is currently a bug about not properly cleaning up, but core iterative functionality works:
-  // on entrance, only the first url is provided. First round found url2, and third round found url3.
   const expected = [
     {
       url2: [
