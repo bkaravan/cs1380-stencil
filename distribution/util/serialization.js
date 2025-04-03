@@ -1,4 +1,10 @@
 const natives = require('repl')._builtinLibs;
+const id = require('./id');
+
+const https = require('https');
+
+const { JSDOM } = require('jsdom'); 
+
 
 
 function checkNativeFunction(fn) {

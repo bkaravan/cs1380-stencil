@@ -22,8 +22,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "yargs": "^17.7.2",
-    "@brown-ds/distribution": "latest"
+    "@brown-ds/distribution": "latest",
+    "deasync": "^0.1.30",
+    "jsdom": "^26.0.0",
+    "natural": "^8.0.1",
+    "node-fetch": "^3.3.2",
+    "sync-request": "^6.1.0",
+    "yargs": "^17.7.2"
   },
   "prettier": {
     "trailingComma": "all",

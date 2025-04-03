@@ -3,6 +3,10 @@ const routes = require('./routes');
 const comm = require('./comm');
 const id = require('../util/id');
 
+// imports for crawling
+const https = require('https');
+const { JSDOM } = require('jsdom');
+
 /**
  * Map functions used for mapreduce
  * @callback Mapper
