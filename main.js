@@ -228,7 +228,7 @@ async function runCrawler(replCb) {
 
         const contentToAppend = finalData.join('\n');
 
-        fs.appendFile(globalIndexFile, contentToAppend + '\n', (err) => {
+        fs.writeFile(globalIndexFile, contentToAppend + '\n', (err) => {
           if (err) {
             throw err;
           }
@@ -340,13 +340,27 @@ async function runCrawler(replCb) {
       }
     }
 
+    let done2 = false;
 
-    fetchTxt(link).then(html => {
-      processDocument(html, link);
-      done = true;
+    // TODO: only work on the link if you have not seen it before.
+    distribution.visited.mem.get(key, (e, v) => {
+      console.log('here\n');
+      console.log(v);
+      console.log(e);
+      if (e instanceof Error) {
+        distribution.visited.mem.put(link, key, (e, v) => {
+          console.log(v);
+          fetchTxt(link).then(html => {
+            processDocument(html, link);
+            console.log('got to this point\n');
+            done = true;
+          })
+          deasync.loopWhile(() => !done);
+        })
+      }
+      done2 = true;
     })
-
-    deasync.loopWhile(() => !done);
+    deasync.loopWhile(() => !done2);
     const retObj = {};
     return retObj;
   };
@@ -385,13 +399,13 @@ async function runCrawler(replCb) {
   let cntr = 0;
 
   // Send the dataset to the cluster
-  dataset1.forEach((o) => {
+  dataset.forEach((o) => {
     const key = Object.keys(o)[0];
     const value = o[key];
     distribution.mygroup.store.put(value, key, (e, v) => {
       cntr++;
       // Once the dataset is in place, run the map reduce
-      if (cntr === dataset1.length) {
+      if (cntr === dataset.length) {
         doMapReduce();
       }
     });
@@ -424,14 +438,21 @@ function startNodes(cb) {
         localServer = server;
 
         const mygroupConfig = {gid: 'mygroup'};
+        const myVisitedConfig = {gid: 'visited'}
 
         startNodes(() => {
         // This starts up our group
         distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
             distribution.mygroup.groups
                 .put(mygroupConfig, myAwsGroup, async (e, v) => {
-                    // after setup, we run the crawler
-                    await runCrawler(cb);
+
+                  distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
+                    distribution.visited.groups
+                        .put(myVisitedConfig, myAwsGroup, async (e, v) => {
+                            // after setup, we run the crawler
+                            await runCrawler(cb);
+                        })
+                    });
                 })
             });
         })
