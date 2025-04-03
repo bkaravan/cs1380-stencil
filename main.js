@@ -379,15 +379,15 @@ async function runCrawler(replCb) {
       if (e instanceof Error) {
         distribution.visited.mem.put(link, key, (e, v) => {
           console.log(v);
-          fetchTxt(link).then(html => {
+          fetchTxt(link).then((html) => {
             processDocument(html, link);
             done = true;
-          })
+          });
           deasync.loopWhile(() => !done);
-        })
+        });
       }
       done2 = true;
-    })
+    });
     deasync.loopWhile(() => !done2);
     const retObj = {};
     return retObj;
@@ -520,42 +520,65 @@ function main() {
   // after nodes are but up and the crawler has ran, we want to start up
   // the cli
   startNodes(() => {
-    // Startup message
-    console.log('Welcome to a Distributed Book Search\n');
-    rl.prompt();
+    const queryService = {};
+    queryService.query = (query) => {
+      const data = fs
+        .readFileSync('globals/' + global.moreStatus.sid, 'utf8')
+        .split('\n')
+        .map((word) => word.trim())
+        .filter(Boolean);
+      const res = [];
+      for (const line of data) {
+        term = line.split('|')[0];
+        if (term.includes(query)) {
+          res.push(line);
+        }
+      }
+      return res;
+    };
+    distribution.mygroup.routes.put(queryService, 'query', (e, v) => {
+      // Startup message
+      console.log('Welcome to a Distributed Book Search\n');
+      rl.prompt();
 
-    // Handle each line of input
-    rl.on('line', (line) => {
-      // Check for exit command
-      if (line.trim() === 'quit') {
-        rl.close();
+      // Handle each line of input
+      rl.on('line', (line) => {
+        // Check for exit command
+        if (line.trim() === 'quit') {
+          rl.close();
+          stopNodes();
+          return;
+        }
+
+        try {
+          // This is where we would run our serach queries
+          // const result = eval(line);
+          // // Print the result
+          // console.log(result);
+
+          const remote = {service: 'query', method: 'query'};
+          distribution.mygroup.comm.send([result], remote, (e, v) => {
+            console.log(v);
+          });
+        } catch (err) {
+          // Print any errors
+          console.error('Error:', err.message);
+        }
+
+        // Show the prompt again
+        rl.prompt();
+      });
+
+      // Handle REPL closure
+      rl.on('close', () => {
+        console.log('Exiting REPL');
         stopNodes();
         return;
-      }
+      });
 
-      try {
-        // This is where we would run our serach queries
-        const result = eval(line);
-        // Print the result
-        console.log(result);
-      } catch (err) {
-        // Print any errors
-        console.error('Error:', err.message);
-      }
-
-      // Show the prompt again
-      rl.prompt();
-    });
-
-    // Handle REPL closure
-    rl.on('close', () => {
-      console.log('Exiting REPL');
-      stopNodes();
-      return;
-    });
-
-    rl.on('SIGINT', () => {
-      rl.close();
+      rl.on('SIGINT', () => {
+        rl.close();
+      });
     });
   });
 }
