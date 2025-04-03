@@ -5,7 +5,7 @@ const id = require('../util/id');
 
 // imports for crawling
 const https = require('https');
-const { JSDOM } = require('jsdom');
+const {JSDOM} = require('jsdom');
 
 /**
  * Map functions used for mapreduce
@@ -127,7 +127,7 @@ function mr(config) {
           localStorage = global.distribution.local.mem;
         }
         localStorage.get(operationId + 'map', (error, data) => {
-          console.warn('SHUFFLE DATA', data);
+          // console.warn('SHUFFLE DATA', data);
           if (!error) {
             let processedCount = 0;
             data.forEach((item) => {
@@ -142,8 +142,8 @@ function mr(config) {
                   (error, result) => {
                     processedCount++;
                     if (processedCount == data.length) {
-                      // this data is just what the node processed,
-                      // not actually shuffled to node
+                      // this is data we just got from local storage, and is
+                      // no longer needed, remove it
                       localStorage.del(operationId + 'map', (error, result) => {
                         callback(null, data);
                       });
@@ -315,7 +315,7 @@ function mr(config) {
 
     const localCnt = 0;
     function startMR(cnt, rounds) {
-      console.warn('ROUND', cnt, configuration.keys);
+      // console.warn('ROUND', cnt, configuration.keys);
       mapReduce((e, v) => {
         const mrResults = v;
         cnt++;
@@ -344,7 +344,7 @@ function mr(config) {
               }
               let newKeyCount = 0;
 
-              // we are done removing, now put new data
+              // we are done removing, now put new data to
               // become our new keys, start the next round
               // console.warn('results', mrResults);
               mrResults.forEach((res) => {

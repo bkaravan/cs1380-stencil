@@ -2,23 +2,21 @@
 
 const distribution = require('./config.js');
 const readline = require('readline');
-//const fetch = require('node-fetch');
 const https = require('https');
 
-const { JSDOM } = require('jsdom'); 
+const {JSDOM} = require('jsdom');
 
-
-// Create the readline interface
+// repl interface
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
-  prompt: '> '
+  prompt: '> ',
 });
 
 // globals
 const id = distribution.util.id;
 let localServer = null;
-const myAwsGroup = {}
+const myAwsGroup = {};
 
 const n0 = {ip: '127.0.0.1', port: 10000};
 // these are aws nodes from m4
@@ -30,44 +28,48 @@ const n1 = {ip: '127.0.0.1', port: 7110};
 const n2 = {ip: '127.0.0.1', port: 7111};
 const n3 = {ip: '127.0.0.1', port: 7112};
 
-
 // Part 1: run the crawler
 async function runCrawler(replCb) {
-  
+  // mapper crawls
   const mapper = (key, value) => {
     // First, install deasync: npm install deasync
     const deasync = require('deasync');
-    
+
     let result = null;
     let done = false;
-    
+
     async function fetchAndParse(url) {
       try {
         // Fetch the HTML content
         const html = await new Promise((resolve, reject) => {
           const httpsAgent = new https.Agent({
-            rejectUnauthorized: false // This is the key setting that ignores certificate validation
+            rejectUnauthorized: false, // This is the key setting that ignores certificate validation
           });
-          const req = https.get(url, { 
-            agent: httpsAgent 
-          }, (res) => {
-            let data = '';
-            res.on('data', (chunk) => {
-              data += chunk;
-            });
-            res.on('end', () => {
-              resolve(data);
-            });
-          });
-          
+
+          // prettier-ignore
+          const req = https.get(
+              url,
+              {
+                agent: httpsAgent,
+              },
+              (res) => {
+                let data = '';
+                res.on('data', (chunk) => {
+                  data += chunk;
+                });
+                res.on('end', () => {
+                  resolve(data);
+                });
+              },
+          );
+
           req.on('error', (error) => {
             console.log(error);
             reject(error);
           });
-          
+
           req.end();
         });
-        
 
         const dom = new JSDOM(html);
         return dom.window.document;
@@ -77,79 +79,88 @@ async function runCrawler(replCb) {
         throw error;
       }
     }
-    
-    
-    // Start the async operation
-    fetchAndParse(value).then(doc => {
-      
-      const baseUrl = value;
-      const bannedLinks = new Set(['?C=N;O=D', '?C=M;O=A', '?C=S;O=A', '?C=D;O=A', 'books.txt','donate-howto.txt', 'indextree.txt', 'retired/', '/data/']);
 
-      const links = [...doc.querySelectorAll('a')].map(a => {
+    // Start the async operation
+    // prettier-ignore
+    fetchAndParse(value).then((doc) => {
+      const baseUrl = value;
+      const bannedLinks = new Set([
+        '?C=N;O=D',
+        '?C=M;O=A',
+        '?C=S;O=A',
+        '?C=D;O=A',
+        'books.txt',
+        'donate-howto.txt',
+        'indextree.txt',
+        'retired/',
+        '/data/',
+      ]);
+
+      const links = [...doc.querySelectorAll('a')].map((a) => {
         try {
           // Create absolute URLs from relative ones using the URL constructor
           if (bannedLinks.has(a.href)) {
             return null;
           }
           const absoluteUrl = new URL(a.href, baseUrl).href;
-          //console.log(absoluteUrl);
           return absoluteUrl;
         } catch (error) {
           console.error(`Error processing URL: ${a.href}`, error);
           return null;
         }
-      })
-      .filter(link => link !== null)
-      
-      result = links.map(link => { return {[id.getID(link)]: link} });
+      }).filter((link) => link !== null);
+
+      result = links.map((link) => {
+        return {[id.getID(link)]: link};
+      });
       done = true;
-    }).catch(err => {
+    }).catch((err) => {
       console.error('Error in operation:', err);
       result = [];
       done = true;
     });
-    
+
     // This will block until the async operation completes
     deasync.loopWhile(() => !done);
     console.log('Sync operation complete');
     return result;
   };
 
+  // reducer finds new text files to crawl, or updates global index
   const reducer = (key, values) => {
     // we want to cover two cases here:
     // console.log(key);
     // console.log(values);
 
-    const link = values[0]
+    const link = values[0];
 
-    if (!link.endsWith("txt")) {
+    if (!link.endsWith('txt')) {
       // case 1: this is a redirect link
       const retObj = {[key]: link};
       return retObj;
-    } 
+    }
 
     const fs = require('fs');
     const path = require('path');
     const natural = require('natural');
 
-    console.log("got to the text part with : " + link + "\n");
-
+    console.log('got to the text part with : ' + link + '\n');
 
     function computeNgrams(output, filteredWords) {
       const buffer = filteredWords.filter(Boolean);
-    
+
       const bigrams = [];
       for (let i = 0; i < buffer.length - 1; i++) {
         bigrams.push([buffer[i], buffer[i + 1]]);
       }
-    
+
       const trigrams = [];
       for (let i = 0; i < buffer.length - 2; i++) {
         trigrams.push([buffer[i], buffer[i + 1], buffer[i + 2]]);
       }
-    
+
       const together = buffer.concat(bigrams).concat(trigrams);
-    
+
       for (const item of together) {
         if (Array.isArray(item)) {
           output.push(item.join('\t'));
@@ -169,8 +180,7 @@ async function runCrawler(replCb) {
       }
     };
 
-
-    const basePath = path.resolve("/usr/src/app/globals");
+    const basePath = path.resolve('/usr/src/app/globals');
     const globalIndexFile = path.join(basePath, global.moreStatus.sid);
 
     const mergeGlobal = (localIndex) => {
@@ -179,13 +189,13 @@ async function runCrawler(replCb) {
         if (err) {
           throw err;
         }
-        
+
         const localIndexLines = localIndex.split('\n');
-        const globalIndexLines = data.split('\n').filter(a => a != "");
-    
+        const globalIndexLines = data.split('\n').filter((a) => a != '');
+
         const local = {};
         const global = {};
-      
+
         for (const line of localIndexLines) {
           // might need to skip empty lines
           const lineSplit = line.split('|').map((part) => part.trim());
@@ -207,7 +217,6 @@ async function runCrawler(replCb) {
           }
           global[term] = urlfs; // Array of {url, freq} objects
         }
-      
 
         for (const term in local) {
           if (term in global) {
@@ -219,9 +228,11 @@ async function runCrawler(replCb) {
           }
         }
 
-        const finalData = []
+        const finalData = [];
         for (const term in global) {
-          const pairs = global[term].map((entry) => `${entry.url} ${entry.freq}`).join(' ');
+          const pairs = global[term]
+            .map((entry) => `${entry.url} ${entry.freq}`)
+            .join(' ');
           const line = `${term} | ${pairs}`;
           finalData.push(line);
         }
@@ -234,66 +245,75 @@ async function runCrawler(replCb) {
           }
           console.log('Data has been appended to the file successfully');
         });
-
-
       });
-     
     };
 
     function invert(data, url) {
-      const result = data
       // basically python's defaultdict, counting how many times each line occurs
-          .reduce((acc, line) => {
-            const key = line.trim();
-            acc[key] = (acc[key] || 0) + 1;
-            return acc;
-          }, {});
-    
+      const result = data.reduce((acc, line) => {
+        const key = line.trim();
+        acc[key] = (acc[key] || 0) + 1;
+        return acc;
+      }, {});
+
       // Entries creates a stream of KV pairs
-      const output = Object.entries(result)
       // each entry counts the first three words
+      // prettier-ignore
+      const output = Object.entries(result)
           .map(([words, count]) => {
             const parts = words.split(/\s+/).slice(0, 3).join(' ');
             // update words to doc freq for every n-gram
             return `${parts} | ${count} |`;
           })
           .sort()
-      // adding the url at the end
+          // adding the url at the end
           .map((line) => `${line} ${url}`)
           .join('\n');
       return output;
     }
 
     function processDocument(data, url) {
-      const stopSet = new Set(fs.readFileSync('./non-distribution/d/stopwords.txt', 'utf8').split('\n').map((word) => word.trim()).filter(Boolean));
-    
-      const processedWords = data.replace(/\s+/g, '\n')
+      // prettier-ignore
+      const stopSet = new Set(
+          fs
+              .readFileSync('./non-distribution/d/stopwords.txt', 'utf8')
+              .split('\n')
+              .map((word) => word.trim())
+              .filter(Boolean),
+      );
+
+      // prettier-ignore
+      const processedWords = data
+          .replace(/\s+/g, '\n')
           .replace(/[^a-zA-Z]/g, ' ')
           .replace(/\s+/g, '\n')
           .toLowerCase();
       const stemmer = natural.PorterStemmer;
       // stemming and filtering
-      const filteredWords = processedWords.split('\n').filter((word) => word && !stopSet.has(word)).map((word) => stemmer.stem(word));
-    
+      // prettier-ignore
+      const filteredWords = processedWords
+          .split('\n')
+          .filter((word) => word && !stopSet.has(word))
+          .map((word) => stemmer.stem(word));
+
       // console.log(filteredWords.length);
-    
-    
+
       // combine part
       const combinedGrams = [];
       computeNgrams(combinedGrams, filteredWords);
-    
+
       // invert part
       const inverted = invert(combinedGrams, url);
-    
+
       // DOUBLE CHECK INDEXING PIPELINE
       if (!fs.existsSync(basePath)) {
         fs.mkdir(basePath, () => {
-          fs.writeFile(globalIndexFile, "\n", (err) => {
+          fs.writeFile(globalIndexFile, '\n', (err) => {
             if (err) {
               throw err;
             }
             mergeGlobal(inverted);
-          })
+          });
         });
       } else {
         mergeGlobal(inverted);
@@ -304,33 +324,38 @@ async function runCrawler(replCb) {
 
     let done = false;
 
+    // prettier-ignore
     async function fetchTxt(url) {
       try {
         // Fetch the HTML content
         const html = await new Promise((resolve, reject) => {
           const httpsAgent = new https.Agent({
-            rejectUnauthorized: false // This is the key setting that ignores certificate validation
+            rejectUnauthorized: false, // This is the key setting that ignores certificate validation
           });
-          const req = https.get(url, { 
-            agent: httpsAgent 
-          }, (res) => {
-            let data = '';
-            res.on('data', (chunk) => {
-              data += chunk;
-            });
-            res.on('end', () => {
-              resolve(data);
-            });
-          });
-          
+          const req = https.get(
+              url,
+              {
+                agent: httpsAgent,
+              },
+              (res) => {
+                let data = '';
+                res.on('data', (chunk) => {
+                  data += chunk;
+                });
+                res.on('end', () => {
+                  resolve(data);
+                });
+              },
+          );
+
           req.on('error', (error) => {
             console.log(error);
             reject(error);
           });
-          
+
           req.end();
         });
-        
+
         // this should just be txt data
         return html;
       } catch (error) {
@@ -340,11 +365,10 @@ async function runCrawler(replCb) {
       }
     }
 
-
-    fetchTxt(link).then(html => {
+    fetchTxt(link).then((html) => {
       processDocument(html, link);
       done = true;
-    })
+    });
 
     deasync.loopWhile(() => !done);
     const retObj = {};
@@ -353,32 +377,32 @@ async function runCrawler(replCb) {
 
   const start = 'https://atlas.cs.brown.edu/data/gutenberg/';
 
-  //const startDoc = await fetchAndParse(start);
+  // const startDoc = await fetchAndParse(start);
 
   // console.log(startDoc);
 
   const startHash = id.getID(start);
 
-
-  const dataset = [
-    {[startHash]: start},
-  ];
+  const dataset = [{[startHash]: start}];
 
   const dataset1 = [
     {
-      '9e13a3e4b87ad2d22ecdfe2f00a2bf93ac9d34488b5a1219e8976d388ad55e45': 'https://atlas.cs.brown.edu/data/gutenberg/0/5/'
+      '9e13a3e4b87ad2d22ecdfe2f00a2bf93ac9d34488b5a1219e8976d388ad55e45':
+        'https://atlas.cs.brown.edu/data/gutenberg/0/5/',
     },
-  ]
-
+  ];
 
   const doMapReduce = (cb) => {
+    // prettier-ignore
     distribution.mygroup.store.get(null, (e, v) => {
-
-      distribution.mygroup.mr.exec({keys: v, map: mapper, reduce: reducer, rounds: 1}, (e, v) => {
-        console.log(v);
-        console.log(e);
-        replCb();
-      });
+      distribution.mygroup.mr.exec(
+          {keys: v, map: mapper, reduce: reducer, rounds: 1},
+          (e, v) => {
+            console.log(v);
+            console.log(e);
+            replCb();
+          },
+      );
     });
   };
 
@@ -396,110 +420,110 @@ async function runCrawler(replCb) {
       }
     });
   });
-};
+}
 
 // Part 0: node setup and shutdown
 
 function startNodes(cb) {
-    // run crawler should be run here
+  // run crawler should be run here
 
-    myAwsGroup[id.getSID(n0)] = n0;
-    myAwsGroup[id.getSID(n1)] = n1;
-    myAwsGroup[id.getSID(n2)] = n2;
-    myAwsGroup[id.getSID(n3)] = n3;
+  myAwsGroup[id.getSID(n0)] = n0;
+  myAwsGroup[id.getSID(n1)] = n1;
+  myAwsGroup[id.getSID(n2)] = n2;
+  myAwsGroup[id.getSID(n3)] = n3;
 
-
-    // if we do aws, we don't need this (in case of manual start up)
-    const startNodes = (cb) => {
-        distribution.local.status.spawn(n1, (e, v) => {
-          distribution.local.status.spawn(n2, (e, v) => {
-            distribution.local.status.spawn(n3, (e, v) => {
-              cb();
-            });
-          });
-        });
-      };
-  
-    distribution.node.start((server) => {
-        localServer = server;
-
-        const mygroupConfig = {gid: 'mygroup'};
-
-        startNodes(() => {
-        // This starts up our group
-        distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
-            distribution.mygroup.groups
-                .put(mygroupConfig, myAwsGroup, async (e, v) => {
-                    // after setup, we run the crawler
-                    await runCrawler(cb);
-                })
-            });
-        })
-    })
-}
-
-function stopNodes() {
-    const remote = {service: 'status', method: 'stop'};
-    remote.node = n1;
-    distribution.local.comm.send([], remote, (e, v) => {
-      remote.node = n2;
-      distribution.local.comm.send([], remote, (e, v) => {
-        remote.node = n3;
-        distribution.local.comm.send([], remote, (e, v) => {
-            // usually, this would be handled by junit with done() 
-            // hopefully, it can run fine just as a node function as well
-            localServer.close();
+  // if we do aws, we don't need this (in case of manual start up)
+  const startNodes = (cb) => {
+    distribution.local.status.spawn(n1, (e, v) => {
+      distribution.local.status.spawn(n2, (e, v) => {
+        distribution.local.status.spawn(n3, (e, v) => {
+          cb();
         });
       });
     });
   };
 
+  distribution.node.start((server) => {
+    localServer = server;
+
+    const mygroupConfig = {gid: 'mygroup'};
+
+    startNodes(() => {
+      // This starts up our group
+      // prettier-ignore
+      distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
+        distribution.mygroup.groups.put(
+            mygroupConfig,
+            myAwsGroup,
+            async (e, v) => {
+              // after setup, we run the crawler
+              await runCrawler(cb);
+            },
+        );
+      });
+    });
+  });
+}
+
+function stopNodes() {
+  const remote = {service: 'status', method: 'stop'};
+  remote.node = n1;
+  distribution.local.comm.send([], remote, (e, v) => {
+    remote.node = n2;
+    distribution.local.comm.send([], remote, (e, v) => {
+      remote.node = n3;
+      distribution.local.comm.send([], remote, (e, v) => {
+        // usually, this would be handled by junit with done()
+        // hopefully, it can run fine just as a node function as well
+        localServer.close();
+      });
+    });
+  });
+}
 
 // Part 2: repl the queries
 function main() {
-    // after nodes are but up and the crawler has ran, we want to start up 
-    // the cli
-    startNodes(() => {
-        // Startup message
-        console.log('Welcome to a Distributed Book Search\n');
-        rl.prompt();
+  // after nodes are but up and the crawler has ran, we want to start up
+  // the cli
+  startNodes(() => {
+    // Startup message
+    console.log('Welcome to a Distributed Book Search\n');
+    rl.prompt();
 
-        // Handle each line of input
-        rl.on('line', (line) => {
-        // Check for exit command
-        if (line.trim() === 'quit') {
-            rl.close();
-            stopNodes();
-            return;
-        }
-
-        try {
-            // This is where we would run our queries
-            const result = eval(line);
-            // Print the result
-            console.log(result);
-        } catch (err) {
-            // Print any errors
-            console.error('Error:', err.message);
-        }
-
-        // Show the prompt again
-        rl.prompt();
-
-        });
-
-        // Handle REPL closure
-        rl.on('close', () => {
-        console.log('Exiting REPL');
+    // Handle each line of input
+    rl.on('line', (line) => {
+      // Check for exit command
+      if (line.trim() === 'quit') {
+        rl.close();
         stopNodes();
         return;
-        });
+      }
 
-        rl.on('SIGINT', () => {
-            rl.close();
-        });
-    })
+      try {
+        // This is where we would run our serach queries
+        const result = eval(line);
+        // Print the result
+        console.log(result);
+      } catch (err) {
+        // Print any errors
+        console.error('Error:', err.message);
+      }
+
+      // Show the prompt again
+      rl.prompt();
+    });
+
+    // Handle REPL closure
+    rl.on('close', () => {
+      console.log('Exiting REPL');
+      stopNodes();
+      return;
+    });
+
+    rl.on('SIGINT', () => {
+      rl.close();
+    });
+  });
 }
 
 main();
-  

@@ -288,6 +288,12 @@ const n3 = {ip: '127.0.0.1', port: 7112};
 test('(15 pts) add support for iterative map-reduce', (done) => {
   // in iter mapreduce, we need to explore each link
   const mapper = (key, value) => {
+    const {JSDOM} = require('jsdom');
+    // TODO: Replace with actual base URL
+    // note it is empty so that we can work with pure urls, be advised we could
+    // have links to different parts of the same document
+    const baseURL = '';
+
     // Simulating a db here because I could not get to parsing actual links content to work
     const db = {
       url1: '<html><body><h1>Page 1</h1><p>Welcome to my page.</p><a href="url2">Link to page 2</a></body></html>',
@@ -295,29 +301,36 @@ test('(15 pts) add support for iterative map-reduce', (done) => {
       url3: '<html><body><h1>Page 3</h1><p>Final page.</p><a href="url1">Back to 1</a></body></html>',
     };
 
-    const urlRegex = /<a\s+(?:[^>]*?\s+)?href="([^"]*)"[^>]*>/g;
-    const urls = [];
-    let match;
-
-    while ((match = urlRegex.exec(value)) !== null) {
-      // match = [<a href...tag>, url, ...]
-      const newUrl = match[1];
-      // console.warn('fuck jest');
-      // console.error('match', match);
-      // console.error('Found URL:', newUrl);
-
-      // URL to actual document contents
-      // structure: url -> sourceDoc -> content
-      if (db[newUrl]) {
-        const valObj = {};
-        valObj['sourceDoc'] = db[newUrl];
-        const pushObj = {};
-        pushObj[newUrl] = valObj;
-        urls.push(pushObj);
+    // wrap in a JSDOM to parse the HTML
+    const dom = new JSDOM(value);
+    const doc = dom.window._document;
+    const temp = doc.querySelectorAll('a');
+    const res = Array.from(temp).map((item) => {
+      // need to check if it extends the document (it is a directory/node)
+      // or if it is a link to a completely separate website
+      const isAbsolute = /^https?:\/\//i.test(item.href);
+      if (isAbsolute) {
+        return item.href;
       }
-    }
 
-    // all url objects
+      return baseURL + item.href;
+    });
+
+    // both are needed for things to print
+    console.warn('res', res);
+    console.error('soreal');
+
+    const urls = [];
+    res.forEach((newUrl) => {
+      const valObj = {};
+      // need to remove it once its been crawled once, or have it in some kind
+      // of seen/visited list, replace this with crawling logic
+      valObj['sourceDoc'] = db[newUrl];
+      const pushObj = {};
+      pushObj[newUrl] = valObj;
+      urls.push(pushObj);
+    });
+
     return urls;
   };
 
