@@ -27,10 +27,12 @@ const n0 = {ip: '127.0.0.1', port: 10000};
 const n1 = {ip: '127.0.0.1', port: 7110};
 const n2 = {ip: '127.0.0.1', port: 7111};
 const n3 = {ip: '127.0.0.1', port: 7112};
+// const n4 = {ip: '127.0.0.1', port: 7113};
+// const n5 = {ip: '127.0.0.1', port: 7114};
 
 // Part 1: run the crawler
 async function runCrawler(replCb) {
-  // mapper crawls
+  // mapper crawlsz
   const mapper = (key, value) => {
     // First, install deasync: npm install deasync
     const deasync = require('deasync');
@@ -307,7 +309,9 @@ async function runCrawler(replCb) {
 
       // DOUBLE CHECK INDEXING PIPELINE
       if (!fs.existsSync(basePath)) {
+        console.log('folder doesnt exist\n');
         fs.mkdir(basePath, () => {
+          console.log('folder created');
           fs.writeFile(globalIndexFile, '\n', (err) => {
             if (err) {
               throw err;
@@ -377,7 +381,6 @@ async function runCrawler(replCb) {
           console.log(v);
           fetchTxt(link).then(html => {
             processDocument(html, link);
-            console.log('got to this point\n');
             done = true;
           })
           deasync.loopWhile(() => !done);
@@ -411,7 +414,7 @@ async function runCrawler(replCb) {
     // prettier-ignore
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-          {keys: v, map: mapper, reduce: reducer, rounds: 1},
+          {keys: v, map: mapper, reduce: reducer, rounds: 2},
           (e, v) => {
             console.log(v);
             console.log(e);
@@ -424,13 +427,13 @@ async function runCrawler(replCb) {
   let cntr = 0;
 
   // Send the dataset to the cluster
-  dataset.forEach((o) => {
+  dataset1.forEach((o) => {
     const key = Object.keys(o)[0];
     const value = o[key];
     distribution.mygroup.store.put(value, key, (e, v) => {
       cntr++;
       // Once the dataset is in place, run the map reduce
-      if (cntr === dataset.length) {
+      if (cntr === dataset1.length) {
         doMapReduce();
       }
     });
@@ -446,6 +449,8 @@ function startNodes(cb) {
   myAwsGroup[id.getSID(n1)] = n1;
   myAwsGroup[id.getSID(n2)] = n2;
   myAwsGroup[id.getSID(n3)] = n3;
+  // myAwsGroup[id.getSID(n4)] = n4;
+  // myAwsGroup[id.getSID(n5)] = n5;
 
   // if we do aws, we don't need this (in case of manual start up)
   const startNodes = (cb) => {
@@ -453,6 +458,11 @@ function startNodes(cb) {
       distribution.local.status.spawn(n2, (e, v) => {
         distribution.local.status.spawn(n3, (e, v) => {
           cb();
+          // distribution.local.status.spawn(n4, (e, v) => {
+          //   distribution.local.status.spawn(n5, (e, v) => {
+
+          //   })
+          // })
         });
       });
     });
@@ -462,6 +472,7 @@ function startNodes(cb) {
     localServer = server;
 
     const mygroupConfig = {gid: 'mygroup'};
+    const myVisitedConfig = {gid: 'visited'};
 
     startNodes(() => {
       // This starts up our group
@@ -491,9 +502,14 @@ function stopNodes() {
     distribution.local.comm.send([], remote, (e, v) => {
       remote.node = n3;
       distribution.local.comm.send([], remote, (e, v) => {
-        // usually, this would be handled by junit with done()
-        // hopefully, it can run fine just as a node function as well
         localServer.close();
+        // remote.node = n4;
+        // distribution.local.comm.send([], remote, (e, v) => {
+        //   remote.node = n5;
+        //   distribution.local.comm.send([], remote, (e, v) => {
+
+        //   })
+        // })
       });
     });
   });
