@@ -27,8 +27,8 @@ const n0 = {ip: '127.0.0.1', port: 10000};
 const n1 = {ip: '127.0.0.1', port: 7110};
 const n2 = {ip: '127.0.0.1', port: 7111};
 const n3 = {ip: '127.0.0.1', port: 7112};
-// const n4 = {ip: '127.0.0.1', port: 7113};
-// const n5 = {ip: '127.0.0.1', port: 7114};
+const n4 = {ip: '127.0.0.1', port: 7113};
+const n5 = {ip: '127.0.0.1', port: 7114};
 
 // Part 1: run the crawler
 async function runCrawler(replCb) {
@@ -84,43 +84,53 @@ async function runCrawler(replCb) {
 
     // Start the async operation
     // prettier-ignore
-    fetchAndParse(value).then((doc) => {
-      const baseUrl = value;
-      const bannedLinks = new Set([
-        '?C=N;O=D',
-        '?C=M;O=A',
-        '?C=S;O=A',
-        '?C=D;O=A',
-        'books.txt',
-        'donate-howto.txt',
-        'indextree.txt',
-        'retired/',
-        '/data/',
-      ]);
 
-      const links = [...doc.querySelectorAll('a')].map((a) => {
-        try {
-          // Create absolute URLs from relative ones using the URL constructor
-          if (bannedLinks.has(a.href)) {
-            return null;
-          }
-          const absoluteUrl = new URL(a.href, baseUrl).href;
-          return absoluteUrl;
-        } catch (error) {
-          console.error(`Error processing URL: ${a.href}`, error);
-          return null;
-        }
-      }).filter((link) => link !== null);
-
-      result = links.map((link) => {
-        return {[id.getID(link)]: link};
-      });
-      done = true;
-    }).catch((err) => {
-      console.error('Error in operation:', err);
-      result = [];
-      done = true;
-    });
+    distribution.visited.mem.get(key, (e, v) => {
+      if (e instanceof Error) {
+        distribution.visited.mem.put(value, key, (e, v) => {
+          fetchAndParse(value).then((doc) => {
+            const baseUrl = value;
+            const bannedLinks = new Set([
+              '?C=N;O=D',
+              '?C=M;O=A',
+              '?C=S;O=A',
+              '?C=D;O=A',
+              'books.txt',
+              'donate-howto.txt',
+              'indextree.txt',
+              'retired/',
+              '/data/',
+            ]);
+      
+            const links = [...doc.querySelectorAll('a')].map((a) => {
+              try {
+                // Create absolute URLs from relative ones using the URL constructor
+                if (bannedLinks.has(a.href)) {
+                  return null;
+                }
+                const absoluteUrl = new URL(a.href, baseUrl).href;
+                return absoluteUrl;
+              } catch (error) {
+                console.error(`Error processing URL: ${a.href}`, error);
+                return null;
+              }
+            }).filter((link) => link !== null);
+      
+            result = links.map((link) => {
+              return {[id.getID(link)]: link};
+            });
+            done = true;
+          }).catch((err) => {
+            console.error('Error in operation:', err);
+            result = [];
+            done = true;
+          });
+        })
+      } else {
+        result = [];
+        done = true;
+      }
+    })
 
     // This will block until the async operation completes
     deasync.loopWhile(() => !done);
@@ -310,18 +320,10 @@ async function runCrawler(replCb) {
       // DOUBLE CHECK INDEXING PIPELINE
       if (!fs.existsSync(basePath)) {
         console.log('folder doesnt exist\n');
-        fs.mkdir(basePath, () => {
-          console.log('folder created');
-          fs.writeFile(globalIndexFile, '\n', (err) => {
-            if (err) {
-              throw err;
-            }
-            mergeGlobal(inverted);
-          });
-        });
-      } else {
-        mergeGlobal(inverted);
-      }
+        fs.mkdirSync(basePath);
+      } 
+      fs.writeFileSync(globalIndexFile, '\n');
+      mergeGlobal(inverted);
     }
 
     const deasync = require('deasync');
@@ -414,7 +416,7 @@ async function runCrawler(replCb) {
     // prettier-ignore
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-          {keys: v, map: mapper, reduce: reducer, rounds: 2},
+          {keys: v, map: mapper, reduce: reducer, rounds: 3},
           (e, v) => {
             console.log(v);
             console.log(e);
@@ -449,20 +451,19 @@ function startNodes(cb) {
   myAwsGroup[id.getSID(n1)] = n1;
   myAwsGroup[id.getSID(n2)] = n2;
   myAwsGroup[id.getSID(n3)] = n3;
-  // myAwsGroup[id.getSID(n4)] = n4;
-  // myAwsGroup[id.getSID(n5)] = n5;
+  myAwsGroup[id.getSID(n4)] = n4;
+  myAwsGroup[id.getSID(n5)] = n5;
 
   // if we do aws, we don't need this (in case of manual start up)
   const startNodes = (cb) => {
     distribution.local.status.spawn(n1, (e, v) => {
       distribution.local.status.spawn(n2, (e, v) => {
         distribution.local.status.spawn(n3, (e, v) => {
-          cb();
-          // distribution.local.status.spawn(n4, (e, v) => {
-          //   distribution.local.status.spawn(n5, (e, v) => {
-
-          //   })
-          // })
+          distribution.local.status.spawn(n4, (e, v) => {
+            distribution.local.status.spawn(n5, (e, v) => {
+              cb();
+            })
+          })
         });
       });
     });
@@ -502,14 +503,13 @@ function stopNodes() {
     distribution.local.comm.send([], remote, (e, v) => {
       remote.node = n3;
       distribution.local.comm.send([], remote, (e, v) => {
-        localServer.close();
-        // remote.node = n4;
-        // distribution.local.comm.send([], remote, (e, v) => {
-        //   remote.node = n5;
-        //   distribution.local.comm.send([], remote, (e, v) => {
-
-        //   })
-        // })
+        remote.node = n4;
+        distribution.local.comm.send([], remote, (e, v) => {
+          remote.node = n5;
+          distribution.local.comm.send([], remote, (e, v) => {
+            localServer.close();
+          })
+        })
       });
     });
   });
