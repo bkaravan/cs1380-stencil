@@ -4,7 +4,7 @@ const distribution = require('./config.js');
 const readline = require('readline');
 const https = require('https');
 
-const {JSDOM} = require('jsdom');
+const { JSDOM } = require('jsdom');
 
 // repl interface
 const rl = readline.createInterface({
@@ -18,17 +18,17 @@ const id = distribution.util.id;
 let localServer = null;
 const myAwsGroup = {};
 
-const n0 = {ip: '127.0.0.1', port: 10000};
+const n0 = { ip: '127.0.0.1', port: 10000 };
 // these are aws nodes from m4
 // const n1 = {ip: "3.141.197.31", port: 1234};
 // const n2 = {ip: "18.221.129.123", port: 1234};
 // const n3 = {ip: "3.16.38.196", port: 1234};
 
-const n1 = {ip: '127.0.0.1', port: 7110};
-const n2 = {ip: '127.0.0.1', port: 7111};
-const n3 = {ip: '127.0.0.1', port: 7112};
-const n4 = {ip: '127.0.0.1', port: 7113};
-const n5 = {ip: '127.0.0.1', port: 7114};
+const n1 = { ip: '127.0.0.1', port: 7110 };
+const n2 = { ip: '127.0.0.1', port: 7111 };
+const n3 = { ip: '127.0.0.1', port: 7112 };
+const n4 = { ip: '127.0.0.1', port: 7113 };
+const n5 = { ip: '127.0.0.1', port: 7114 };
 
 // Part 1: run the crawler
 async function runCrawler(replCb) {
@@ -50,19 +50,19 @@ async function runCrawler(replCb) {
 
           // prettier-ignore
           const req = https.get(
-              url,
-              {
-                agent: httpsAgent,
-              },
-              (res) => {
-                let data = '';
-                res.on('data', (chunk) => {
-                  data += chunk;
-                });
-                res.on('end', () => {
-                  resolve(data);
-                });
-              },
+            url,
+            {
+              agent: httpsAgent,
+            },
+            (res) => {
+              let data = '';
+              res.on('data', (chunk) => {
+                data += chunk;
+              });
+              res.on('end', () => {
+                resolve(data);
+              });
+            },
           );
 
           req.on('error', (error) => {
@@ -101,7 +101,7 @@ async function runCrawler(replCb) {
               'retired/',
               '/data/',
             ]);
-      
+
             const links = [...doc.querySelectorAll('a')].map((a) => {
               try {
                 // Create absolute URLs from relative ones using the URL constructor
@@ -115,9 +115,9 @@ async function runCrawler(replCb) {
                 return null;
               }
             }).filter((link) => link !== null);
-      
+
             result = links.map((link) => {
-              return {[id.getID(link)]: link};
+              return { [id.getID(link)]: link };
             });
             done = true;
           }).catch((err) => {
@@ -148,7 +148,7 @@ async function runCrawler(replCb) {
 
     if (!link.endsWith('txt')) {
       // case 1: this is a redirect link
-      const retObj = {[key]: link};
+      const retObj = { [key]: link };
       return retObj;
     }
 
@@ -192,7 +192,7 @@ async function runCrawler(replCb) {
       }
     };
 
-    const basePath = path.resolve('/usr/src/app/globals');
+    const basePath = path.join(path.dirname(path.resolve('main.js')), 'globals');
     const globalIndexFile = path.join(basePath, global.moreStatus.sid);
 
     const mergeGlobal = (localIndex) => {
@@ -215,7 +215,7 @@ async function runCrawler(replCb) {
           const term = lineSplit[0];
           const url = lineSplit[2];
           const freq = Number(lineSplit[1]);
-          local[term] = {url, freq};
+          local[term] = { url, freq };
         }
 
         for (const line of globalIndexLines) {
@@ -225,7 +225,7 @@ async function runCrawler(replCb) {
           const urlfs = [];
           // can use a flatmap here, but kind of an overkill
           for (let i = 0; i < pairSplit.length; i += 2) {
-            urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
+            urlfs.push({ url: pairSplit[i], freq: Number(pairSplit[i + 1]) });
           }
           global[term] = urlfs; // Array of {url, freq} objects
         }
@@ -272,41 +272,41 @@ async function runCrawler(replCb) {
       // each entry counts the first three words
       // prettier-ignore
       const output = Object.entries(result)
-          .map(([words, count]) => {
-            const parts = words.split(/\s+/).slice(0, 3).join(' ');
-            // update words to doc freq for every n-gram
-            return `${parts} | ${count} |`;
-          })
-          .sort()
-          // adding the url at the end
-          .map((line) => `${line} ${url}`)
-          .join('\n');
+        .map(([words, count]) => {
+          const parts = words.split(/\s+/).slice(0, 3).join(' ');
+          // update words to doc freq for every n-gram
+          return `${parts} | ${count} |`;
+        })
+        .sort()
+        // adding the url at the end
+        .map((line) => `${line} ${url}`)
+        .join('\n');
       return output;
     }
 
     function processDocument(data, url) {
       // prettier-ignore
       const stopSet = new Set(
-          fs
-              .readFileSync('./non-distribution/d/stopwords.txt', 'utf8')
-              .split('\n')
-              .map((word) => word.trim())
-              .filter(Boolean),
+        fs
+          .readFileSync('./non-distribution/d/stopwords.txt', 'utf8')
+          .split('\n')
+          .map((word) => word.trim())
+          .filter(Boolean),
       );
 
       // prettier-ignore
       const processedWords = data
-          .replace(/\s+/g, '\n')
-          .replace(/[^a-zA-Z]/g, ' ')
-          .replace(/\s+/g, '\n')
-          .toLowerCase();
+        .replace(/\s+/g, '\n')
+        .replace(/[^a-zA-Z]/g, ' ')
+        .replace(/\s+/g, '\n')
+        .toLowerCase();
       const stemmer = natural.PorterStemmer;
       // stemming and filtering
       // prettier-ignore
       const filteredWords = processedWords
-          .split('\n')
-          .filter((word) => word && !stopSet.has(word))
-          .map((word) => stemmer.stem(word));
+        .split('\n')
+        .filter((word) => word && !stopSet.has(word))
+        .map((word) => stemmer.stem(word));
 
       // console.log(filteredWords.length);
 
@@ -321,7 +321,7 @@ async function runCrawler(replCb) {
       if (!fs.existsSync(basePath)) {
         console.log('folder doesnt exist\n');
         fs.mkdirSync(basePath);
-      } 
+      }
       fs.writeFileSync(globalIndexFile, '\n');
       mergeGlobal(inverted);
     }
@@ -339,19 +339,19 @@ async function runCrawler(replCb) {
             rejectUnauthorized: false, // This is the key setting that ignores certificate validation
           });
           const req = https.get(
-              url,
-              {
-                agent: httpsAgent,
-              },
-              (res) => {
-                let data = '';
-                res.on('data', (chunk) => {
-                  data += chunk;
-                });
-                res.on('end', () => {
-                  resolve(data);
-                });
-              },
+            url,
+            {
+              agent: httpsAgent,
+            },
+            (res) => {
+              let data = '';
+              res.on('data', (chunk) => {
+                data += chunk;
+              });
+              res.on('end', () => {
+                resolve(data);
+              });
+            },
           );
 
           req.on('error', (error) => {
@@ -403,7 +403,7 @@ async function runCrawler(replCb) {
 
   const startHash = id.getID(start);
 
-  const dataset = [{[startHash]: start}];
+  const dataset = [{ [startHash]: start }];
 
   const dataset1 = [
     {
@@ -413,18 +413,37 @@ async function runCrawler(replCb) {
   ];
 
   const doMapReduce = (cb) => {
-    // prettier-ignore
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-          {keys: v, map: mapper, reduce: reducer, rounds: 3},
-          (e, v) => {
-            console.log(v);
-            console.log(e);
-            replCb();
-          },
+        { keys: v, map: mapper, reduce: reducer, rounds: 3 },
+        (e, v) => {
+          try {
+            const parsed = JSON.parse(JSON.stringify(v));
+            console.log('Parsed MapReduce output:', JSON.stringify(parsed, null, 2));
+          } catch (err) {
+            console.error('JSON Parse Error:', err.message);
+            console.log('Raw output:', v);
+          }
+          if (e) console.error('MapReduce error:', e);
+          replCb();
+        }
       );
     });
   };
+
+  // const doMapReduce = (cb) => {
+  //   // prettier-ignore
+  //   distribution.mygroup.store.get(null, (e, v) => {
+  //     distribution.mygroup.mr.exec(
+  //       { keys: v, map: mapper, reduce: reducer, rounds: 3 },
+  //       (e, v) => {
+  //         console.log(v);
+  //         console.log(e);
+  //         replCb();
+  //       },
+  //     );
+  //   });
+  // };
 
   let cntr = 0;
 
@@ -472,31 +491,31 @@ function startNodes(cb) {
   distribution.node.start((server) => {
     localServer = server;
 
-    const mygroupConfig = {gid: 'mygroup'};
-    const myVisitedConfig = {gid: 'visited'};
+    const mygroupConfig = { gid: 'mygroup' };
+    const myVisitedConfig = { gid: 'visited' };
 
     startNodes(() => {
       // This starts up our group
       // prettier-ignore
       distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
         distribution.mygroup.groups
-            .put(mygroupConfig, myAwsGroup, async (e, v) => {
+          .put(mygroupConfig, myAwsGroup, async (e, v) => {
 
-              distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
-                distribution.visited.groups
-                    .put(myVisitedConfig, myAwsGroup, async (e, v) => {
-                        // after setup, we run the crawler
-                        await runCrawler(cb);
-                    })
-                });
-            })
-        });
+            distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
+              distribution.visited.groups
+                .put(myVisitedConfig, myAwsGroup, async (e, v) => {
+                  // after setup, we run the crawler
+                  await runCrawler(cb);
+                })
+            });
+          })
+      });
     });
   });
 }
 
 function stopNodes() {
-  const remote = {service: 'status', method: 'stop'};
+  const remote = { service: 'status', method: 'stop' };
   remote.node = n1;
   distribution.local.comm.send([], remote, (e, v) => {
     remote.node = n2;
@@ -556,7 +575,7 @@ function main() {
           // // Print the result
           // console.log(result);
 
-          const remote = {service: 'query', method: 'query'};
+          const remote = { service: 'query', method: 'query' };
           distribution.mygroup.comm.send([result], remote, (e, v) => {
             console.log(v);
           });
