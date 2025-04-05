@@ -4,7 +4,7 @@ const distribution = require('./config.js');
 const readline = require('readline');
 const https = require('https');
 
-const { JSDOM } = require('jsdom');
+const {JSDOM} = require('jsdom');
 
 // repl interface
 const rl = readline.createInterface({
@@ -18,17 +18,17 @@ const id = distribution.util.id;
 let localServer = null;
 const myAwsGroup = {};
 
-const n0 = { ip: '127.0.0.1', port: 10000 };
+const n0 = {ip: '127.0.0.1', port: 10000};
 // these are aws nodes from m4
 // const n1 = {ip: "3.141.197.31", port: 1234};
 // const n2 = {ip: "18.221.129.123", port: 1234};
 // const n3 = {ip: "3.16.38.196", port: 1234};
 
-const n1 = { ip: '127.0.0.1', port: 7110 };
-const n2 = { ip: '127.0.0.1', port: 7111 };
-const n3 = { ip: '127.0.0.1', port: 7112 };
-const n4 = { ip: '127.0.0.1', port: 7113 };
-const n5 = { ip: '127.0.0.1', port: 7114 };
+const n1 = {ip: '127.0.0.1', port: 7110};
+const n2 = {ip: '127.0.0.1', port: 7111};
+const n3 = {ip: '127.0.0.1', port: 7112};
+const n4 = {ip: '127.0.0.1', port: 7113};
+const n5 = {ip: '127.0.0.1', port: 7114};
 
 // Part 1: run the crawler
 async function runCrawler(replCb) {
@@ -148,7 +148,7 @@ async function runCrawler(replCb) {
 
     if (!link.endsWith('txt')) {
       // case 1: this is a redirect link
-      const retObj = { [key]: link };
+      const retObj = {[key]: link};
       return retObj;
     }
 
@@ -192,7 +192,10 @@ async function runCrawler(replCb) {
       }
     };
 
-    const basePath = path.join(path.dirname(path.resolve('main.js')), 'globals');
+    const basePath = path.join(
+      path.dirname(path.resolve('main.js')),
+      'globals',
+    );
     const globalIndexFile = path.join(basePath, global.moreStatus.sid);
 
     const mergeGlobal = (localIndex) => {
@@ -215,7 +218,7 @@ async function runCrawler(replCb) {
           const term = lineSplit[0];
           const url = lineSplit[2];
           const freq = Number(lineSplit[1]);
-          local[term] = { url, freq };
+          local[term] = {url, freq};
         }
 
         for (const line of globalIndexLines) {
@@ -225,7 +228,7 @@ async function runCrawler(replCb) {
           const urlfs = [];
           // can use a flatmap here, but kind of an overkill
           for (let i = 0; i < pairSplit.length; i += 2) {
-            urlfs.push({ url: pairSplit[i], freq: Number(pairSplit[i + 1]) });
+            urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
           }
           global[term] = urlfs; // Array of {url, freq} objects
         }
@@ -403,7 +406,7 @@ async function runCrawler(replCb) {
 
   const startHash = id.getID(start);
 
-  const dataset = [{ [startHash]: start }];
+  const dataset = [{[startHash]: start}];
 
   const dataset1 = [
     {
@@ -415,18 +418,21 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 3 },
+        {keys: v, map: mapper, reduce: reducer, rounds: 3},
         (e, v) => {
           try {
             const parsed = JSON.parse(JSON.stringify(v));
-            console.log('Parsed MapReduce output:', JSON.stringify(parsed, null, 2));
+            console.log(
+              'Parsed MapReduce output:',
+              JSON.stringify(parsed, null, 2),
+            );
           } catch (err) {
             console.error('JSON Parse Error:', err.message);
             console.log('Raw output:', v);
           }
           if (e) console.error('MapReduce error:', e);
           replCb();
-        }
+        },
       );
     });
   };
@@ -481,8 +487,8 @@ function startNodes(cb) {
           distribution.local.status.spawn(n4, (e, v) => {
             distribution.local.status.spawn(n5, (e, v) => {
               cb();
-            })
-          })
+            });
+          });
         });
       });
     });
@@ -491,8 +497,8 @@ function startNodes(cb) {
   distribution.node.start((server) => {
     localServer = server;
 
-    const mygroupConfig = { gid: 'mygroup' };
-    const myVisitedConfig = { gid: 'visited' };
+    const mygroupConfig = {gid: 'mygroup'};
+    const myVisitedConfig = {gid: 'visited'};
 
     startNodes(() => {
       // This starts up our group
@@ -515,7 +521,7 @@ function startNodes(cb) {
 }
 
 function stopNodes() {
-  const remote = { service: 'status', method: 'stop' };
+  const remote = {service: 'status', method: 'stop'};
   remote.node = n1;
   distribution.local.comm.send([], remote, (e, v) => {
     remote.node = n2;
@@ -527,8 +533,8 @@ function stopNodes() {
           remote.node = n5;
           distribution.local.comm.send([], remote, (e, v) => {
             localServer.close();
-          })
-        })
+          });
+        });
       });
     });
   });
@@ -540,20 +546,45 @@ function main() {
   // the cli
   startNodes(() => {
     const queryService = {};
-    queryService.query = (query) => {
-      const data = fs
-        .readFileSync('globals/' + global.moreStatus.sid, 'utf8')
-        .split('\n')
-        .map((word) => word.trim())
-        .filter(Boolean);
-      const res = [];
-      for (const line of data) {
-        term = line.split('|')[0];
-        if (term.includes(query)) {
-          res.push(line);
+    queryService.query = (query, cb) => {
+      const fs = require('fs');
+      // console.log('SID:', global.moreStatus.sid);
+
+      const filePath = 'globals/' + global.moreStatus.sid;
+      // console.log('Reading file at:', filePath);
+
+      try {
+        const raw = fs.readFileSync(filePath, 'utf8');
+        // console.log('Raw file content:', raw);
+
+        const data = raw
+          .split('\n')
+          .map((word) => word.trim())
+          .filter(Boolean);
+
+        // console.log('Processed data:', data);
+        const stemmer = require('natural').PorterStemmer;
+        const stemmedQuery = stemmer.stem(query);
+
+        const res = [];
+        for (const line of data) {
+          const term = line.split('|')[0];
+          const words = term.split(' ');
+          for (const word of words) {
+            if (word === stemmedQuery) {
+              res.push(line);
+            }
+          }
+          // if (term.includes(query)) {
+          //   res.push(line);
+          // }
         }
+
+        cb(null, res);
+      } catch (err) {
+        // console.error('Failed to read or process file:', err);
+        cb(err);
       }
-      return res;
     };
     distribution.mygroup.routes.put(queryService, 'query', (e, v) => {
       // Startup message
@@ -575,9 +606,13 @@ function main() {
           // // Print the result
           // console.log(result);
 
-          const remote = { service: 'query', method: 'query' };
-          distribution.mygroup.comm.send([result], remote, (e, v) => {
-            console.log(v);
+          const remote = {service: 'query', method: 'query'};
+          distribution.mygroup.comm.send([line.trim()], remote, (e, v) => {
+            for (const node of Object.keys(v)) {
+              for (const line of v[node]) {
+                console.log(line);
+              }
+            }
           });
         } catch (err) {
           // Print any errors
