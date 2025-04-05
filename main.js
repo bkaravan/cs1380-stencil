@@ -200,67 +200,57 @@ async function runCrawler(replCb) {
 
     const mergeGlobal = (localIndex) => {
       // Split the data into an array of lines
-      fs.readFile(globalIndexFile, 'utf8', (err, data) => {
-        if (err) {
-          throw err;
+      const data = fs.readFileSync(globalIndexFile, 'utf8') 
+      const localIndexLines = localIndex.split('\n');
+      const globalIndexLines = data.split('\n').filter((a) => a != '');
+
+      const local = {};
+      const global = {};
+
+      for (const line of localIndexLines) {
+        // might need to skip empty lines
+        const lineSplit = line.split('|').map((part) => part.trim());
+        if (lineSplit.length < 3) continue;
+        const term = lineSplit[0];
+        const url = lineSplit[2];
+        const freq = Number(lineSplit[1]);
+        local[term] = {url, freq};
+      }
+
+      for (const line of globalIndexLines) {
+        const lineSplit = line.split('|').map((part) => part.trim());
+        const pairSplit = lineSplit[1].split(' ').map((part) => part.trim());
+        const term = lineSplit[0];
+        const urlfs = [];
+        // can use a flatmap here, but kind of an overkill
+        for (let i = 0; i < pairSplit.length; i += 2) {
+          urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
         }
+        global[term] = urlfs; // Array of {url, freq} objects
+      }
 
-        const localIndexLines = localIndex.split('\n');
-        const globalIndexLines = data.split('\n').filter((a) => a != '');
-
-        const local = {};
-        const global = {};
-
-        for (const line of localIndexLines) {
-          // might need to skip empty lines
-          const lineSplit = line.split('|').map((part) => part.trim());
-          if (lineSplit.length < 3) continue;
-          const term = lineSplit[0];
-          const url = lineSplit[2];
-          const freq = Number(lineSplit[1]);
-          local[term] = {url, freq};
+      for (const term in local) {
+        if (term in global) {
+          global[term].push(local[term]);
+          // technically, might be faster to resort everything at the end
+          global[term].sort(compare);
+        } else {
+          global[term] = [local[term]];
         }
+      }
 
-        for (const line of globalIndexLines) {
-          const lineSplit = line.split('|').map((part) => part.trim());
-          const pairSplit = lineSplit[1].split(' ').map((part) => part.trim());
-          const term = lineSplit[0];
-          const urlfs = [];
-          // can use a flatmap here, but kind of an overkill
-          for (let i = 0; i < pairSplit.length; i += 2) {
-            urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
-          }
-          global[term] = urlfs; // Array of {url, freq} objects
-        }
+      const finalData = [];
+      for (const term in global) {
+        const pairs = global[term]
+          .map((entry) => `${entry.url} ${entry.freq}`)
+          .join(' ');
+        const line = `${term} | ${pairs}`;
+        finalData.push(line);
+      }
 
-        for (const term in local) {
-          if (term in global) {
-            global[term].push(local[term]);
-            // technically, might be faster to resort everything at the end
-            global[term].sort(compare);
-          } else {
-            global[term] = [local[term]];
-          }
-        }
+      const contentToAppend = finalData.join('\n');
 
-        const finalData = [];
-        for (const term in global) {
-          const pairs = global[term]
-            .map((entry) => `${entry.url} ${entry.freq}`)
-            .join(' ');
-          const line = `${term} | ${pairs}`;
-          finalData.push(line);
-        }
-
-        const contentToAppend = finalData.join('\n');
-
-        fs.writeFile(globalIndexFile, contentToAppend + '\n', (err) => {
-          if (err) {
-            throw err;
-          }
-          console.log('Data has been appended to the file successfully');
-        });
-      });
+      fs.writeFileSync(globalIndexFile, contentToAppend + '\n');
     };
 
     function invert(data, url) {
@@ -325,7 +315,9 @@ async function runCrawler(replCb) {
         console.log('folder doesnt exist\n');
         fs.mkdirSync(basePath);
       }
-      fs.writeFileSync(globalIndexFile, '\n');
+      if (!fs.existsSync(globalIndexFile)) {
+        fs.writeFileSync(globalIndexFile, '\n');
+      }
       mergeGlobal(inverted);
     }
 
@@ -378,9 +370,6 @@ async function runCrawler(replCb) {
 
     // TODO: only work on the link if you have not seen it before.
     distribution.visited.mem.get(key, (e, v) => {
-      console.log('here\n');
-      console.log(v);
-      console.log(e);
       if (e instanceof Error) {
         distribution.visited.mem.put(link, key, (e, v) => {
           console.log(v);
@@ -437,19 +426,6 @@ async function runCrawler(replCb) {
     });
   };
 
-  // const doMapReduce = (cb) => {
-  //   // prettier-ignore
-  //   distribution.mygroup.store.get(null, (e, v) => {
-  //     distribution.mygroup.mr.exec(
-  //       { keys: v, map: mapper, reduce: reducer, rounds: 3 },
-  //       (e, v) => {
-  //         console.log(v);
-  //         console.log(e);
-  //         replCb();
-  //       },
-  //     );
-  //   });
-  // };
 
   let cntr = 0;
 
