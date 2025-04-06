@@ -5,6 +5,7 @@ const readline = require('readline');
 const https = require('https');
 
 const {JSDOM} = require('jsdom');
+const {boolean} = require('yargs');
 
 // repl interface
 const rl = readline.createInterface({
@@ -55,8 +56,9 @@ async function runCrawler(replCb) {
           const $ = cheerio.load(html);
           return $;
         } catch (error) {
-          console.error('Fetch error:', error);
-          throw error;
+          // console.error('Fetch error:', error);
+          // throw error;
+          return null;
         }
       }
 
@@ -67,49 +69,52 @@ async function runCrawler(replCb) {
               console.log('new link : ' + v + '\n');
               fetchAndParse(value)
                 .then((doc) => {
-                  const baseUrl = value;
-                  const bannedLinks = new Set([
-                    '?C=N;O=D',
-                    '?C=M;O=A',
-                    '?C=S;O=A',
-                    '?C=D;O=A',
-                    'books.txt',
-                    'donate-howto.txt',
-                    'indextree.txt',
-                    'retired/',
-                    '/data/',
-                  ]);
+                  if (doc) {
+                    const baseUrl = value;
+                    const bannedLinks = new Set([
+                      '?C=N;O=D',
+                      '?C=M;O=A',
+                      '?C=S;O=A',
+                      '?C=D;O=A',
+                      'books.txt',
+                      'donate-howto.txt',
+                      'indextree.txt',
+                      'retired/',
+                      '/data/',
+                    ]);
 
-                  const links = doc('a')
-                    .map((_, element) => {
-                      try {
-                        // Get the href attribute
-                        const href = doc(element).attr('href');
+                    const links = doc('a')
+                      .map((_, element) => {
+                        try {
+                          // Get the href attribute
+                          const href = doc(element).attr('href');
 
-                        // Skip if it's in the banned links
-                        if (href && bannedLinks.has(href)) {
+                          // Skip if it's in the banned links
+                          if (href && bannedLinks.has(href)) {
+                            return null;
+                          }
+
+                          // Create absolute URLs from relative ones
+                          if (href) {
+                            const absoluteUrl = new URL(href, baseUrl).href;
+                            return absoluteUrl;
+                          }
+                          return null;
+                        } catch (error) {
+                          console.error(`Error processing URL: ${href}`, error);
                           return null;
                         }
+                      })
+                      .get() // This converts Cheerio's result into a regular array
+                      .filter((link) => link !== null);
 
-                        // Create absolute URLs from relative ones
-                        if (href) {
-                          const absoluteUrl = new URL(href, baseUrl).href;
-                          return absoluteUrl;
-                        }
-                        return null;
-                      } catch (error) {
-                        console.error(`Error processing URL: ${href}`, error);
-                        return null;
-                      }
-                    })
-                    .get() // This converts Cheerio's result into a regular array
-                    .filter((link) => link !== null);
+                    const result = links.map((link) => {
+                      return {[id.getID(link)]: link};
+                    });
 
-                  const result = links.map((link) => {
-                    return {[id.getID(link)]: link};
-                  });
-
-                  resolve(result); // Resolve the promise with the final result
+                    resolve(result); // Resolve the promise with the final result
+                  }
+                  resolve([]);
                 })
                 .catch((err) => {
                   console.error('Error in operation:', err);
@@ -354,14 +359,15 @@ async function runCrawler(replCb) {
       });
     
       try {
-        const response = await fetch(url, { dispatcher: httpsAgent });
+        const response = await fetch(url, { headers: {'Range': 'bytes=0-999'},dispatcher: httpsAgent });
         if (!response.ok) {
           throw new Error(`Fetch failed with status: ${response.status}`);
         }
         return await response.text();
       } catch (error) {
-        console.error('Fetch error:', error);
-        throw error;
+        // console.error('Fetch error:', error);
+        return null;
+        // throw error;
       }
     }
 
@@ -371,9 +377,11 @@ async function runCrawler(replCb) {
           distribution.visited.mem.put(link, key, (e, v) => {
             // console.log(v);
             fetchTxt(link).then((html) => {
-              const trimmedLength = Math.min(1000, html.length);
-              const trimmedHtml = html.substring(0, trimmedLength);
-              processDocument(trimmedHtml, link);
+              if (html) {
+                const trimmedLength = Math.min(1000, html.length);
+                const trimmedHtml = html.substring(0, trimmedLength);
+                processDocument(trimmedHtml, link);
+              }
               resolve({});
             });
           });
@@ -512,7 +520,7 @@ function main() {
       const fs = require('fs');
       // console.log('SID:', global.moreStatus.sid);
 
-      const filePath = 'globals/' + global.moreStatus.sid;
+      const filePath = 'authors/' + global.moreStatus.sid;
       // console.log('Reading file at:', filePath);
 
       try {
@@ -525,18 +533,43 @@ function main() {
           .filter(Boolean);
 
         // console.log('Processed data:', data);
-        const stemmer = require('natural').PorterStemmer;
-        const stemmedQuery = stemmer.stem(query);
+        // const stemmer = require('natural').PorterStemmer;
+        // const stemmedQuery = stemmer.stem(query);
 
         const res = [];
         for (const line of data) {
-          const term = line.split('|')[0];
-          const words = term.split(' ');
-          for (const word of words) {
-            if (word === stemmedQuery) {
-              res.push(line);
+          const [author, title, year, lang, url] = line
+            .split('|')
+            .map((s) => s.trim());
+
+          const lineMap = {
+            author,
+            title,
+            year,
+            lang,
+          };
+
+          let flag = true;
+
+          Object.entries(query).every(([key, value]) => {
+            // console.log('linemap', lineMap);
+            // console.log('key', key, value);
+            // console.log(lineMap[key]);
+            if (
+              !lineMap[key] ||
+              (lineMap[key] &&
+                !lineMap[key].toLowerCase().includes(value.toLowerCase()))
+            ) {
+              flag = false;
             }
+          });
+          if (flag) {
+            // console.log(line);
+            res.push(line);
           }
+          // const terms = line.split('|').map((part) => part.trim());
+          // for (const part of query) {
+          // }
           // if (term.includes(query)) {
           //   res.push(line);
           // }
@@ -574,16 +607,24 @@ function main() {
             return;
           }
 
+          const query = {};
+
+          const parts = trimmedLine.split('|').map((part) => part.trim());
+
+          parts.forEach((part) => {
+            const [key, ...valueParts] = part.split(':');
+            if (key && valueParts.length) {
+              const value = valueParts.join(':').trim();
+              query[key.trim().toLowerCase()] = value;
+            }
+          });
+
           const remote = {service: 'query', method: 'query'};
-          distribution.mygroup.comm.send([trimmedLine], remote, (e, v) => {
+          distribution.mygroup.comm.send([query], remote, (e, v) => {
             const res = new Set();
             for (const node of Object.keys(v)) {
               for (const line of v[node]) {
-                const urls = line.split('|')[1].trim().split(' ');
-                for (let i = 0; i < urls.length; i += 2) {
-                  const url = urls[i];
-                  res.add(url);
-                }
+                res.add(line);
               }
             }
             const result = Array.from(res);
