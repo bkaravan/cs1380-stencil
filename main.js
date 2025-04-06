@@ -34,129 +34,117 @@ const n5 = {ip: '127.0.0.1', port: 7114};
 async function runCrawler(replCb) {
   // mapper crawlsz
   const mapper = (key, value) => {
-    // First, install deasync: npm install deasync
-    const deasync = require('deasync');
-
-    let result = null;
-    let done = false;
-
-    async function fetchAndParse(url) {
-      try {
-        // Fetch the HTML content
-        const html = await new Promise((resolve, reject) => {
-          const httpsAgent = new https.Agent({
-            rejectUnauthorized: false, // This is the key setting that ignores certificate validation
-          });
-
-          // prettier-ignore
-          const req = https.get(
-            url,
-            {
-              agent: httpsAgent,
-            },
-            (res) => {
-              let data = '';
-              res.on('data', (chunk) => {
-                data += chunk;
-              });
-              res.on('end', () => {
-                resolve(data);
-              });
-            },
-          );
-
-          req.on('error', (error) => {
-            console.log(error);
-            reject(error);
-          });
-
-          req.end();
+    // Using promises to handle the asynchronous operations
+    return new Promise((resolve, reject) => {
+      const cheerio = require('cheerio');
+      const { fetch, Agent } = require('undici');
+  
+      async function fetchAndParse(url) {
+        const httpsAgent = new Agent({
+          connect: {
+            rejectUnauthorized: false,
+          },
         });
-
-        const dom = new JSDOM(html);
-        return dom.window.document;
-      } catch (error) {
-        console.error('Error fetching or parsing the page:', error);
-        console.log('current url is ' + url + '\n');
-        throw error;
+      
+        try {
+          const response = await fetch(url, { dispatcher: httpsAgent });
+          if (!response.ok) {
+            throw new Error(`Fetch failed with status: ${response.status}`);
+          }
+          const html = await response.text();
+          const $ = cheerio.load(html);
+          return $;
+        } catch (error) {
+          console.error('Fetch error:', error);
+          throw error;
+        }
       }
-    }
-
-    // Start the async operation
-    // prettier-ignore
-
-    distribution.visited.mem.get(key, (e, v) => {
-      if (e instanceof Error) {
-        distribution.visited.mem.put(value, key, (e, v) => {
-          fetchAndParse(value).then((doc) => {
-            const baseUrl = value;
-            const bannedLinks = new Set([
-              '?C=N;O=D',
-              '?C=M;O=A',
-              '?C=S;O=A',
-              '?C=D;O=A',
-              'books.txt',
-              'donate-howto.txt',
-              'indextree.txt',
-              'retired/',
-              '/data/',
-            ]);
-
-            const links = [...doc.querySelectorAll('a')].map((a) => {
-              try {
-                // Create absolute URLs from relative ones using the URL constructor
-                if (bannedLinks.has(a.href)) {
-                  return null;
-                }
-                const absoluteUrl = new URL(a.href, baseUrl).href;
-                return absoluteUrl;
-              } catch (error) {
-                console.error(`Error processing URL: ${a.href}`, error);
-                return null;
-              }
-            }).filter((link) => link !== null);
-
-            result = links.map((link) => {
-              return { [id.getID(link)]: link };
+  
+      function doMap() {
+        distribution.visited.mem.get(key, (e, v) => {
+          if (e instanceof Error) {
+            distribution.visited.mem.put(value, key, (e, v) => {
+              console.log("new link : " + v + "\n");
+              fetchAndParse(value)
+                .then((doc) => {
+                  const baseUrl = value;
+                  const bannedLinks = new Set([
+                    '?C=N;O=D',
+                    '?C=M;O=A',
+                    '?C=S;O=A',
+                    '?C=D;O=A',
+                    'books.txt',
+                    'donate-howto.txt',
+                    'indextree.txt',
+                    'retired/',
+                    '/data/',
+                  ]);
+      
+                  const links = doc('a')
+                  .map((_, element) => {
+                    try {
+                      // Get the href attribute
+                      const href = doc(element).attr('href');
+                      
+                      // Skip if it's in the banned links
+                      if (href && bannedLinks.has(href)) {
+                        return null;
+                      }
+                      
+                      // Create absolute URLs from relative ones
+                      if (href) {
+                        const absoluteUrl = new URL(href, baseUrl).href;
+                        return absoluteUrl;
+                      }
+                      return null;
+                    } catch (error) {
+                      console.error(`Error processing URL: ${href}`, error);
+                      return null;
+                    }
+                  })
+                  .get() // This converts Cheerio's result into a regular array
+                  .filter(link => link !== null);
+      
+                  const result = links.map((link) => {
+                    return { [id.getID(link)]: link };
+                  });
+                  
+                  resolve(result); // Resolve the promise with the final result
+                })
+                .catch((err) => {
+                  console.error('Error in operation:', err);
+                  resolve([]); // Resolve with empty array in case of error
+                });
             });
-            done = true;
-          }).catch((err) => {
-            console.error('Error in operation:', err);
-            result = [];
-            done = true;
-          });
-        })
-      } else {
-        result = [];
-        done = true;
+          } else {
+            resolve([]); // Resolve with empty array if key exists
+          }
+        });
       }
-    })
-
-    // This will block until the async operation completes
-    deasync.loopWhile(() => !done);
-    console.log('Sync operation complete');
-    return result;
+      
+      doMap(); // Start the process but don't return anything here
+    });
   };
+  
 
   // reducer finds new text files to crawl, or updates global index
   const reducer = (key, values) => {
-    // we want to cover two cases here:
-    // console.log(key);
-    // console.log(values);
 
-    const link = values[0];
+    return new Promise((resolve, reject) => {
+      const link = values[0];
 
     if (!link.endsWith('txt')) {
       // case 1: this is a redirect link
       const retObj = {[key]: link};
-      return retObj;
+      resolve(retObj);
+      return;
     }
 
     const fs = require('fs');
     const path = require('path');
     const natural = require('natural');
 
-    console.log('got to the text part with : ' + link + '\n');
+    // console.log('got to the text part with : ' + link + '\n');
 
     function computeNgrams(output, filteredWords) {
       const buffer = filteredWords.filter(Boolean);
@@ -312,7 +300,6 @@ async function runCrawler(replCb) {
 
       // DOUBLE CHECK INDEXING PIPELINE
       if (!fs.existsSync(basePath)) {
-        console.log('folder doesnt exist\n');
         fs.mkdirSync(basePath);
       }
       if (!fs.existsSync(globalIndexFile)) {
@@ -321,70 +308,45 @@ async function runCrawler(replCb) {
       mergeGlobal(inverted);
     }
 
-    const deasync = require('deasync');
+    const { fetch, Agent } = require('undici');
 
-    let done = false;
 
     // prettier-ignore
     async function fetchTxt(url) {
+      // const fetch = require('node-fetch');
+      const httpsAgent = new Agent({
+        connect: {
+          rejectUnauthorized: false,
+        },
+      });
+    
       try {
-        // Fetch the HTML content
-        const html = await new Promise((resolve, reject) => {
-          const httpsAgent = new https.Agent({
-            rejectUnauthorized: false, // This is the key setting that ignores certificate validation
-          });
-          const req = https.get(
-            url,
-            {
-              agent: httpsAgent,
-            },
-            (res) => {
-              let data = '';
-              res.on('data', (chunk) => {
-                data += chunk;
-              });
-              res.on('end', () => {
-                resolve(data);
-              });
-            },
-          );
-
-          req.on('error', (error) => {
-            console.log(error);
-            reject(error);
-          });
-
-          req.end();
-        });
-
-        // this should just be txt data
-        return html;
+        const response = await fetch(url, { dispatcher: httpsAgent });
+        if (!response.ok) {
+          throw new Error(`Fetch failed with status: ${response.status}`);
+        }
+        return await response.text();
       } catch (error) {
-        console.error('Error fetching or parsing the page:', error);
-        console.log('current url is ' + url + '\n');
+        console.error('Fetch error:', error);
         throw error;
       }
     }
-
-    let done2 = false;
 
     // TODO: only work on the link if you have not seen it before.
     distribution.visited.mem.get(key, (e, v) => {
       if (e instanceof Error) {
         distribution.visited.mem.put(link, key, (e, v) => {
-          console.log(v);
+          // console.log(v);
           fetchTxt(link).then((html) => {
             processDocument(html, link);
-            done = true;
+            resolve({});
           });
-          deasync.loopWhile(() => !done);
         });
+      } else {
+        resolve({});
       }
-      done2 = true;
     });
-    deasync.loopWhile(() => !done2);
-    const retObj = {};
-    return retObj;
+    })
   };
 
   const start = 'https://atlas.cs.brown.edu/data/gutenberg/';
@@ -409,16 +371,6 @@ async function runCrawler(replCb) {
       distribution.mygroup.mr.exec(
         {keys: v, map: mapper, reduce: reducer, rounds: 3},
         (e, v) => {
-          try {
-            const parsed = JSON.parse(JSON.stringify(v));
-            console.log(
-              'Parsed MapReduce output:',
-              JSON.stringify(parsed, null, 2),
-            );
-          } catch (err) {
-            console.error('JSON Parse Error:', err.message);
-            console.log('Raw output:', v);
-          }
           if (e) console.error('MapReduce error:', e);
           replCb();
         },
@@ -481,7 +433,7 @@ function startNodes(cb) {
       // prettier-ignore
       distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
         distribution.mygroup.groups
-          .put(mygroupConfig, myAwsGroup, async (e, v) => {
+          .put(mygroupConfig, myAwsGroup, (e, v) => {
 
             distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
               distribution.visited.groups

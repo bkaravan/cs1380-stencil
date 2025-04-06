@@ -23,11 +23,13 @@
   "license": "ISC",
   "dependencies": {
     "@brown-ds/distribution": "latest",
+    "cheerio": "^1.0.0",
     "deasync": "^0.1.30",
     "jsdom": "^26.0.0",
     "natural": "^8.0.1",
     "node-fetch": "^3.3.2",
     "sync-request": "^6.1.0",
+    "undici": "^7.7.0",
     "yargs": "^17.7.2"
   },
   "prettier": {
@@ -36,7 +38,7 @@
     "semi": true,
     "singleQuote": true,
     "bracketSpacing": false,
-    "spaceBeforeFunctionParen": false 
+    "spaceBeforeFunctionParen": false
   },
   "report": {
     "m1hours": 12,

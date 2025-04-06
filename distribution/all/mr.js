@@ -83,37 +83,38 @@ function mr(config) {
                 return;
               } else {
                 processedCount++;
-                const mappedValue = this.mapper(item, value);
-
-                if (Array.isArray(mappedValue)) {
-                  mappedResults.push(...mappedValue);
-                } else {
-                  mappedResults.push(mappedValue);
-                }
-
-                if (processedCount == data.length) {
-                  let finalResults = mappedResults;
-                  // if compaction is defined, we run it here before
-                  // putting all of the mapped results into storage
-                  // console.log(finalResults);
-                  if (this.compact) {
-                    finalResults = this.compact(item, mappedResults);
+                this.mapper(item, value).then(mappedValue => {
+                  if (Array.isArray(mappedValue)) {
+                    mappedResults.push(...mappedValue);
+                  } else {
+                    mappedResults.push(mappedValue);
+                  }
+  
+                  if (processedCount == data.length) {
+                    let finalResults = mappedResults;
+                    // if compaction is defined, we run it here before
+                    // putting all of the mapped results into storage
                     // console.log(finalResults);
-                    // console.log('\n');
+                    if (this.compact) {
+                      finalResults = this.compact(item, mappedResults);
+                      // console.log(finalResults);
+                      // console.log('\n');
+                    }
+                    let localStorage = global.distribution.local.store;
+                    if (this.memory) {
+                      localStorage = global.distribution.local.mem;
+                    }
+                    localStorage.put(
+                        finalResults,
+                        operationId + 'map',
+                        (error, result) => {
+                          // console.log(result);
+                          callback(error, finalResults);
+                        },
+                    );
                   }
-                  let localStorage = global.distribution.local.store;
-                  if (this.memory) {
-                    localStorage = global.distribution.local.mem;
-                  }
-                  localStorage.put(
-                      finalResults,
-                      operationId + 'map',
-                      (error, result) => {
-                        // console.log(result);
-                        callback(error, finalResults);
-                      },
-                  );
-                }
+                  
+                })
               }
             });
           });
@@ -183,31 +184,28 @@ function mr(config) {
                     (error, values) => {
                     // when doing just in-memory storage, this will fail
                     // some keys have different values
-                      try {
-                        const reducedValue = this.reducer(key, values);
+                      this.reducer(key, values).then(reducedValue => {
                         results = results.concat(reducedValue);
-                      } catch (e) {
-                      // do nothing, since we still want to process this key
-                      // but if it doesn't work with the reducer, we just
-                      // ignore it
-                      }
-                      processedCount++;
-
-                      if (processedCount == keys.length) {
-                        // at this point, either callback like normal
-                        // or store results in the out group if it was provided
-                        if (this.out) {
-                          let storage = global.distribution[this.out].store;
-                          if (this.memory) {
-                            storage = global.distribution[this.out].mem;
-                          }
-                          storage.put(results, key, (e, v) => {
+                        processedCount++;
+  
+                        if (processedCount == keys.length) {
+                          // at this point, either callback like normal
+                          // or store results in the out group if it was provided
+                          if (this.out) {
+                            let storage = global.distribution[this.out].store;
+                            if (this.memory) {
+                              storage = global.distribution[this.out].mem;
+                            }
+                            storage.put(results, key, (e, v) => {
+                              callback(null, results);
+                            });
+                          } else {
                             callback(null, results);
-                          });
-                        } else {
-                          callback(null, results);
+                          }
                         }
-                      }
+                      }).catch(error => {
+                        console.log(error);
+                      })
                     },
                 );
               });
