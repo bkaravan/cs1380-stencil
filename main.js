@@ -283,7 +283,9 @@ async function runCrawler(replCb) {
         const author = authorMatch ? authorMatch[1].trim() : null;
         // form ex: August 1, 2023
         const releaseDateMatch = releaseDate ? releaseDate[1].trim() : null;
-        const releaseYear = releaseDate ? releaseDate.match(/\b\d{4}\b/)?.[0] ?? null : null;
+        const releaseYear = releaseDateMatch
+          ? (releaseDateMatch.match(/\b\d{4}\b/)?.[0] ?? null)
+          : null;
         const languageMatch = language ? language[1].trim() : null;
 
         const globalBasePath = path.join(
@@ -369,7 +371,7 @@ async function runCrawler(replCb) {
           distribution.visited.mem.put(link, key, (e, v) => {
             // console.log(v);
             fetchTxt(link).then((html) => {
-              const trimmedLength = min(1000, html.length);
+              const trimmedLength = Math.min(1000, html.length);
               const trimmedHtml = html.substring(0, trimmedLength);
               processDocument(trimmedHtml, link);
               resolve({});
