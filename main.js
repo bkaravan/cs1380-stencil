@@ -192,8 +192,8 @@ async function runCrawler(replCb) {
       const localIndexLines = localIndex.split('\n');
       const globalIndexLines = data.split('\n').filter((a) => a != '');
 
-      const local = {};
-      const global = {};
+      const local = new Map();
+      const global = new Map();
 
       for (const line of localIndexLines) {
         // might need to skip empty lines
@@ -202,7 +202,7 @@ async function runCrawler(replCb) {
         const term = lineSplit[0];
         const url = lineSplit[2];
         const freq = Number(lineSplit[1]);
-        local[term] = {url, freq};
+        local.set(term, {url, freq});
       }
 
       for (const line of globalIndexLines) {
@@ -214,22 +214,22 @@ async function runCrawler(replCb) {
         for (let i = 0; i < pairSplit.length; i += 2) {
           urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
         }
-        global[term] = urlfs; // Array of {url, freq} objects
+        global.set(term, urlfs); // Array of {url, freq} objects
       }
 
-      for (const term in local) {
-        if (term in global) {
-          global[term].push(local[term]);
+      for (const [key, value] of local) {
+        if (global.has(key)) {
+          global.get(key).push(value);
           // technically, might be faster to resort everything at the end
-          global[term].sort(compare);
+          global.get(key).sort(compare);
         } else {
-          global[term] = [local[term]];
+          global.set(key, [value]);
         }
       }
 
       const finalData = [];
-      for (const term in global) {
-        const pairs = global[term]
+      for (const [term, value] of global) {
+        const pairs = value
           .map((entry) => `${entry.url} ${entry.freq}`)
           .join(' ');
         const line = `${term} | ${pairs}`;
