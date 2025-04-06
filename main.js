@@ -264,6 +264,7 @@ async function runCrawler(replCb) {
       }
 
       function processDocument(data, url) {
+        // data: the first 1000 characters of the html/text file
         // prettier-ignore
         const stopSet = new Set(
         fs
@@ -275,62 +276,68 @@ async function runCrawler(replCb) {
 
         const titleMatch = data.match(/Title:\s*(.*(?:\n\s+.*)*)/);
         const authorMatch = data.match(/Author:\s*(.*)/);
+        const releaseDate = data.match(/Release Date:\s*(.*)/);
+        const language = data.match(/Language:\s*(.*)/);
 
         const title = titleMatch ? titleMatch[1].trim() : null;
         const author = authorMatch ? authorMatch[1].trim() : null;
+        // form ex: August 1, 2023
+        const releaseDateMatch = releaseDate ? releaseDate[1].trim() : null;
+        const releaseYear = releaseDate ? releaseDate.match(/\b\d{4}\b/)?.[0] ?? null : null;
+        const languageMatch = language ? language[1].trim() : null;
 
-        const authorBasePath = path.join(
+        const globalBasePath = path.join(
           path.dirname(path.resolve('main.js')),
           'authors',
         );
 
-        const authorFile = path.join(authorBasePath, global.moreStatus.sid);
+        const globalFile = path.join(globalBasePath, global.moreStatus.sid);
 
-        if (!fs.existsSync(authorBasePath)) {
-          fs.mkdirSync(authorBasePath);
+        if (!fs.existsSync(globalBasePath)) {
+          fs.mkdirSync(globalBasePath);
         }
 
-        if (!fs.existsSync(authorFile)) {
-          fs.writeFileSync(authorFile, '\n');
+        if (!fs.existsSync(globalFile)) {
+          fs.writeFileSync(globalFile, '\n');
         }
 
         fs.appendFileSync(
-          authorFile,
-          `${author} | ${title} | ${url}\n`,
+          globalFile,
+          `${author} | ${title} | ${releaseYear} | ${languageMatch} | ${url}\n`,
           'utf8',
         );
 
-        // prettier-ignore
-        const processedWords = data
-        .replace(/\s+/g, '\n')
-        .replace(/[^a-zA-Z]/g, ' ')
-        .replace(/\s+/g, '\n')
-        .toLowerCase();
-        const stemmer = natural.PorterStemmer;
-        // stemming and filtering
-        // prettier-ignore
-        const filteredWords = processedWords
-        .split('\n')
-        .filter((word) => word && !stopSet.has(word))
-        .map((word) => stemmer.stem(word));
+        // // prettier-ignore
+        // const processedWords = data
+        // .replace(/\s+/g, '\n')
+        // .replace(/[^a-zA-Z]/g, ' ')
+        // .replace(/\s+/g, '\n')
+        // .toLowerCase();
+        // const stemmer = natural.PorterStemmer;
+        // // stemming and filtering
+        // // prettier-ignore
+        // const filteredWords = processedWords
+        // .split('\n')
+        // .filter((word) => word && !stopSet.has(word))
+        // .map((word) => stemmer.stem(word));
 
-        // console.log(filteredWords.length);
+        // // console.log(filteredWords.length);
 
-        // combine part
-        const combinedGrams = [];
-        computeNgrams(combinedGrams, filteredWords);
+        // // combine part
+        // const combinedGrams = [];
+        // computeNgrams(combinedGrams, filteredWords);
 
-        // invert part
-        const inverted = invert(combinedGrams, url);
+        // // invert part
+        // const inverted = invert(combinedGrams, url);
 
-        // DOUBLE CHECK INDEXING PIPELINE
-        if (!fs.existsSync(basePath)) {
-          fs.mkdirSync(basePath);
-        }
-        if (!fs.existsSync(globalIndexFile)) {
-          fs.writeFileSync(globalIndexFile, '\n');
-        }
-        mergeGlobal(inverted);
+        // // DOUBLE CHECK INDEXING PIPELINE
+        // if (!fs.existsSync(basePath)) {
+        //   fs.mkdirSync(basePath);
+        // }
+        // if (!fs.existsSync(globalIndexFile)) {
+        //   fs.writeFileSync(globalIndexFile, '\n');
+        // }
+        // mergeGlobal(inverted);
       }
 
       const {fetch, Agent} = require('undici');
@@ -362,7 +369,9 @@ async function runCrawler(replCb) {
           distribution.visited.mem.put(link, key, (e, v) => {
             // console.log(v);
             fetchTxt(link).then((html) => {
-              processDocument(html, link);
+              const trimmedLength = min(1000, html.length);
+              const trimmedHtml = html.substring(0, trimmedLength);
+              processDocument(trimmedHtml, link);
               resolve({});
             });
           });
