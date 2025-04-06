@@ -37,17 +37,17 @@ async function runCrawler(replCb) {
     // Using promises to handle the asynchronous operations
     return new Promise((resolve, reject) => {
       const cheerio = require('cheerio');
-      const { fetch, Agent } = require('undici');
-  
+      const {fetch, Agent} = require('undici');
+
       async function fetchAndParse(url) {
         const httpsAgent = new Agent({
           connect: {
             rejectUnauthorized: false,
           },
         });
-      
+
         try {
-          const response = await fetch(url, { dispatcher: httpsAgent });
+          const response = await fetch(url, {dispatcher: httpsAgent});
           if (!response.ok) {
             throw new Error(`Fetch failed with status: ${response.status}`);
           }
@@ -59,12 +59,12 @@ async function runCrawler(replCb) {
           throw error;
         }
       }
-  
+
       function doMap() {
         distribution.visited.mem.get(key, (e, v) => {
           if (e instanceof Error) {
             distribution.visited.mem.put(value, key, (e, v) => {
-              console.log("new link : " + v + "\n");
+              console.log('new link : ' + v + '\n');
               fetchAndParse(value)
                 .then((doc) => {
                   const baseUrl = value;
@@ -79,36 +79,36 @@ async function runCrawler(replCb) {
                     'retired/',
                     '/data/',
                   ]);
-      
+
                   const links = doc('a')
-                  .map((_, element) => {
-                    try {
-                      // Get the href attribute
-                      const href = doc(element).attr('href');
-                      
-                      // Skip if it's in the banned links
-                      if (href && bannedLinks.has(href)) {
+                    .map((_, element) => {
+                      try {
+                        // Get the href attribute
+                        const href = doc(element).attr('href');
+
+                        // Skip if it's in the banned links
+                        if (href && bannedLinks.has(href)) {
+                          return null;
+                        }
+
+                        // Create absolute URLs from relative ones
+                        if (href) {
+                          const absoluteUrl = new URL(href, baseUrl).href;
+                          return absoluteUrl;
+                        }
+                        return null;
+                      } catch (error) {
+                        console.error(`Error processing URL: ${href}`, error);
                         return null;
                       }
-                      
-                      // Create absolute URLs from relative ones
-                      if (href) {
-                        const absoluteUrl = new URL(href, baseUrl).href;
-                        return absoluteUrl;
-                      }
-                      return null;
-                    } catch (error) {
-                      console.error(`Error processing URL: ${href}`, error);
-                      return null;
-                    }
-                  })
-                  .get() // This converts Cheerio's result into a regular array
-                  .filter(link => link !== null);
-      
+                    })
+                    .get() // This converts Cheerio's result into a regular array
+                    .filter((link) => link !== null);
+
                   const result = links.map((link) => {
-                    return { [id.getID(link)]: link };
+                    return {[id.getID(link)]: link};
                   });
-                  
+
                   resolve(result); // Resolve the promise with the final result
                 })
                 .catch((err) => {
@@ -121,138 +121,136 @@ async function runCrawler(replCb) {
           }
         });
       }
-      
+
       doMap(); // Start the process but don't return anything here
     });
   };
-  
 
   // reducer finds new text files to crawl, or updates global index
   const reducer = (key, values) => {
-
     return new Promise((resolve, reject) => {
       const link = values[0];
 
-    if (!link.endsWith('txt')) {
-      // case 1: this is a redirect link
-      const retObj = {[key]: link};
-      resolve(retObj);
-      return;
-    }
-
-    const fs = require('fs');
-    const path = require('path');
-    const natural = require('natural');
-
-    // console.log('got to the text part with : ' + link + '\n');
-
-    function computeNgrams(output, filteredWords) {
-      const buffer = filteredWords.filter(Boolean);
-
-      const bigrams = [];
-      for (let i = 0; i < buffer.length - 1; i++) {
-        bigrams.push([buffer[i], buffer[i + 1]]);
+      if (!link.endsWith('txt')) {
+        // case 1: this is a redirect link
+        const retObj = {[key]: link};
+        resolve(retObj);
+        return;
       }
 
-      const trigrams = [];
-      for (let i = 0; i < buffer.length - 2; i++) {
-        trigrams.push([buffer[i], buffer[i + 1], buffer[i + 2]]);
+      const fs = require('fs');
+      const path = require('path');
+      const natural = require('natural');
+
+      // console.log('got to the text part with : ' + link + '\n');
+
+      function computeNgrams(output, filteredWords) {
+        const buffer = filteredWords.filter(Boolean);
+
+        const bigrams = [];
+        for (let i = 0; i < buffer.length - 1; i++) {
+          bigrams.push([buffer[i], buffer[i + 1]]);
+        }
+
+        const trigrams = [];
+        for (let i = 0; i < buffer.length - 2; i++) {
+          trigrams.push([buffer[i], buffer[i + 1], buffer[i + 2]]);
+        }
+
+        const together = buffer.concat(bigrams).concat(trigrams);
+
+        for (const item of together) {
+          if (Array.isArray(item)) {
+            output.push(item.join('\t'));
+          } else {
+            output.push(item);
+          }
+        }
       }
 
-      const together = buffer.concat(bigrams).concat(trigrams);
-
-      for (const item of together) {
-        if (Array.isArray(item)) {
-          output.push(item.join('\t'));
+      const compare = (a, b) => {
+        if (a.freq > b.freq) {
+          return -1;
+        } else if (a.freq < b.freq) {
+          return 1;
         } else {
-          output.push(item);
+          return 0;
         }
-      }
-    }
+      };
 
-    const compare = (a, b) => {
-      if (a.freq > b.freq) {
-        return -1;
-      } else if (a.freq < b.freq) {
-        return 1;
-      } else {
-        return 0;
-      }
-    };
+      const basePath = path.join(
+        path.dirname(path.resolve('main.js')),
+        'globals',
+      );
+      const globalIndexFile = path.join(basePath, global.moreStatus.sid);
 
-    const basePath = path.join(
-      path.dirname(path.resolve('main.js')),
-      'globals',
-    );
-    const globalIndexFile = path.join(basePath, global.moreStatus.sid);
+      const mergeGlobal = (localIndex) => {
+        // Split the data into an array of lines
+        const data = fs.readFileSync(globalIndexFile, 'utf8');
+        const localIndexLines = localIndex.split('\n');
+        const globalIndexLines = data.split('\n').filter((a) => a != '');
 
-    const mergeGlobal = (localIndex) => {
-      // Split the data into an array of lines
-      const data = fs.readFileSync(globalIndexFile, 'utf8') 
-      const localIndexLines = localIndex.split('\n');
-      const globalIndexLines = data.split('\n').filter((a) => a != '');
+        const local = new Map();
+        const global = new Map();
 
-      const local = new Map();
-      const global = new Map();
-
-      for (const line of localIndexLines) {
-        // might need to skip empty lines
-        const lineSplit = line.split('|').map((part) => part.trim());
-        if (lineSplit.length < 3) continue;
-        const term = lineSplit[0];
-        const url = lineSplit[2];
-        const freq = Number(lineSplit[1]);
-        local.set(term, {url, freq});
-      }
-
-      for (const line of globalIndexLines) {
-        const lineSplit = line.split('|').map((part) => part.trim());
-        const pairSplit = lineSplit[1].split(' ').map((part) => part.trim());
-        const term = lineSplit[0];
-        const urlfs = [];
-        // can use a flatmap here, but kind of an overkill
-        for (let i = 0; i < pairSplit.length; i += 2) {
-          urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
+        for (const line of localIndexLines) {
+          // might need to skip empty lines
+          const lineSplit = line.split('|').map((part) => part.trim());
+          if (lineSplit.length < 3) continue;
+          const term = lineSplit[0];
+          const url = lineSplit[2];
+          const freq = Number(lineSplit[1]);
+          local.set(term, {url, freq});
         }
-        global.set(term, urlfs); // Array of {url, freq} objects
-      }
 
-      for (const [key, value] of local) {
-        if (global.has(key)) {
-          global.get(key).push(value);
-          // technically, might be faster to resort everything at the end
-          global.get(key).sort(compare);
-        } else {
-          global.set(key, [value]);
+        for (const line of globalIndexLines) {
+          const lineSplit = line.split('|').map((part) => part.trim());
+          const pairSplit = lineSplit[1].split(' ').map((part) => part.trim());
+          const term = lineSplit[0];
+          const urlfs = [];
+          // can use a flatmap here, but kind of an overkill
+          for (let i = 0; i < pairSplit.length; i += 2) {
+            urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
+          }
+          global.set(term, urlfs); // Array of {url, freq} objects
         }
-      }
 
-      const finalData = [];
-      for (const [term, value] of global) {
-        const pairs = value
-          .map((entry) => `${entry.url} ${entry.freq}`)
-          .join(' ');
-        const line = `${term} | ${pairs}`;
-        finalData.push(line);
-      }
+        for (const [key, value] of local) {
+          if (global.has(key)) {
+            global.get(key).push(value);
+            // technically, might be faster to resort everything at the end
+            global.get(key).sort(compare);
+          } else {
+            global.set(key, [value]);
+          }
+        }
 
-      const contentToAppend = finalData.join('\n');
+        const finalData = [];
+        for (const [term, value] of global) {
+          const pairs = value
+            .map((entry) => `${entry.url} ${entry.freq}`)
+            .join(' ');
+          const line = `${term} | ${pairs}`;
+          finalData.push(line);
+        }
 
-      fs.writeFileSync(globalIndexFile, contentToAppend + '\n');
-    };
+        const contentToAppend = finalData.join('\n');
 
-    function invert(data, url) {
-      // basically python's defaultdict, counting how many times each line occurs
-      const result = data.reduce((acc, line) => {
-        const key = line.trim();
-        acc[key] = (acc[key] || 0) + 1;
-        return acc;
-      }, {});
+        fs.writeFileSync(globalIndexFile, contentToAppend + '\n');
+      };
 
-      // Entries creates a stream of KV pairs
-      // each entry counts the first three words
-      // prettier-ignore
-      const output = Object.entries(result)
+      function invert(data, url) {
+        // basically python's defaultdict, counting how many times each line occurs
+        const result = data.reduce((acc, line) => {
+          const key = line.trim();
+          acc[key] = (acc[key] || 0) + 1;
+          return acc;
+        }, {});
+
+        // Entries creates a stream of KV pairs
+        // each entry counts the first three words
+        // prettier-ignore
+        const output = Object.entries(result)
         .map(([words, count]) => {
           const parts = words.split(/\s+/).slice(0, 3).join(' ');
           // update words to doc freq for every n-gram
@@ -262,12 +260,12 @@ async function runCrawler(replCb) {
         // adding the url at the end
         .map((line) => `${line} ${url}`)
         .join('\n');
-      return output;
-    }
+        return output;
+      }
 
-    function processDocument(data, url) {
-      // prettier-ignore
-      const stopSet = new Set(
+      function processDocument(data, url) {
+        // prettier-ignore
+        const stopSet = new Set(
         fs
           .readFileSync('./non-distribution/d/stopwords.txt', 'utf8')
           .split('\n')
@@ -275,44 +273,43 @@ async function runCrawler(replCb) {
           .filter(Boolean),
       );
 
-      // prettier-ignore
-      const processedWords = data
+        // prettier-ignore
+        const processedWords = data
         .replace(/\s+/g, '\n')
         .replace(/[^a-zA-Z]/g, ' ')
         .replace(/\s+/g, '\n')
         .toLowerCase();
-      const stemmer = natural.PorterStemmer;
-      // stemming and filtering
-      // prettier-ignore
-      const filteredWords = processedWords
+        const stemmer = natural.PorterStemmer;
+        // stemming and filtering
+        // prettier-ignore
+        const filteredWords = processedWords
         .split('\n')
         .filter((word) => word && !stopSet.has(word))
         .map((word) => stemmer.stem(word));
 
-      // console.log(filteredWords.length);
+        // console.log(filteredWords.length);
 
-      // combine part
-      const combinedGrams = [];
-      computeNgrams(combinedGrams, filteredWords);
+        // combine part
+        const combinedGrams = [];
+        computeNgrams(combinedGrams, filteredWords);
 
-      // invert part
-      const inverted = invert(combinedGrams, url);
+        // invert part
+        const inverted = invert(combinedGrams, url);
 
-      // DOUBLE CHECK INDEXING PIPELINE
-      if (!fs.existsSync(basePath)) {
-        fs.mkdirSync(basePath);
+        // DOUBLE CHECK INDEXING PIPELINE
+        if (!fs.existsSync(basePath)) {
+          fs.mkdirSync(basePath);
+        }
+        if (!fs.existsSync(globalIndexFile)) {
+          fs.writeFileSync(globalIndexFile, '\n');
+        }
+        mergeGlobal(inverted);
       }
-      if (!fs.existsSync(globalIndexFile)) {
-        fs.writeFileSync(globalIndexFile, '\n');
-      }
-      mergeGlobal(inverted);
-    }
 
-    const { fetch, Agent } = require('undici');
+      const {fetch, Agent} = require('undici');
 
-
-    // prettier-ignore
-    async function fetchTxt(url) {
+      // prettier-ignore
+      async function fetchTxt(url) {
       // const fetch = require('node-fetch');
       const httpsAgent = new Agent({
         connect: {
@@ -332,21 +329,21 @@ async function runCrawler(replCb) {
       }
     }
 
-    // TODO: only work on the link if you have not seen it before.
-    distribution.visited.mem.get(key, (e, v) => {
-      if (e instanceof Error) {
-        distribution.visited.mem.put(link, key, (e, v) => {
-          // console.log(v);
-          fetchTxt(link).then((html) => {
-            processDocument(html, link);
-            resolve({});
+      // TODO: only work on the link if you have not seen it before.
+      distribution.visited.mem.get(key, (e, v) => {
+        if (e instanceof Error) {
+          distribution.visited.mem.put(link, key, (e, v) => {
+            // console.log(v);
+            fetchTxt(link).then((html) => {
+              processDocument(html, link);
+              resolve({});
+            });
           });
-        });
-      } else {
-        resolve({});
-      }
+        } else {
+          resolve({});
+        }
+      });
     });
-    })
   };
 
   const start = 'https://atlas.cs.brown.edu/data/gutenberg/';
@@ -377,7 +374,6 @@ async function runCrawler(replCb) {
       );
     });
   };
-
 
   let cntr = 0;
 
@@ -534,8 +530,14 @@ function main() {
           // // Print the result
           // console.log(result);
 
+          trimmedLine = line.trim();
+          if (trimmedLine === '') {
+            rl.prompt();
+            return;
+          }
+
           const remote = {service: 'query', method: 'query'};
-          distribution.mygroup.comm.send([line.trim()], remote, (e, v) => {
+          distribution.mygroup.comm.send([trimmedLine], remote, (e, v) => {
             for (const node of Object.keys(v)) {
               for (const line of v[node]) {
                 console.log(line);
