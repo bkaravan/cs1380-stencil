@@ -41,33 +41,21 @@ function put(state, configuration, callback) {
   const toStore = global.distribution.util.serialize(state);
 
   if (!fs.existsSync(basePath)) {
-    fs.mkdir(basePath, () => {
-      // filename will need to become more sophisticated to store across groups
-      fs.writeFile(path.join(basePath, filename), toStore, (error) => {
-        callback(error, state);
-      });
-    });
-  } else {
-    fs.writeFile(path.join(basePath, filename), toStore, (error) => {
-      callback(error, state);
-    });
+    fs.mkdirSync(basePath);
   }
+  fs.writeFileSync(path.join(basePath, filename), toStore);
+  callback(null, state);
 }
 
 function get(configuration, callback) {
-  // console.log(configuration);
-  const sid = global.moreStatus.sid;
+  try {
+    const sid = global.moreStatus.sid;
 
-  if (!configuration || (typeof configuration === 'object' && !configuration.key)) {
-    fs.readdir(basePath, (err, files) => {
-      if (err) {
-        callback(err);
-        return;
-      }
+    if (!configuration || (typeof configuration === 'object' && !configuration.key)) {
+      const files = fs.readdirSync(basePath);
       const foundFiles = [];
-      // console.log('here')
+
       files.forEach((file) => {
-        // an easier approach is to create a folder hierarchy, but it's fine
         if (configuration && configuration.gid) {
           if (file.includes(sid) && file.includes(configuration.gid)) {
             foundFiles.push(file.substring(file.lastIndexOf('-') + 1));
@@ -78,10 +66,44 @@ function get(configuration, callback) {
           }
         }
       });
+
       callback(null, foundFiles);
       return;
-    });
-  } else {
+    } else {
+      let key;
+      let gid = 'local';
+      if (typeof configuration === 'string') {
+        key = makeAlphaNumeric(configuration);
+      } else if (configuration.key) {
+        key = makeAlphaNumeric(configuration.key);
+        gid = configuration.gid || 'local';
+      } else {
+        callback(new Error('unsupported configuration'));
+        return;
+      }
+
+      const filename = `${sid}-${gid}-${key}`;
+      const filepath = path.join(basePath, filename);
+
+      try {
+        const data = fs.readFileSync(filepath, 'utf8');
+        const toRetrieve = global.distribution.util.deserialize(data);
+        callback(null, toRetrieve);
+      } catch (err) {
+        if (err.code === 'ENOENT') {
+          callback(new Error(`No file ${filename} found`));
+        } else {
+          callback(new Error(err.message));
+        }
+      }
+    }
+  } catch (err) {
+    callback(err);
+  }
+}
+
+function del(configuration, callback) {
+  try {
     let key;
     let gid = 'local';
     if (typeof configuration === 'string') {
@@ -94,58 +116,26 @@ function get(configuration, callback) {
       return;
     }
 
-
-    // const filename = id.getID(`${gid}-${sid}-${key}`);
+    const sid = global.moreStatus.sid;
     const filename = `${sid}-${gid}-${key}`;
+    const filepath = path.join(basePath, filename);
 
-    fs.readFile(path.join(basePath, filename), 'utf8', (err, data) => {
-      if (err) {
-        if (err.code === 'ENOENT') {
-          callback(new Error(`No file ${filename} found`));
-        } else {
-          callback(new Error(err.message));
-        }
-        return;
-      }
-      // console.log(data);
+    try {
+      const data = fs.readFileSync(filepath, 'utf8');
       const toRetrieve = global.distribution.util.deserialize(data);
+      fs.unlinkSync(filepath);
       callback(null, toRetrieve);
-    });
-  }
-}
-
-function del(configuration, callback) {
-  let key;
-  let gid = 'local';
-  if (typeof configuration === 'string') {
-    key = makeAlphaNumeric(configuration);
-  } else if (configuration.key) {
-    key = makeAlphaNumeric(configuration.key);
-    gid = configuration.gid || 'local';
-  } else {
-    callback(new Error('unsupported configuration'));
-    return;
-  }
-
-  const sid = global.moreStatus.sid;
-
-  // const filename = id.getID(`${gid}-${sid}-${key}`);
-  const filename = `${sid}-${gid}-${key}`;
-
-  fs.readFile(path.join(basePath, filename), 'utf8', (err, data) => {
-    if (err) {
+    } catch (err) {
       if (err.code === 'ENOENT') {
         callback(new Error(`No file ${filename} found`));
       } else {
         callback(new Error(err.message));
       }
-      return;
     }
-    const toRetrieve = global.distribution.util.deserialize(data);
-    fs.unlink(path.join(basePath, filename), (err) => {
-      callback(err, toRetrieve);
-    });
-  });
+  } catch (err) {
+    callback(err);
+  }
 }
+
 
 module.exports = {put, get, del};

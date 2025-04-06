@@ -382,13 +382,13 @@ async function runCrawler(replCb) {
   let cntr = 0;
 
   // Send the dataset to the cluster
-  dataset1.forEach((o) => {
+  dataset.forEach((o) => {
     const key = Object.keys(o)[0];
     const value = o[key];
     distribution.mygroup.store.put(value, key, (e, v) => {
       cntr++;
       // Once the dataset is in place, run the map reduce
-      if (cntr === dataset1.length) {
+      if (cntr === dataset.length) {
         doMapReduce();
       }
     });
