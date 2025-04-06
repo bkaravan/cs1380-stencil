@@ -273,6 +273,33 @@ async function runCrawler(replCb) {
           .filter(Boolean),
       );
 
+        const titleMatch = data.match(/Title:\s*(.*(?:\n\s+.*)*)/);
+        const authorMatch = data.match(/Author:\s*(.*)/);
+
+        const title = titleMatch ? titleMatch[1].trim() : null;
+        const author = authorMatch ? authorMatch[1].trim() : null;
+
+        const authorBasePath = path.join(
+          path.dirname(path.resolve('main.js')),
+          'authors',
+        );
+
+        const authorFile = path.join(authorBasePath, global.moreStatus.sid);
+
+        if (!fs.existsSync(authorBasePath)) {
+          fs.mkdirSync(authorBasePath);
+        }
+
+        if (!fs.existsSync(authorFile)) {
+          fs.writeFileSync(authorFile, '\n');
+        }
+
+        fs.appendFileSync(
+          authorFile,
+          `${author} | ${title} | ${url}\n`,
+          'utf8',
+        );
+
         // prettier-ignore
         const processedWords = data
         .replace(/\s+/g, '\n')
@@ -538,9 +565,22 @@ function main() {
 
           const remote = {service: 'query', method: 'query'};
           distribution.mygroup.comm.send([trimmedLine], remote, (e, v) => {
+            const res = new Set();
             for (const node of Object.keys(v)) {
               for (const line of v[node]) {
-                console.log(line);
+                const urls = line.split('|')[1].trim().split(' ');
+                for (let i = 0; i < urls.length; i += 2) {
+                  const url = urls[i];
+                  res.add(url);
+                }
+              }
+            }
+            const result = Array.from(res);
+            if (result.length === 0) {
+              console.log('No results found');
+            } else {
+              for (const url of result) {
+                console.log(url);
               }
             }
           });
