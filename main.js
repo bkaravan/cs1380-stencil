@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const distribution = require('./config.js');
+const { execSync } = require('child_process');
 const readline = require('readline');
 const https = require('https');
 
@@ -82,10 +83,6 @@ async function runCrawler(replCb) {
                       'indextree.txt',
                       'retired/',
                       '/data/',
-                      'old/ee610.txt',
-                      'old/blexp10.txt',
-                      'old/moon10.txt',
-                      '83-0.txt',
                     ]);
 
                     const links = doc('a')
@@ -365,7 +362,7 @@ async function runCrawler(replCb) {
         });
 
         try {// "'Accept-encoding' :'identity'"
-          const response = await fetch(url, { headers: { 'Range': 'bytes=0-1000', 'Accept-encoding': 'identity' }, dispatcher: httpsAgent });
+          const response = await fetch(url, { headers: { 'Range': 'bytes=0-1000' }, dispatcher: httpsAgent });
           if (!response.ok) {
             throw new Error(`Fetch failed with status: ${response.status}`);
           }
@@ -418,7 +415,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 2 },
+        { keys: v, map: mapper, reduce: reducer, rounds: 3 },
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
@@ -519,6 +516,12 @@ function stopNodes() {
 
 // Part 2: repl the queries
 function main() {
+  try {
+    execSync('./kill_nodes.sh', { stdio: 'inherit' });
+  } catch (error) {
+    console.log('Cleanup completed');
+  }
+
   // after nodes are but up and the crawler has ran, we want to start up
   // the cli
   startNodes(() => {
