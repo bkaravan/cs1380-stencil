@@ -68,6 +68,12 @@ async function runCrawler(replCb) {
         distribution.visited.mem.get(key, (e, v) => {
           if (e instanceof Error) {
             distribution.visited.mem.put(value, key, (e, v) => {
+              // Handle putting errors first
+              if (e) {
+                console.error('Error putting into visited:', e);
+                resolve([]);
+                return;
+              }
               console.log('new link : ' + v + '\n');
               fetchAndParse(value)
                 .then((doc) => {
@@ -415,7 +421,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 3 },
+        { keys: v, map: mapper, reduce: reducer, rounds: 2 },
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
