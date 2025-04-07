@@ -4,8 +4,8 @@ const distribution = require('./config.js');
 const readline = require('readline');
 const https = require('https');
 
-const {JSDOM} = require('jsdom');
-const {boolean} = require('yargs');
+const { JSDOM } = require('jsdom');
+const { boolean } = require('yargs');
 
 // repl interface
 const rl = readline.createInterface({
@@ -19,17 +19,17 @@ const id = distribution.util.id;
 let localServer = null;
 const myAwsGroup = {};
 
-const n0 = {ip: '127.0.0.1', port: 10000};
+const n0 = { ip: '127.0.0.1', port: 10000 };
 // these are aws nodes from m4
 // const n1 = {ip: "3.141.197.31", port: 1234};
 // const n2 = {ip: "18.221.129.123", port: 1234};
 // const n3 = {ip: "3.16.38.196", port: 1234};
 
-const n1 = {ip: '127.0.0.1', port: 7110};
-const n2 = {ip: '127.0.0.1', port: 7111};
-const n3 = {ip: '127.0.0.1', port: 7112};
-const n4 = {ip: '127.0.0.1', port: 7113};
-const n5 = {ip: '127.0.0.1', port: 7114};
+const n1 = { ip: '127.0.0.1', port: 7110 };
+const n2 = { ip: '127.0.0.1', port: 7111 };
+const n3 = { ip: '127.0.0.1', port: 7112 };
+const n4 = { ip: '127.0.0.1', port: 7113 };
+const n5 = { ip: '127.0.0.1', port: 7114 };
 
 // Part 1: run the crawler
 async function runCrawler(replCb) {
@@ -38,7 +38,8 @@ async function runCrawler(replCb) {
     // Using promises to handle the asynchronous operations
     return new Promise((resolve, reject) => {
       const cheerio = require('cheerio');
-      const {fetch, Agent} = require('undici');
+      const { fetch, Agent } = require('undici');
+
 
       async function fetchAndParse(url) {
         const httpsAgent = new Agent({
@@ -48,7 +49,7 @@ async function runCrawler(replCb) {
         });
 
         try {
-          const response = await fetch(url, {dispatcher: httpsAgent});
+          const response = await fetch(url, { dispatcher: httpsAgent });
           if (!response.ok) {
             throw new Error(`Fetch failed with status: ${response.status}`);
           }
@@ -81,6 +82,10 @@ async function runCrawler(replCb) {
                       'indextree.txt',
                       'retired/',
                       '/data/',
+                      'old/ee610.txt',
+                      'old/blexp10.txt',
+                      'old/moon10.txt',
+                      '83-0.txt',
                     ]);
 
                     const links = doc('a')
@@ -109,12 +114,13 @@ async function runCrawler(replCb) {
                       .filter((link) => link !== null);
 
                     const result = links.map((link) => {
-                      return {[id.getID(link)]: link};
+                      return { [id.getID(link)]: link };
                     });
 
                     resolve(result); // Resolve the promise with the final result
+                  } else {
+                    resolve([]);
                   }
-                  resolve([]);
                 })
                 .catch((err) => {
                   console.error('Error in operation:', err);
@@ -138,7 +144,7 @@ async function runCrawler(replCb) {
 
       if (!link.endsWith('txt')) {
         // case 1: this is a redirect link
-        const retObj = {[key]: link};
+        const retObj = { [key]: link };
         resolve(retObj);
         return;
       }
@@ -205,7 +211,7 @@ async function runCrawler(replCb) {
           const term = lineSplit[0];
           const url = lineSplit[2];
           const freq = Number(lineSplit[1]);
-          local.set(term, {url, freq});
+          local.set(term, { url, freq });
         }
 
         for (const line of globalIndexLines) {
@@ -215,7 +221,7 @@ async function runCrawler(replCb) {
           const urlfs = [];
           // can use a flatmap here, but kind of an overkill
           for (let i = 0; i < pairSplit.length; i += 2) {
-            urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
+            urlfs.push({ url: pairSplit[i], freq: Number(pairSplit[i + 1]) });
           }
           global.set(term, urlfs); // Array of {url, freq} objects
         }
@@ -256,15 +262,15 @@ async function runCrawler(replCb) {
         // each entry counts the first three words
         // prettier-ignore
         const output = Object.entries(result)
-        .map(([words, count]) => {
-          const parts = words.split(/\s+/).slice(0, 3).join(' ');
-          // update words to doc freq for every n-gram
-          return `${parts} | ${count} |`;
-        })
-        .sort()
-        // adding the url at the end
-        .map((line) => `${line} ${url}`)
-        .join('\n');
+          .map(([words, count]) => {
+            const parts = words.split(/\s+/).slice(0, 3).join(' ');
+            // update words to doc freq for every n-gram
+            return `${parts} | ${count} |`;
+          })
+          .sort()
+          // adding the url at the end
+          .map((line) => `${line} ${url}`)
+          .join('\n');
         return output;
       }
 
@@ -272,12 +278,12 @@ async function runCrawler(replCb) {
         // data: the first 1000 characters of the html/text file
         // prettier-ignore
         const stopSet = new Set(
-        fs
-          .readFileSync('./non-distribution/d/stopwords.txt', 'utf8')
-          .split('\n')
-          .map((word) => word.trim())
-          .filter(Boolean),
-      );
+          fs
+            .readFileSync('./non-distribution/d/stopwords.txt', 'utf8')
+            .split('\n')
+            .map((word) => word.trim())
+            .filter(Boolean),
+        );
 
         const titleMatch = data.match(/Title:\s*(.*(?:\n\s+.*)*)/);
         const authorMatch = data.match(/Author:\s*(.*)/);
@@ -347,29 +353,29 @@ async function runCrawler(replCb) {
         // mergeGlobal(inverted);
       }
 
-      const {fetch, Agent} = require('undici');
+      const { fetch, Agent } = require('undici');
 
       // prettier-ignore
       async function fetchTxt(url) {
-      // const fetch = require('node-fetch');
-      const httpsAgent = new Agent({
-        connect: {
-          rejectUnauthorized: false,
-        },
-      });
-    
-      try {
-        const response = await fetch(url, { headers: {'Range': 'bytes=0-999'},dispatcher: httpsAgent });
-        if (!response.ok) {
-          throw new Error(`Fetch failed with status: ${response.status}`);
+        // const fetch = require('node-fetch');
+        const httpsAgent = new Agent({
+          connect: {
+            rejectUnauthorized: false,
+          },
+        });
+
+        try {// "'Accept-encoding' :'identity'"
+          const response = await fetch(url, { headers: { 'Range': 'bytes=0-1000', 'Accept-encoding': 'identity' }, dispatcher: httpsAgent });
+          if (!response.ok) {
+            throw new Error(`Fetch failed with status: ${response.status}`);
+          }
+          return await response.text();
+        } catch (error) {
+          // console.error('Fetch error:', error);
+          return null;
+          // throw error;
         }
-        return await response.text();
-      } catch (error) {
-        // console.error('Fetch error:', error);
-        return null;
-        // throw error;
       }
-    }
 
       // TODO: only work on the link if you have not seen it before.
       distribution.visited.mem.get(key, (e, v) => {
@@ -400,7 +406,7 @@ async function runCrawler(replCb) {
 
   const startHash = id.getID(start);
 
-  const dataset = [{[startHash]: start}];
+  const dataset = [{ [startHash]: start }];
 
   const dataset1 = [
     {
@@ -412,7 +418,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        {keys: v, map: mapper, reduce: reducer, rounds: 3},
+        { keys: v, map: mapper, reduce: reducer, rounds: 2 },
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
@@ -467,8 +473,8 @@ function startNodes(cb) {
   distribution.node.start((server) => {
     localServer = server;
 
-    const mygroupConfig = {gid: 'mygroup'};
-    const myVisitedConfig = {gid: 'visited'};
+    const mygroupConfig = { gid: 'mygroup' };
+    const myVisitedConfig = { gid: 'visited' };
 
     startNodes(() => {
       // This starts up our group
@@ -491,7 +497,7 @@ function startNodes(cb) {
 }
 
 function stopNodes() {
-  const remote = {service: 'status', method: 'stop'};
+  const remote = { service: 'status', method: 'stop' };
   remote.node = n1;
   distribution.local.comm.send([], remote, (e, v) => {
     remote.node = n2;
@@ -510,13 +516,14 @@ function stopNodes() {
   });
 }
 
+
 // Part 2: repl the queries
 function main() {
   // after nodes are but up and the crawler has ran, we want to start up
   // the cli
   startNodes(() => {
     const queryService = {};
-    queryService.query = (query, cb) => {
+    queryService.query = (queryData, cb) => {
       const fs = require('fs');
       // console.log('SID:', global.moreStatus.sid);
 
@@ -532,10 +539,132 @@ function main() {
           .map((word) => word.trim())
           .filter(Boolean);
 
+
         // console.log('Processed data:', data);
         // const stemmer = require('natural').PorterStemmer;
         // const stemmedQuery = stemmer.stem(query);
 
+
+        // First pass: exact matches
+        const exactMatches = performSearch(data, queryData);
+
+        // If we found exact matches, return them
+        if (exactMatches.length > 0) {
+          cb(null, exactMatches);
+          return;
+        }
+
+        // Second pass: typos
+        const typoResults = [];
+        const possibleCorrections = findPossibleCorrections(data, queryData);
+
+        // Search again
+        Object.entries(possibleCorrections).forEach(([key, suggestions]) => {
+          suggestions.forEach(suggestion => {
+            // Create a modified query with the suggestion
+            const modifiedQuery = { ...queryData };
+            modifiedQuery[key] = suggestion.value;
+
+            // Search with the modified query
+            const results = performSearch(data, modifiedQuery);
+            if (results.length > 0) {
+              // Add suggestion info to the beginning of each result
+              const suggestedResults = results.map(result =>
+                `Suggested "${suggestion.value}" for "${queryData[key]}" | ${result}`
+              );
+              typoResults.push(...suggestedResults);
+            }
+          });
+        });
+
+        if (typoResults.length > 0) {
+          cb(null, typoResults);
+          return;
+        }
+
+        // No matches and no typo suggestions
+        cb(null, []);
+      } catch (err) {
+        cb(err);
+      }
+
+      // Possible corrections for typos
+      function findPossibleCorrections(data, query) {
+        const corrections = {};
+        const possibleValues = {
+          author: new Set(),
+          title: new Set(),
+          year: new Set(),
+          lang: new Set()
+        };
+
+        for (const line of data) {
+          const [author, title, year, lang] = line.split('|').map(s => s.trim());
+          if (author) possibleValues.author.add(author.toLowerCase());
+          if (title) possibleValues.title.add(title.toLowerCase());
+          if (year) possibleValues.year.add(year.toLowerCase());
+          if (lang) possibleValues.lang.add(lang.toLowerCase());
+        }
+
+        Object.entries(query).forEach(([key, value]) => {
+          if (possibleValues[key] && value) {
+            const valueLower = value.toLowerCase();
+            const suggestions = [];
+
+            for (const possibleValue of possibleValues[key]) {
+              const distance = levenshteinDistance(valueLower, possibleValue);
+              // Bunch of math from the internet
+              const threshold = Math.max(2, Math.floor(valueLower.length / 3));
+              if (distance <= threshold) {
+                suggestions.push({
+                  value: possibleValue,
+                  distance: distance
+                });
+              }
+            }
+
+            // Sort by distance and limit results
+            if (suggestions.length > 0) {
+              corrections[key] = suggestions
+                .sort((a, b) => a.distance - b.distance)
+                .slice(0, 3); // Limit to top 3 suggestions. Changeable
+            }
+          }
+        });
+
+        return corrections;
+      }
+
+      function levenshteinDistance(a, b) {
+        if (a.length === 0) return b.length;
+        if (b.length === 0) return a.length;
+
+        const matrix = [];
+
+        for (let i = 0; i <= b.length; i++) {
+          matrix[i] = [i];
+        }
+
+        for (let j = 0; j <= a.length; j++) {
+          matrix[0][j] = j;
+        }
+
+        for (let i = 1; i <= b.length; i++) {
+          for (let j = 1; j <= a.length; j++) {
+            const cost = a[j - 1] === b[i - 1] ? 0 : 1;
+            matrix[i][j] = Math.min(
+              matrix[i - 1][j] + 1,
+              matrix[i][j - 1] + 1,
+              matrix[i - 1][j - 1] + cost
+            );
+          }
+        }
+
+        return matrix[b.length][a.length];
+      }
+
+      // Helper function to perform the actual search (Matthias' code is here)
+      function performSearch(data, query) {
         const res = [];
         for (const line of data) {
           const [author, title, year, lang, url] = line
@@ -562,7 +691,9 @@ function main() {
             ) {
               flag = false;
             }
+            return true;
           });
+
           if (flag) {
             // console.log(line);
             res.push(line);
@@ -574,13 +705,10 @@ function main() {
           //   res.push(line);
           // }
         }
-
-        cb(null, res);
-      } catch (err) {
-        // console.error('Failed to read or process file:', err);
-        cb(err);
+        return res;
       }
     };
+
     distribution.mygroup.routes.put(queryService, 'query', (e, v) => {
       // Startup message
       console.log('Welcome to a Distributed Book Search\n');
@@ -600,7 +728,6 @@ function main() {
           // const result = eval(line);
           // // Print the result
           // console.log(result);
-
           trimmedLine = line.trim();
           if (trimmedLine === '') {
             rl.prompt();
@@ -619,7 +746,7 @@ function main() {
             }
           });
 
-          const remote = {service: 'query', method: 'query'};
+          const remote = { service: 'query', method: 'query' };
           distribution.mygroup.comm.send([query], remote, (e, v) => {
             const res = new Set();
             for (const node of Object.keys(v)) {
@@ -629,12 +756,13 @@ function main() {
             }
             const result = Array.from(res);
             if (result.length === 0) {
-              console.log('No results found');
+              console.log('No results found. Try checking your spelling.');
             } else {
               for (const url of result) {
                 console.log(url);
               }
             }
+            rl.prompt();
           });
         } catch (err) {
           // Print any errors
