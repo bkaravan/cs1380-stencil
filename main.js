@@ -44,7 +44,7 @@ async function runCrawler(replCb) {
             rejectUnauthorized: false,
           },
         });
-      
+
         return new Promise((resolve, reject) => {
           setTimeout(async () => {
             try {
@@ -52,7 +52,7 @@ async function runCrawler(replCb) {
               if (!response.ok) {
                 throw new Error(`Fetch failed with status: ${response.status}`);
               }
-      
+
               const html = await response.text();
               const $ = cheerio.load(html);
               resolve($);
@@ -68,10 +68,10 @@ async function runCrawler(replCb) {
           distribution.visited.mem.put(value, key, (e, v) => {
             //console.log('new link : ' + v + '\n');
             if (e) {
-                console.error('Error putting into visited:', e);
-                resolve([]);
-                return;
-              }
+              console.error('Error putting into visited:', e);
+              resolve([]);
+              return;
+            }
             fetchAndParse(value)
               .then((doc) => {
                 if (doc) {
@@ -114,7 +114,7 @@ async function runCrawler(replCb) {
                     .filter((link) => link !== null);
 
                   const result = links.map((link) => {
-                    return {[id.getID(link)]: link};
+                    return { [id.getID(link)]: link };
                   });
 
                   resolve(result); // Resolve the promise with the final result
@@ -363,7 +363,7 @@ async function runCrawler(replCb) {
           },
         });
 
-      
+
         return new Promise((resolve, reject) => {
           setTimeout(async () => {
             try {
@@ -371,11 +371,11 @@ async function runCrawler(replCb) {
                 headers: { 'Range': 'bytes=0-999' },
                 dispatcher: httpsAgent,
               });
-      
+
               if (!response.ok) {
                 throw new Error(`Fetch failed with status: ${response.status}`);
               }
-      
+
               const text = await response.text();
               resolve(text);
             } catch (error) {
@@ -427,7 +427,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        {keys: v, map: mapper, reduce: reducer, rounds: 7},
+        { keys: v, map: mapper, reduce: reducer, rounds: 3 },
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
@@ -736,30 +736,73 @@ function main() {
           stopNodes();
           return;
         }
+        const trimmedLine = line.trim();
+
+        // This is where we would run our serach queries
+        // const result = eval(line);
+        // // Print the result
+        // console.log(result);
+
+        // Handle empty input - just reprompt
+        if (trimmedLine === '') {
+          rl.prompt();
+          return;
+        }
+
+        // Output everything
+        if (trimmedLine === 'showall') {
+          const remote = { service: 'query', method: 'query' };
+          distribution.mygroup.comm.send([{}], remote, (e, v) => {
+            const res = new Set();
+            for (const node of Object.keys(v)) {
+              for (const line of v[node]) {
+                res.add(line);
+              }
+            }
+            const result = Array.from(res);
+            if (result.length === 0) {
+              console.log('No results found in database.');
+            } else {
+              console.log(`Showing all ${result.length} entries:`);
+              for (const url of result) {
+                console.log(url);
+              }
+            }
+            rl.prompt();
+          });
+          return;
+        }
 
         try {
-          // This is where we would run our serach queries
-          // const result = eval(line);
-          // // Print the result
-          // console.log(result);
-          trimmedLine = line.trim();
-          if (trimmedLine === '') {
+          // Parse the query input
+          const query = {};
+          const parts = trimmedLine.split('|').map(part => part.trim());
+          let validQuery = false;
+
+          parts.forEach(part => {
+            const [key, ...valueParts] = part.split(':');
+            if (key && valueParts.length) {
+              const value = valueParts.join(':').trim();
+              const normalizedKey = key.trim().toLowerCase();
+
+              // Check if the key is valid
+              if (['author', 'title', 'year', 'lang'].includes(normalizedKey)) {
+                query[normalizedKey] = value;
+                validQuery = true;
+              }
+            }
+          });
+
+          // If no valid parts reprompt
+          if (!validQuery) {
+            console.log('Invalid query format. Please use one of these formats:');
+            console.log('  author: name | title: book title | year: yyyy | lang: language');
+            console.log('Type "showall" to see all entries in the database.');
             rl.prompt();
             return;
           }
 
-          const query = {};
-
-          const parts = trimmedLine.split('|').map((part) => part.trim());
-
-          parts.forEach((part) => {
-            const [key, ...valueParts] = part.split(':');
-            if (key && valueParts.length) {
-              const value = valueParts.join(':').trim();
-              query[key.trim().toLowerCase()] = value;
-            }
-          });
-
+          // Proceed with valid query
           const remote = { service: 'query', method: 'query' };
           distribution.mygroup.comm.send([query], remote, (e, v) => {
             const res = new Set();
@@ -772,6 +815,7 @@ function main() {
             if (result.length === 0) {
               console.log('No results found. Try checking your spelling.');
             } else {
+              console.log(`Found ${result.length} results:`);
               for (const url of result) {
                 console.log(url);
               }
@@ -779,12 +823,9 @@ function main() {
             rl.prompt();
           });
         } catch (err) {
-          // Print any errors
-          // console.error('Error:', err.message);
+          console.error('Error processing query:', err.message);
+          rl.prompt();
         }
-
-        // Show the prompt again
-        rl.prompt();
       });
 
       // Handle REPL closure
