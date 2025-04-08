@@ -338,6 +338,11 @@ function mr(config) {
           });
         });
 
+        if (newKeys.length === 0) {
+          cb(null, mrResults);
+          return;
+        }
+
         // now that we consumed these keys, we need to remove them so they
         // aren't used in the next rounds
         configuration.keys.forEach((key) => {
@@ -365,7 +370,9 @@ function mr(config) {
                     if (newKeyCount === newKeys.length) {
                       // start the new round of MR
                       configuration.keys = newKeys;
-                      startMR(cnt, rounds);
+                      console.log("starting round: " + cnt);
+                      setTimeout(() => startMR(cnt, rounds), 
+                        1000);
                     }
                   });
                 });

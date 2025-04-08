@@ -46,19 +46,23 @@ async function runCrawler(replCb) {
             rejectUnauthorized: false,
           },
         });
-
-        try {
-          const response = await fetch(url, {dispatcher: httpsAgent});
-          if (!response.ok) {
-            throw new Error(`Fetch failed with status: ${response.status}`);
-          }
-          const html = await response.text();
-          const $ = cheerio.load(html);
-          return $;
-        } catch (error) {
-          //console.error('Fetch error with the url: ', url);
-          throw error;
-        }
+      
+        return new Promise((resolve, reject) => {
+          setTimeout(async () => {
+            try {
+              const response = await fetch(url, { dispatcher: httpsAgent });
+              if (!response.ok) {
+                throw new Error(`Fetch failed with status: ${response.status}`);
+              }
+      
+              const html = await response.text();
+              const $ = cheerio.load(html);
+              resolve($);
+            } catch (error) {
+              reject(error);
+            }
+          }, 50);
+        });
       }
 
       distribution.visited.mem.get(key, (e, v) => {
@@ -99,7 +103,7 @@ async function runCrawler(replCb) {
                         }
                         return null;
                       } catch (error) {
-                        console.error(`Error processing URL: ${href}`, error);
+                        //console.error(`Error processing URL: ${href}`, error);
                         return null;
                       }
                     })
@@ -115,7 +119,7 @@ async function runCrawler(replCb) {
                 resolve([]);
               })
               .catch((err) => {
-                console.error('Error in operation:', err);
+                //console.error('Error in operation:', err);
                 resolve([]); // Resolve with empty array in case of error
               });
           });
@@ -135,12 +139,12 @@ async function runCrawler(replCb) {
       if (!link.endsWith('txt')) {
         // case 1: this is a redirect link
         const retObj = {[key]: link};
-        console.log(link);
+        //console.log(link);
         resolve(retObj);
         return;
       }
 
-      console.log("text link: " + link + "\n");
+      // console.log("text link: " + link + "\n");
 
       const fs = require('fs');
       const path = require('path');
@@ -350,24 +354,32 @@ async function runCrawler(replCb) {
 
       // prettier-ignore
       async function fetchTxt(url) {
-      // const fetch = require('node-fetch');
-      const httpsAgent = new Agent({
-        connect: {
-          rejectUnauthorized: false,
-        },
-      });
-    
-      try {
-        const response = await fetch(url, { headers: {'Range': 'bytes=0-999'},dispatcher: httpsAgent });
-        if (!response.ok) {
-          throw new Error(`Fetch failed with status: ${response.status}`);
-        }
-        return await response.text();
-      } catch (error) {
-        // console.error('Fetch error:', error);
-        throw error;
+        const httpsAgent = new Agent({
+          connect: {
+            rejectUnauthorized: false,
+          },
+        });
+      
+        return new Promise((resolve, reject) => {
+          setTimeout(async () => {
+            try {
+              const response = await fetch(url, {
+                headers: { 'Range': 'bytes=0-999' },
+                dispatcher: httpsAgent,
+              });
+      
+              if (!response.ok) {
+                throw new Error(`Fetch failed with status: ${response.status}`);
+              }
+      
+              const text = await response.text();
+              resolve(text);
+            } catch (error) {
+              reject(error);
+            }
+          }, 50);
+        });
       }
-    }
 
       // TODO: only work on the link if you have not seen it before.
       distribution.visited.mem.get(key, (e, v) => {
@@ -380,7 +392,7 @@ async function runCrawler(replCb) {
               processDocument(trimmedHtml, link);
               resolve({});
             }).catch((err) => {
-              console.error('Error in operation:', err);
+              //console.error('Error in operation:', err);
               resolve({}); // Resolve with empty array in case of error
             });;
           });
@@ -411,7 +423,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        {keys: v, map: mapper, reduce: reducer, rounds: 6},
+        {keys: v, map: mapper, reduce: reducer, rounds: 7},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
@@ -637,7 +649,7 @@ function main() {
           });
         } catch (err) {
           // Print any errors
-          console.error('Error:', err.message);
+          // console.error('Error:', err.message);
         }
 
         // Show the prompt again
