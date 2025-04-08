@@ -13,3 +13,9 @@ for port in 1234 7110 7111 7112 7113 7114 7115; do
       echo "No process found on port $port"
     fi
   done
+
+echo "clearing store & authors" 
+
+rm -rf store
+
+rm -rf authors

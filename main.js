@@ -3,10 +3,6 @@
 const distribution = require('./config.js');
 const { execSync } = require('child_process');
 const readline = require('readline');
-const https = require('https');
-
-const { JSDOM } = require('jsdom');
-const { boolean } = require('yargs');
 
 // repl interface
 const rl = readline.createInterface({
@@ -21,7 +17,6 @@ let localServer = null;
 const myAwsGroup = {};
 
 
-// const n0 = {ip: '127.0.0.1', port: 7115};
 // these are aws nodes from m4
 // const n1 = {ip: "3.141.197.31", port: 1234};
 // const n2 = {ip: "18.221.129.123", port: 1234};
@@ -462,7 +457,6 @@ async function runCrawler(replCb) {
 function startNodes(cb) {
   // run crawler should be run here
 
-  // myAwsGroup[id.getSID(n0)] = n0;
   myAwsGroup[id.getSID(n1)] = n1;
   myAwsGroup[id.getSID(n2)] = n2;
   myAwsGroup[id.getSID(n3)] = n3;
