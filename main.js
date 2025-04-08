@@ -5,6 +5,7 @@ const readline = require('readline');
 const https = require('https');
 
 const {JSDOM} = require('jsdom');
+const {boolean} = require('yargs');
 
 // repl interface
 const rl = readline.createInterface({
@@ -18,7 +19,7 @@ const id = distribution.util.id;
 let localServer = null;
 const myAwsGroup = {};
 
-const n0 = {ip: '127.0.0.1', port: 10000};
+// const n0 = {ip: '127.0.0.1', port: 7115};
 // these are aws nodes from m4
 // const n1 = {ip: "3.141.197.31", port: 1234};
 // const n2 = {ip: "18.221.129.123", port: 1234};
@@ -45,28 +46,32 @@ async function runCrawler(replCb) {
             rejectUnauthorized: false,
           },
         });
-
-        try {
-          const response = await fetch(url, {dispatcher: httpsAgent});
-          if (!response.ok) {
-            throw new Error(`Fetch failed with status: ${response.status}`);
-          }
-          const html = await response.text();
-          const $ = cheerio.load(html);
-          return $;
-        } catch (error) {
-          console.error('Fetch error:', error);
-          throw error;
-        }
+      
+        return new Promise((resolve, reject) => {
+          setTimeout(async () => {
+            try {
+              const response = await fetch(url, { dispatcher: httpsAgent });
+              if (!response.ok) {
+                throw new Error(`Fetch failed with status: ${response.status}`);
+              }
+      
+              const html = await response.text();
+              const $ = cheerio.load(html);
+              resolve($);
+            } catch (error) {
+              reject(error);
+            }
+          }, 50);
+        });
       }
 
-      function doMap() {
-        distribution.visited.mem.get(key, (e, v) => {
-          if (e instanceof Error) {
-            distribution.visited.mem.put(value, key, (e, v) => {
-              console.log('new link : ' + v + '\n');
-              fetchAndParse(value)
-                .then((doc) => {
+      distribution.visited.mem.get(key, (e, v) => {
+        if (e instanceof Error) {
+          distribution.visited.mem.put(value, key, (e, v) => {
+            //console.log('new link : ' + v + '\n');
+            fetchAndParse(value)
+              .then((doc) => {
+                if (doc) {
                   const baseUrl = value;
                   const bannedLinks = new Set([
                     '?C=N;O=D',
@@ -98,7 +103,7 @@ async function runCrawler(replCb) {
                         }
                         return null;
                       } catch (error) {
-                        console.error(`Error processing URL: ${href}`, error);
+                        //console.error(`Error processing URL: ${href}`, error);
                         return null;
                       }
                     })
@@ -110,19 +115,19 @@ async function runCrawler(replCb) {
                   });
 
                   resolve(result); // Resolve the promise with the final result
-                })
-                .catch((err) => {
-                  console.error('Error in operation:', err);
-                  resolve([]); // Resolve with empty array in case of error
-                });
-            });
-          } else {
-            resolve([]); // Resolve with empty array if key exists
-          }
-        });
-      }
+                }
+                resolve([]);
+              })
+              .catch((err) => {
+                //console.error('Error in operation:', err);
+                resolve([]); // Resolve with empty array in case of error
+              });
+          });
+        } else {
+          resolve([]); // Resolve with empty array if key exists
+        }
+      });
 
-      doMap(); // Start the process but don't return anything here
     });
   };
 
@@ -134,9 +139,12 @@ async function runCrawler(replCb) {
       if (!link.endsWith('txt')) {
         // case 1: this is a redirect link
         const retObj = {[key]: link};
+        //console.log(link);
         resolve(retObj);
         return;
       }
+
+      // console.log("text link: " + link + "\n");
 
       const fs = require('fs');
       const path = require('path');
@@ -264,6 +272,7 @@ async function runCrawler(replCb) {
       }
 
       function processDocument(data, url) {
+        // data: the first 1000 characters of the html/text file
         // prettier-ignore
         const stopSet = new Set(
         fs
@@ -275,86 +284,102 @@ async function runCrawler(replCb) {
 
         const titleMatch = data.match(/Title:\s*(.*(?:\n\s+.*)*)/);
         const authorMatch = data.match(/Author:\s*(.*)/);
+        const releaseDate = data.match(/Release Date:\s*(.*)/);
+        const language = data.match(/Language:\s*(.*)/);
 
         const title = titleMatch ? titleMatch[1].trim() : null;
         const author = authorMatch ? authorMatch[1].trim() : null;
+        // form ex: August 1, 2023
+        const releaseDateMatch = releaseDate ? releaseDate[1].trim() : null;
+        const releaseYear = releaseDateMatch
+          ? (releaseDateMatch.match(/\b\d{4}\b/)?.[0] ?? null)
+          : null;
+        const languageMatch = language ? language[1].trim() : null;
 
-        const authorBasePath = path.join(
+        const globalBasePath = path.join(
           path.dirname(path.resolve('main.js')),
           'authors',
         );
 
-        const authorFile = path.join(authorBasePath, global.moreStatus.sid);
+        const globalFile = path.join(globalBasePath, global.moreStatus.sid);
 
-        if (!fs.existsSync(authorBasePath)) {
-          fs.mkdirSync(authorBasePath);
+        if (!fs.existsSync(globalBasePath)) {
+          fs.mkdirSync(globalBasePath);
         }
 
-        if (!fs.existsSync(authorFile)) {
-          fs.writeFileSync(authorFile, '\n');
+        if (!fs.existsSync(globalFile)) {
+          fs.writeFileSync(globalFile, '\n');
         }
 
         fs.appendFileSync(
-          authorFile,
-          `${author} | ${title} | ${url}\n`,
+          globalFile,
+          `${author} | ${title} | ${releaseYear} | ${languageMatch} | ${url}\n`,
           'utf8',
         );
 
-        // prettier-ignore
-        const processedWords = data
-        .replace(/\s+/g, '\n')
-        .replace(/[^a-zA-Z]/g, ' ')
-        .replace(/\s+/g, '\n')
-        .toLowerCase();
-        const stemmer = natural.PorterStemmer;
-        // stemming and filtering
-        // prettier-ignore
-        const filteredWords = processedWords
-        .split('\n')
-        .filter((word) => word && !stopSet.has(word))
-        .map((word) => stemmer.stem(word));
+        // // prettier-ignore
+        // const processedWords = data
+        // .replace(/\s+/g, '\n')
+        // .replace(/[^a-zA-Z]/g, ' ')
+        // .replace(/\s+/g, '\n')
+        // .toLowerCase();
+        // const stemmer = natural.PorterStemmer;
+        // // stemming and filtering
+        // // prettier-ignore
+        // const filteredWords = processedWords
+        // .split('\n')
+        // .filter((word) => word && !stopSet.has(word))
+        // .map((word) => stemmer.stem(word));
 
-        // console.log(filteredWords.length);
+        // // console.log(filteredWords.length);
 
-        // combine part
-        const combinedGrams = [];
-        computeNgrams(combinedGrams, filteredWords);
+        // // combine part
+        // const combinedGrams = [];
+        // computeNgrams(combinedGrams, filteredWords);
 
-        // invert part
-        const inverted = invert(combinedGrams, url);
+        // // invert part
+        // const inverted = invert(combinedGrams, url);
 
-        // DOUBLE CHECK INDEXING PIPELINE
-        if (!fs.existsSync(basePath)) {
-          fs.mkdirSync(basePath);
-        }
-        if (!fs.existsSync(globalIndexFile)) {
-          fs.writeFileSync(globalIndexFile, '\n');
-        }
-        mergeGlobal(inverted);
+        // // DOUBLE CHECK INDEXING PIPELINE
+        // if (!fs.existsSync(basePath)) {
+        //   fs.mkdirSync(basePath);
+        // }
+        // if (!fs.existsSync(globalIndexFile)) {
+        //   fs.writeFileSync(globalIndexFile, '\n');
+        // }
+        // mergeGlobal(inverted);
       }
 
       const {fetch, Agent} = require('undici');
 
       // prettier-ignore
       async function fetchTxt(url) {
-      // const fetch = require('node-fetch');
-      const httpsAgent = new Agent({
-        connect: {
-          rejectUnauthorized: false,
-        },
-      });
-    
-      try {
-        const response = await fetch(url, { dispatcher: httpsAgent });
-        if (!response.ok) {
-          throw new Error(`Fetch failed with status: ${response.status}`);
-        }
-        return await response.text();
-      } catch (error) {
-        console.error('Fetch error:', error);
-        throw error;
+        const httpsAgent = new Agent({
+          connect: {
+            rejectUnauthorized: false,
+          },
+        });
+      
+        return new Promise((resolve, reject) => {
+          setTimeout(async () => {
+            try {
+              const response = await fetch(url, {
+                headers: { 'Range': 'bytes=0-999' },
+                dispatcher: httpsAgent,
+              });
+      
+              if (!response.ok) {
+                throw new Error(`Fetch failed with status: ${response.status}`);
+              }
+      
+              const text = await response.text();
+              resolve(text);
+            } catch (error) {
+              reject(error);
+            }
+          }, 50);
+        });
       }
-    }
 
       // TODO: only work on the link if you have not seen it before.
       distribution.visited.mem.get(key, (e, v) => {
@@ -362,9 +387,14 @@ async function runCrawler(replCb) {
           distribution.visited.mem.put(link, key, (e, v) => {
             // console.log(v);
             fetchTxt(link).then((html) => {
-              processDocument(html, link);
+              const trimmedLength = Math.min(1000, html.length);
+              const trimmedHtml = html.substring(0, trimmedLength);
+              processDocument(trimmedHtml, link);
               resolve({});
-            });
+            }).catch((err) => {
+              //console.error('Error in operation:', err);
+              resolve({}); // Resolve with empty array in case of error
+            });;
           });
         } else {
           resolve({});
@@ -393,7 +423,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        {keys: v, map: mapper, reduce: reducer, rounds: 3},
+        {keys: v, map: mapper, reduce: reducer, rounds: 7},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
@@ -423,7 +453,7 @@ async function runCrawler(replCb) {
 function startNodes(cb) {
   // run crawler should be run here
 
-  myAwsGroup[id.getSID(n0)] = n0;
+  // myAwsGroup[id.getSID(n0)] = n0;
   myAwsGroup[id.getSID(n1)] = n1;
   myAwsGroup[id.getSID(n2)] = n2;
   myAwsGroup[id.getSID(n3)] = n3;
@@ -501,7 +531,7 @@ function main() {
       const fs = require('fs');
       // console.log('SID:', global.moreStatus.sid);
 
-      const filePath = 'globals/' + global.moreStatus.sid;
+      const filePath = 'authors/' + global.moreStatus.sid;
       // console.log('Reading file at:', filePath);
 
       try {
@@ -514,18 +544,43 @@ function main() {
           .filter(Boolean);
 
         // console.log('Processed data:', data);
-        const stemmer = require('natural').PorterStemmer;
-        const stemmedQuery = stemmer.stem(query);
+        // const stemmer = require('natural').PorterStemmer;
+        // const stemmedQuery = stemmer.stem(query);
 
         const res = [];
         for (const line of data) {
-          const term = line.split('|')[0];
-          const words = term.split(' ');
-          for (const word of words) {
-            if (word === stemmedQuery) {
-              res.push(line);
+          const [author, title, year, lang, url] = line
+            .split('|')
+            .map((s) => s.trim());
+
+          const lineMap = {
+            author,
+            title,
+            year,
+            lang,
+          };
+
+          let flag = true;
+
+          Object.entries(query).every(([key, value]) => {
+            // console.log('linemap', lineMap);
+            // console.log('key', key, value);
+            // console.log(lineMap[key]);
+            if (
+              !lineMap[key] ||
+              (lineMap[key] &&
+                !lineMap[key].toLowerCase().includes(value.toLowerCase()))
+            ) {
+              flag = false;
             }
+          });
+          if (flag) {
+            // console.log(line);
+            res.push(line);
           }
+          // const terms = line.split('|').map((part) => part.trim());
+          // for (const part of query) {
+          // }
           // if (term.includes(query)) {
           //   res.push(line);
           // }
@@ -563,16 +618,24 @@ function main() {
             return;
           }
 
+          const query = {};
+
+          const parts = trimmedLine.split('|').map((part) => part.trim());
+
+          parts.forEach((part) => {
+            const [key, ...valueParts] = part.split(':');
+            if (key && valueParts.length) {
+              const value = valueParts.join(':').trim();
+              query[key.trim().toLowerCase()] = value;
+            }
+          });
+
           const remote = {service: 'query', method: 'query'};
-          distribution.mygroup.comm.send([trimmedLine], remote, (e, v) => {
+          distribution.mygroup.comm.send([query], remote, (e, v) => {
             const res = new Set();
             for (const node of Object.keys(v)) {
               for (const line of v[node]) {
-                const urls = line.split('|')[1].trim().split(' ');
-                for (let i = 0; i < urls.length; i += 2) {
-                  const url = urls[i];
-                  res.add(url);
-                }
+                res.add(line);
               }
             }
             const result = Array.from(res);
@@ -586,7 +649,7 @@ function main() {
           });
         } catch (err) {
           // Print any errors
-          console.error('Error:', err.message);
+          // console.error('Error:', err.message);
         }
 
         // Show the prompt again
