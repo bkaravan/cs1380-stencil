@@ -19,7 +19,7 @@ const id = distribution.util.id;
 let localServer = null;
 const myAwsGroup = {};
 
-const n0 = {ip: '127.0.0.1', port: 10000};
+// const n0 = {ip: '127.0.0.1', port: 7115};
 // these are aws nodes from m4
 // const n1 = {ip: "3.141.197.31", port: 1234};
 // const n2 = {ip: "18.221.129.123", port: 1234};
@@ -56,78 +56,74 @@ async function runCrawler(replCb) {
           const $ = cheerio.load(html);
           return $;
         } catch (error) {
-          // console.error('Fetch error:', error);
-          // throw error;
-          return null;
+          //console.error('Fetch error with the url: ', url);
+          throw error;
         }
       }
 
-      function doMap() {
-        distribution.visited.mem.get(key, (e, v) => {
-          if (e instanceof Error) {
-            distribution.visited.mem.put(value, key, (e, v) => {
-              console.log('new link : ' + v + '\n');
-              fetchAndParse(value)
-                .then((doc) => {
-                  if (doc) {
-                    const baseUrl = value;
-                    const bannedLinks = new Set([
-                      '?C=N;O=D',
-                      '?C=M;O=A',
-                      '?C=S;O=A',
-                      '?C=D;O=A',
-                      'books.txt',
-                      'donate-howto.txt',
-                      'indextree.txt',
-                      'retired/',
-                      '/data/',
-                    ]);
+      distribution.visited.mem.get(key, (e, v) => {
+        if (e instanceof Error) {
+          distribution.visited.mem.put(value, key, (e, v) => {
+            //console.log('new link : ' + v + '\n');
+            fetchAndParse(value)
+              .then((doc) => {
+                if (doc) {
+                  const baseUrl = value;
+                  const bannedLinks = new Set([
+                    '?C=N;O=D',
+                    '?C=M;O=A',
+                    '?C=S;O=A',
+                    '?C=D;O=A',
+                    'books.txt',
+                    'donate-howto.txt',
+                    'indextree.txt',
+                    'retired/',
+                    '/data/',
+                  ]);
 
-                    const links = doc('a')
-                      .map((_, element) => {
-                        try {
-                          // Get the href attribute
-                          const href = doc(element).attr('href');
+                  const links = doc('a')
+                    .map((_, element) => {
+                      try {
+                        // Get the href attribute
+                        const href = doc(element).attr('href');
 
-                          // Skip if it's in the banned links
-                          if (href && bannedLinks.has(href)) {
-                            return null;
-                          }
-
-                          // Create absolute URLs from relative ones
-                          if (href) {
-                            const absoluteUrl = new URL(href, baseUrl).href;
-                            return absoluteUrl;
-                          }
-                          return null;
-                        } catch (error) {
-                          console.error(`Error processing URL: ${href}`, error);
+                        // Skip if it's in the banned links
+                        if (href && bannedLinks.has(href)) {
                           return null;
                         }
-                      })
-                      .get() // This converts Cheerio's result into a regular array
-                      .filter((link) => link !== null);
 
-                    const result = links.map((link) => {
-                      return {[id.getID(link)]: link};
-                    });
+                        // Create absolute URLs from relative ones
+                        if (href) {
+                          const absoluteUrl = new URL(href, baseUrl).href;
+                          return absoluteUrl;
+                        }
+                        return null;
+                      } catch (error) {
+                        console.error(`Error processing URL: ${href}`, error);
+                        return null;
+                      }
+                    })
+                    .get() // This converts Cheerio's result into a regular array
+                    .filter((link) => link !== null);
 
-                    resolve(result); // Resolve the promise with the final result
-                  }
-                  resolve([]);
-                })
-                .catch((err) => {
-                  console.error('Error in operation:', err);
-                  resolve([]); // Resolve with empty array in case of error
-                });
-            });
-          } else {
-            resolve([]); // Resolve with empty array if key exists
-          }
-        });
-      }
+                  const result = links.map((link) => {
+                    return {[id.getID(link)]: link};
+                  });
 
-      doMap(); // Start the process but don't return anything here
+                  resolve(result); // Resolve the promise with the final result
+                }
+                resolve([]);
+              })
+              .catch((err) => {
+                console.error('Error in operation:', err);
+                resolve([]); // Resolve with empty array in case of error
+              });
+          });
+        } else {
+          resolve([]); // Resolve with empty array if key exists
+        }
+      });
+
     });
   };
 
@@ -139,9 +135,12 @@ async function runCrawler(replCb) {
       if (!link.endsWith('txt')) {
         // case 1: this is a redirect link
         const retObj = {[key]: link};
+        console.log(link);
         resolve(retObj);
         return;
       }
+
+      console.log("text link: " + link + "\n");
 
       const fs = require('fs');
       const path = require('path');
@@ -366,8 +365,7 @@ async function runCrawler(replCb) {
         return await response.text();
       } catch (error) {
         // console.error('Fetch error:', error);
-        return null;
-        // throw error;
+        throw error;
       }
     }
 
@@ -377,13 +375,14 @@ async function runCrawler(replCb) {
           distribution.visited.mem.put(link, key, (e, v) => {
             // console.log(v);
             fetchTxt(link).then((html) => {
-              if (html) {
-                const trimmedLength = Math.min(1000, html.length);
-                const trimmedHtml = html.substring(0, trimmedLength);
-                processDocument(trimmedHtml, link);
-              }
+              const trimmedLength = Math.min(1000, html.length);
+              const trimmedHtml = html.substring(0, trimmedLength);
+              processDocument(trimmedHtml, link);
               resolve({});
-            });
+            }).catch((err) => {
+              console.error('Error in operation:', err);
+              resolve({}); // Resolve with empty array in case of error
+            });;
           });
         } else {
           resolve({});
@@ -412,7 +411,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        {keys: v, map: mapper, reduce: reducer, rounds: 3},
+        {keys: v, map: mapper, reduce: reducer, rounds: 6},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
@@ -442,7 +441,7 @@ async function runCrawler(replCb) {
 function startNodes(cb) {
   // run crawler should be run here
 
-  myAwsGroup[id.getSID(n0)] = n0;
+  // myAwsGroup[id.getSID(n0)] = n0;
   myAwsGroup[id.getSID(n1)] = n1;
   myAwsGroup[id.getSID(n2)] = n2;
   myAwsGroup[id.getSID(n3)] = n3;

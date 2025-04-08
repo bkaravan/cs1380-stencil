@@ -89,8 +89,9 @@ function mr(config) {
                   } else {
                     mappedResults.push(mappedValue);
                   }
-  
+                  // console.log('before')
                   if (processedCount == data.length) {
+                    // console.log('after');
                     let finalResults = mappedResults;
                     // if compaction is defined, we run it here before
                     // putting all of the mapped results into storage
@@ -142,6 +143,7 @@ function mr(config) {
                   },
                   (error, result) => {
                     processedCount++;
+
                     if (processedCount == data.length) {
                       // this is data we just got from local storage, and is
                       // no longer needed, remove it
@@ -187,8 +189,10 @@ function mr(config) {
                       this.reducer(key, values).then(reducedValue => {
                         results = results.concat(reducedValue);
                         processedCount++;
-  
+
+                        // console.log('before')
                         if (processedCount == keys.length) {
+                          // console.log('after');
                           // at this point, either callback like normal
                           // or store results in the out group if it was provided
                           if (this.out) {
@@ -315,6 +319,10 @@ function mr(config) {
     function startMR(cnt, rounds) {
       // console.warn('ROUND', cnt, configuration.keys);
       mapReduce((e, v) => {
+        if (e) {
+          cb(e, v);
+          return;
+        }
         const mrResults = v;
         cnt++;
         let storage = global.distribution[context.gid].store;
@@ -334,6 +342,10 @@ function mr(config) {
         // aren't used in the next rounds
         configuration.keys.forEach((key) => {
           storage.del(key, (e, v) => {
+            if (e) {
+              cb(e, null);
+              return;
+            }
             keyCount++;
             if (keyCount === configuration.keys.length) {
               if (cnt === rounds) {
