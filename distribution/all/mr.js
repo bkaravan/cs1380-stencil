@@ -91,19 +91,22 @@ function mr(config) {
                   }
   
                   if (processedCount == data.length) {
+                    // console.error('ALL MAPPED');
                     let finalResults = mappedResults;
                     // if compaction is defined, we run it here before
                     // putting all of the mapped results into storage
                     // console.log(finalResults);
                     if (this.compact) {
+                      console.error('COMPACTING');
                       finalResults = this.compact(item, mappedResults);
-                      // console.log(finalResults);
-                      // console.log('\n');
                     }
+
                     let localStorage = global.distribution.local.store;
                     if (this.memory) {
+                      console.error('USING MEMORY');
                       localStorage = global.distribution.local.mem;
                     }
+
                     localStorage.put(
                         finalResults,
                         operationId + 'map',
@@ -336,7 +339,7 @@ function mr(config) {
           storage.del(key, (e, v) => {
             keyCount++;
             if (keyCount === configuration.keys.length) {
-              if (cnt === rounds) {
+              if (cnt >= rounds) {
                 cb(e, mrResults);
                 return;
               }

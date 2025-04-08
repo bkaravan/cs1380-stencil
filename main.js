@@ -7,6 +7,26 @@ const https = require('https');
 const {JSDOM} = require('jsdom');
 const {boolean} = require('yargs');
 
+function cleanup() {
+  const { execFileSync } = require('child_process');
+  try {
+    execFileSync('./kill_nodes.sh', { encoding: 'utf8' });
+  } catch (error) {
+  }
+
+  // commented, it picks up where it left off, not sure if we want or not
+  const fs = require('fs');
+  const path = require('path');
+  fs.rmSync(path.join(__dirname, 'store'), {
+    recursive: true,
+    force: true,
+  });
+
+  fs.mkdirSync(path.join(__dirname, 'store'));
+}
+
+cleanup();
+
 // repl interface
 const rl = readline.createInterface({
   input: process.stdin,
@@ -33,7 +53,7 @@ const n5 = {ip: '127.0.0.1', port: 7114};
 
 // Part 1: run the crawler
 async function runCrawler(replCb) {
-  // mapper crawlsz
+  // mapper crawls
   const mapper = (key, value) => {
     // Using promises to handle the asynchronous operations
     return new Promise((resolve, reject) => {
@@ -53,10 +73,10 @@ async function runCrawler(replCb) {
             throw new Error(`Fetch failed with status: ${response.status}`);
           }
           const html = await response.text();
-          const $ = cheerio.load(html);
-          return $;
+          const lightDOM = cheerio.load(html);
+          return lightDOM;
         } catch (error) {
-          // console.error('Fetch error:', error);
+          console.error('Fetch error:', error);
           // throw error;
           return null;
         }
@@ -70,6 +90,7 @@ async function runCrawler(replCb) {
               fetchAndParse(value)
                 .then((doc) => {
                   if (doc) {
+                    // console.log(doc.text());
                     const baseUrl = value;
                     const bannedLinks = new Set([
                       '?C=N;O=D',
@@ -83,6 +104,7 @@ async function runCrawler(replCb) {
                       '/data/',
                     ]);
 
+                    // returned value is deconstructed to (number, element)
                     const links = doc('a')
                       .map((_, element) => {
                         try {
@@ -96,7 +118,14 @@ async function runCrawler(replCb) {
 
                           // Create absolute URLs from relative ones
                           if (href) {
+                            // URL + baseURL
                             const absoluteUrl = new URL(href, baseUrl).href;
+
+                            // finds them, though never gets to create author
+                            // if (absoluteUrl.endsWith('.txt')) {
+                            //   console.error(absoluteUrl);
+                            // }
+
                             return absoluteUrl;
                           }
                           return null;
@@ -108,12 +137,16 @@ async function runCrawler(replCb) {
                       .get() // This converts Cheerio's result into a regular array
                       .filter((link) => link !== null);
 
+                      // console.error('links:', links);
+
                     const result = links.map((link) => {
                       return {[id.getID(link)]: link};
                     });
 
                     resolve(result); // Resolve the promise with the final result
                   }
+
+                  // otherwise resolve with empty array, meaning no valid doc
                   resolve([]);
                 })
                 .catch((err) => {
@@ -122,26 +155,37 @@ async function runCrawler(replCb) {
                 });
             });
           } else {
-            resolve([]); // Resolve with empty array if key exists
+            // Resolve with empty array if key exists
+            resolve([]);
           }
         });
       }
 
-      doMap(); // Start the process but don't return anything here
+      // Start the process but don't return anything here
+      doMap();
     });
   };
 
   // reducer finds new text files to crawl, or updates global index
   const reducer = (key, values) => {
+    console.error('got to the reducer part');
     return new Promise((resolve, reject) => {
       const link = values[0];
 
+      // never activates, 
+      if (link.endsWith('.txt')) {
+        console.error('SO_REAL')
+      }
+
       if (!link.endsWith('txt')) {
         // case 1: this is a redirect link
+        // console.error('found a redirect link in the reducer: ' + link + '\n');
         const retObj = {[key]: link};
         resolve(retObj);
         return;
       }
+
+      console.error('found a text file in the reducer');
 
       const fs = require('fs');
       const path = require('path');
@@ -183,101 +227,17 @@ async function runCrawler(replCb) {
         }
       };
 
-      const basePath = path.join(
-        path.dirname(path.resolve('main.js')),
-        'globals',
-      );
-      const globalIndexFile = path.join(basePath, global.moreStatus.sid);
-
-      const mergeGlobal = (localIndex) => {
-        // Split the data into an array of lines
-        const data = fs.readFileSync(globalIndexFile, 'utf8');
-        const localIndexLines = localIndex.split('\n');
-        const globalIndexLines = data.split('\n').filter((a) => a != '');
-
-        const local = new Map();
-        const global = new Map();
-
-        for (const line of localIndexLines) {
-          // might need to skip empty lines
-          const lineSplit = line.split('|').map((part) => part.trim());
-          if (lineSplit.length < 3) continue;
-          const term = lineSplit[0];
-          const url = lineSplit[2];
-          const freq = Number(lineSplit[1]);
-          local.set(term, {url, freq});
-        }
-
-        for (const line of globalIndexLines) {
-          const lineSplit = line.split('|').map((part) => part.trim());
-          const pairSplit = lineSplit[1].split(' ').map((part) => part.trim());
-          const term = lineSplit[0];
-          const urlfs = [];
-          // can use a flatmap here, but kind of an overkill
-          for (let i = 0; i < pairSplit.length; i += 2) {
-            urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
-          }
-          global.set(term, urlfs); // Array of {url, freq} objects
-        }
-
-        for (const [key, value] of local) {
-          if (global.has(key)) {
-            global.get(key).push(value);
-            // technically, might be faster to resort everything at the end
-            global.get(key).sort(compare);
-          } else {
-            global.set(key, [value]);
-          }
-        }
-
-        const finalData = [];
-        for (const [term, value] of global) {
-          const pairs = value
-            .map((entry) => `${entry.url} ${entry.freq}`)
-            .join(' ');
-          const line = `${term} | ${pairs}`;
-          finalData.push(line);
-        }
-
-        const contentToAppend = finalData.join('\n');
-
-        fs.writeFileSync(globalIndexFile, contentToAppend + '\n');
-      };
-
-      function invert(data, url) {
-        // basically python's defaultdict, counting how many times each line occurs
-        const result = data.reduce((acc, line) => {
-          const key = line.trim();
-          acc[key] = (acc[key] || 0) + 1;
-          return acc;
-        }, {});
-
-        // Entries creates a stream of KV pairs
-        // each entry counts the first three words
-        // prettier-ignore
-        const output = Object.entries(result)
-        .map(([words, count]) => {
-          const parts = words.split(/\s+/).slice(0, 3).join(' ');
-          // update words to doc freq for every n-gram
-          return `${parts} | ${count} |`;
-        })
-        .sort()
-        // adding the url at the end
-        .map((line) => `${line} ${url}`)
-        .join('\n');
-        return output;
-      }
-
       function processDocument(data, url) {
         // data: the first 1000 characters of the html/text file
-        // prettier-ignore
-        const stopSet = new Set(
-        fs
-          .readFileSync('./non-distribution/d/stopwords.txt', 'utf8')
-          .split('\n')
-          .map((word) => word.trim())
-          .filter(Boolean),
-      );
+        // const stopSet = new Set(
+        // fs
+        //   .readFileSync('./non-distribution/d/stopwords.txt', 'utf8')
+        //   .split('\n')
+        //   .map((word) => word.trim())
+        //   .filter(Boolean),
+        // );
+
+        console.error('processing document');
 
         const titleMatch = data.match(/Title:\s*(.*(?:\n\s+.*)*)/);
         const authorMatch = data.match(/Author:\s*(.*)/);
@@ -300,11 +260,18 @@ async function runCrawler(replCb) {
 
         const globalFile = path.join(globalBasePath, global.moreStatus.sid);
 
+        console.error('getting here LMAOOO')
+        // create the directory, doesn't work if store doesn't exist?
         if (!fs.existsSync(globalBasePath)) {
+          console.warn('creating directory');
+          console.error('directory at:', globalBasePath);
           fs.mkdirSync(globalBasePath);
         }
 
+        // create the file
         if (!fs.existsSync(globalFile)) {
+          console.warn('creating file');
+          console.error('file at:', globalFile);
           fs.writeFileSync(globalFile, '\n');
         }
 
@@ -351,31 +318,35 @@ async function runCrawler(replCb) {
 
       // prettier-ignore
       async function fetchTxt(url) {
-      // const fetch = require('node-fetch');
-      const httpsAgent = new Agent({
-        connect: {
-          rejectUnauthorized: false,
-        },
-      });
-    
-      try {
-        const response = await fetch(url, { headers: {'Range': 'bytes=0-999'},dispatcher: httpsAgent });
-        if (!response.ok) {
-          throw new Error(`Fetch failed with status: ${response.status}`);
+        // const fetch = require('node-fetch');
+        const httpsAgent = new Agent({
+          connect: {
+            rejectUnauthorized: false,
+          },
+        });
+      
+        try {
+          const response = await fetch(url, { headers: {'Range': 'bytes=0-999'},dispatcher: httpsAgent });
+          if (!response.ok) {
+            console.warn('failure 1');
+            console.error('Fetch failed with status:', response.status);
+            throw new Error(`Fetch failed with status: ${response.status}`);
+          }
+
+          return await response.text();
+        } catch (error) {
+          console.warn('failure 1');
+          console.error('Fetch error:', error);
+          return null;
         }
-        return await response.text();
-      } catch (error) {
-        // console.error('Fetch error:', error);
-        return null;
-        // throw error;
-      }
     }
 
       // TODO: only work on the link if you have not seen it before.
       distribution.visited.mem.get(key, (e, v) => {
+        console.error('got to the visited part');
         if (e instanceof Error) {
           distribution.visited.mem.put(link, key, (e, v) => {
-            // console.log(v);
+            console.error('REALLLL : ' + v + '\n');
             fetchTxt(link).then((html) => {
               if (html) {
                 const trimmedLength = Math.min(1000, html.length);
@@ -394,10 +365,6 @@ async function runCrawler(replCb) {
 
   const start = 'https://atlas.cs.brown.edu/data/gutenberg/';
 
-  // const startDoc = await fetchAndParse(start);
-
-  // console.log(startDoc);
-
   const startHash = id.getID(start);
 
   const dataset = [{[startHash]: start}];
@@ -412,9 +379,12 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        {keys: v, map: mapper, reduce: reducer, rounds: 3},
+        {keys: v, map: mapper, reduce: reducer, rounds: 10},
         (e, v) => {
-          if (e) console.error('MapReduce error:', e);
+          if (e) {
+            console.error('MapReduce error:', e);
+          }
+
           replCb();
         },
       );
@@ -439,7 +409,7 @@ async function runCrawler(replCb) {
 
 // Part 0: node setup and shutdown
 
-function startNodes(cb) {
+function startNodes(callback) {
   // run crawler should be run here
 
   myAwsGroup[id.getSID(n0)] = n0;
@@ -450,7 +420,7 @@ function startNodes(cb) {
   myAwsGroup[id.getSID(n5)] = n5;
 
   // if we do aws, we don't need this (in case of manual start up)
-  const startNodes = (cb) => {
+  const spawnNodes = (cb) => {
     distribution.local.status.spawn(n1, (e, v) => {
       distribution.local.status.spawn(n2, (e, v) => {
         distribution.local.status.spawn(n3, (e, v) => {
@@ -470,21 +440,21 @@ function startNodes(cb) {
     const mygroupConfig = {gid: 'mygroup'};
     const myVisitedConfig = {gid: 'visited'};
 
-    startNodes(() => {
+    spawnNodes(() => {
       // This starts up our group
       // prettier-ignore
       distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
-        distribution.mygroup.groups
-          .put(mygroupConfig, myAwsGroup, (e, v) => {
-
-            distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
-              distribution.visited.groups
-                .put(myVisitedConfig, myAwsGroup, async (e, v) => {
-                  // after setup, we run the crawler
-                  await runCrawler(cb);
-                })
-            });
-          })
+        distribution.mygroup.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
+          distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
+            distribution.visited.groups
+              .put(myVisitedConfig, myAwsGroup, async (e, v) => {
+                // console.error('running the crawler')
+                // after setup, we run the crawler
+                await runCrawler(callback);
+                console.error('crawler done');
+              });
+          });
+        });
       });
     });
   });
@@ -518,29 +488,19 @@ function main() {
     const queryService = {};
     queryService.query = (query, cb) => {
       const fs = require('fs');
-      // console.log('SID:', global.moreStatus.sid);
-
       const filePath = 'authors/' + global.moreStatus.sid;
-      // console.log('Reading file at:', filePath);
 
       try {
         const raw = fs.readFileSync(filePath, 'utf8');
-        // console.log('Raw file content:', raw);
 
         const data = raw
           .split('\n')
           .map((word) => word.trim())
           .filter(Boolean);
 
-        // console.log('Processed data:', data);
-        // const stemmer = require('natural').PorterStemmer;
-        // const stemmedQuery = stemmer.stem(query);
-
         const res = [];
         for (const line of data) {
-          const [author, title, year, lang, url] = line
-            .split('|')
-            .map((s) => s.trim());
+          const [author, title, year, lang, url] = line.split('|').map((s) => s.trim());
 
           const lineMap = {
             author,
@@ -552,9 +512,6 @@ function main() {
           let flag = true;
 
           Object.entries(query).every(([key, value]) => {
-            // console.log('linemap', lineMap);
-            // console.log('key', key, value);
-            // console.log(lineMap[key]);
             if (
               !lineMap[key] ||
               (lineMap[key] &&
@@ -563,22 +520,15 @@ function main() {
               flag = false;
             }
           });
+
           if (flag) {
-            // console.log(line);
             res.push(line);
           }
-          // const terms = line.split('|').map((part) => part.trim());
-          // for (const part of query) {
-          // }
-          // if (term.includes(query)) {
-          //   res.push(line);
-          // }
         }
 
         cb(null, res);
       } catch (err) {
-        // console.error('Failed to read or process file:', err);
-        cb(err);
+        cb(err, null);
       }
     };
     distribution.mygroup.routes.put(queryService, 'query', (e, v) => {
@@ -596,11 +546,6 @@ function main() {
         }
 
         try {
-          // This is where we would run our serach queries
-          // const result = eval(line);
-          // // Print the result
-          // console.log(result);
-
           trimmedLine = line.trim();
           if (trimmedLine === '') {
             rl.prompt();
