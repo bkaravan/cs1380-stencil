@@ -119,7 +119,7 @@ async function runCrawler(replCb) {
 
                   resolve(result); // Resolve the promise with the final result
                 }
-                resolve([]);
+                else { resolve([]); }
               })
               .catch((err) => {
                 //console.error('Error in operation:', err);
@@ -427,7 +427,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 3 },
+        { keys: v, map: mapper, reduce: reducer, rounds: 4 },
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
