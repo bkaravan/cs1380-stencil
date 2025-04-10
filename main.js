@@ -464,7 +464,7 @@ function startNodes(cb) {
   myAwsGroup[id.getSID(n5)] = n5;
 
   // if we do aws, we don't need this (in case of manual start up)
-  const startNodes = (cb) => {
+  const spawnNodes = (cb) => {
     distribution.local.status.spawn(n1, (e, v) => {
       distribution.local.status.spawn(n2, (e, v) => {
         distribution.local.status.spawn(n3, (e, v) => {
@@ -484,7 +484,8 @@ function startNodes(cb) {
     const mygroupConfig = { gid: 'mygroup' };
     const myVisitedConfig = { gid: 'visited' };
 
-    startNodes(() => {
+    spawnNodes(() => {
+      const fs = require('fs');
       // This starts up our group
       // prettier-ignore
       distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
@@ -492,11 +493,45 @@ function startNodes(cb) {
           .put(mygroupConfig, myAwsGroup, (e, v) => {
 
             distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
-              distribution.visited.groups
-                .put(myVisitedConfig, myAwsGroup, async (e, v) => {
-                  // after setup, we run the crawler
-                  await runCrawler(cb);
-                })
+              distribution.visited.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
+                const debuggingService= {};
+                // TODO: collect ids and terminate ideally
+                debuggingService.debug = (debugConfig, cb) => {
+                  function debugLogic(config) {
+                    // change it to be an object
+                    statusConfig = 'heapTotal';
+                    statusConfig2 = 'heapUsed';
+                    distribution.local.status.get(statusConfig, (e, v) => {
+                      const heapTotal = v;
+                      distribution.local.status.get(statusConfig2, (e, v) => {
+                        const heapUsed = v;
+                        const resources = process.getActiveResourcesInfo().toString();
+                        const basePath = path.join(
+                          path.dirname(path.resolve('main.js')),
+                          'debugging',
+                        );
+                        const debugFile = path.join(basePath, global.moreStatus.sid);
+
+                        if (!fs.existsSync(basePath)) {
+                          fs.mkdirSync(basePath);
+                        }
+
+                        fs.appendFileSync(debugFile, `heapTotal: ${heapTotal} | heapUsed: ${heapUsed} | resources: ${resources}\n`, 'utf8');
+                      });
+                    });
+                  }
+
+                  console.log('Debugging service started');
+                  distribution.mygroup.at(1000, () => debugLogic(debugConfig), cb);
+                }
+
+                distribution.mygroup.routes.put(debuggingService, 'debug', (e, v) => {
+                  distribution.mygroup.comm.send([{}], { service: 'debugging', method: 'debug' }, async (e, v) => {
+                    // after setup, we run the crawler
+                    await runCrawler(cb);
+                  });
+                });
+              })
             });
           })
       });
