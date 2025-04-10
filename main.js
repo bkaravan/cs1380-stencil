@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const distribution = require('./config.js');
-const { execSync } = require('child_process');
+const {execSync} = require('child_process');
 const readline = require('readline');
 
 // repl interface
@@ -16,17 +16,16 @@ const id = distribution.util.id;
 let localServer = null;
 const myAwsGroup = {};
 
-
 // these are aws nodes from m4
 // const n1 = {ip: "3.141.197.31", port: 1234};
 // const n2 = {ip: "18.221.129.123", port: 1234};
 // const n3 = {ip: "3.16.38.196", port: 1234};
 
-const n1 = { ip: '127.0.0.1', port: 7110 };
-const n2 = { ip: '127.0.0.1', port: 7111 };
-const n3 = { ip: '127.0.0.1', port: 7112 };
-const n4 = { ip: '127.0.0.1', port: 7113 };
-const n5 = { ip: '127.0.0.1', port: 7114 };
+const n1 = {ip: '127.0.0.1', port: 7110};
+const n2 = {ip: '127.0.0.1', port: 7111};
+const n3 = {ip: '127.0.0.1', port: 7112};
+const n4 = {ip: '127.0.0.1', port: 7113};
+const n5 = {ip: '127.0.0.1', port: 7114};
 
 // Part 1: run the crawler
 async function runCrawler(replCb) {
@@ -35,8 +34,7 @@ async function runCrawler(replCb) {
     // Using promises to handle the asynchronous operations
     return new Promise((resolve, reject) => {
       const cheerio = require('cheerio');
-      const { fetch, Agent } = require('undici');
-
+      const {fetch, Agent} = require('undici');
 
       async function fetchAndParse(url) {
         const httpsAgent = new Agent({
@@ -48,7 +46,7 @@ async function runCrawler(replCb) {
         return new Promise((resolve, reject) => {
           setTimeout(async () => {
             try {
-              const response = await fetch(url, { dispatcher: httpsAgent });
+              const response = await fetch(url, {dispatcher: httpsAgent});
               if (!response.ok) {
                 throw new Error(`Fetch failed with status: ${response.status}`);
               }
@@ -114,12 +112,13 @@ async function runCrawler(replCb) {
                     .filter((link) => link !== null);
 
                   const result = links.map((link) => {
-                    return { [id.getID(link)]: link };
+                    return {[id.getID(link)]: link};
                   });
 
                   resolve(result); // Resolve the promise with the final result
+                } else {
+                  resolve([]);
                 }
-                else { resolve([]); }
               })
               .catch((err) => {
                 //console.error('Error in operation:', err);
@@ -130,7 +129,6 @@ async function runCrawler(replCb) {
           resolve([]); // Resolve with empty array if key exists
         }
       });
-
     });
   };
 
@@ -141,7 +139,7 @@ async function runCrawler(replCb) {
 
       if (!link.endsWith('txt')) {
         // case 1: this is a redirect link
-        const retObj = { [key]: link };
+        const retObj = {[key]: link};
 
         resolve(retObj);
         return;
@@ -211,7 +209,7 @@ async function runCrawler(replCb) {
           const term = lineSplit[0];
           const url = lineSplit[2];
           const freq = Number(lineSplit[1]);
-          local.set(term, { url, freq });
+          local.set(term, {url, freq});
         }
 
         for (const line of globalIndexLines) {
@@ -221,7 +219,7 @@ async function runCrawler(replCb) {
           const urlfs = [];
           // can use a flatmap here, but kind of an overkill
           for (let i = 0; i < pairSplit.length; i += 2) {
-            urlfs.push({ url: pairSplit[i], freq: Number(pairSplit[i + 1]) });
+            urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
           }
           global.set(term, urlfs); // Array of {url, freq} objects
         }
@@ -320,6 +318,23 @@ async function runCrawler(replCb) {
           'utf8',
         );
 
+        global.distribution.hash.store.put(
+          `${author} | ${title} | ${releaseYear} | ${languageMatch} | ${url}`,
+          {
+            key: {
+              author: author,
+              title: title,
+              year: releaseYear,
+              lang: languageMatch,
+            },
+          },
+          (e, v) => {
+            if (e) {
+              console.error('Error putting into hash store:', e);
+            }
+          },
+        );
+
         // // prettier-ignore
         // const processedWords = data
         // .replace(/\s+/g, '\n')
@@ -353,7 +368,7 @@ async function runCrawler(replCb) {
         // mergeGlobal(inverted);
       }
 
-      const { fetch, Agent } = require('undici');
+      const {fetch, Agent} = require('undici');
 
       // prettier-ignore
       async function fetchTxt(url) {
@@ -390,15 +405,17 @@ async function runCrawler(replCb) {
         if (e instanceof Error) {
           distribution.visited.mem.put(link, key, (e, v) => {
             // console.log(v);
-            fetchTxt(link).then((html) => {
-              const trimmedLength = Math.min(1000, html.length);
-              const trimmedHtml = html.substring(0, trimmedLength);
-              processDocument(trimmedHtml, link);
-              resolve({});
-            }).catch((err) => {
-              //console.error('Error in operation:', err);
-              resolve({}); // Resolve with empty array in case of error
-            });;
+            fetchTxt(link)
+              .then((html) => {
+                const trimmedLength = Math.min(1000, html.length);
+                const trimmedHtml = html.substring(0, trimmedLength);
+                processDocument(trimmedHtml, link);
+                resolve({});
+              })
+              .catch((err) => {
+                //console.error('Error in operation:', err);
+                resolve({}); // Resolve with empty array in case of error
+              });
           });
         } else {
           resolve({});
@@ -415,7 +432,7 @@ async function runCrawler(replCb) {
 
   const startHash = id.getID(start);
 
-  const dataset = [{ [startHash]: start }];
+  const dataset = [{[startHash]: start}];
 
   const dataset1 = [
     {
@@ -427,7 +444,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 4 },
+        {keys: v, map: mapper, reduce: reducer, rounds: 7},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
@@ -481,31 +498,54 @@ function startNodes(cb) {
   distribution.node.start((server) => {
     localServer = server;
 
-    const mygroupConfig = { gid: 'mygroup' };
-    const myVisitedConfig = { gid: 'visited' };
+    const mygroupConfig = {gid: 'mygroup'};
+    const myVisitedConfig = {gid: 'visited'};
+
+    function hyperspaceHash(key) {
+      author = key.author || '';
+      title = key.title || '';
+      year = key.year || '';
+      lang = key.lang || '';
+
+      const authorHash = id.getID(author);
+      const titleHash = id.getID(title);
+      const yearHash = id.getID(year);
+      const langHash = id.getID(lang);
+
+      // const hash = id.getID(authorHash + titleHash + yearHash + langHash);
+      return authorHash + titleHash + yearHash + langHash;
+      return hash;
+    }
+
+    const myHashConfig = {
+      gid: 'hash',
+      hyper: true,
+      hyperHash: hyperspaceHash,
+    };
 
     startNodes(() => {
       // This starts up our group
       // prettier-ignore
       distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
-        distribution.mygroup.groups
-          .put(mygroupConfig, myAwsGroup, (e, v) => {
-
-            distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
-              distribution.visited.groups
-                .put(myVisitedConfig, myAwsGroup, async (e, v) => {
+        distribution.mygroup.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
+          distribution.local.groups.put(myHashConfig, myAwsGroup, (e, v) => {
+            distribution.hash.groups.put(myHashConfig, myAwsGroup, (e, v) => {
+              distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
+                distribution.visited.groups.put(myVisitedConfig, myAwsGroup, async (e, v) => {
                   // after setup, we run the crawler
                   await runCrawler(cb);
                 })
-            });
+              });
+            })
           })
+        })
       });
     });
   });
 }
 
 function stopNodes() {
-  const remote = { service: 'status', method: 'stop' };
+  const remote = {service: 'status', method: 'stop'};
   remote.node = n1;
   distribution.local.comm.send([], remote, (e, v) => {
     remote.node = n2;
@@ -524,11 +564,10 @@ function stopNodes() {
   });
 }
 
-
 // Part 2: repl the queries
 function main() {
   try {
-    execSync('./kill_nodes.sh', { stdio: 'inherit' });
+    execSync('./kill_nodes.sh', {stdio: 'inherit'});
   } catch (error) {
     console.log('Cleanup completed');
   }
@@ -553,11 +592,9 @@ function main() {
           .map((word) => word.trim())
           .filter(Boolean);
 
-
         // console.log('Processed data:', data);
         // const stemmer = require('natural').PorterStemmer;
         // const stemmedQuery = stemmer.stem(query);
-
 
         // First pass: exact matches
         const exactMatches = performSearch(data, queryData);
@@ -574,17 +611,18 @@ function main() {
 
         // Search again
         Object.entries(possibleCorrections).forEach(([key, suggestions]) => {
-          suggestions.forEach(suggestion => {
+          suggestions.forEach((suggestion) => {
             // Create a modified query with the suggestion
-            const modifiedQuery = { ...queryData };
+            const modifiedQuery = {...queryData};
             modifiedQuery[key] = suggestion.value;
 
             // Search with the modified query
             const results = performSearch(data, modifiedQuery);
             if (results.length > 0) {
               // Add suggestion info to the beginning of each result
-              const suggestedResults = results.map(result =>
-                `Suggested "${suggestion.value}" for "${queryData[key]}" | ${result}`
+              const suggestedResults = results.map(
+                (result) =>
+                  `Suggested "${suggestion.value}" for "${queryData[key]}" | ${result}`,
               );
               typoResults.push(...suggestedResults);
             }
@@ -609,11 +647,13 @@ function main() {
           author: new Set(),
           title: new Set(),
           year: new Set(),
-          lang: new Set()
+          lang: new Set(),
         };
 
         for (const line of data) {
-          const [author, title, year, lang] = line.split('|').map(s => s.trim());
+          const [author, title, year, lang] = line
+            .split('|')
+            .map((s) => s.trim());
           if (author) possibleValues.author.add(author.toLowerCase());
           if (title) possibleValues.title.add(title.toLowerCase());
           if (year) possibleValues.year.add(year.toLowerCase());
@@ -632,7 +672,7 @@ function main() {
               if (distance <= threshold) {
                 suggestions.push({
                   value: possibleValue,
-                  distance: distance
+                  distance: distance,
                 });
               }
             }
@@ -669,7 +709,7 @@ function main() {
             matrix[i][j] = Math.min(
               matrix[i - 1][j] + 1,
               matrix[i][j - 1] + 1,
-              matrix[i - 1][j - 1] + cost
+              matrix[i - 1][j - 1] + cost,
             );
           }
         }
@@ -751,7 +791,7 @@ function main() {
 
         // Output everything
         if (trimmedLine === 'showall') {
-          const remote = { service: 'query', method: 'query' };
+          const remote = {service: 'query', method: 'query'};
           distribution.mygroup.comm.send([{}], remote, (e, v) => {
             const res = new Set();
             for (const node of Object.keys(v)) {
@@ -776,10 +816,11 @@ function main() {
         try {
           // Parse the query input
           const query = {};
-          const parts = trimmedLine.split('|').map(part => part.trim());
+          const parts = trimmedLine.split('|').map((part) => part.trim());
           let validQuery = false;
+          let hyper = false;
 
-          parts.forEach(part => {
+          parts.forEach((part) => {
             const [key, ...valueParts] = part.split(':');
             if (key && valueParts.length) {
               const value = valueParts.join(':').trim();
@@ -795,15 +836,19 @@ function main() {
 
           // If no valid parts reprompt
           if (!validQuery) {
-            console.log('Invalid query format. Please use one of these formats:');
-            console.log('  author: name | title: book title | year: yyyy | lang: language');
+            console.log(
+              'Invalid query format. Please use one of these formats:',
+            );
+            console.log(
+              '  author: name | title: book title | year: yyyy | lang: language',
+            );
             console.log('Type "showall" to see all entries in the database.');
             rl.prompt();
             return;
           }
 
           // Proceed with valid query
-          const remote = { service: 'query', method: 'query' };
+          const remote = {service: 'query', method: 'query'};
           distribution.mygroup.comm.send([query], remote, (e, v) => {
             const res = new Set();
             for (const node of Object.keys(v)) {
