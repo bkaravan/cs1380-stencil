@@ -427,7 +427,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 4 },
+        { keys: v, map: mapper, reduce: reducer, rounds: 7},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
@@ -494,9 +494,27 @@ function startNodes(cb) {
 
             distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
               distribution.visited.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
-                const debuggingService= {};
+                // duplicating code but it should work later on aws
+                const path = require('path');
+                const basePath = path.join(
+                  path.dirname(path.resolve('main.js')),
+                  'debugging',
+                );
+
+                if (!fs.existsSync(basePath)) {
+                  // console.log("doesn't exist: " + basePath);
+                  fs.mkdirSync(basePath);
+                }
+
+                const debuggingService = {};
                 // TODO: collect ids and terminate ideally
-                debuggingService.debug = (debugConfig, cb) => {
+                debuggingService.debug = (debugConfig, debugCb) => {
+                  const fs = require('fs');
+                  const path = require('path');
+                  const basePath = path.join(
+                    path.dirname(path.resolve('main.js')),
+                    'debugging',
+                  );
                   function debugLogic(config) {
                     // change it to be an object
                     statusConfig = 'heapTotal';
@@ -506,26 +524,26 @@ function startNodes(cb) {
                       distribution.local.status.get(statusConfig2, (e, v) => {
                         const heapUsed = v;
                         const resources = process.getActiveResourcesInfo().toString();
-                        const basePath = path.join(
-                          path.dirname(path.resolve('main.js')),
-                          'debugging',
-                        );
-                        const debugFile = path.join(basePath, global.moreStatus.sid);
-
-                        if (!fs.existsSync(basePath)) {
-                          fs.mkdirSync(basePath);
-                        }
+                        const debugFile = path.join(basePath, global.moreStatus.sid)
 
                         fs.appendFileSync(debugFile, `heapTotal: ${heapTotal} | heapUsed: ${heapUsed} | resources: ${resources}\n`, 'utf8');
                       });
                     });
                   }
 
-                  console.log('Debugging service started');
-                  distribution.mygroup.at(1000, () => debugLogic(debugConfig), cb);
+                  if (!fs.existsSync(basePath)) {
+                    // console.log("doesn't exist: " + basePath);
+                    fs.mkdirSync(basePath);
+                  }
+
+                  // console.log('Debugging service started');
+                  distribution.mygroup.gossip.at(1000, () => debugLogic(debugConfig), (e, v) => {
+                    const intervalID = v;
+                    debugCb(e, v);
+                  });
                 }
 
-                distribution.mygroup.routes.put(debuggingService, 'debug', (e, v) => {
+                distribution.mygroup.routes.put(debuggingService, 'debugging', (e, v) => {
                   distribution.mygroup.comm.send([{}], { service: 'debugging', method: 'debug' }, async (e, v) => {
                     // after setup, we run the crawler
                     await runCrawler(cb);

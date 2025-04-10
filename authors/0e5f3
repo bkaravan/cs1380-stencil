@@ -1,12 +1,349 @@
 
-John Goodwin | Email 101 | 1993 | English | https://atlas.cs.brown.edu/data/gutenberg/7/75/75.txt
-null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/0/6/6.txt
-United States.  Central Intelligence Agency. | The 1991 CIA World Factbook | 1992 | English | https://atlas.cs.brown.edu/data/gutenberg/2/25/25.txt
-Scott Hemphill | Pi to 1,000,000 places | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/5/50/50.txt
-James M. Barrie | Peter Pan | 1991 | English | https://atlas.cs.brown.edu/data/gutenberg/1/16/16-0.txt
-H. G. Wells | The War of the Worlds | 1992 | English | https://atlas.cs.brown.edu/data/gutenberg/3/36/36-0.txt
-Mary Wollstonecraft Shelley | Frankenstein | 1993 | English | https://atlas.cs.brown.edu/data/gutenberg/8/84/84-0.txt
 Jerome K. Jerome | Three Men in a Boat | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/0/308.txt
-United States. Central Intelligence Agency | The 1990 CIA World Factbook | null | English | https://atlas.cs.brown.edu/data/gutenberg/1/14/14-0.txt
-Lucy Maud Montgomery | Anne of Green Gables | 1992 | English | https://atlas.cs.brown.edu/data/gutenberg/4/45/45-0.txt
+United States.  Central Intelligence Agency. | The 1991 CIA World Factbook | 1992 | English | https://atlas.cs.brown.edu/data/gutenberg/2/25/25.txt
 Stan Kerr | The Square Root of 2 | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/5/52/52.txt
+United States. Central Intelligence Agency | The 1990 CIA World Factbook | null | English | https://atlas.cs.brown.edu/data/gutenberg/1/14/14-0.txt
+Willa Cather and Alfred Noyes | Alexander’s Bridge and The Barrel Organ | 1993 | English | https://atlas.cs.brown.edu/data/gutenberg/9/94/94-0.txt
+Edgar Rice Burroughs | Thuvia, Maid of Mars | 1993 | English | https://atlas.cs.brown.edu/data/gutenberg/7/72/72-0.txt
+H. G. Wells | The War of the Worlds | 1992 | English | https://atlas.cs.brown.edu/data/gutenberg/3/36/36-0.txt
+Jean Armour Polly | NREN for All: Insurmountable Opportunity | 1993 | English | https://atlas.cs.brown.edu/data/gutenberg/5/56/56.txt
+Jean Armour Polly | NREN for All: Insurmountable Opportunity | 1993 | English | https://atlas.cs.brown.edu/data/gutenberg/5/56/56-8.txt
+Lucy Maud Montgomery | Anne of Green Gables | 1992 | English | https://atlas.cs.brown.edu/data/gutenberg/4/45/45-0.txt
+Ed Krol | Hitchhiker's Guide to the Internet | 1992 | English | https://atlas.cs.brown.edu/data/gutenberg/3/39/39.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/0/6/6.txt
+various | The Book Of Mormon | 1992 | English | https://atlas.cs.brown.edu/data/gutenberg/1/17/17-0.txt
+John Goodwin | Email 101 | 1993 | English | https://atlas.cs.brown.edu/data/gutenberg/7/75/75.txt
+James M. Barrie | Peter Pan | 1991 | English | https://atlas.cs.brown.edu/data/gutenberg/1/16/16-0.txt
+Scott Hemphill | Pi to 1,000,000 places | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/5/50/50.txt
+Mary Wollstonecraft Shelley | Frankenstein | 1993 | English | https://atlas.cs.brown.edu/data/gutenberg/8/84/84-0.txt
+Andrew Lang | The Puzzle of Dickens's Last Plot | 2013 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/738/738-0.txt
+[AKA Ohiyesa], Charles A. Eastman | Indian Heroes and Great Chieftains | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/3/3/336/336-0.txt
+[AKA Ohiyesa], Charles A. Eastman | Indian Heroes and Great Chieftains | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/3/3/336/336.txt
+Robert Louis Stevenson | Weir of Hermiston | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/380/380.txt
+Ludwig van Beethoven | Beethoven's Fifth Symphony, in C-minor, Opus #67 | 2012 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/156/156.txt
+Ambrose Bierce | An Occurrence at Owl Creek Bridge | 1995 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/375/375-0.txt
+Jean Webster | Daddy-Long-Legs | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/157/157.txt
+Don Marquis | The Cruise of the Jasper B. | 1996 | English | https://atlas.cs.brown.edu/data/gutenberg/7/1/716/716.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/5/56/old/nren210.txt
+[AKA Ohiyesa], Charles A. Eastman | Indian Boyhood | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/3/3/337/337-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/71/old/civil10.txt
+Jack London | Love of Life and Other Stories | 2007 | English | https://atlas.cs.brown.edu/data/gutenberg/7/1/710/710-0.txt
+Robert Louis Stevenson | Edinburgh | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/382/382.txt
+Henry David Thoreau | On the Duty of Civil Disobedience | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/7/71/old/71.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/3/31/old/oedip10.txt
+Mary Wollstonecraft (Godwin) Shelley | Frankenstein | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/8/84/old/20080617-84.txt
+James Branch Cabell | The Certain Hour | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/2/8/288/288.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/84/old/frank11a.txt
+H.G. Wells | Tono-Bungay | 1996 | English | https://atlas.cs.brown.edu/data/gutenberg/7/1/718/718-0.txt
+George Whale | British Airships, Past, Present, and Future | 1996 | English | https://atlas.cs.brown.edu/data/gutenberg/7/6/762/762.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/84/old/frank12a.txt
+Edward Gibbon | The History of The Decline and Fall of the Roman Empire | 1996 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/736/736-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/84/old/frank13.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/0/7/old/7.txt
+Kenneth Grahame | The Wind in the Willows | 1995 | English | https://atlas.cs.brown.edu/data/gutenberg/2/8/289/289-0.txt
+Emily Brontë | Wuthering Heights | 1996 | English | https://atlas.cs.brown.edu/data/gutenberg/7/6/768/768-0.txt
+Thomas Bailey Aldrich | The Sisters' Tragedy | 1996 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/595/595.txt
+William Makepeace Thackeray | Vanity Fair | 1996 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/599/599.txt
+F. Scott Fitzgerald | This Side of Paradise | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/8/0/805/805-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/0/7/old/mayfl11.txt
+H. G. (Herbert George) Wells | The Time Machine | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/3/35/old/35.txt
+L. Frank Baum | Tik-Tok of Oz | 1997 | English | https://atlas.cs.brown.edu/data/gutenberg/9/5/956/956.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/5/51/old/iland10.txt
+E. Charles Vivian | A History of Aeronautics | 1997 | English | https://atlas.cs.brown.edu/data/gutenberg/8/7/874/874.txt
+Edith Wharton | Bunner Sisters | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/3/1/311/311-0.txt
+Dante Alighieri | La Divina Commedia di Dante | 1997 | Italian | https://atlas.cs.brown.edu/data/gutenberg/9/9/998/998-0.txt
+Charles Dickens | Reprinted Pieces | 2014 | English | https://atlas.cs.brown.edu/data/gutenberg/8/7/872/872-0.txt
+Oliver Goldsmith | She Stoops to Conquer | 1995 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/383/383-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/0/1/old/when11.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/3/35/old/timem11.txt
+Mark Twain (Samuel Clemens) | The Adventures of Tom Sawyer | 1993 | English | https://atlas.cs.brown.edu/data/gutenberg/7/74/old/74-0.20210131.txt
+Anne Brontë | Agnes Grey | 1996 | English | https://atlas.cs.brown.edu/data/gutenberg/7/6/767/767-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/2/25/old/world91b.txt
+Oliver Wendell Holmes, Sr. | The Poetical Works of Oliver Wendell Holmes, Vol. 3 | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/9/7390/7390.txt
+Akutagawa Ryunosuke | Rashomon | 1999 | Japanese | https://atlas.cs.brown.edu/data/gutenberg/1/9/8/1982/1982-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/7/2/8721/8721.txt
+Flavius Josephus | An Extract out of Josephus's Discourse to The Greeks Concerning Hades | 2001 | English | https://atlas.cs.brown.edu/data/gutenberg/2/8/4/2847/2847.txt
+Charles Dickens | Sketches of Young Couples | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/7/4/9743/9743-readme.txt
+Various | Scientific American Supplement, No. 392, July 7, 1883 | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/8/7/4/8742/8742.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/6/5/7653/7653.txt
+William Shakespeare | The Tempest | 1998 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/4/1540/1540-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/9/990/old/2spnt10.txt
+Anthony Trollope | The Parson's Daughter of Oxney Colne | 2015 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/1/3717/3717-0.txt
+Nathaniel Hawthorne | Passages From The American Notebooks, Volume 2 | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/8/0/8/8089/8089.txt
+O. Henry | The Trimmed Lamp | 2001 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/0/3707/3707-0.txt
+Duc de Saint-Simon | The Memoirs of Louis XIV., Volume 3 | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/6/3862/3862.txt
+Edward Bellamy | Equality | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/7303/7303.txt
+Winfried Honig | Mr Honey's Banking Dictionary (English-German) | 2002 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/9/3299/3299-8.txt
+Charlotte M. Yonge | The Clever Woman of the Family | 2002 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/9/3292/3292.txt
+Ivan Turgenev | A Sportsman's Sketches | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/8/7/4/8744/8744.txt
+Ernest Scott | The Life of Captain Matthew Flinders | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/7304/7304.txt
+Charles Dickens | Dombey and Son | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/7/0/9703/9703-readme.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/0/805/old/tspar11.txt
+William Makepeace Thackeray | The History of Henry Esmond, Esq. | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/9/5/3/9530/9530-readme.txt
+John Van Der Zee Sears | My Friends at Brook Farm | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/7302/7302.txt
+H. C. Bailey | The Highwayman | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/7/4/9749/9749-8.txt
+null | Scarboroug | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/1/0/7108/7108-8.txt
+Edgar Rice Burroughs | Thuvia, Maid of Mars | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/8/7/5/8751/8751-readme.txt
+Dante Alighieri | The Vision of Paradise | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/8/7/9/8799/8799-0.txt
+Edgar Rice Burroughs | Son of Tarzan | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/8/7/5/8754/8754-readme.txt
+Norman Douglas | Old Calabria | 2003 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/8/7385/7385-0.txt
+Ivan Goncharov | The Precipice | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/7307/7307.txt
+null | The Bible, King | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/0/0/8003/8003.txt
+H. Belloc | On Something | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/5/7354/7354-8.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/3/0/6/3063/3063.txt
+null | The French | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/1/4/7147/7147-8.txt
+Nathaniel Hawthorne | Sketches and Studies | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/8/0/9/8091/8091.txt
+Emma Gellibrand | J. Cole | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/5/7357/7357-0.txt
+John Buchan | The Path of the King | 1999 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/6/1966/1966.txt
+William Dean Howells | Oliver Wendell Holmes | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/3/3/9/3395/3395.txt
+Nathaniel Hawthorne | Grandfather's Chair | 1999 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/1926/1926.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/1/5/154/old/silap10.txt
+Various | The San Francisco Calamity | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/6/1560/1560-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/3/3/334/old/vanbb10.txt
+Anthony Trollope | The Eustace Diamonds | 2003 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/8/7381/7381.txt
+Anonymous | Business Correspondence | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/7309/7309.txt
+William Makepeace Thackeray | The History of Pendennis | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/9/5/3/9537/9537-readme.txt
+Mark Twain (Samuel Clemens) | Adventures of Huckleberry Finn, Part 3 | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/7/1/0/7102/7102.txt
+Anthony Trollope | The Eustace Diamonds | 2003 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/8/7381/7381-8.txt
+Saxton Pope | Hunting with the Bow and Arrow | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/8/0/8/8084/8084-8.txt
+Mark Twain (Samuel Clemens) | Adventures of Huckleberry Finn, Part 1 | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/7/1/0/7100/7100.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/7/877/old/lbrit10.txt
+Duc de Saint-Simon | The Memoirs of Louis XIV., Volume 6 | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/6/3865/3865.txt
+null | Woman and t | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/7300/7300-8.txt
+Laozi | Lau-zi dao de jing | 2009 | Chinese | https://atlas.cs.brown.edu/data/gutenberg/7/3/3/7337/7337-0.txt
+John Van Der Zee Sears | My Friends at Brook Farm | 2003 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/7302/7302-0.txt
+Nathaniel Hawthorne | Sketches and Studies | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/8/0/9/8091/8091-0.txt
+Edgar Rice Burroughs | Jungle Tales of Tarzan | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/8/7/5/8758/8758-readme.txt
+Gua Shen | Meng Xi Bi Tan, volume 1-26 [1031-1095 A.D.] | 2005 | Chinese | https://atlas.cs.brown.edu/data/gutenberg/7/3/1/7317/7317-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/7/7/9772/9772.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/7/7/8774/8774.txt
+William Makepeace Thackeray | Men's Wives | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/9/5/3/9535/9535-readme.txt
+Dante Alighieri | The Vision of Purgatory, Part 5 | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/8/7/9/8794/8794.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/6/768/old/wuthr10.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/1/5/159/old/dmoro11.txt
+Louis Joseph Vance | The Black Bag | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/7/7/9779/9779.txt
+Mary F. Sandars | Honore de Balzac, His Life and Writings | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/5/4/9548/9548.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/2/8/288/old/chour10.txt
+Honore de Balzac | The Physiology of Marriage, Part III. | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/5958/5958.txt
+null | The Bible, King | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/0/1/8011/8011.txt
+William Shakespeare | Hamlet | 1998 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/2/1524/1524-0.txt
+Various | Punchinello, Vol. 1, No. 11, June 11, 1870 | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/9/5/4/9545/9545.txt
+Lydia Maria Child | Philothea | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/9/8/9982/9982.txt
+Harold Bindloss | Vane of the Timberlands | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/7/7/9778/9778-8.txt
+John Oxenham | Bees in Amber | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/9/8/9989/9989-8.txt
+null | Nathan | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/7301/7301-8.txt
+Henry Van Dyke | The White Bees | 2003 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/5/3757/3757.txt
+George MacDonald | The Poetical Works of George MacDonald in Two Volumes, Volume I | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/9/5/4/9543/9543.txt
+Anthony Trollope | Relics of General Chasse | 2015 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/1/3711/3711-0.txt
+Mrs. Charles Bryce | The Ashiel Mystery | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/7/4/9746/9746.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/5/959/old/11woz11.txt
+Frances Parkinson Keyes | The Old Gray Homestead | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/7/4/9748/9748-8.txt
+Black Hawk | Autobiography of Ma-ka-tai-me-she-kia-kiak, or Black Hawk | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/7/0/9/7097/7097.txt
+null | An accou | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/3/7339/7339.txt
+Belle K. Maniates | Amarilly of Clothes-line Alley | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/9/8/9988/9988.txt
+Harold Bindloss | Vane of the Timberlands | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/7/7/9778/9778.txt
+null | The Bible, King Ja | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/0/0/8006/8006.txt
+William Makepeace Thackeray | The Wolves and the Lamb | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/9/5/4/9541/9541-readme.txt
+John Buchan | Huntingtower | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/8/3782/3782.txt
+null | The Bible, King J | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/0/0/8004/8004.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/1/712/old/tjeff10.txt
+John Kendrick Bangs | The Enchanted Typewriter | 2002 | English | https://atlas.cs.brown.edu/data/gutenberg/3/1/6/3162/3162.txt
+Mrs. Charles Bryce | The Ashiel Mystery | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/9/7/4/9746/9746-8.txt
+Xiang Liu | Shouyuan, Volume 1-20, Complete | 2009 | Chinese | https://atlas.cs.brown.edu/data/gutenberg/7/3/3/7332/7332-0.txt
+Thucydides | The History of the Peloponnesian War | 2003 | English | https://atlas.cs.brown.edu/data/gutenberg/7/1/4/7142/7142-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/5/73051/73051-0.txt
+G. A. Henty | At Agincourt | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/7/0/6/7060/7060-8.txt
+Various | Punch, or the London Charivari, Vol. 93, October 29, 1887 | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/1/2/37125/37125-8.txt
+John Kendrick Bangs | The Pursuit of the House-Boat | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/3/1/6/3169/3169-0.txt
+null | The Highwayman | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/7/4/9749/old/7high10.txt
+null | The Bible, King | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/0/1/8016/8016.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/6/7363/old/7olof10.txt
+Hesba Stretton | Brought Home | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/5/7358/7358.txt
+William Dean Howells | Suburban Sketches | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/7/1/4/7141/7141-0.txt
+Robert E. Howard | The hyena | 2023 | English | https://atlas.cs.brown.edu/data/gutenberg/7/1/0/6/71065/71065-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/6/7366/old/73com10.txt
+Rose Lucia | Peter and Polly in Winter | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/8/3/37837/37837.txt
+Ernest Protheroe | A Noble Woman | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/5/0/7/35075/35075.txt
+H. Rider Haggard | Beatrice | 2000 | English | https://atlas.cs.brown.edu/data/gutenberg/3/0/9/3096/3096-0.txt
+George Hamlin Fitch | Modern English Books of Power | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/2/19222/19222.txt
+Anonymous | Cinderella; or, The Little Glass Slipper and Other Stories | 1999 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/9/1599/1599.txt
+William Shakespeare | King Henry IV, The First Part | 1998 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/1/1516/1516-0.txt
+Norman D | Alone | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/8/7380/old/7alon10.txt
+Ada Cambridge | A Humble Enterprise | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/8/6/37866/37866.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/6/73060/73060-0.txt
+Mabell S. C. Smith | Ethel Morton at Rose House | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/5/5/15550/15550-8.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/5/73057/73057-0.txt
+George MacDonald | A Book of Strife in the Form of The Diary of an Old Soul | 1999 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/5/1953/1953.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/737/old/tbtas10.txt
+Various | Hunting in Many Lands | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/1/2/37122/37122.txt
+Arvid J�rnefelt | Maaemon lapsia | 2005 | Finnish | https://atlas.cs.brown.edu/data/gutenberg/1/5/5/1/15514/15514-8.txt
+Daniel Scott | Bygone Cumberland and Westmorland | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/8/9/37891/37891.txt
+Various | Encyclopaedia Britannica, 11th Edition, Volume 6, Slice 4 | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/1/6/4/31641/31641.txt
+William J. Locke | Index of the Project Gutenberg Works of William J. Locke | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/4/59541/59541-0.txt
+Frederick William Hackwood | The Annals of Willenhall | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/1/6/7/31675/31675-0.txt
+Robert Dwarris Gibney | The history of the 1st Batt. Wilts volunteers, from 1861 to 1885 | 2023 | English | https://atlas.cs.brown.edu/data/gutenberg/7/0/9/0/70903/70903-0.txt
+J. A. Costello | The Siwash | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/9/59592/59592-0.txt
+William Dean Howells | Cambridge Neighbors | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/3/3/9/3392/3392.txt
+Nathaniel Hawthorne | The Dolliver Romance | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/7/1/1/7119/7119-8.txt
+Anatole France | Les opinions de M. J�r�me Coignard | 2006 | French | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/3/19233/19233-8.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/3/0/9/3090/3090-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/1/5/155/old/mston10.txt
+Wilkie Collins | The Legacy of Cain | 1999 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/1975/1975.txt
+Mark Twain (Samuel Clemens) | The Adventures of Tom Sawyer, Part 5. | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/7/1/9/7197/7197.txt
+H. Belloc | First and Last | 2003 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/5/7352/7352-0.txt
+Kálmán Mikszáth | Heathen Master Filcsik | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/1/6/7/31676/31676-0.txt
+null | The Chu | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/4/7343/7343-8.txt
+Amelia Edith Barr | A Daughter of Fife | 2004 | English | https://atlas.cs.brown.edu/data/gutenberg/7/0/6/7062/7062.txt
+Lyof N. Tolstoi | Where Love Is There God Is Also | 2012 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/6/1/38616/38616-8.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/7/3/9734/old/skygm3-readme.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/1/5/5/1553/old/hmstp10.txt
+George Randolph Chester | The Early Bird | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/7/19272/19272.txt
+Ian Maclaren | Books and Bookmen | 2013 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/5/3256/3256-0.txt
+Oliver Bell Bunce | Representative Plays by American Dramatists: 1856-1911: Love in '76 | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/5/1/15519/15519.txt
+Jules Verne | De kinderen van Kapitein Grant, tweede Deel (of 3) | 2012 | Dutch | https://atlas.cs.brown.edu/data/gutenberg/3/8/6/6/38668/38668-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/0/6/7064/7064-8.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/7/3/9738/old/tchms3-readme.txt
+Friedrich Gerst�cker | Die Colonie. Erster Band. | 2009 | German | https://atlas.cs.brown.edu/data/gutenberg/3/0/6/3/30631/30631-8.txt
+Work Projects Administration | Slave Narratives: a Folk History of Slavery in the United States From Interviews with Former Slaves. | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/0/9/6/30967/30967.txt
+J. C. Squire | Poems - Second Series | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/8/6/37861/37861.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/1/7313/old/mng0710.txt
+Various | The Great Round World and What Is Going On In It, Vol. 1, No. 26, May 6, 1897 | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/5/1/15518/15518-8.txt
+L. T. Meade | A Life For a Love | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/1/0/37107/37107.txt
+Cyrus Thomas | Aids to the Study of the Maya Codices | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/7/19777/19777.txt
+David Hume | The History of England in Three Volumes, Vol.I., Part B. | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/1/19212/19212.txt
+Jules Janin | Contes Fantastiques | 2011 | French | https://atlas.cs.brown.edu/data/gutenberg/3/7/8/3/37836/37836-8.txt
+Sigvart S�rensen | The World's Best Histories--Norway | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/3/59531/59531-8.txt
+E. F. Phillips | USDA Farmers' Bulletin No. 1012: The Preparation of Bees for Outdoor Wintering | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/0/59502/59502-8.txt
+Cyrus Thomas | Aids to the Study of the Maya Codices | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/7/19777/19777-8.txt
+A. E. W. (Alfred Edward Woodley) Mason | The Watchers | 2012 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/6/9/38693/38693-8.txt
+Ada Cambridge | A Humble Enterprise | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/8/6/37866/37866-8.txt
+Matti Kurikka | ��rimm�isess� talossa | 2005 | Finnish | https://atlas.cs.brown.edu/data/gutenberg/1/5/6/9/15692/15692-8.txt
+Archibald Marshall | The Honour of the Clintons | 2012 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/6/4/38647/38647-8.txt
+E. E. Brown | Life of Oliver Wendell Holmes | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/8/7/37878/37878-8.txt
+E. A. Wallis Budge | The Literature of the Ancient Egyptians | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/9/3/15932/15932-8.txt
+Various | Hunting in Many Lands | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/1/2/37122/37122-8.txt
+Honore de Balzac | The Lily of the Valley | 1998 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/6/1569/1569.txt
+Jack Steele | A Husband by Proxy | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/5/2/19523/19523-8.txt
+‘Abdu’l-Bahá | Foundations of World Unity | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/3/19238/19238-0.txt
+Baha'u'llah, The Bab and 'Abdu'l-Baha | Baha'i Prayers: A Selection of Prayers Revealed by Baha'u'llah, the | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/4/19240/19240.txt
+Bah�'u'll�h, The B�b and 'Abdu'l-Bah� | Bah�'� Prayers: A Selection of Prayers Revealed by Bah�'u'll�h, the | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/4/19240/19240-8.txt
+G. A. Henty | Among Malay Pirates | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/7/3/4/7346/7346-0.txt
+Joseph Shallit | Wrong Analogy | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/4/59545/59545.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/5/4/9546/old/8pgm110.txt
+Anonymous | Watt's Songs Against Evil | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/5/4/37542/37542.txt
+Various | Mirror of Literature, Amusement, and Instruction, No. 276 | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/9/3/15935/15935.txt
+William Cobbett | Advice to Young Men | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/5/1/15510/15510-8.txt
+John Buchan | Huntingtower | 2003 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/8/3782/old/20090519-3782.txt
+Sydney Anderson | Extensions of Known Ranges of Mexican Bats | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/0/9/4/30942/30942-8.txt
+John Evelyn | Acetaria: A Discourse of Sallets | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/5/1/15517/15517-8.txt
+Various | The Nursery, Number 164 | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/9/2/15928/15928.txt
+Elizabeth Burgoyne Corbett | The adventures of Dora Bell, detective | 2023 | English | https://atlas.cs.brown.edu/data/gutenberg/7/0/9/2/70924/70924-0.txt
+Francis Miltoun | Dickens' London | 2009 | English | https://atlas.cs.brown.edu/data/gutenberg/3/0/3/9/30390/30390.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/0/5/73055/73055-0.txt
+Paul C. Hume | The Lion of Poland | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/9/59591/59591-8.txt
+Various | Punch, or the London Charivari, Vol. 98, June 14 1890 | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/3/3/6/33366/33366.txt
+Robert Louis Stevenson | The Works of Robert Louis Stevenson | 2009 | English | https://atlas.cs.brown.edu/data/gutenberg/3/0/3/9/30393/30393.txt
+Pierre Mille | Le monarque | 2023 | French | https://atlas.cs.brown.edu/data/gutenberg/7/0/9/0/70900/70900-0.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/1/9/0/1905/old/gvrns10.txt
+Cyrus Thomas | Aids to the Study of the Maya Codices | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/7/19777/19777-0.txt
+Juan Valera | El Superhombre y otras novedades | 2010 | Spanish | https://atlas.cs.brown.edu/data/gutenberg/3/1/6/1/31613/31613-8.txt
+Elek Benedek | Édes anyaföldem! (1. kötet) | 2012 | Hungarian | https://atlas.cs.brown.edu/data/gutenberg/3/8/6/4/38641/38641-0.txt
+James Bryce, Viscount Bryce | Studies in Contemporary Biography | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/1/6/7/31677/31677-8.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/9/8/9984/old/7pgm210.txt
+Paul Valéry | Charmes | 2023 | French | https://atlas.cs.brown.edu/data/gutenberg/7/1/0/6/71062/71062-0.txt
+Frank Riley | Project Hi-Psi | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/3/59535/59535.txt
+George Randolph Chester | The Early Bird | 2008 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/7/19272/19272-8.txt
+R. Austin Freeman | The D'Arblay mystery | 2023 | English | https://atlas.cs.brown.edu/data/gutenberg/7/0/9/9/70996/70996-0.txt
+null | Meng | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/1/7312/old/mng0110.txt
+null | The Yeom | null | null | https://atlas.cs.brown.edu/data/gutenberg/7/3/2/7326/old/yeoad10.txt
+Mrs. Molesworth | Miss Mouse and Her Boys | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/0/9/6/30966/30966.txt
+null | Bees in Amber | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/9/8/9989/old/8bees10.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/9/8/9984/old/8pgm210.txt
+'Abdu'l-Bah� | The Promulgation of Universal Peace | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/8/19285/19285-8.txt
+null | Punchin | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/5/4/9544/old/7p11010.txt
+Lyof N. Tolstoi | Where Love Is There God Is Also | 2012 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/6/1/38616/38616.txt
+null | Bees in Amber | null | null | https://atlas.cs.brown.edu/data/gutenberg/9/9/8/9989/old/7bees10.txt
+David Hume | The History of England in Three Volumes, Vol.I., Part C. | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/1/19213/19213-0.txt
+Sándor Tonelli | Emberi problémák | 2023 | Hungarian | https://atlas.cs.brown.edu/data/gutenberg/7/0/6/8/70682/70682-0.txt
+John Francis | Chronicles and characters of the stock exchange | 2023 | English | https://atlas.cs.brown.edu/data/gutenberg/7/0/6/5/70656/70656-0.txt
+Shoghi Effendi | Directives from the Guardian | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/7/19270/19270-8.txt
+David Hume | The History of England in Three Volumes, Vol.I., Part A. | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/1/19211/19211-8.txt
+E. T. Raymond | Portraits of the Nineties | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/3/59538/59538-0.txt
+Sophus Ruge | Dresden und die Sächsische Schweiz | 2019 | German | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/9/59596/59596-0.txt
+A. E. W. (Alfred Edward Woodley) Mason | The Courtship of Morrice Buckler | 2012 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/6/6/38665/38665-8.txt
+Auguste Renouard | The undertakers' manual | 2023 | English | https://atlas.cs.brown.edu/data/gutenberg/7/0/9/0/70908/70908-0.txt
+Mrs. Henry Wood | The Story of Charles Strange, Vol. 3 (of 3) | 2012 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/6/2/38625/38625-8.txt
+Various | Silver Links | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/1/6/1/31618/31618.txt
+David Hume | The History of England in Three Volumes, Vol.I., Part C. | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/1/19213/19213-8.txt
+Paul C. Hume | The Lion of Poland | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/9/59591/59591-0.txt
+Max Haushofer | Tirol | 2023 | German | https://atlas.cs.brown.edu/data/gutenberg/7/0/6/8/70680/70680-0.txt
+Molly Elliott Seawell | Betty's Virginia Christmas | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/9/59594/59594.txt
+Ernest Ingersoll | Birds in Legend, Fable and Folklore | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/9/59598/59598-0.txt
+William W. Brown | Narrative of William W. Brown, a Fugitive Slave | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/5/0/59500/59500-8.txt
+Arvid Mörne | Alexis Kivi och hans roman "Seitsemän veljestä" | 2023 | Swedish | https://atlas.cs.brown.edu/data/gutenberg/7/1/0/1/71014/71014-0.txt
+Shoghi Effendi | The Light of Divine Guidance (Volume 1) | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/2/4/19244/19244.txt
+Emma Marshall | Salome | 2011 | English | https://atlas.cs.brown.edu/data/gutenberg/3/7/1/2/37126/37126.txt
+US Government | 'Return Loads' to Increase Transport Resources by Avoiding Waste of Empty Vehicle Running. | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/5/19757/19757.txt
+William A. Quayle | A Hero and Some Other Folks | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/6/4/19647/19647-8.txt
+M�r J�kai | Id�n kuningatar | 2012 | Finnish | https://atlas.cs.brown.edu/data/gutenberg/3/8/8/7/38878/38878-8.txt
+O.O. Ellis and E.B. Garey | The Plattsburg Manual | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/5/5/19552/19552.txt
+John Ames Mitchell | The Pines of Lory | 2009 | English | https://atlas.cs.brown.edu/data/gutenberg/3/0/6/0/30600/30600-8.txt
+Peter Hume Brown | The Youth of Goethe | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/5/19753/19753.txt
+Various | Standard Selections | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/9/2/19926/19926-8.txt
+Gustav Freytag | Debit and Credit | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/5/19754/19754-8.txt
+Benjamin La Trobe | With the Harmony to Labrador | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/1/9/15190/15190-8.txt
+Benjamin La Trobe | With the Harmony to Labrador | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/1/9/15190/15190.txt
+Thomas Firminger Thiselton-Dyer | Folk-lore of Shakespeare | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/1/8/32183/32183-0.txt
+Hans Christian Andersen | Hans Andersen's Fairy Tales | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/5/7/32571/32571-8.txt
+James McConnell | Avoidance Situation | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/4/3/59438/59438.txt
+Coningsby Dawson | Out To Win | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/1/9/15194/15194-8.txt
+Jules Verne | Vijf weken in een luchtballon | 2006 | Dutch | https://atlas.cs.brown.edu/data/gutenberg/1/9/0/8/19086/19086-8.txt
+W. J. McGee | The Siouan Indians | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/6/2/19628/19628-0.txt
+James S. Findley | Pleistocene Soricidae from San Josecito Cave, Nuevo Leon, Mexico | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/1/8/32187/32187.txt
+Paul von Hindenburg | Aus meinem Leben | 2009 | German | https://atlas.cs.brown.edu/data/gutenberg/3/0/6/9/30695/30695.txt
+Henry James | The Bostonians, Vol. I (of II) | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/1/19717/19717-8.txt
+Robert Smith Surtees | Jorrocks' Jaunts and Jollities | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/3/8/15387/15387.txt
+George John Romanes | A Candid Examination of Theism | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/0/0/19003/19003-8.txt
+Forrest James Ackerman | Micro-Man | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/5/7/32579/32579.txt
+Lassa Oppenheim | International Incidents for Discussion in Conversation Classes | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/1/4/32148/32148.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/8/0/6/8068/old/djjrs10.txt
+Lassa Oppenheim | International Incidents for Discussion in Conversation Classes | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/1/4/32148/32148-8.txt
+Isabella L. Bird | Journeys in Persia and Kurdistan, Volume II (of 2) | 2012 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/8/2/38828/38828.txt
+Frederick Marryat | Japhet, In Search Of A Father | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/9/9/15991/15991-8.txt
+Various | Encyclopaedia Britannica, 11th Edition, Volume 7, Slice 4 | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/1/8/32182/32182-8.txt
+Frank Lewis Nason | The Vision of Elijah Berl | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/1/0/32107/32107-8.txt
+Sax Rohmer | Brood of the Witch-Queen | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/0/19706/19706-8.txt
+Julius Krohn | Maksimilian Aukusti Myhrberg | 2006 | Finnish | https://atlas.cs.brown.edu/data/gutenberg/1/9/0/8/19088/19088-8.txt
+Francis Jameson Rowbotham | Story-Lives of Great Musicians | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/4/19748/19748.txt
+Herbert Strang | Barclay of the Guides | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/1/0/32102/32102.txt
+Miklós Surányi | A Mester | 2007 | Hungarian | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/4/19744/19744-0.txt
+Pietari Hannikainen | Silm�nk��nt�j� | 2005 | Finnish | https://atlas.cs.brown.edu/data/gutenberg/1/5/1/0/15104/15104-8.txt
+Maria Thompson Daviess | Rose of Old Harpeth | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/1/9/15195/15195.txt
+Sax Rohmer | Brood of the Witch-Queen | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/0/19706/19706.txt
+Edmond de  Goncourt | Pr�faces et manifestes litt�raires | 2011 | French | https://atlas.cs.brown.edu/data/gutenberg/3/7/0/5/37051/37051-8.txt
+Angela Brazil | The Head Girl at the Gables | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/5/7/32575/32575-0.txt
+August Bebel | Woman under socialism | 2009 | English | https://atlas.cs.brown.edu/data/gutenberg/3/0/6/4/30646/30646.txt
+August Bebel | Woman under socialism | 2009 | English | https://atlas.cs.brown.edu/data/gutenberg/3/0/6/4/30646/30646-8.txt
+Eileen Douglas | Brother Francis | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/3/9/5/33950/33950-8.txt
+Gerlacus Ribbius | Een acht en twintigtal voorwerpen uit de natuurlijke geschiedenis, geschikt voor rederijkers- & nutsvoordrachten, | 2010 | Dutch | https://atlas.cs.brown.edu/data/gutenberg/3/2/1/8/32180/32180-8.txt
+Various | English Walnuts | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/0/3/19038/19038.txt
+Charles King | Sunset Pass | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/9/2/19928/19928.txt
+N. D. Falck | The Seaman's Medical Instructor | 2019 | English | https://atlas.cs.brown.edu/data/gutenberg/5/9/4/2/59425/59425-0.txt
+William Henry Holmes | Prehistoric Textile Art of Eastern United States | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/9/2/19921/19921-8.txt
+John Dury | The Reformed Librarie-Keeper (1650) | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/1/9/15199/15199-8.txt
+John Pendleton Kennedy | Horse-Shoe Robinson | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/3/4/7/33478/33478-8.txt
+J.C. Gorham | Alice in Wonderland | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/5/5/19551/19551-8.txt
+Francis L. Lincoln | Instruction book on ring spinning | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/3/4/2/33424/33424.txt
+null | null | null | null | https://atlas.cs.brown.edu/data/gutenberg/3/3/4/3344/old/es06v10.txt
+Various | Victorian Short Stories | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/3/8/15381/15381-8.txt
+Various | Garden and Forest Weekly, Volume 1 No. 1, February 29, 1888 | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/1/4/32141/32141.txt
+Helen Archibald Clarke | Browning and His Century | 2012 | English | https://atlas.cs.brown.edu/data/gutenberg/3/8/8/7/38874/38874.txt
+Anna Bird Stewart | The Belles of Canterbury | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/0/0/15007/15007.txt
+William Andrews | At the Sign of the Barber's Pole | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/9/2/19925/19925.txt
+Charles W. Chesnutt | The Colonel's Dream | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/7/4/19746/19746-8.txt
+Katherine Shortall | A "Y Girl in France | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/1/7/32177/32177.txt
+Various | The Great Round World and What Is Going On In It, Vol. 1, No. 18, March 11, 1897 | 2005 | English | https://atlas.cs.brown.edu/data/gutenberg/1/5/3/8/15386/15386.txt
+Various | Notes and Queries, Number 232, April 8, 1854 | 2009 | English | https://atlas.cs.brown.edu/data/gutenberg/3/0/6/4/30641/30641-8.txt
+Harry Vissering | Zeppelin | 2010 | English | https://atlas.cs.brown.edu/data/gutenberg/3/2/5/7/32570/32570-8.txt
+James John Howard Gregory | Cabbages and Cauliflowers: How to Grow Them | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/0/0/19006/19006-8.txt
+J.C. Gorham | Alice in Wonderland | 2006 | English | https://atlas.cs.brown.edu/data/gutenberg/1/9/5/5/19551/19551.txt
