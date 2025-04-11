@@ -427,7 +427,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 7},
+        { keys: v, map: mapper, reduce: reducer, rounds: 4},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
@@ -462,6 +462,67 @@ function startNodes(cb) {
   myAwsGroup[id.getSID(n3)] = n3;
   myAwsGroup[id.getSID(n4)] = n4;
   myAwsGroup[id.getSID(n5)] = n5;
+
+  const debuggingService = {};
+  // TODO: collect ids and terminate ideally
+  debuggingService.debug = (debugConfig, debugCb) => {
+    const fs = require('fs');
+    const path = require('path');
+    const basePath = path.join(
+      path.dirname(path.resolve('main.js')),
+      'debugging',
+    );
+    function debugLogic(config) {
+      // change it to be an object
+      statusConfig = 'heapTotal';
+      statusConfig2 = 'heapUsed';
+      distribution.local.status.get(statusConfig, (e, v) => {
+        const heapTotal = v;
+        distribution.local.status.get(statusConfig2, (e, v) => {
+          const heapUsed = v;
+          const resources = process.getActiveResourcesInfo().toString();
+          const debugFile = path.join(basePath, global.moreStatus.sid)
+
+          fs.appendFileSync(debugFile, `heapTotal: ${heapTotal} | heapUsed: ${heapUsed} | resources: ${resources}\n`, 'utf8');
+        });
+      });
+    }
+
+    if (!fs.existsSync(basePath)) {
+      // console.log("doesn't exist: " + basePath);
+      fs.mkdirSync(basePath);
+    }
+
+    // console.log('Debugging service started');
+    distribution.mygroup.gossip.at(1000, () => debugLogic(debugConfig), (e, v) => {
+      const intervalID = v;
+      debugCb(e, v);
+    });
+  }
+
+  debuggingService.log = (infoConfig, infoCb) => {
+    const fs = require('fs');
+    const path = require('path');
+    const basePath = path.join(
+      path.dirname(path.resolve('main.js')),
+      'debugging',
+    );
+    const debugFile = path.join(basePath, global.moreStatus.sid)
+
+    const debugData = fs.readFileSync(debugFile, 'utf-8');
+
+    // console.log('after file reading');
+
+    const lines = debugData.trim().split("\n");
+
+    const info = lines.slice(-10).join("\n");
+
+    infoCb(null, info);
+  }
+
+  debuggingService.stop = (stopConfig, stopCb) => {
+    const myID = stopConfig[global.moreStatus.sid];
+  }
 
   // if we do aws, we don't need this (in case of manual start up)
   const spawnNodes = (cb) => {
@@ -506,46 +567,11 @@ function startNodes(cb) {
                   fs.mkdirSync(basePath);
                 }
 
-                const debuggingService = {};
-                // TODO: collect ids and terminate ideally
-                debuggingService.debug = (debugConfig, debugCb) => {
-                  const fs = require('fs');
-                  const path = require('path');
-                  const basePath = path.join(
-                    path.dirname(path.resolve('main.js')),
-                    'debugging',
-                  );
-                  function debugLogic(config) {
-                    // change it to be an object
-                    statusConfig = 'heapTotal';
-                    statusConfig2 = 'heapUsed';
-                    distribution.local.status.get(statusConfig, (e, v) => {
-                      const heapTotal = v;
-                      distribution.local.status.get(statusConfig2, (e, v) => {
-                        const heapUsed = v;
-                        const resources = process.getActiveResourcesInfo().toString();
-                        const debugFile = path.join(basePath, global.moreStatus.sid)
-
-                        fs.appendFileSync(debugFile, `heapTotal: ${heapTotal} | heapUsed: ${heapUsed} | resources: ${resources}\n`, 'utf8');
-                      });
-                    });
-                  }
-
-                  if (!fs.existsSync(basePath)) {
-                    // console.log("doesn't exist: " + basePath);
-                    fs.mkdirSync(basePath);
-                  }
-
-                  // console.log('Debugging service started');
-                  distribution.mygroup.gossip.at(1000, () => debugLogic(debugConfig), (e, v) => {
-                    const intervalID = v;
-                    debugCb(e, v);
-                  });
-                }
-
                 distribution.mygroup.routes.put(debuggingService, 'debugging', (e, v) => {
                   distribution.mygroup.comm.send([{}], { service: 'debugging', method: 'debug' }, async (e, v) => {
                     // after setup, we run the crawler
+                    // we can use this to call del later! 
+                    const nodesToIds = v; 
                     await runCrawler(cb);
                   });
                 });
@@ -826,6 +852,30 @@ function main() {
           return;
         }
 
+        if (trimmedLine === 'debug') {
+          const remote = { service: 'debugging', method: 'log' };
+          distribution.mygroup.comm.send([{}], remote, (e, v) => {
+            console.log(v);
+            // const res = new Set();
+            // for (const node of Object.keys(v)) {
+            //   for (const line of v[node]) {
+            //     res.add(line);
+            //   }
+            // }
+            // const result = Array.from(res);
+            // if (result.length === 0) {
+            //   console.log('No results found in database.');
+            // } else {
+            //   console.log(`Showing all ${result.length} entries:`);
+            //   for (const url of result) {
+            //     console.log(url);
+            //   }
+            // }
+            rl.prompt();
+          });
+          return;
+        }
+
         try {
           // Parse the query input
           const query = {};
@@ -851,6 +901,7 @@ function main() {
             console.log('Invalid query format. Please use one of these formats:');
             console.log('  author: name | title: book title | year: yyyy | lang: language');
             console.log('Type "showall" to see all entries in the database.');
+            console.log('Type "debug" to see the most recent nodes information.');
             rl.prompt();
             return;
           }
