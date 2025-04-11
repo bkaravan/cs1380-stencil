@@ -15,6 +15,8 @@ const rl = readline.createInterface({
 const id = distribution.util.id;
 let localServer = null;
 const myAwsGroup = {};
+// let debugNodeIds = {};
+let localDelId = null;
 
 
 // these are aws nodes from m4
@@ -495,7 +497,7 @@ function startNodes(cb) {
 
     // console.log('Debugging service started');
     distribution.mygroup.gossip.at(1000, () => debugLogic(debugConfig), (e, v) => {
-      const intervalID = v;
+      localDelId = v;
       debugCb(e, v);
     });
   }
@@ -521,7 +523,12 @@ function startNodes(cb) {
   }
 
   debuggingService.stop = (stopConfig, stopCb) => {
-    const myID = stopConfig[global.moreStatus.sid];
+    // const myID = stopConfig[global.moreStatus.sid];
+    // console.log(myID)
+
+    distribution.mygroup.gossip.del(localDelId, (e, v) => {
+      stopCb(e, v);
+    })
   }
 
   // if we do aws, we don't need this (in case of manual start up)
@@ -571,7 +578,7 @@ function startNodes(cb) {
                   distribution.mygroup.comm.send([{}], { service: 'debugging', method: 'debug' }, async (e, v) => {
                     // after setup, we run the crawler
                     // we can use this to call del later! 
-                    const nodesToIds = v; 
+                    //debugNodeIds = v; 
                     await runCrawler(cb);
                   });
                 });
@@ -852,25 +859,21 @@ function main() {
           return;
         }
 
-        if (trimmedLine === 'debug') {
+        if (trimmedLine === 'log') {
           const remote = { service: 'debugging', method: 'log' };
           distribution.mygroup.comm.send([{}], remote, (e, v) => {
+            console.log(e);
             console.log(v);
-            // const res = new Set();
-            // for (const node of Object.keys(v)) {
-            //   for (const line of v[node]) {
-            //     res.add(line);
-            //   }
-            // }
-            // const result = Array.from(res);
-            // if (result.length === 0) {
-            //   console.log('No results found in database.');
-            // } else {
-            //   console.log(`Showing all ${result.length} entries:`);
-            //   for (const url of result) {
-            //     console.log(url);
-            //   }
-            // }
+            rl.prompt();
+          });
+          return;
+        }
+
+        if (trimmedLine === 'stop') {
+          const remote = { service: 'debugging', method: 'stop' };
+          distribution.mygroup.comm.send([{}], remote, (e, v) => {
+            // console.log(e);
+            // console.log(v);
             rl.prompt();
           });
           return;
@@ -901,7 +904,8 @@ function main() {
             console.log('Invalid query format. Please use one of these formats:');
             console.log('  author: name | title: book title | year: yyyy | lang: language');
             console.log('Type "showall" to see all entries in the database.');
-            console.log('Type "debug" to see the most recent nodes information.');
+            console.log('Type "log" to see the most recent nodes information.');
+            console.log('Type "stop" to stop the debug logging of the nodes')
             rl.prompt();
             return;
           }
