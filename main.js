@@ -2,7 +2,9 @@
 
 const distribution = require('./config.js');
 const { execSync } = require('child_process');
+const { debug } = require('console');
 const readline = require('readline');
+const { help } = require('yargs');
 
 // repl interface
 const rl = readline.createInterface({
@@ -426,12 +428,15 @@ async function runCrawler(replCb) {
     },
   ];
 
+  // Alex: Lower rounds cause its breaking on yours lol
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 4},
+        { keys: v, map: mapper, reduce: reducer, rounds: 2},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
+          
+          // console.error('calling the repl callback')
           replCb();
         },
       );
@@ -496,7 +501,7 @@ function startNodes(cb) {
     }
 
     // console.log('Debugging service started');
-    distribution.mygroup.gossip.at(1000, () => debugLogic(debugConfig), (e, v) => {
+    distribution.mygroup.gossip.at(5000, () => debugLogic(debugConfig), (e, v) => {
       localDelId = v;
       debugCb(e, v);
     });
@@ -557,9 +562,7 @@ function startNodes(cb) {
       // This starts up our group
       // prettier-ignore
       distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
-        distribution.mygroup.groups
-          .put(mygroupConfig, myAwsGroup, (e, v) => {
-
+        distribution.mygroup.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
             distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
               distribution.visited.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
                 // duplicating code but it should work later on aws
@@ -613,15 +616,30 @@ function stopNodes() {
 
 // Part 2: repl the queries
 function main() {
-  try {
-    execSync('./kill_nodes.sh', { stdio: 'inherit' });
-  } catch (error) {
+  function cleanup() {
+    const { execFileSync } = require('child_process');
+    try {
+      execFileSync('./kill_nodes.sh', { encoding: 'utf8', stdio: 'inherit' });
+    } catch (error) {
+    }
+
+    // commented, it picks up where it left off, not sure if we want or not
+    const fs = require('fs');
+    const path = require('path');
+    fs.rmSync(path.join(__dirname, 'store'), {
+      recursive: true,
+      force: true,
+    });
+
+    fs.mkdirSync(path.join(__dirname, 'store'));
     console.log('Cleanup completed');
   }
 
+  cleanup();
   // after nodes are but up and the crawler has ran, we want to start up
   // the cli
   startNodes(() => {
+    // console.error('Nodes started and crawler')
     const queryService = {};
     queryService.query = (queryData, cb) => {
       const fs = require('fs');
@@ -809,7 +827,21 @@ function main() {
       }
     };
 
+    // console.error('right before putting query service')
     distribution.mygroup.routes.put(queryService, 'query', (e, v) => {
+      // header must be a string
+      function helpInfo(header = null) {
+        const headerLine = header ? header : 'Available commands:';
+
+        console.log(headerLine);
+        console.log('  author: name | title: book title | year: yyyy | lang: language');
+        console.log('  show-all - Show all entries in the database');
+        console.log('  debug-log - Show most recent nodes\' debug information');
+        console.log('  debug-start - Start debug logging of the nodes');
+        console.log('  debug-stop - Stop debug logging of the nodes');
+      }
+
+      let debugOn = true;
       // Startup message
       console.log('Welcome to a Distributed Book Search\n');
       rl.prompt();
@@ -822,7 +854,9 @@ function main() {
           stopNodes();
           return;
         }
-        const trimmedLine = line.trim();
+
+        // to lower case for easier matching
+        const trimmedLine = line.toLowerCase().trim();
 
         // This is where we would run our serach queries
         // const result = eval(line);
@@ -835,8 +869,15 @@ function main() {
           return;
         }
 
+        if (trimmedLine === 'help') {
+          helpInfo();
+          rl.prompt();
+          return;
+        }
+
         // Output everything
-        if (trimmedLine === 'showall') {
+        if (trimmedLine === 'show-all') {
+          console.log('Showing all entries in the database:');
           const remote = { service: 'query', method: 'query' };
           distribution.mygroup.comm.send([{}], remote, (e, v) => {
             const res = new Set();
@@ -859,9 +900,11 @@ function main() {
           return;
         }
 
-        if (trimmedLine === 'log') {
+        if (trimmedLine === 'debug-log') {
+          console.log('Showing most recent nodes\' debug information:');
           const remote = { service: 'debugging', method: 'log' };
           distribution.mygroup.comm.send([{}], remote, (e, v) => {
+            console.log('Most recent nodes information:');
             console.log(e);
             console.log(v);
             rl.prompt();
@@ -869,13 +912,39 @@ function main() {
           return;
         }
 
-        if (trimmedLine === 'stop') {
+        if (trimmedLine === 'debug-start') {
+          if (debugOn) {
+            console.log('Debugging is already on. Use debug-stop to turn it off.');
+            rl.prompt();
+            return;
+          }
+          console.log('Starting debug logging of nodes:');
+          const remote = { service: 'debugging', method: 'debug' };
+          distribution.mygroup.comm.send([{}], remote, (e, v) => {
+            // console.log(e);
+            // console.log(v);
+            rl.prompt();
+          });
+
+          debugOn = true;
+          return;
+        }
+
+        if (trimmedLine === 'debug-stop') {
+          if (!debugOn) {
+            console.log('Debugging is already off. Use debug-start to turn it on.');
+            rl.prompt();
+            return;
+          }
+          console.log('Stopping debug logging of nodes:');
           const remote = { service: 'debugging', method: 'stop' };
           distribution.mygroup.comm.send([{}], remote, (e, v) => {
             // console.log(e);
             // console.log(v);
             rl.prompt();
           });
+
+          debugOn = false;
           return;
         }
 
@@ -901,11 +970,7 @@ function main() {
 
           // If no valid parts reprompt
           if (!validQuery) {
-            console.log('Invalid query format. Please use one of these formats:');
-            console.log('  author: name | title: book title | year: yyyy | lang: language');
-            console.log('Type "showall" to see all entries in the database.');
-            console.log('Type "log" to see the most recent nodes information.');
-            console.log('Type "stop" to stop the debug logging of the nodes')
+            helpInfo('Invalid query format. Please use one of these formats:');
             rl.prompt();
             return;
           }
