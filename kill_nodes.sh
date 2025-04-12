@@ -19,3 +19,5 @@ echo "clearing store & authors"
 rm -rf store
 
 rm -rf authors
+
+rm -rf debugging
