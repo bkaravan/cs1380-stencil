@@ -9,18 +9,16 @@ function store(config) {
   const context = {};
   context.gid = config.gid || 'all';
   context.hash = config.hash || global.distribution.util.id.naiveHash;
-  context.hyper = config.hyper || false;
-  context.hyperHash = config.hyperHash || null;
 
   /* For the distributed store service, the configuration will
           always be a string */
   return {
     get: (configuration, callback) => {
-      callback = callback || function () {};
+      callback = callback || function () { };
       if (!configuration) {
         //
-        configuration = {key: null, gid: context.gid};
-        const remote = {service: 'store', method: 'get'};
+        configuration = { key: null, gid: context.gid };
+        const remote = { service: 'store', method: 'get' };
         comm(context).send([configuration], remote, (e, v) => {
           // console.log('here\n')
           let values = [];
@@ -43,19 +41,12 @@ function store(config) {
             });
           }
           let kid;
-          if (context.hyper === true) {
-            const newKey = context.hyperHash(configuration.key);
-            kid = id.getID(newKey);
-            configuration.key = kid;
+          if (typeof configuration === 'object') {
+            kid = id.getID(configuration.key);
             configuration.gid = context.gid;
           } else {
-            if (typeof configuration === 'object') {
-              kid = id.getID(configuration.key);
-              configuration.gid = context.gid;
-            } else {
-              kid = id.getID(configuration);
-              configuration = {key: configuration, gid: context.gid};
-            }
+            kid = id.getID(configuration);
+            configuration = { key: configuration, gid: context.gid };
           }
 
           const chosenSid = context.hash(kid, nids).substring(0, 5);
@@ -67,21 +58,17 @@ function store(config) {
             node = v[chosenSid];
           }
 
-          const remote = {node: node, service: 'store', method: 'get'};
+          const remote = { node: node, service: 'store', method: 'get' };
 
-          global.distribution.local.comm.send(
-            [configuration],
-            remote,
-            (e, v) => {
-              callback(e, v);
-            },
-          );
+          global.distribution.local.comm.send([configuration], remote, (e, v) => {
+            callback(e, v);
+          });
         });
       }
     },
 
     put: (state, configuration, callback) => {
-      callback = callback || function () {};
+      callback = callback || function () { };
       global.distribution.local.groups.get(context.gid, (e, v) => {
         const nids = [];
 
@@ -100,25 +87,17 @@ function store(config) {
         // console.log(state);
         // console.log(configuration);
         let kid;
-
-        if (context.hyper === true) {
-          const newKey = context.hyperHash(configuration.key);
-          kid = id.getID(newKey);
-          configuration.key = kid;
+        if (!configuration) {
+          kid = id.getID(state);
+          configuration = { key: kid, gid: context.gid };
+          kid = id.getID(kid);
+        } else if (typeof configuration === 'object') {
+          kid = id.getID(configuration.key);
           configuration.gid = context.gid;
         } else {
-          if (!configuration) {
-            kid = id.getID(state);
-            configuration = {key: kid, gid: context.gid};
-            kid = id.getID(kid);
-          } else if (typeof configuration === 'object') {
-            kid = id.getID(configuration.key);
-            configuration.gid = context.gid;
-          } else {
-            const changed = makeAlphaNumeric(configuration);
-            kid = id.getID(changed);
-            configuration = {key: changed, gid: context.gid};
-          }
+          const changed = makeAlphaNumeric(configuration)
+          kid = id.getID(changed);
+          configuration = { key: changed, gid: context.gid };
         }
 
         // console.log(kid);
@@ -132,20 +111,16 @@ function store(config) {
           node = v[chosenSid];
         }
 
-        const remote = {node: node, service: 'store', method: 'put'};
+        const remote = { node: node, service: 'store', method: 'put' };
 
-        global.distribution.local.comm.send(
-          [state, configuration],
-          remote,
-          (e, v) => {
-            callback(e, v);
-          },
-        );
+        global.distribution.local.comm.send([state, configuration], remote, (e, v) => {
+          callback(e, v);
+        });
       });
     },
 
     del: (configuration, callback) => {
-      callback = callback || function () {};
+      callback = callback || function () { };
       global.distribution.local.groups.get(context.gid, (e, v) => {
         const nids = [];
         if (v instanceof Map) {
@@ -159,20 +134,12 @@ function store(config) {
           });
         }
         let kid;
-
-        if (context.hyper === true) {
-          const newKey = context.hyperHash(configuration.key);
-          kid = id.getID(newKey);
-          configuration.key = kid;
+        if (typeof configuration === 'object') {
+          kid = id.getID(configuration.key);
           configuration.gid = context.gid;
         } else {
-          if (typeof configuration === 'object') {
-            kid = id.getID(configuration.key);
-            configuration.gid = context.gid;
-          } else {
-            kid = id.getID(configuration);
-            configuration = {key: configuration, gid: context.gid};
-          }
+          kid = id.getID(configuration);
+          configuration = { key: configuration, gid: context.gid };
         }
 
         const chosenSid = context.hash(kid, nids).substring(0, 5);
@@ -184,7 +151,7 @@ function store(config) {
           node = v[chosenSid];
         }
 
-        const remote = {node: node, service: 'store', method: 'del'};
+        const remote = { node: node, service: 'store', method: 'del' };
 
         global.distribution.local.comm.send([configuration], remote, (e, v) => {
           callback(e, v);
@@ -194,9 +161,7 @@ function store(config) {
 
     reconf: (configuration, callback) => {
       const prevNids = [];
-      Object.values(configuration).forEach((node) =>
-        prevNids.push(id.getNID(node)),
-      );
+      Object.values(configuration).forEach((node) => prevNids.push(id.getNID(node)));
 
       global.distribution.local.groups.get(context.gid, (e, v) => {
         if (e instanceof Error) {
@@ -222,7 +187,7 @@ function store(config) {
             if (nid1 !== nid2) {
               const newNode = groupNodes[nid1.substring(0, 5)];
               const prevNode = configuration[nid2.substring(0, 5)];
-              infoMap[key] = {newNode, prevNode};
+              infoMap[key] = { newNode, prevNode };
             }
           }
 
@@ -230,44 +195,32 @@ function store(config) {
 
           Object.keys(infoMap).forEach((key) => {
             // let's try just with del. what's the need for get?
-            const remote = {
-              node: infoMap[key].prevNode,
-              service: 'store',
-              method: 'del',
-            };
-            const messageConfig = {key: key, gid: context.gid};
-            global.distribution.local.comm.send(
-              [messageConfig],
-              remote,
-              (e, v) => {
+            const remote = { node: infoMap[key].prevNode, service: 'store', method: 'del' };
+            const messageConfig = { key: key, gid: context.gid };
+            global.distribution.local.comm.send([messageConfig], remote, (e, v) => {
+              if (e instanceof Error) {
+                callback(e);
+                return;
+              }
+              remote.node = infoMap[key].newNode;
+              remote.method = 'put';
+              global.distribution.local.comm.send([v, messageConfig], remote, (e, v) => {
                 if (e instanceof Error) {
                   callback(e);
                   return;
                 }
-                remote.node = infoMap[key].newNode;
-                remote.method = 'put';
-                global.distribution.local.comm.send(
-                  [v, messageConfig],
-                  remote,
-                  (e, v) => {
-                    if (e instanceof Error) {
-                      callback(e);
-                      return;
-                    }
-                    remaining--;
-                    if (!remaining) {
-                      // what should be return value? new nodes? new get?
-                      callback(null, true);
-                    }
-                  },
-                );
-              },
-            );
+                remaining--;
+                if (!remaining) {
+                  // what should be return value? new nodes? new get?
+                  callback(null, true);
+                }
+              });
+            });
           });
         });
       });
     },
   };
-}
+};
 
 module.exports = store;

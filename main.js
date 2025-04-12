@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const distribution = require('./config.js');
-const {execSync} = require('child_process');
+const { execSync } = require('child_process');
 const readline = require('readline');
 
 // repl interface
@@ -21,11 +21,11 @@ const myAwsGroup = {};
 // const n2 = {ip: "18.221.129.123", port: 1234};
 // const n3 = {ip: "3.16.38.196", port: 1234};
 
-const n1 = {ip: '127.0.0.1', port: 7110};
-const n2 = {ip: '127.0.0.1', port: 7111};
-const n3 = {ip: '127.0.0.1', port: 7112};
-const n4 = {ip: '127.0.0.1', port: 7113};
-const n5 = {ip: '127.0.0.1', port: 7114};
+const n1 = { ip: '127.0.0.1', port: 7110 };
+const n2 = { ip: '127.0.0.1', port: 7111 };
+const n3 = { ip: '127.0.0.1', port: 7112 };
+const n4 = { ip: '127.0.0.1', port: 7113 };
+const n5 = { ip: '127.0.0.1', port: 7114 };
 
 // Part 1: run the crawler
 async function runCrawler(replCb) {
@@ -34,7 +34,8 @@ async function runCrawler(replCb) {
     // Using promises to handle the asynchronous operations
     return new Promise((resolve, reject) => {
       const cheerio = require('cheerio');
-      const {fetch, Agent} = require('undici');
+      const { fetch, Agent } = require('undici');
+
 
       async function fetchAndParse(url) {
         const httpsAgent = new Agent({
@@ -46,7 +47,7 @@ async function runCrawler(replCb) {
         return new Promise((resolve, reject) => {
           setTimeout(async () => {
             try {
-              const response = await fetch(url, {dispatcher: httpsAgent});
+              const response = await fetch(url, { dispatcher: httpsAgent });
               if (!response.ok) {
                 throw new Error(`Fetch failed with status: ${response.status}`);
               }
@@ -112,13 +113,12 @@ async function runCrawler(replCb) {
                     .filter((link) => link !== null);
 
                   const result = links.map((link) => {
-                    return {[id.getID(link)]: link};
+                    return { [id.getID(link)]: link };
                   });
 
                   resolve(result); // Resolve the promise with the final result
-                } else {
-                  resolve([]);
                 }
+                else { resolve([]) };
               })
               .catch((err) => {
                 //console.error('Error in operation:', err);
@@ -129,6 +129,7 @@ async function runCrawler(replCb) {
           resolve([]); // Resolve with empty array if key exists
         }
       });
+
     });
   };
 
@@ -139,7 +140,7 @@ async function runCrawler(replCb) {
 
       if (!link.endsWith('txt')) {
         // case 1: this is a redirect link
-        const retObj = {[key]: link};
+        const retObj = { [key]: link };
 
         resolve(retObj);
         return;
@@ -209,7 +210,7 @@ async function runCrawler(replCb) {
           const term = lineSplit[0];
           const url = lineSplit[2];
           const freq = Number(lineSplit[1]);
-          local.set(term, {url, freq});
+          local.set(term, { url, freq });
         }
 
         for (const line of globalIndexLines) {
@@ -219,7 +220,7 @@ async function runCrawler(replCb) {
           const urlfs = [];
           // can use a flatmap here, but kind of an overkill
           for (let i = 0; i < pairSplit.length; i += 2) {
-            urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
+            urlfs.push({ url: pairSplit[i], freq: Number(pairSplit[i + 1]) });
           }
           global.set(term, urlfs); // Array of {url, freq} objects
         }
@@ -318,57 +319,9 @@ async function runCrawler(replCb) {
           'utf8',
         );
 
-        global.distribution.hash.store.put(
-          `${author} | ${title} | ${releaseYear} | ${languageMatch} | ${url}`,
-          {
-            key: {
-              author: author,
-              title: title,
-              year: releaseYear,
-              lang: languageMatch,
-            },
-          },
-          (e, v) => {
-            if (e) {
-              console.error('Error putting into hash store:', e);
-            }
-          },
-        );
-
-        // // prettier-ignore
-        // const processedWords = data
-        // .replace(/\s+/g, '\n')
-        // .replace(/[^a-zA-Z]/g, ' ')
-        // .replace(/\s+/g, '\n')
-        // .toLowerCase();
-        // const stemmer = natural.PorterStemmer;
-        // // stemming and filtering
-        // // prettier-ignore
-        // const filteredWords = processedWords
-        // .split('\n')
-        // .filter((word) => word && !stopSet.has(word))
-        // .map((word) => stemmer.stem(word));
-
-        // // console.log(filteredWords.length);
-
-        // // combine part
-        // const combinedGrams = [];
-        // computeNgrams(combinedGrams, filteredWords);
-
-        // // invert part
-        // const inverted = invert(combinedGrams, url);
-
-        // // DOUBLE CHECK INDEXING PIPELINE
-        // if (!fs.existsSync(basePath)) {
-        //   fs.mkdirSync(basePath);
-        // }
-        // if (!fs.existsSync(globalIndexFile)) {
-        //   fs.writeFileSync(globalIndexFile, '\n');
-        // }
-        // mergeGlobal(inverted);
       }
 
-      const {fetch, Agent} = require('undici');
+      const { fetch, Agent } = require('undici');
 
       // prettier-ignore
       async function fetchTxt(url) {
@@ -405,17 +358,15 @@ async function runCrawler(replCb) {
         if (e instanceof Error) {
           distribution.visited.mem.put(link, key, (e, v) => {
             // console.log(v);
-            fetchTxt(link)
-              .then((html) => {
-                const trimmedLength = Math.min(1000, html.length);
-                const trimmedHtml = html.substring(0, trimmedLength);
-                processDocument(trimmedHtml, link);
-                resolve({});
-              })
-              .catch((err) => {
-                //console.error('Error in operation:', err);
-                resolve({}); // Resolve with empty array in case of error
-              });
+            fetchTxt(link).then((html) => {
+              const trimmedLength = Math.min(1000, html.length);
+              const trimmedHtml = html.substring(0, trimmedLength);
+              processDocument(trimmedHtml, link);
+              resolve({});
+            }).catch((err) => {
+              //console.error('Error in operation:', err);
+              resolve({}); // Resolve with empty array in case of error
+            });;
           });
         } else {
           resolve({});
@@ -432,7 +383,7 @@ async function runCrawler(replCb) {
 
   const startHash = id.getID(start);
 
-  const dataset = [{[startHash]: start}];
+  const dataset = [{ [startHash]: start }];
 
   const dataset1 = [
     {
@@ -444,7 +395,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        {keys: v, map: mapper, reduce: reducer, rounds: 7},
+        { keys: v, map: mapper, reduce: reducer, rounds: 3 },
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           replCb();
@@ -498,54 +449,32 @@ function startNodes(cb) {
   distribution.node.start((server) => {
     localServer = server;
 
-    const mygroupConfig = {gid: 'mygroup'};
-    const myVisitedConfig = {gid: 'visited'};
-
-    function hyperspaceHash(key) {
-      author = key.author || '';
-      title = key.title || '';
-      year = key.year || '';
-      lang = key.lang || '';
-
-      const authorHash = id.getID(author);
-      const titleHash = id.getID(title);
-      const yearHash = id.getID(year);
-      const langHash = id.getID(lang);
-
-      // const hash = id.getID(authorHash + titleHash + yearHash + langHash);
-      return authorHash + titleHash + yearHash + langHash;
-      return hash;
-    }
-
-    const myHashConfig = {
-      gid: 'hash',
-      hyper: true,
-      hyperHash: hyperspaceHash,
-    };
+    const mygroupConfig = { gid: 'mygroup' };
+    const myVisitedConfig = { gid: 'visited' };
 
     startNodes(() => {
       // This starts up our group
       // prettier-ignore
       distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
-        distribution.mygroup.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
-          distribution.local.groups.put(myHashConfig, myAwsGroup, (e, v) => {
-            distribution.hash.groups.put(myHashConfig, myAwsGroup, (e, v) => {
-              distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
-                distribution.visited.groups.put(myVisitedConfig, myAwsGroup, async (e, v) => {
+        distribution.mygroup.groups
+          .put(mygroupConfig, myAwsGroup, (e, v) => {
+
+            distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
+              distribution.visited.groups
+                .put(myVisitedConfig, myAwsGroup, async (e, v) => {
+
                   // after setup, we run the crawler
                   await runCrawler(cb);
                 })
-              });
-            })
+            });
           })
-        })
       });
     });
   });
 }
 
 function stopNodes() {
-  const remote = {service: 'status', method: 'stop'};
+  const remote = { service: 'status', method: 'stop' };
   remote.node = n1;
   distribution.local.comm.send([], remote, (e, v) => {
     remote.node = n2;
@@ -567,34 +496,46 @@ function stopNodes() {
 // Part 2: repl the queries
 function main() {
   try {
-    execSync('./kill_nodes.sh', {stdio: 'inherit'});
+    execSync('./kill_nodes.sh', { stdio: 'inherit' });
   } catch (error) {
     console.log('Cleanup completed');
   }
 
-  // after nodes are but up and the crawler has ran, we want to start up
-  // the cli
+  // after nodes are up and the crawler has run, we want to start up the cli
   startNodes(() => {
     const queryService = {};
     queryService.query = (queryData, cb) => {
       const fs = require('fs');
-      // console.log('SID:', global.moreStatus.sid);
 
+      // Check if this is a hyperspace query
+      if (queryData.hyper) {
+        // Hyperspace search implementation
+        try {
+          const filePath = 'authors/' + global.moreStatus.sid;
+          const raw = fs.readFileSync(filePath, 'utf8');
+          const data = raw
+            .split('\n')
+            .map((word) => word.trim())
+            .filter(Boolean);
+
+          // Hyperspace search logic
+          const results = performHyperspaceSearch(data, queryData);
+          cb(null, results);
+        } catch (err) {
+          cb(err);
+        }
+        return;
+      }
+
+      // Standard search (unchanged)
       const filePath = 'authors/' + global.moreStatus.sid;
-      // console.log('Reading file at:', filePath);
 
       try {
         const raw = fs.readFileSync(filePath, 'utf8');
-        // console.log('Raw file content:', raw);
-
         const data = raw
           .split('\n')
           .map((word) => word.trim())
           .filter(Boolean);
-
-        // console.log('Processed data:', data);
-        // const stemmer = require('natural').PorterStemmer;
-        // const stemmedQuery = stemmer.stem(query);
 
         // First pass: exact matches
         const exactMatches = performSearch(data, queryData);
@@ -612,17 +553,13 @@ function main() {
         // Search again
         Object.entries(possibleCorrections).forEach(([key, suggestions]) => {
           suggestions.forEach((suggestion) => {
-            // Create a modified query with the suggestion
-            const modifiedQuery = {...queryData};
+            const modifiedQuery = { ...queryData };
             modifiedQuery[key] = suggestion.value;
-
-            // Search with the modified query
             const results = performSearch(data, modifiedQuery);
             if (results.length > 0) {
-              // Add suggestion info to the beginning of each result
               const suggestedResults = results.map(
                 (result) =>
-                  `Suggested "${suggestion.value}" for "${queryData[key]}" | ${result}`,
+                  `Suggested "${suggestion.value}" for "${queryData[key]}" | ${result}`
               );
               typoResults.push(...suggestedResults);
             }
@@ -634,13 +571,170 @@ function main() {
           return;
         }
 
-        // No matches and no typo suggestions
         cb(null, []);
       } catch (err) {
         cb(err);
       }
 
-      // Possible corrections for typos
+      function performHyperspaceSearch(data, query) {
+        // Hyperspace hashing implementation
+        // Using LSH (Locality-Sensitive Hashing) approach for approximate matching
+
+        // Remove the hyper flag from the query object for processing
+        const { hyper, ...searchTerms } = query;
+
+        // Generate feature vectors for the search terms
+        const queryFeatures = generateFeatureVector(searchTerms);
+
+        // Results array to store matches
+        const results = [];
+
+        // For each book in the database
+        for (const line of data) {
+          const [author, title, year, lang, url] = line
+            .split('|')
+            .map((s) => s.trim());
+
+          const bookFeatures = generateFeatureVector({
+            author,
+            title,
+            year,
+            lang
+          });
+
+          // Calculate similarity between query and book
+          const similarity = calculateSimilarity(queryFeatures, bookFeatures);
+
+          // Use threshold to determine matches
+          // Higher threshold = more precise results, but potentially fewer matches
+          const threshold = 0.6;
+          if (similarity >= threshold) {
+            results.push(`[Similarity: ${similarity.toFixed(2)}] ${line}`);
+          }
+        }
+
+        // Sort results by similarity (descending)
+        results.sort((a, b) => {
+          const simA = parseFloat(a.match(/\[Similarity: ([\d.]+)\]/)[1]);
+          const simB = parseFloat(b.match(/\[Similarity: ([\d.]+)\]/)[1]);
+          return simB - simA;
+        });
+
+        // Return top results (limit to 20 if too many)
+        return results.length > 20 ? results.slice(0, 20) : results;
+      }
+
+      function generateFeatureVector(item) {
+        // This function creates a feature vector from book attributes
+        // The vector will be used to determine similarity between books
+        const features = {
+          authorTokens: new Set(),
+          titleTokens: new Set(),
+          yearTokens: new Set(),
+          langTokens: new Set()
+        };
+
+        // Tokenize author name
+        if (item.author) {
+          const authorTokens = item.author.toLowerCase().split(/\s+/);
+          authorTokens.forEach(token => {
+            if (token.length > 1) features.authorTokens.add(token);
+          });
+        }
+
+        // Tokenize title
+        if (item.title) {
+          const titleTokens = item.title.toLowerCase().split(/\s+/);
+          titleTokens.forEach(token => {
+            if (token.length > 1) features.titleTokens.add(token);
+          });
+        }
+
+        // Year is a single token
+        if (item.year) {
+          features.yearTokens.add(item.year.toLowerCase());
+        }
+
+        // Language is a single token
+        if (item.lang) {
+          features.langTokens.add(item.lang.toLowerCase());
+        }
+
+        return features;
+      }
+
+      function calculateSimilarity(queryFeatures, bookFeatures) {
+        // Calculate Jaccard similarity for each feature type
+        const authorSimilarity = calculateJaccardSimilarity(
+          queryFeatures.authorTokens,
+          bookFeatures.authorTokens
+        );
+
+        const titleSimilarity = calculateJaccardSimilarity(
+          queryFeatures.titleTokens,
+          bookFeatures.titleTokens
+        );
+
+        const yearSimilarity = calculateJaccardSimilarity(
+          queryFeatures.yearTokens,
+          bookFeatures.yearTokens
+        );
+
+        const langSimilarity = calculateJaccardSimilarity(
+          queryFeatures.langTokens,
+          bookFeatures.langTokens
+        );
+
+        // Weight the similarities based on importance
+        // Adjust these weights as needed
+        const weights = {
+          author: queryFeatures.authorTokens.size > 0 ? 0.4 : 0,
+          title: queryFeatures.titleTokens.size > 0 ? 0.4 : 0,
+          year: queryFeatures.yearTokens.size > 0 ? 0.1 : 0,
+          lang: queryFeatures.langTokens.size > 0 ? 0.1 : 0
+        };
+
+        // Normalize weights to sum to 1
+        const totalWeight = weights.author + weights.title + weights.year + weights.lang;
+        if (totalWeight === 0) return 0; // No features to compare
+
+        const normalizedWeights = {
+          author: weights.author / totalWeight,
+          title: weights.title / totalWeight,
+          year: weights.year / totalWeight,
+          lang: weights.lang / totalWeight
+        };
+
+        // Calculate weighted similarity
+        const weightedSimilarity =
+          authorSimilarity * normalizedWeights.author +
+          titleSimilarity * normalizedWeights.title +
+          yearSimilarity * normalizedWeights.year +
+          langSimilarity * normalizedWeights.lang;
+
+        return weightedSimilarity;
+      }
+
+      function calculateJaccardSimilarity(set1, set2) {
+        // If either set is empty, return 0 if both empty, or 0 if one is empty and the other isn't
+        if (set1.size === 0 && set2.size === 0) return 1;
+        if (set1.size === 0 || set2.size === 0) return 0;
+
+        // Calculate intersection
+        const intersection = new Set();
+        for (const item of set1) {
+          if (set2.has(item)) {
+            intersection.add(item);
+          }
+        }
+
+        // Calculate union
+        const union = new Set([...set1, ...set2]);
+
+        // Jaccard similarity = size of intersection / size of union
+        return intersection.size / union.size;
+      }
+
       function findPossibleCorrections(data, query) {
         const corrections = {};
         const possibleValues = {
@@ -667,7 +761,6 @@ function main() {
 
             for (const possibleValue of possibleValues[key]) {
               const distance = levenshteinDistance(valueLower, possibleValue);
-              // Bunch of math from the internet
               const threshold = Math.max(2, Math.floor(valueLower.length / 3));
               if (distance <= threshold) {
                 suggestions.push({
@@ -677,11 +770,10 @@ function main() {
               }
             }
 
-            // Sort by distance and limit results
             if (suggestions.length > 0) {
               corrections[key] = suggestions
                 .sort((a, b) => a.distance - b.distance)
-                .slice(0, 3); // Limit to top 3 suggestions. Changeable
+                .slice(0, 3);
             }
           }
         });
@@ -694,30 +786,25 @@ function main() {
         if (b.length === 0) return a.length;
 
         const matrix = [];
-
         for (let i = 0; i <= b.length; i++) {
           matrix[i] = [i];
         }
-
         for (let j = 0; j <= a.length; j++) {
           matrix[0][j] = j;
         }
-
         for (let i = 1; i <= b.length; i++) {
           for (let j = 1; j <= a.length; j++) {
             const cost = a[j - 1] === b[i - 1] ? 0 : 1;
             matrix[i][j] = Math.min(
               matrix[i - 1][j] + 1,
               matrix[i][j - 1] + 1,
-              matrix[i - 1][j - 1] + cost,
+              matrix[i - 1][j - 1] + cost
             );
           }
         }
-
         return matrix[b.length][a.length];
       }
 
-      // Helper function to perform the actual search (Matthias' code is here)
       function performSearch(data, query) {
         const res = [];
         for (const line of data) {
@@ -735,9 +822,6 @@ function main() {
           let flag = true;
 
           Object.entries(query).every(([key, value]) => {
-            // console.log('linemap', lineMap);
-            // console.log('key', key, value);
-            // console.log(lineMap[key]);
             if (
               !lineMap[key] ||
               (lineMap[key] &&
@@ -749,28 +833,18 @@ function main() {
           });
 
           if (flag) {
-            // console.log(line);
             res.push(line);
           }
-          // const terms = line.split('|').map((part) => part.trim());
-          // for (const part of query) {
-          // }
-          // if (term.includes(query)) {
-          //   res.push(line);
-          // }
         }
         return res;
       }
     };
 
     distribution.mygroup.routes.put(queryService, 'query', (e, v) => {
-      // Startup message
       console.log('Welcome to a Distributed Book Search\n');
       rl.prompt();
 
-      // Handle each line of input
       rl.on('line', (line) => {
-        // Check for exit command
         if (line.trim() === 'quit') {
           rl.close();
           stopNodes();
@@ -778,20 +852,13 @@ function main() {
         }
         const trimmedLine = line.trim();
 
-        // This is where we would run our serach queries
-        // const result = eval(line);
-        // // Print the result
-        // console.log(result);
-
-        // Handle empty input - just reprompt
         if (trimmedLine === '') {
           rl.prompt();
           return;
         }
 
-        // Output everything
         if (trimmedLine === 'showall') {
-          const remote = {service: 'query', method: 'query'};
+          const remote = { service: 'query', method: 'query' };
           distribution.mygroup.comm.send([{}], remote, (e, v) => {
             const res = new Set();
             for (const node of Object.keys(v)) {
@@ -813,20 +880,46 @@ function main() {
           return;
         }
 
+        if (trimmedLine === 'help') {
+          console.log('\nBook Search Help');
+          console.log('---------------');
+          console.log(
+            'Standard search: author: name | title: book title | year: yyyy | lang: language'
+          );
+          console.log(
+            'Hyperspace search: hyper: author: name | title: book title | year: yyyy | lang: language'
+          );
+          console.log('Show all entries: showall');
+          console.log('Exit: quit\n');
+          rl.prompt();
+          return;
+        }
+
         try {
-          // Parse the query input
+          const hyperPrefix = 'hyper:';
+          let useHyperspace = false;
+          let queryString = trimmedLine;
+
+          if (trimmedLine.toLowerCase().startsWith(hyperPrefix)) {
+            useHyperspace = true;
+            queryString = trimmedLine.substring(hyperPrefix.length).trim();
+            console.log('Hyperspace flag set:', useHyperspace);
+          }
+
           const query = {};
-          const parts = trimmedLine.split('|').map((part) => part.trim());
+          const parts = queryString.split('|').map((part) => part.trim());
           let validQuery = false;
-          let hyper = false;
+
+          // Set hyper flag first, so it’s not overwritten
+          if (useHyperspace) {
+            query.hyper = true;
+          }
 
           parts.forEach((part) => {
             const [key, ...valueParts] = part.split(':');
             if (key && valueParts.length) {
               const value = valueParts.join(':').trim();
               const normalizedKey = key.trim().toLowerCase();
-
-              // Check if the key is valid
               if (['author', 'title', 'year', 'lang'].includes(normalizedKey)) {
                 query[normalizedKey] = value;
                 validQuery = true;
@@ -834,21 +927,24 @@ function main() {
             }
           });
 
-          // If no valid parts reprompt
           if (!validQuery) {
+            console.log('Invalid query format. Please use one of these formats:');
             console.log(
-              'Invalid query format. Please use one of these formats:',
+              '  author: name | title: book title | year: yyyy | lang: language'
             );
             console.log(
-              '  author: name | title: book title | year: yyyy | lang: language',
+              '  hyper: author: name | title: book title | year: yyyy | lang: language'
             );
-            console.log('Type "showall" to see all entries in the database.');
+            console.log(
+              'Type "showall" to see all entries or "help" for more information.'
+            );
             rl.prompt();
             return;
           }
 
-          // Proceed with valid query
-          const remote = {service: 'query', method: 'query'};
+          console.log('Query:', query); // Log full query object
+
+          const remote = { service: 'query', method: 'query' };
           distribution.mygroup.comm.send([query], remote, (e, v) => {
             const res = new Set();
             for (const node of Object.keys(v)) {
@@ -873,7 +969,6 @@ function main() {
         }
       });
 
-      // Handle REPL closure
       rl.on('close', () => {
         console.log('Exiting REPL');
         stopNodes();
