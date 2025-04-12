@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 
 const distribution = require('./config.js');
-const { execSync } = require('child_process');
-const { debug } = require('console');
 const readline = require('readline');
-const { help } = require('yargs');
 
 // repl interface
 const rl = readline.createInterface({
@@ -432,7 +429,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 2},
+        { keys: v, map: mapper, reduce: reducer, rounds: 7},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           
