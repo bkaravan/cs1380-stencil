@@ -38,10 +38,13 @@ rl.on('close', () => {
   // 4. Find all URLs:
   //  - select all anchor (`<a>`) elements) with an `href` attribute using `querySelectorAll`.
   //  - extract the value of the `href` attribute for each anchor element.
+  // console.error(html);
 
   document.querySelectorAll('a[href]').forEach((anchor) => {
     const href = anchor.getAttribute('href');
     const absURL = new URL(href, baseURL).href;
+    // console.error('here is the abs url')
+    // console.error(absURL)
     // 5. Print each absolute URL to the console, one per line.
     console.log(absURL);
   });
