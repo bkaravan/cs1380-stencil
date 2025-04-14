@@ -120,15 +120,16 @@ async function runCrawler(replCb) {
                   });
 
                   const endTime = process.hrtime.bigint();
-                  const elapsedTime = (endTime - startTime) / BigInt(1e6);
-                  const basePath = path.join(
-                    path.dirname(path.resolve('main.js')),
-                  );
+                  const elapsedTime = (endTime - startTime) / 1_000_000;
+                  const path = require('path');
+                  const fs = require('fs');
+                  // IMPORTANT: /root/cs1380-stencil/distribution/util -- resolves here
+                  const basePath = __dirname;
+                  const filePath = path.join(basePath, '../../crawl_latency-' + global.moreStatus.sid + '.txt');
+                  console.error(filePath);
+                  console.error(elapsedTime)
 
-                  const path = path.join(basePath, 'crawl_latency.txt');
-                  console.log(path);
-
-                  fs.appendFileSync(path, `${elapsedTime}\n`, 'utf8');
+                  fs.appendFileSync(filePath, `${elapsedTime}\n`, 'utf8');
 
                   resolve(result); // Resolve the promise with the final result
                 } else {
@@ -332,38 +333,6 @@ async function runCrawler(replCb) {
           `${author} | ${title} | ${releaseYear} | ${languageMatch} | ${url}\n`,
           'utf8',
         );
-
-        // // prettier-ignore
-        // const processedWords = data
-        // .replace(/\s+/g, '\n')
-        // .replace(/[^a-zA-Z]/g, ' ')
-        // .replace(/\s+/g, '\n')
-        // .toLowerCase();
-        // const stemmer = natural.PorterStemmer;
-        // // stemming and filtering
-        // // prettier-ignore
-        // const filteredWords = processedWords
-        // .split('\n')
-        // .filter((word) => word && !stopSet.has(word))
-        // .map((word) => stemmer.stem(word));
-
-        // // console.log(filteredWords.length);
-
-        // // combine part
-        // const combinedGrams = [];
-        // computeNgrams(combinedGrams, filteredWords);
-
-        // // invert part
-        // const inverted = invert(combinedGrams, url);
-
-        // // DOUBLE CHECK INDEXING PIPELINE
-        // if (!fs.existsSync(basePath)) {
-        //   fs.mkdirSync(basePath);
-        // }
-        // if (!fs.existsSync(globalIndexFile)) {
-        //   fs.writeFileSync(globalIndexFile, '\n');
-        // }
-        // mergeGlobal(inverted);
       }
 
       const {fetch, Agent} = require('undici');
@@ -443,7 +412,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        {keys: v, map: mapper, reduce: reducer, rounds: 4},
+        {keys: v, map: mapper, reduce: reducer, rounds: 2},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
 
