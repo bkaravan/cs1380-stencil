@@ -441,7 +441,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        {keys: v, map: mapper, reduce: reducer, rounds: 6},
+        {keys: v, map: mapper, reduce: reducer, rounds: 10},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
 
