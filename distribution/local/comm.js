@@ -71,7 +71,7 @@ function send(message, remote, callback) {
       if (res.statusCode !== 200) {
         callback(util.deserialize(responseData), null);
       } else {
-        callback(error, util.deserialize(responseData));
+        callback(null, util.deserialize(responseData));
       }
       // console.log(responseData);
       // console.log('\n');

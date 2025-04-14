@@ -32,35 +32,35 @@ const n5 = {ip: '127.0.0.1', port: 7114};
 async function runCrawler(replCb) {
   // mapper crawlsz
   const mapper = (key, value) => {
-    // console.error('dfjdlskfjksdljf');
     // Using promises to handle the asynchronous operations
     return new Promise((resolve, reject) => {
       const cheerio = require('cheerio');
       const {fetch, Agent} = require('undici');
 
       async function fetchAndParse(url) {
-        const start = performance.now();
         const httpsAgent = new Agent({
           connect: {
             rejectUnauthorized: false,
           },
         });
 
-        try {
-          // console.error('die 2')
-          const response = await fetch(url, {dispatcher: httpsAgent});
-          // console.error('die 3')
-          if (!response.ok) {
-            throw new Error(`Fetch failed with status: ${response.status}`);
-          }
+        return new Promise((resolve, reject) => {
+          async function func() {
+            try {
+              const response = await fetch(url, {dispatcher: httpsAgent});
+              if (!response.ok) {
+                throw new Error(`Fetch failed with status: ${response.status}`);
+              }
 
-          const html = await response.text();
-          const $ = cheerio.load(html);
-          // console.error('die 4')
-          return [$, performance.now() - start, null]
-        } catch (error) {
-          return [null, null, error]
-        }
+              const html = await response.text();
+              const $ = cheerio.load(html);
+              resolve($);
+            } catch (error) {
+              reject(error);
+            }
+          };
+          func();
+        });
       }
 
       distribution.visited.mem.get(key, (e, v) => {
@@ -71,13 +71,12 @@ async function runCrawler(replCb) {
               console.error('Error putting into visited:', e);
               resolve([]);
               return;
-            } 
+            }
+            // time start
+            const startTime = performance.now();
 
-            // console.error("dsfjkldsajfldasjf")
             try {
-              const [doc, time, error] = await fetchAndParse(value);
-              // console.error("dsjflkdsjfldsjf")
-              const startTime = performance.now();
+              const doc = await fetchAndParse(value);
               if (doc) {
                 const baseUrl = value;
                 const bannedLinks = new Set([
@@ -138,7 +137,7 @@ async function runCrawler(replCb) {
                   `${global.moreStatus.sid}_latency.txt`,
                 );
 
-                fs.appendFileSync(filePath, `${elapsedTime + time}\n`, 'utf8');
+                fs.appendFileSync(filePath, `${elapsedTime}\n`, 'utf8');
 
                 resolve(result); // Resolve the promise with the final result
               } else {
@@ -422,6 +421,10 @@ async function runCrawler(replCb) {
   };
 
   const start = 'https://atlas.cs.brown.edu/data/gutenberg/';
+
+  // const startDoc = await fetchAndParse(start);
+
+  // console.log(startDoc);
 
   const startHash = id.getID(start);
 

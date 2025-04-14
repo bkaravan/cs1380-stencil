@@ -75,31 +75,46 @@ const start = function(callback) {
       try {
         const getConfig = {'service': service, 'gid': gid};
         des = util.deserialize(body);
+        
         routes.get(getConfig, (e, v) => {
-          // what to do with method??
+          // Handle route error
           if (e) {
-            res.writeHead(500);
-            res.end(util.serialize(e));
-          } else {
-            if (!(method in v)) {
-              res.writeHead(500);
-              res.end(util.serialize(new Error(`no method ${method} in service ${service}`)));
-            } else {
-              v[method](...des.message, (e, v) => {
-                if (e instanceof Error) {
-                  res.writeHead(500);
-                  res.end(util.serialize(e));
-                } else {
-                  res.write(util.serialize(v));
-                  res.end();
-                }
-              });
-            }
+            return sendErrorResponse(res, e);
+          }
+          
+          // Check if method exists
+          if (!(method in v)) {
+            return sendErrorResponse(res, new Error(`no method ${method} in service ${service}`));
+          }
+          
+          // Call the method
+          try {
+            v[method](...des.message, (methodErr, methodResult) => {
+              if (methodErr instanceof Error) {
+                return sendErrorResponse(res, methodErr);
+              }
+              
+              // Success case - only place where 200 is sent
+              res.write(util.serialize(methodResult));
+              res.end();
+            });
+          } catch (methodExecError) {
+            // Catch synchronous errors in method execution
+            return sendErrorResponse(res, methodExecError);
           }
         });
       } catch (e) {
-        res.writeHead(500);
-        res.end(util.serialize(e));
+        // console.log('I am here!');
+        return sendErrorResponse(res, e);
+      }
+      
+      // Helper function to ensure we only send error response once
+      function sendErrorResponse(res, error) {
+        // Only set headers if they haven't been sent yet
+        if (!res.headersSent) {
+          res.writeHead(500);
+          res.end(util.serialize(error));
+        }
       }
     });
   });

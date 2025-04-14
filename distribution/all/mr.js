@@ -85,8 +85,8 @@ function mr(config) {
                 callback(error);
                 return;
               } else {
+                processedCount++;
                 this.mapper(item, value).then(mappedValue => {
-                  processedCount++;
                   performanceCount++;
                   if (Array.isArray(mappedValue)) {
                     mappedResults.push(...mappedValue);
