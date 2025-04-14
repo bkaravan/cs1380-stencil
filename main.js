@@ -120,14 +120,12 @@ async function runCrawler(replCb) {
                   });
 
                   const endTime = process.hrtime.bigint();
-                  const elapsedTime = (endTime - startTime) / 1_000_000;
+                  const elapsedTime = Number(endTime - startTime) / 1_000_000;
                   const path = require('path');
                   const fs = require('fs');
                   // IMPORTANT: /root/cs1380-stencil/distribution/util -- resolves here
                   const basePath = __dirname;
                   const filePath = path.join(basePath, '../../crawl_latency-' + global.moreStatus.sid + '.txt');
-                  console.error(filePath);
-                  console.error(elapsedTime)
 
                   fs.appendFileSync(filePath, `${elapsedTime}\n`, 'utf8');
 

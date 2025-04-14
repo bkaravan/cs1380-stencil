@@ -1,1 +1,6 @@
-heapTotal: 59789312 | heapUsed: 29904960 | resources: TTYWrap,TTYWrap,TCPServerWrap,TTYWrap,Timeout
+heapTotal: 60051456 | heapUsed: 38141664 | resources: TTYWrap,TTYWrap,TCPServerWrap,TTYWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,TCPSocketWrap,Timeout
+heapTotal: 28856320 | heapUsed: 26318104 | resources: TTYWrap,TTYWrap,TCPServerWrap,TTYWrap,Timeout
+heapTotal: 28856320 | heapUsed: 26373752 | resources: TTYWrap,TTYWrap,TCPServerWrap,TTYWrap,Timeout
+heapTotal: 28856320 | heapUsed: 26376336 | resources: TTYWrap,TTYWrap,TCPServerWrap,TTYWrap,Timeout
+heapTotal: 28856320 | heapUsed: 26378920 | resources: TTYWrap,TTYWrap,TCPServerWrap,TTYWrap,Timeout
+heapTotal: 28856320 | heapUsed: 26381824 | resources: TTYWrap,TTYWrap,TCPServerWrap,TTYWrap,Timeout
