@@ -64,7 +64,7 @@ async function runCrawler(replCb) {
 
       distribution.visited.mem.get(key, (e, v) => {
         if (e instanceof Error) {
-          distribution.visited.mem.put(value, key, (e, v) => {
+          distribution.visited.mem.put(value, key, async (e, v) => {
             //console.log('new link : ' + v + '\n');
             if (e) {
               console.error('Error putting into visited:', e);
@@ -74,84 +74,80 @@ async function runCrawler(replCb) {
             // time start
             const startTime = performance.now();
 
-            fetchAndParse(value)
-              .then((doc) => {
-                if (doc) {
-                  const baseUrl = value;
-                  const bannedLinks = new Set([
-                    '?C=N;O=D',
-                    '?C=M;O=A',
-                    '?C=S;O=A',
-                    '?C=D;O=A',
-                    'books.txt',
-                    'donate-howto.txt',
-                    'indextree.txt',
-                    'retired/',
-                    '/data/',
-                  ]);
+            try {
+              const doc = await fetchAndParse(value);
+              if (doc) {
+                const baseUrl = value;
+                const bannedLinks = new Set([
+                  '?C=N;O=D',
+                  '?C=M;O=A',
+                  '?C=S;O=A',
+                  '?C=D;O=A',
+                  'books.txt',
+                  'donate-howto.txt',
+                  'indextree.txt',
+                  'retired/',
+                  '/data/',
+                ]);
 
-                  const links = doc('a')
-                    .map((_, element) => {
-                      try {
-                        // Get the href attribute
-                        const href = doc(element).attr('href');
+                const links = doc('a').map((_, element) => {
+                    try {
+                      // Get the href attribute
+                      const href = doc(element).attr('href');
 
-                        // Skip if it's in the banned links
-                        if (href && bannedLinks.has(href)) {
-                          return null;
-                        }
-
-                        // Create absolute URLs from relative ones
-                        if (href) {
-                          const absoluteUrl = new URL(href, baseUrl).href;
-                          return absoluteUrl;
-                        }
-                        return null;
-                      } catch (error) {
-                        //console.error(`Error processing URL: ${href}`, error);
+                      // Skip if it's in the banned links
+                      if (href && bannedLinks.has(href)) {
                         return null;
                       }
-                    })
-                    .get() // This converts Cheerio's result into a regular array
-                    .filter((link) => link !== null);
 
-                  const result = links.map((link) => {
-                    return {[id.getID(link)]: link};
-                  });
+                      // Create absolute URLs from relative ones
+                      if (href) {
+                        const absoluteUrl = new URL(href, baseUrl).href;
+                        return absoluteUrl;
+                      }
+                      return null;
+                    } catch (error) {
+                      //console.error(`Error processing URL: ${href}`, error);
+                      return null;
+                    }
+                  }).get().filter((link) => link !== null);
 
-                  const endTime = performance.now();
-                  console.log(
-                    'node:',
-                    global.moreStatus.sid,
-                    startTime,
-                    endTime,
-                  );
-                  const elapsedTime = Number(endTime - startTime);
-                  const path = require('path');
-                  const fs = require('fs');
-                  // IMPORTANT: /root/cs1380-stencil/distribution/util -- resolves here
-                  const basePath = __dirname;
-                  const dirPath = path.join(basePath, '../../crawl_latency/');
+                const result = links.map((link) => {
+                  return {[id.getID(link)]: link};
+                });
 
-                  if (!fs.existsSync(dirPath)) {
-                    fs.mkdirSync(dirPath);
-                  }
-                  const filePath = path.join(
-                    dirPath,
-                    `${global.moreStatus.sid}_latency.txt`,
-                  );
+                const endTime = performance.now();
+                console.log(
+                  'node:',
+                  global.moreStatus.sid,
+                  startTime,
+                  endTime,
+                );
+                const elapsedTime = Number(endTime - startTime);
+                const path = require('path');
+                const fs = require('fs');
+                // IMPORTANT: /root/cs1380-stencil/distribution/util -- resolves here
+                const basePath = __dirname;
+                const dirPath = path.join(basePath, '../../crawl_latency/');
 
-                  fs.appendFileSync(filePath, `${elapsedTime}\n`, 'utf8');
-
-                  resolve(result); // Resolve the promise with the final result
-                } else {
-                  resolve([]);
+                if (!fs.existsSync(dirPath)) {
+                  fs.mkdirSync(dirPath);
                 }
-              })
-              .catch((err) => {
-                //console.error('Error in operation:', err);
-                resolve([]); // Resolve with empty array in case of error
-              });
+                const filePath = path.join(
+                  dirPath,
+                  `${global.moreStatus.sid}_latency.txt`,
+                );
+
+                fs.appendFileSync(filePath, `${elapsedTime}\n`, 'utf8');
+
+                resolve(result); // Resolve the promise with the final result
+              } else {
+                resolve([]);
+              }
+            } catch {
+              //console.error('Error in operation:', err);
+              resolve([]); // Resolve with empty array in case of error
+            }
           });
         } else {
           resolve([]); // Resolve with empty array if key exists
