@@ -106,7 +106,7 @@ function mr(config) {
                       const endTime = performance.now();
                       const elapsedTime = Number(endTime - startTime);
                       // console.log('here now: ', processedCount, data.length);
-                      console.log('node:', global.moreStatus.sid, startTime, endTime, elapsedTime, elapsedTime / urlsVisited);
+                      console.log('node:', global.moreStatus.sid, startTime, endTime, elapsedTime, urlsVisited / elapsedTime);
                     }
                     let finalResults = mappedResults;
                     // if compaction is defined, we run it here before
