@@ -72,7 +72,7 @@ async function runCrawler(replCb) {
               return;
             }
             // time start
-            const startTime = process.hrtime.bigint();
+            const startTime = performance.now();
 
             fetchAndParse(value)
               .then((doc) => {
@@ -119,13 +119,27 @@ async function runCrawler(replCb) {
                     return {[id.getID(link)]: link};
                   });
 
-                  const endTime = process.hrtime.bigint();
-                  const elapsedTime = Number(endTime - startTime) / 1_000_000;
+                  const endTime = performance.now();
+                  console.log(
+                    'node:',
+                    global.moreStatus.sid,
+                    startTime,
+                    endTime,
+                  );
+                  const elapsedTime = Number(endTime - startTime);
                   const path = require('path');
                   const fs = require('fs');
                   // IMPORTANT: /root/cs1380-stencil/distribution/util -- resolves here
                   const basePath = __dirname;
-                  const filePath = path.join(basePath, '../../crawl_latency-' + global.moreStatus.sid + '.txt');
+                  const dirPath = path.join(basePath, '../../crawl_latency/');
+
+                  if (!fs.existsSync(dirPath)) {
+                    fs.mkdirSync(dirPath);
+                  }
+                  const filePath = path.join(
+                    dirPath,
+                    `${global.moreStatus.sid}_latency.txt`,
+                  );
 
                   fs.appendFileSync(filePath, `${elapsedTime}\n`, 'utf8');
 
@@ -410,7 +424,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        {keys: v, map: mapper, reduce: reducer, rounds: 2},
+        {keys: v, map: mapper, reduce: reducer, rounds: 4},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
 
@@ -1007,4 +1021,3 @@ function main() {
 }
 
 main();
-
