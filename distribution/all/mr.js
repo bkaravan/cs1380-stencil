@@ -182,10 +182,13 @@ function mr(config) {
             (error, keys) => {
               let results = [];
               let processedCount = 0;
+              let urlCount = 1;
 
               if (keys.length == 0) {
                 callback(null, null);
               }
+
+              const startTime = performance.now();
 
               // console.log(keys);
               keys.forEach((key) => {
@@ -199,12 +202,20 @@ function mr(config) {
                     // when doing just in-memory storage, this will fail
                     // some keys have different values
                       this.reducer(key, values).then(reducedValue => {
+
+                        if (Object.keys(reducedValue).length === 0) {
+                          urlCount++;
+                        }
+
                         results = results.concat(reducedValue);
                         processedCount++;
 
                         // console.log('before')
                         if (processedCount == keys.length) {
-                          // console.log('after');
+                          const endTime = performance.now();
+                          const elapsedTime = Number(endTime - startTime);
+                          // console.log('here now: ', processedCount, data.length);
+                          console.log('node:', global.moreStatus.sid, startTime, endTime, elapsedTime, (urlCount / elapsedTime) * 1000);
                           // at this point, either callback like normal
                           // or store results in the out group if it was provided
                           if (this.out) {
