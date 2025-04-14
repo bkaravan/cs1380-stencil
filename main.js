@@ -45,7 +45,7 @@ async function runCrawler(replCb) {
         });
 
         return new Promise((resolve, reject) => {
-          setTimeout(async () => {
+          async function func() {
             try {
               const response = await fetch(url, {dispatcher: httpsAgent});
               if (!response.ok) {
@@ -58,7 +58,8 @@ async function runCrawler(replCb) {
             } catch (error) {
               reject(error);
             }
-          }, 50);
+          };
+          func();
         });
       }
 
@@ -120,8 +121,8 @@ async function runCrawler(replCb) {
                 });
 
                 const endTime = performance.now();
-                console.log('node:', global.moreStatus.sid, startTime, endTime);
                 const elapsedTime = Number(endTime - startTime);
+                // console.log('node:', global.moreStatus.sid, startTime, endTime, elapsedTime);
                 const path = require('path');
                 const fs = require('fs');
                 // IMPORTANT: /root/cs1380-stencil/distribution/util -- resolves here
@@ -353,7 +354,7 @@ async function runCrawler(replCb) {
 
 
         return new Promise((resolve, reject) => {
-          setTimeout(async () => {
+          async function func() {
             try {
               const response = await fetch(url, {
                 headers: { 'Range': 'bytes=0-999' },
@@ -369,7 +370,8 @@ async function runCrawler(replCb) {
             } catch (error) {
               reject(error);
             }
-          }, 50);
+          }
+          func();
         });
       }
 

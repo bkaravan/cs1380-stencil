@@ -71,6 +71,9 @@ function mr(config) {
         } else {
           const mappedResults = [];
           let processedCount = 0;
+          let performanceCount = 0;
+          const startTime = performance.now();
+          
 
           data.forEach((item) => {
             let storage = global.distribution[groupId].store;
@@ -84,14 +87,22 @@ function mr(config) {
               } else {
                 processedCount++;
                 this.mapper(item, value).then(mappedValue => {
+                  performanceCount++;
                   if (Array.isArray(mappedValue)) {
                     mappedResults.push(...mappedValue);
                   } else {
                     mappedResults.push(mappedValue);
                   }
                   // console.log('before')
-                  if (processedCount == data.length) {
+                  if (processedCount === data.length) {
                     // console.log('after');
+                    // console.log('outside of map with sid: ', global.moreStatus.sid);
+                    if (performanceCount === data.length) {
+                      const endTime = performance.now();
+                      const elapsedTime = Number(endTime - startTime);
+                      // console.log('here now: ', processedCount, data.length);
+                      console.log('node:', global.moreStatus.sid, startTime, endTime, elapsedTime, elapsedTime / data.length);
+                    }
                     let finalResults = mappedResults;
                     // if compaction is defined, we run it here before
                     // putting all of the mapped results into storage
@@ -105,6 +116,7 @@ function mr(config) {
                     if (this.memory) {
                       localStorage = global.distribution.local.mem;
                     }
+                    // console.log('outside of map with sid: ', global.moreStatus.sid);
                     localStorage.put(
                         finalResults,
                         operationId + 'map',
