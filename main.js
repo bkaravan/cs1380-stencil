@@ -1011,6 +1011,7 @@ function main() {
           return;
         }
 
+        
         if (trimmedLine === 'debug-log') {
           console.log('Showing most recent nodes\' debug information:');
           const remote = { service: 'debugging', method: 'log' };
