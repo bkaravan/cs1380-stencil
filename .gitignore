@@ -13,3 +13,6 @@ stencil
 
 debugging
 authors
+
+crawl_latency
+index_latency
