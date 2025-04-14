@@ -90,7 +90,8 @@ async function runCrawler(replCb) {
                   '/data/',
                 ]);
 
-                const links = doc('a').map((_, element) => {
+                const links = doc('a')
+                  .map((_, element) => {
                     try {
                       // Get the href attribute
                       const href = doc(element).attr('href');
@@ -110,19 +111,16 @@ async function runCrawler(replCb) {
                       //console.error(`Error processing URL: ${href}`, error);
                       return null;
                     }
-                  }).get().filter((link) => link !== null);
+                  })
+                  .get()
+                  .filter((link) => link !== null);
 
                 const result = links.map((link) => {
                   return {[id.getID(link)]: link};
                 });
 
                 const endTime = performance.now();
-                console.log(
-                  'node:',
-                  global.moreStatus.sid,
-                  startTime,
-                  endTime,
-                );
+                console.log('node:', global.moreStatus.sid, startTime, endTime);
                 const elapsedTime = Number(endTime - startTime);
                 const path = require('path');
                 const fs = require('fs');
@@ -380,11 +378,32 @@ async function runCrawler(replCb) {
         if (e instanceof Error) {
           distribution.visited.mem.put(link, key, (e, v) => {
             // console.log(v);
+
+            const startTime = performance.now();
             fetchTxt(link)
               .then((html) => {
                 const trimmedLength = Math.min(1000, html.length);
                 const trimmedHtml = html.substring(0, trimmedLength);
                 processDocument(trimmedHtml, link);
+
+                const endTime = performance.now();
+                const elapsedTime = Number(endTime - startTime);
+                const path = require('path');
+                const fs = require('fs');
+                // IMPORTANT: /root/cs1380-stencil/distribution/util -- resolves here
+                const basePath = __dirname;
+                const dirPath = path.join(basePath, '../../index_latency/');
+
+                if (!fs.existsSync(dirPath)) {
+                  fs.mkdirSync(dirPath);
+                }
+                const filePath = path.join(
+                  dirPath,
+                  `${global.moreStatus.sid}_latency.txt`,
+                );
+
+                fs.appendFileSync(filePath, `${elapsedTime}\n`, 'utf8');
+
                 resolve({});
               })
               .catch((err) => {
@@ -420,7 +439,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        {keys: v, map: mapper, reduce: reducer, rounds: 4},
+        {keys: v, map: mapper, reduce: reducer, rounds: 6},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
 

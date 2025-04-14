@@ -20,5 +20,5 @@ for file in files:
             url_count += 1
             latency += float(line)
 
-print("avg latency:", (latency / url_count) / 1000, "for crawling", url_count, "urls")
+print("avg latency:", (latency / url_count) / 1000, "for", url_count, "urls")
 print("troughput:", url_count / (latency / 1000), "urls/s")
