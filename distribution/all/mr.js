@@ -72,6 +72,7 @@ function mr(config) {
           const mappedResults = [];
           let processedCount = 0;
           let performanceCount = 0;
+          let urlsVisited = 1;
           const startTime = performance.now();
           
 
@@ -85,14 +86,18 @@ function mr(config) {
                 callback(error);
                 return;
               } else {
-                processedCount++;
                 this.mapper(item, value).then(mappedValue => {
+                  processedCount++;
                   performanceCount++;
                   if (Array.isArray(mappedValue)) {
+                    if (mappedValue.length > 0) {
+                      urlsVisited++;
+                    }
                     mappedResults.push(...mappedValue);
                   } else {
                     mappedResults.push(mappedValue);
                   }
+
                   // console.log('before')
                   if (processedCount === data.length) {
                     // console.log('after');
@@ -101,7 +106,7 @@ function mr(config) {
                       const endTime = performance.now();
                       const elapsedTime = Number(endTime - startTime);
                       // console.log('here now: ', processedCount, data.length);
-                      console.log('node:', global.moreStatus.sid, startTime, endTime, elapsedTime, elapsedTime / data.length);
+                      console.log('node:', global.moreStatus.sid, startTime, endTime, elapsedTime, elapsedTime / urlsVisited);
                     }
                     let finalResults = mappedResults;
                     // if compaction is defined, we run it here before
