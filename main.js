@@ -17,17 +17,16 @@ const myAwsGroup = {};
 // let debugNodeIds = {};
 let localDelId = null;
 
-
 // these are aws nodes from m4
 // const n1 = {ip: "3.141.197.31", port: 1234};
 // const n2 = {ip: "18.221.129.123", port: 1234};
 // const n3 = {ip: "3.16.38.196", port: 1234};
 
-const n1 = { ip: '127.0.0.1', port: 7110 };
-const n2 = { ip: '127.0.0.1', port: 7111 };
-const n3 = { ip: '127.0.0.1', port: 7112 };
-const n4 = { ip: '127.0.0.1', port: 7113 };
-const n5 = { ip: '127.0.0.1', port: 7114 };
+const n1 = {ip: '127.0.0.1', port: 7110};
+const n2 = {ip: '127.0.0.1', port: 7111};
+const n3 = {ip: '127.0.0.1', port: 7112};
+const n4 = {ip: '127.0.0.1', port: 7113};
+const n5 = {ip: '127.0.0.1', port: 7114};
 
 // Part 1: run the crawler
 async function runCrawler(replCb) {
@@ -36,8 +35,7 @@ async function runCrawler(replCb) {
     // Using promises to handle the asynchronous operations
     return new Promise((resolve, reject) => {
       const cheerio = require('cheerio');
-      const { fetch, Agent } = require('undici');
-
+      const {fetch, Agent} = require('undici');
 
       async function fetchAndParse(url) {
         const httpsAgent = new Agent({
@@ -49,7 +47,7 @@ async function runCrawler(replCb) {
         return new Promise((resolve, reject) => {
           setTimeout(async () => {
             try {
-              const response = await fetch(url, { dispatcher: httpsAgent });
+              const response = await fetch(url, {dispatcher: httpsAgent});
               if (!response.ok) {
                 throw new Error(`Fetch failed with status: ${response.status}`);
               }
@@ -73,6 +71,9 @@ async function runCrawler(replCb) {
               resolve([]);
               return;
             }
+            // time start
+            const startTime = process.hrtime.bigint();
+
             fetchAndParse(value)
               .then((doc) => {
                 if (doc) {
@@ -115,12 +116,24 @@ async function runCrawler(replCb) {
                     .filter((link) => link !== null);
 
                   const result = links.map((link) => {
-                    return { [id.getID(link)]: link };
+                    return {[id.getID(link)]: link};
                   });
 
+                  const endTime = process.hrtime.bigint();
+                  const elapsedTime = (endTime - startTime) / BigInt(1e6);
+                  const basePath = path.join(
+                    path.dirname(path.resolve('main.js')),
+                  );
+
+                  const path = path.join(basePath, 'crawl_latency.txt');
+                  console.log(path);
+
+                  fs.appendFileSync(path, `${elapsedTime}\n`, 'utf8');
+
                   resolve(result); // Resolve the promise with the final result
+                } else {
+                  resolve([]);
                 }
-                else { resolve([]); }
               })
               .catch((err) => {
                 //console.error('Error in operation:', err);
@@ -131,7 +144,6 @@ async function runCrawler(replCb) {
           resolve([]); // Resolve with empty array if key exists
         }
       });
-
     });
   };
 
@@ -142,7 +154,7 @@ async function runCrawler(replCb) {
 
       if (!link.endsWith('txt')) {
         // case 1: this is a redirect link
-        const retObj = { [key]: link };
+        const retObj = {[key]: link};
 
         resolve(retObj);
         return;
@@ -212,7 +224,7 @@ async function runCrawler(replCb) {
           const term = lineSplit[0];
           const url = lineSplit[2];
           const freq = Number(lineSplit[1]);
-          local.set(term, { url, freq });
+          local.set(term, {url, freq});
         }
 
         for (const line of globalIndexLines) {
@@ -222,7 +234,7 @@ async function runCrawler(replCb) {
           const urlfs = [];
           // can use a flatmap here, but kind of an overkill
           for (let i = 0; i < pairSplit.length; i += 2) {
-            urlfs.push({ url: pairSplit[i], freq: Number(pairSplit[i + 1]) });
+            urlfs.push({url: pairSplit[i], freq: Number(pairSplit[i + 1])});
           }
           global.set(term, urlfs); // Array of {url, freq} objects
         }
@@ -354,7 +366,7 @@ async function runCrawler(replCb) {
         // mergeGlobal(inverted);
       }
 
-      const { fetch, Agent } = require('undici');
+      const {fetch, Agent} = require('undici');
 
       // prettier-ignore
       async function fetchTxt(url) {
@@ -391,15 +403,17 @@ async function runCrawler(replCb) {
         if (e instanceof Error) {
           distribution.visited.mem.put(link, key, (e, v) => {
             // console.log(v);
-            fetchTxt(link).then((html) => {
-              const trimmedLength = Math.min(1000, html.length);
-              const trimmedHtml = html.substring(0, trimmedLength);
-              processDocument(trimmedHtml, link);
-              resolve({});
-            }).catch((err) => {
-              //console.error('Error in operation:', err);
-              resolve({}); // Resolve with empty array in case of error
-            });;
+            fetchTxt(link)
+              .then((html) => {
+                const trimmedLength = Math.min(1000, html.length);
+                const trimmedHtml = html.substring(0, trimmedLength);
+                processDocument(trimmedHtml, link);
+                resolve({});
+              })
+              .catch((err) => {
+                //console.error('Error in operation:', err);
+                resolve({}); // Resolve with empty array in case of error
+              });
           });
         } else {
           resolve({});
@@ -416,7 +430,7 @@ async function runCrawler(replCb) {
 
   const startHash = id.getID(start);
 
-  const dataset = [{ [startHash]: start }];
+  const dataset = [{[startHash]: start}];
 
   const dataset1 = [
     {
@@ -429,10 +443,10 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 7},
+        {keys: v, map: mapper, reduce: reducer, rounds: 4},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
-          
+
           // console.error('calling the repl callback')
           replCb();
         },
@@ -485,9 +499,13 @@ function startNodes(cb) {
         distribution.local.status.get(statusConfig2, (e, v) => {
           const heapUsed = v;
           const resources = process.getActiveResourcesInfo().toString();
-          const debugFile = path.join(basePath, global.moreStatus.sid)
+          const debugFile = path.join(basePath, global.moreStatus.sid);
 
-          fs.appendFileSync(debugFile, `heapTotal: ${heapTotal} | heapUsed: ${heapUsed} | resources: ${resources}\n`, 'utf8');
+          fs.appendFileSync(
+            debugFile,
+            `heapTotal: ${heapTotal} | heapUsed: ${heapUsed} | resources: ${resources}\n`,
+            'utf8',
+          );
         });
       });
     }
@@ -498,11 +516,15 @@ function startNodes(cb) {
     }
 
     // console.log('Debugging service started');
-    distribution.mygroup.gossip.at(5000, () => debugLogic(debugConfig), (e, v) => {
-      localDelId = v;
-      debugCb(e, v);
-    });
-  }
+    distribution.mygroup.gossip.at(
+      5000,
+      () => debugLogic(debugConfig),
+      (e, v) => {
+        localDelId = v;
+        debugCb(e, v);
+      },
+    );
+  };
 
   debuggingService.log = (infoConfig, infoCb) => {
     const fs = require('fs');
@@ -511,18 +533,18 @@ function startNodes(cb) {
       path.dirname(path.resolve('main.js')),
       'debugging',
     );
-    const debugFile = path.join(basePath, global.moreStatus.sid)
+    const debugFile = path.join(basePath, global.moreStatus.sid);
 
     const debugData = fs.readFileSync(debugFile, 'utf-8');
 
     // console.log('after file reading');
 
-    const lines = debugData.trim().split("\n");
+    const lines = debugData.trim().split('\n');
 
-    const info = lines.slice(-10).join("\n");
+    const info = lines.slice(-10).join('\n');
 
     infoCb(null, info);
-  }
+  };
 
   debuggingService.stop = (stopConfig, stopCb) => {
     // const myID = stopConfig[global.moreStatus.sid];
@@ -530,8 +552,8 @@ function startNodes(cb) {
 
     distribution.mygroup.gossip.del(localDelId, (e, v) => {
       stopCb(e, v);
-    })
-  }
+    });
+  };
 
   // if we do aws, we don't need this (in case of manual start up)
   const spawnNodes = (cb) => {
@@ -551,8 +573,8 @@ function startNodes(cb) {
   distribution.node.start((server) => {
     localServer = server;
 
-    const mygroupConfig = { gid: 'mygroup' };
-    const myVisitedConfig = { gid: 'visited' };
+    const mygroupConfig = {gid: 'mygroup'};
+    const myVisitedConfig = {gid: 'visited'};
 
     spawnNodes(() => {
       const fs = require('fs');
@@ -591,7 +613,7 @@ function startNodes(cb) {
 }
 
 function stopNodes() {
-  const remote = { service: 'status', method: 'stop' };
+  const remote = {service: 'status', method: 'stop'};
   remote.node = n1;
   distribution.local.comm.send([], remote, (e, v) => {
     remote.node = n2;
@@ -610,15 +632,13 @@ function stopNodes() {
   });
 }
 
-
 // Part 2: repl the queries
 function main() {
   function cleanup() {
-    const { execFileSync } = require('child_process');
+    const {execFileSync} = require('child_process');
     try {
-      execFileSync('./kill_nodes.sh', { encoding: 'utf8', stdio: 'inherit' });
-    } catch (error) {
-    }
+      execFileSync('./kill_nodes.sh', {encoding: 'utf8', stdio: 'inherit'});
+    } catch (error) {}
 
     // commented, it picks up where it left off, not sure if we want or not
     const fs = require('fs');
@@ -654,11 +674,9 @@ function main() {
           .map((word) => word.trim())
           .filter(Boolean);
 
-
         // console.log('Processed data:', data);
         // const stemmer = require('natural').PorterStemmer;
         // const stemmedQuery = stemmer.stem(query);
-
 
         // First pass: exact matches
         const exactMatches = performSearch(data, queryData);
@@ -675,17 +693,18 @@ function main() {
 
         // Search again
         Object.entries(possibleCorrections).forEach(([key, suggestions]) => {
-          suggestions.forEach(suggestion => {
+          suggestions.forEach((suggestion) => {
             // Create a modified query with the suggestion
-            const modifiedQuery = { ...queryData };
+            const modifiedQuery = {...queryData};
             modifiedQuery[key] = suggestion.value;
 
             // Search with the modified query
             const results = performSearch(data, modifiedQuery);
             if (results.length > 0) {
               // Add suggestion info to the beginning of each result
-              const suggestedResults = results.map(result =>
-                `Suggested "${suggestion.value}" for "${queryData[key]}" | ${result}`
+              const suggestedResults = results.map(
+                (result) =>
+                  `Suggested "${suggestion.value}" for "${queryData[key]}" | ${result}`,
               );
               typoResults.push(...suggestedResults);
             }
@@ -710,11 +729,13 @@ function main() {
           author: new Set(),
           title: new Set(),
           year: new Set(),
-          lang: new Set()
+          lang: new Set(),
         };
 
         for (const line of data) {
-          const [author, title, year, lang] = line.split('|').map(s => s.trim());
+          const [author, title, year, lang] = line
+            .split('|')
+            .map((s) => s.trim());
           if (author) possibleValues.author.add(author.toLowerCase());
           if (title) possibleValues.title.add(title.toLowerCase());
           if (year) possibleValues.year.add(year.toLowerCase());
@@ -733,7 +754,7 @@ function main() {
               if (distance <= threshold) {
                 suggestions.push({
                   value: possibleValue,
-                  distance: distance
+                  distance: distance,
                 });
               }
             }
@@ -770,7 +791,7 @@ function main() {
             matrix[i][j] = Math.min(
               matrix[i - 1][j] + 1,
               matrix[i][j - 1] + 1,
-              matrix[i - 1][j - 1] + cost
+              matrix[i - 1][j - 1] + cost,
             );
           }
         }
@@ -831,9 +852,11 @@ function main() {
         const headerLine = header ? header : 'Available commands:';
 
         console.log(headerLine);
-        console.log('  author: name | title: book title | year: yyyy | lang: language');
+        console.log(
+          '  author: name | title: book title | year: yyyy | lang: language',
+        );
         console.log('  show-all - Show all entries in the database');
-        console.log('  debug-log - Show most recent nodes\' debug information');
+        console.log("  debug-log - Show most recent nodes' debug information");
         console.log('  debug-start - Start debug logging of the nodes');
         console.log('  debug-stop - Stop debug logging of the nodes');
       }
@@ -875,7 +898,7 @@ function main() {
         // Output everything
         if (trimmedLine === 'show-all') {
           console.log('Showing all entries in the database:');
-          const remote = { service: 'query', method: 'query' };
+          const remote = {service: 'query', method: 'query'};
           distribution.mygroup.comm.send([{}], remote, (e, v) => {
             const res = new Set();
             for (const node of Object.keys(v)) {
@@ -898,8 +921,8 @@ function main() {
         }
 
         if (trimmedLine === 'debug-log') {
-          console.log('Showing most recent nodes\' debug information:');
-          const remote = { service: 'debugging', method: 'log' };
+          console.log("Showing most recent nodes' debug information:");
+          const remote = {service: 'debugging', method: 'log'};
           distribution.mygroup.comm.send([{}], remote, (e, v) => {
             console.log('Most recent nodes information:');
             console.log(e);
@@ -911,12 +934,14 @@ function main() {
 
         if (trimmedLine === 'debug-start') {
           if (debugOn) {
-            console.log('Debugging is already on. Use debug-stop to turn it off.');
+            console.log(
+              'Debugging is already on. Use debug-stop to turn it off.',
+            );
             rl.prompt();
             return;
           }
           console.log('Starting debug logging of nodes:');
-          const remote = { service: 'debugging', method: 'debug' };
+          const remote = {service: 'debugging', method: 'debug'};
           distribution.mygroup.comm.send([{}], remote, (e, v) => {
             // console.log(e);
             // console.log(v);
@@ -929,12 +954,14 @@ function main() {
 
         if (trimmedLine === 'debug-stop') {
           if (!debugOn) {
-            console.log('Debugging is already off. Use debug-start to turn it on.');
+            console.log(
+              'Debugging is already off. Use debug-start to turn it on.',
+            );
             rl.prompt();
             return;
           }
           console.log('Stopping debug logging of nodes:');
-          const remote = { service: 'debugging', method: 'stop' };
+          const remote = {service: 'debugging', method: 'stop'};
           distribution.mygroup.comm.send([{}], remote, (e, v) => {
             // console.log(e);
             // console.log(v);
@@ -948,10 +975,10 @@ function main() {
         try {
           // Parse the query input
           const query = {};
-          const parts = trimmedLine.split('|').map(part => part.trim());
+          const parts = trimmedLine.split('|').map((part) => part.trim());
           let validQuery = false;
 
-          parts.forEach(part => {
+          parts.forEach((part) => {
             const [key, ...valueParts] = part.split(':');
             if (key && valueParts.length) {
               const value = valueParts.join(':').trim();
@@ -973,7 +1000,7 @@ function main() {
           }
 
           // Proceed with valid query
-          const remote = { service: 'query', method: 'query' };
+          const remote = {service: 'query', method: 'query'};
           distribution.mygroup.comm.send([query], remote, (e, v) => {
             const res = new Set();
             for (const node of Object.keys(v)) {
@@ -1013,3 +1040,4 @@ function main() {
 }
 
 main();
+
