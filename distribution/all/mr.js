@@ -71,6 +71,10 @@ function mr(config) {
         } else {
           const mappedResults = [];
           let processedCount = 0;
+          let performanceCount = 0;
+          let urlsVisited = 1;
+          const startTime = performance.now();
+          
 
           data.forEach((item) => {
             let storage = global.distribution[groupId].store;
@@ -84,14 +88,28 @@ function mr(config) {
               } else {
                 processedCount++;
                 this.mapper(item, value).then(mappedValue => {
+
+                  performanceCount++;
                   if (Array.isArray(mappedValue)) {
+                    if (mappedValue.length > 0) {
+                      urlsVisited++;
+                    }
                     mappedResults.push(...mappedValue);
                   } else {
                     mappedResults.push(mappedValue);
                   }
+
                   // console.log('before')
-                  if (processedCount == data.length) {
+                  if (processedCount === data.length) {
                     // console.log('after');
+                    // console.log('outside of map with sid: ', global.moreStatus.sid);
+                    if (performanceCount === data.length) {
+                      const endTime = performance.now();
+                      const elapsedTime = Number(endTime - startTime);
+                      // console.log('here now: ', processedCount, data.length);
+                      // put into seconds
+                      console.log('node:', global.moreStatus.sid, startTime, endTime, elapsedTime, (urlsVisited / elapsedTime) * 1000);
+                    }
                     let finalResults = mappedResults;
                     // if compaction is defined, we run it here before
                     // putting all of the mapped results into storage
@@ -105,6 +123,7 @@ function mr(config) {
                     if (this.memory) {
                       localStorage = global.distribution.local.mem;
                     }
+                    // console.log('outside of map with sid: ', global.moreStatus.sid);
                     localStorage.put(
                         finalResults,
                         operationId + 'map',
@@ -170,10 +189,13 @@ function mr(config) {
             (error, keys) => {
               let results = [];
               let processedCount = 0;
+              let urlCount = 1;
 
               if (keys.length == 0) {
                 callback(null, null);
               }
+
+              const startTime = performance.now();
 
               // console.log(keys);
               keys.forEach((key) => {
@@ -187,12 +209,20 @@ function mr(config) {
                     // when doing just in-memory storage, this will fail
                     // some keys have different values
                       this.reducer(key, values).then(reducedValue => {
+
+                        if (Object.keys(reducedValue).length === 0) {
+                          urlCount++;
+                        }
+
                         results = results.concat(reducedValue);
                         processedCount++;
 
                         // console.log('before')
                         if (processedCount == keys.length) {
-                          // console.log('after');
+                          const endTime = performance.now();
+                          const elapsedTime = Number(endTime - startTime);
+                          // console.log('here now: ', processedCount, data.length);
+                          console.log('node:', global.moreStatus.sid, startTime, endTime, elapsedTime, (urlCount / elapsedTime) * 1000);
                           // at this point, either callback like normal
                           // or store results in the out group if it was provided
                           if (this.out) {

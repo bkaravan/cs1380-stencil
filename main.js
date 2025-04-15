@@ -152,129 +152,7 @@ async function runCrawler(replCb) {
 
       const fs = require('fs');
       const path = require('path');
-      const natural = require('natural');
-
-      // console.log('got to the text part with : ' + link + '\n');
-
-      function computeNgrams(output, filteredWords) {
-        const buffer = filteredWords.filter(Boolean);
-
-        const bigrams = [];
-        for (let i = 0; i < buffer.length - 1; i++) {
-          bigrams.push([buffer[i], buffer[i + 1]]);
-        }
-
-        const trigrams = [];
-        for (let i = 0; i < buffer.length - 2; i++) {
-          trigrams.push([buffer[i], buffer[i + 1], buffer[i + 2]]);
-        }
-
-        const together = buffer.concat(bigrams).concat(trigrams);
-
-        for (const item of together) {
-          if (Array.isArray(item)) {
-            output.push(item.join('\t'));
-          } else {
-            output.push(item);
-          }
-        }
-      }
-
-      const compare = (a, b) => {
-        if (a.freq > b.freq) {
-          return -1;
-        } else if (a.freq < b.freq) {
-          return 1;
-        } else {
-          return 0;
-        }
-      };
-
-      const basePath = path.join(
-        path.dirname(path.resolve('main.js')),
-        'globals',
-      );
-      const globalIndexFile = path.join(basePath, global.moreStatus.sid);
-
-      const mergeGlobal = (localIndex) => {
-        // Split the data into an array of lines
-        const data = fs.readFileSync(globalIndexFile, 'utf8');
-        const localIndexLines = localIndex.split('\n');
-        const globalIndexLines = data.split('\n').filter((a) => a != '');
-
-        const local = new Map();
-        const global = new Map();
-
-        for (const line of localIndexLines) {
-          // might need to skip empty lines
-          const lineSplit = line.split('|').map((part) => part.trim());
-          if (lineSplit.length < 3) continue;
-          const term = lineSplit[0];
-          const url = lineSplit[2];
-          const freq = Number(lineSplit[1]);
-          local.set(term, { url, freq });
-        }
-
-        for (const line of globalIndexLines) {
-          const lineSplit = line.split('|').map((part) => part.trim());
-          const pairSplit = lineSplit[1].split(' ').map((part) => part.trim());
-          const term = lineSplit[0];
-          const urlfs = [];
-          // can use a flatmap here, but kind of an overkill
-          for (let i = 0; i < pairSplit.length; i += 2) {
-            urlfs.push({ url: pairSplit[i], freq: Number(pairSplit[i + 1]) });
-          }
-          global.set(term, urlfs); // Array of {url, freq} objects
-        }
-
-        for (const [key, value] of local) {
-          if (global.has(key)) {
-            global.get(key).push(value);
-            // technically, might be faster to resort everything at the end
-            global.get(key).sort(compare);
-          } else {
-            global.set(key, [value]);
-          }
-        }
-
-        const finalData = [];
-        for (const [term, value] of global) {
-          const pairs = value
-            .map((entry) => `${entry.url} ${entry.freq}`)
-            .join(' ');
-          const line = `${term} | ${pairs}`;
-          finalData.push(line);
-        }
-
-        const contentToAppend = finalData.join('\n');
-
-        fs.writeFileSync(globalIndexFile, contentToAppend + '\n');
-      };
-
-      function invert(data, url) {
-        // basically python's defaultdict, counting how many times each line occurs
-        const result = data.reduce((acc, line) => {
-          const key = line.trim();
-          acc[key] = (acc[key] || 0) + 1;
-          return acc;
-        }, {});
-
-        // Entries creates a stream of KV pairs
-        // each entry counts the first three words
-        // prettier-ignore
-        const output = Object.entries(result)
-          .map(([words, count]) => {
-            const parts = words.split(/\s+/).slice(0, 3).join(' ');
-            // update words to doc freq for every n-gram
-            return `${parts} | ${count} |`;
-          })
-          .sort()
-          // adding the url at the end
-          .map((line) => `${line} ${url}`)
-          .join('\n');
-        return output;
-      }
-
+      
       function processDocument(data, url) {
         // data: the first 1000 characters of the html/text file
         // prettier-ignore
@@ -398,7 +276,7 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 7},
+        { keys: v, map: mapper, reduce: reducer, rounds: 5},
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
           
