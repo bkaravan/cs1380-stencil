@@ -1,14 +1,20 @@
 #!/usr/bin/env node
 
 const distribution = require('./config.js');
+const fs = require('fs');
 const readline = require('readline');
 
-// repl interface
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  prompt: '> ',
-});
+// const rl = readline.createInterface({
+//   input: fs.createReadStream('authors_output.txt'),
+//   output: process.stdout,
+//   prompt: '> ',
+// });
+
+// const rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout,
+//   prompt: '> ',
+// });
 
 // globals
 const id = distribution.util.id;
@@ -882,9 +888,16 @@ function main() {
       let debugOn = true;
       // Startup message
       console.log('Welcome to a Distributed Book Search\n');
+      const rl = readline.createInterface({
+        input: fs.createReadStream('authors_output.txt'),
+        output: process.stdout,
+        prompt: '> ',
+      });
       rl.prompt();
 
       // Handle each line of input
+      const start = performance.now();
+      let queries = 0;
       rl.on('line', (line) => {
         // Check for exit command
         if (line.trim() === 'quit') {
@@ -1030,6 +1043,7 @@ function main() {
           // Proceed with valid query
           const remote = {service: 'query', method: 'query'};
           distribution.mygroup.comm.send([query], remote, (e, v) => {
+            queries += 1;
             const res = new Set();
             for (const node of Object.keys(v)) {
               for (const line of v[node]) {
@@ -1045,6 +1059,19 @@ function main() {
                 console.log(url);
               }
             }
+
+            if (queries >= 1500) {
+              const end = performance.now();
+              const elapsedTime = Number(end - start);
+              const numQueries = 1500;
+              const throughput = (numQueries/elapsedTime) * 1000;
+              const lat = (elapsedTime/numQueries);
+              console.log(`Throughput: ${throughput} queries/sec`);
+              console.log(`Latency: ${lat} ms/query`);
+              console.log('Exiting REPL');
+              stopNodes();
+              return;
+            }
             rl.prompt();
           });
         } catch (err) {
@@ -1055,9 +1082,16 @@ function main() {
 
       // Handle REPL closure
       rl.on('close', () => {
-        console.log('Exiting REPL');
-        stopNodes();
-        return;
+        // const end = performance.now();
+        // const elapsedTime = Number(end - start);
+        // const numQueries = 1500;
+        // const throughput = (numQueries/elapsedTime) * 1000;
+        // const lat = (elapsedTime/numQueries);
+        // console.log(`Throughput: ${throughput} queries/sec`);
+        // console.log(`Latency: ${lat} ms/query`);
+        // console.log('Exiting REPL');
+        // stopNodes();
+        // return;
       });
 
       rl.on('SIGINT', () => {

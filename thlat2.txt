@@ -1,0 +1,117 @@
+Killing processes on ports 7110, 7111, and 7112...
+clearing store & authors
+Cleanup completed
+CRAWLER | THROUGHPUT | node: 7ff68 | startTime: 476.627209 | endTime: 580.074084 | elapsedTime: 103.44687499999998 | urlCount: 2
+CRAWLER | LATENCY | node: 7ff68 | startTime: 476.627209 | endTime: 580.074084 | elapsedTime: 103.44687499999998 | urlCount: 2
+INDEXER | THROUGHPUT | node: 7ff68 | startTime: 587.323875 | endTime: 587.583209 | elapsedTime: 0.2593339999999671 | urlCount: 1
+INDEXER | LATENCY | node: 7ff68 | startTime: 587.323875 | endTime: 587.583209 | elapsedTime: 0.2593339999999671 | urlCount: 1
+INDEXER | THROUGHPUT | node: c65b0 | startTime: 874.1955 | endTime: 874.53725 | elapsedTime: 0.3417499999999336 | urlCount: 1
+INDEXER | THROUGHPUT | node: fa3de | startTime: 728.372042 | endTime: 728.66 | elapsedTime: 0.28795800000000327 | urlCount: 1
+INDEXER | LATENCY | node: c65b0 | startTime: 874.1955 | endTime: 874.53725 | elapsedTime: 0.3417499999999336 | urlCount: 1
+INDEXER | LATENCY | node: fa3de | startTime: 728.372042 | endTime: 728.66 | elapsedTime: 0.28795800000000327 | urlCount: 1
+INDEXER | THROUGHPUT | node: 0e5f3 | startTime: 436.038792 | endTime: 436.325292 | elapsedTime: 0.28649999999998954 | urlCount: 1
+INDEXER | LATENCY | node: 0e5f3 | startTime: 436.038792 | endTime: 436.325292 | elapsedTime: 0.28649999999998954 | urlCount: 1
+starting round: 1
+CRAWLER | THROUGHPUT | node: 7ff68 | startTime: 1616.451251 | endTime: 1668.550001 | elapsedTime: 52.09875000000011 | urlCount: 3
+CRAWLER | LATENCY | node: 7ff68 | startTime: 1616.451251 | endTime: 1668.550001 | elapsedTime: 52.09875000000011 | urlCount: 3
+CRAWLER | THROUGHPUT | node: c65b0 | startTime: 1903.179084 | endTime: 2050.025626 | elapsedTime: 146.846542 | urlCount: 4
+CRAWLER | LATENCY | node: c65b0 | startTime: 1903.179084 | endTime: 2050.025626 | elapsedTime: 146.846542 | urlCount: 4
+CRAWLER | THROUGHPUT | node: 0e5f3 | startTime: 1465.018001 | endTime: 1624.397542 | elapsedTime: 159.37954100000002 | urlCount: 5
+CRAWLER | LATENCY | node: 0e5f3 | startTime: 1465.018001 | endTime: 1624.397542 | elapsedTime: 159.37954100000002 | urlCount: 5
+CRAWLER | THROUGHPUT | node: fa3de | startTime: 1757.343334 | endTime: 1917.099834 | elapsedTime: 159.7565000000002 | urlCount: 2
+CRAWLER | LATENCY | node: fa3de | startTime: 1757.343334 | endTime: 1917.099834 | elapsedTime: 159.7565000000002 | urlCount: 2
+INDEXER | THROUGHPUT | node: 0e5f3 | startTime: 1681.816292 | endTime: 1682.268917 | elapsedTime: 0.4526250000001255 | urlCount: 1
+INDEXER | LATENCY | node: 0e5f3 | startTime: 1681.816292 | endTime: 1682.268917 | elapsedTime: 0.4526250000001255 | urlCount: 1
+INDEXER | THROUGHPUT | node: fa3de | startTime: 1974.219959 | endTime: 1974.754751 | elapsedTime: 0.5347919999999249 | urlCount: 1
+INDEXER | THROUGHPUT | node: 7ff68 | startTime: 1833.204043 | endTime: 1833.828251 | elapsedTime: 0.6242079999999532 | urlCount: 1
+INDEXER | THROUGHPUT | node: c65b0 | startTime: 2120.094167 | endTime: 2120.661709 | elapsedTime: 0.5675419999997757 | urlCount: 1
+INDEXER | LATENCY | node: fa3de | startTime: 1974.219959 | endTime: 1974.754751 | elapsedTime: 0.5347919999999249 | urlCount: 1
+INDEXER | LATENCY | node: 7ff68 | startTime: 1833.204043 | endTime: 1833.828251 | elapsedTime: 0.6242079999999532 | urlCount: 1
+INDEXER | LATENCY | node: c65b0 | startTime: 2120.094167 | endTime: 2120.661709 | elapsedTime: 0.5675419999997757 | urlCount: 1
+INDEXER | THROUGHPUT | node: 69d79 | startTime: 1532.668376 | endTime: 1533.151376 | elapsedTime: 0.48299999999994725 | urlCount: 1
+INDEXER | LATENCY | node: 69d79 | startTime: 1532.668376 | endTime: 1533.151376 | elapsedTime: 0.48299999999994725 | urlCount: 1
+starting round: 2
+CRAWLER | THROUGHPUT | node: fa3de | startTime: 3053.235626 | endTime: 3865.815127 | elapsedTime: 812.5795009999997 | urlCount: 43
+CRAWLER | LATENCY | node: fa3de | startTime: 3053.235626 | endTime: 3865.815127 | elapsedTime: 812.5795009999997 | urlCount: 43
+CRAWLER | THROUGHPUT | node: 0e5f3 | startTime: 2760.826001 | endTime: 13353.483965 | elapsedTime: 10592.657964 | urlCount: 27
+CRAWLER | LATENCY | node: 0e5f3 | startTime: 2760.826001 | endTime: 13353.483965 | elapsedTime: 10592.657964 | urlCount: 27
+CRAWLER | THROUGHPUT | node: 7ff68 | startTime: 2912.45346 | endTime: 13504.943423 | elapsedTime: 10592.489963 | urlCount: 37
+CRAWLER | LATENCY | node: 7ff68 | startTime: 2912.45346 | endTime: 13504.943423 | elapsedTime: 10592.489963 | urlCount: 37
+CRAWLER | THROUGHPUT | node: c65b0 | startTime: 3199.164085 | endTime: 13806.578673 | elapsedTime: 10607.414588 | urlCount: 38
+CRAWLER | LATENCY | node: c65b0 | startTime: 3199.164085 | endTime: 13806.578673 | elapsedTime: 10607.414588 | urlCount: 38
+CRAWLER | THROUGHPUT | node: 69d79 | startTime: 2611.796376 | endTime: 13296.607756 | elapsedTime: 10684.81138 | urlCount: 43
+CRAWLER | LATENCY | node: 69d79 | startTime: 2611.796376 | endTime: 13296.607756 | elapsedTime: 10684.81138 | urlCount: 43
+INDEXER | THROUGHPUT | node: 7ff68 | startTime: 13798.37934 | endTime: 14430.059549 | elapsedTime: 631.6802090000001 | urlCount: 23
+INDEXER | LATENCY | node: 7ff68 | startTime: 13798.37934 | endTime: 14430.059549 | elapsedTime: 631.6802090000001 | urlCount: 23
+INDEXER | THROUGHPUT | node: fa3de | startTime: 13939.379131 | endTime: 14620.309048 | elapsedTime: 680.9299169999995 | urlCount: 24
+INDEXER | LATENCY | node: fa3de | startTime: 13939.379131 | endTime: 14620.309048 | elapsedTime: 680.9299169999995 | urlCount: 24
+INDEXER | THROUGHPUT | node: 0e5f3 | startTime: 13646.975423 | endTime: 14328.105673 | elapsedTime: 681.1302500000002 | urlCount: 20
+INDEXER | LATENCY | node: 0e5f3 | startTime: 13646.975423 | endTime: 14328.105673 | elapsedTime: 681.1302500000002 | urlCount: 20
+INDEXER | THROUGHPUT | node: c65b0 | startTime: 14085.168006 | endTime: 25006.150136 | elapsedTime: 10920.98213 | urlCount: 22
+INDEXER | LATENCY | node: c65b0 | startTime: 14085.168006 | endTime: 25006.150136 | elapsedTime: 10920.98213 | urlCount: 22
+INDEXER | THROUGHPUT | node: 69d79 | startTime: 13497.747798 | endTime: 24420.248928 | elapsedTime: 10922.50113 | urlCount: 18
+INDEXER | LATENCY | node: 69d79 | startTime: 13497.747798 | endTime: 24420.248928 | elapsedTime: 10922.50113 | urlCount: 18
+starting round: 3
+CRAWLER | THROUGHPUT | node: 0e5f3 | startTime: 26044.42547 | endTime: 36628.345225 | elapsedTime: 10583.919754999999 | urlCount: 343
+CRAWLER | LATENCY | node: 0e5f3 | startTime: 26044.42547 | endTime: 36628.345225 | elapsedTime: 10583.919754999999 | urlCount: 343
+CRAWLER | THROUGHPUT | node: 69d79 | startTime: 25895.403387 | endTime: 36483.630309 | elapsedTime: 10588.226922000002 | urlCount: 358
+CRAWLER | LATENCY | node: 69d79 | startTime: 25895.403387 | endTime: 36483.630309 | elapsedTime: 10588.226922000002 | urlCount: 358
+CRAWLER | THROUGHPUT | node: c65b0 | startTime: 26482.652304 | endTime: 37071.945309 | elapsedTime: 10589.293005000003 | urlCount: 361
+CRAWLER | LATENCY | node: c65b0 | startTime: 26482.652304 | endTime: 37071.945309 | elapsedTime: 10589.293005000003 | urlCount: 361
+CRAWLER | THROUGHPUT | node: 7ff68 | startTime: 26196.035221 | endTime: 37290.524393 | elapsedTime: 11094.489172000001 | urlCount: 341
+CRAWLER | LATENCY | node: 7ff68 | startTime: 26196.035221 | endTime: 37290.524393 | elapsedTime: 11094.489172000001 | urlCount: 341
+CRAWLER | THROUGHPUT | node: fa3de | startTime: 26336.811929 | endTime: 37435.818226 | elapsedTime: 11099.006297000004 | urlCount: 382
+CRAWLER | LATENCY | node: fa3de | startTime: 26336.811929 | endTime: 37435.818226 | elapsedTime: 11099.006297000004 | urlCount: 382
+INDEXER | THROUGHPUT | node: c65b0 | startTime: 43243.596103 | endTime: 53866.826858 | elapsedTime: 10623.230754999997 | urlCount: 266
+INDEXER | LATENCY | node: c65b0 | startTime: 43243.596103 | endTime: 53866.826858 | elapsedTime: 10623.230754999997 | urlCount: 266
+INDEXER | THROUGHPUT | node: 0e5f3 | startTime: 42805.015228 | endTime: 53429.316066 | elapsedTime: 10624.300838000003 | urlCount: 270
+INDEXER | THROUGHPUT | node: fa3de | startTime: 43097.162812 | endTime: 53721.906066 | elapsedTime: 10624.743254 | urlCount: 287
+INDEXER | LATENCY | node: fa3de | startTime: 43097.162812 | endTime: 53721.906066 | elapsedTime: 10624.743254 | urlCount: 287
+INDEXER | LATENCY | node: 0e5f3 | startTime: 42805.015228 | endTime: 53429.316066 | elapsedTime: 10624.300838000003 | urlCount: 270
+INDEXER | THROUGHPUT | node: 7ff68 | startTime: 42956.233187 | endTime: 53582.656358 | elapsedTime: 10626.423171000002 | urlCount: 258
+INDEXER | LATENCY | node: 7ff68 | startTime: 42956.233187 | endTime: 53582.656358 | elapsedTime: 10626.423171000002 | urlCount: 258
+INDEXER | THROUGHPUT | node: 69d79 | startTime: 42655.782687 | endTime: 53282.432399 | elapsedTime: 10626.649711999999 | urlCount: 254
+INDEXER | LATENCY | node: 69d79 | startTime: 42655.782687 | endTime: 53282.432399 | elapsedTime: 10626.649711999999 | urlCount: 254
+starting round: 4
+CRAWLER | THROUGHPUT | node: 7ff68 | startTime: 60786.166403 | endTime: 77138.940953 | elapsedTime: 16352.774549999995 | urlCount: 685
+CRAWLER | LATENCY | node: 7ff68 | startTime: 60786.166403 | endTime: 77138.940953 | elapsedTime: 16352.774549999995 | urlCount: 685
+CRAWLER | THROUGHPUT | node: 0e5f3 | startTime: 60634.98782 | endTime: 78176.578703 | elapsedTime: 17541.590883000004 | urlCount: 747
+CRAWLER | LATENCY | node: 0e5f3 | startTime: 60634.98782 | endTime: 78176.578703 | elapsedTime: 17541.590883000004 | urlCount: 747
+CRAWLER | THROUGHPUT | node: fa3de | startTime: 60926.721195 | endTime: 79120.48787 | elapsedTime: 18193.766675 | urlCount: 665
+CRAWLER | LATENCY | node: fa3de | startTime: 60926.721195 | endTime: 79120.48787 | elapsedTime: 18193.766675 | urlCount: 665
+CRAWLER | THROUGHPUT | node: 69d79 | startTime: 60485.629528 | endTime: 78688.632787 | elapsedTime: 18203.003258999997 | urlCount: 700
+CRAWLER | LATENCY | node: 69d79 | startTime: 60485.629528 | endTime: 78688.632787 | elapsedTime: 18203.003258999997 | urlCount: 700
+CRAWLER | THROUGHPUT | node: c65b0 | startTime: 61072.832445 | endTime: 79278.907703 | elapsedTime: 18206.075258000004 | urlCount: 654
+CRAWLER | LATENCY | node: c65b0 | startTime: 61072.832445 | endTime: 79278.907703 | elapsedTime: 18206.075258000004 | urlCount: 654
+INDEXER | THROUGHPUT | node: c65b0 | startTime: 85016.259997 | endTime: 96783.397461 | elapsedTime: 11767.137464 | urlCount: 788
+INDEXER | LATENCY | node: c65b0 | startTime: 85016.259997 | endTime: 96783.397461 | elapsedTime: 11767.137464 | urlCount: 788
+INDEXER | THROUGHPUT | node: 69d79 | startTime: 84429.941872 | endTime: 96213.875836 | elapsedTime: 11783.93396400001 | urlCount: 816
+INDEXER | LATENCY | node: 69d79 | startTime: 84429.941872 | endTime: 96213.875836 | elapsedTime: 11783.93396400001 | urlCount: 816
+INDEXER | THROUGHPUT | node: 0e5f3 | startTime: 84578.508247 | endTime: 96370.39167 | elapsedTime: 11791.883422999992 | urlCount: 847
+INDEXER | LATENCY | node: 0e5f3 | startTime: 84578.508247 | endTime: 96370.39167 | elapsedTime: 11791.883422999992 | urlCount: 847
+INDEXER | THROUGHPUT | node: 7ff68 | startTime: 84729.927498 | endTime: 96527.052628 | elapsedTime: 11797.12513 | urlCount: 818
+INDEXER | LATENCY | node: 7ff68 | startTime: 84729.927498 | endTime: 96527.052628 | elapsedTime: 11797.12513 | urlCount: 818
+INDEXER | THROUGHPUT | node: fa3de | startTime: 84872.301289 | endTime: 96675.236378 | elapsedTime: 11802.935089000006 | urlCount: 835
+INDEXER | LATENCY | node: fa3de | startTime: 84872.301289 | endTime: 96675.236378 | elapsedTime: 11802.935089000006 | urlCount: 835
+starting round: 5
+CRAWLER | THROUGHPUT | node: 0e5f3 | startTime: 107181.850675 | endTime: 125596.116141 | elapsedTime: 18414.26546600001 | urlCount: 955
+CRAWLER | LATENCY | node: 0e5f3 | startTime: 107181.850675 | endTime: 125596.116141 | elapsedTime: 18414.26546600001 | urlCount: 955
+CRAWLER | THROUGHPUT | node: c65b0 | startTime: 107619.124591 | endTime: 126567.423724 | elapsedTime: 18948.299132999993 | urlCount: 896
+CRAWLER | LATENCY | node: c65b0 | startTime: 107619.124591 | endTime: 126567.423724 | elapsedTime: 18948.299132999993 | urlCount: 896
+CRAWLER | THROUGHPUT | node: 69d79 | startTime: 107032.567591 | endTime: 126081.748475 | elapsedTime: 19049.180884 | urlCount: 947
+CRAWLER | LATENCY | node: 69d79 | startTime: 107032.567591 | endTime: 126081.748475 | elapsedTime: 19049.180884 | urlCount: 947
+CRAWLER | THROUGHPUT | node: 7ff68 | startTime: 107334.679967 | endTime: 126800.438683 | elapsedTime: 19465.758715999997 | urlCount: 971
+CRAWLER | LATENCY | node: 7ff68 | startTime: 107334.679967 | endTime: 126800.438683 | elapsedTime: 19465.758715999997 | urlCount: 971
+INDEXER | THROUGHPUT | node: c65b0 | startTime: 130572.102476 | endTime: 143401.936398 | elapsedTime: 12829.83392199999 | urlCount: 1900
+INDEXER | LATENCY | node: c65b0 | startTime: 130572.102476 | endTime: 143401.936398 | elapsedTime: 12829.83392199999 | urlCount: 1900
+INDEXER | THROUGHPUT | node: fa3de | startTime: 130426.567185 | endTime: 143291.201357 | elapsedTime: 12864.634172000005 | urlCount: 1901
+INDEXER | LATENCY | node: fa3de | startTime: 130426.567185 | endTime: 143291.201357 | elapsedTime: 12864.634172000005 | urlCount: 1901
+INDEXER | THROUGHPUT | node: 7ff68 | startTime: 130285.283977 | endTime: 143160.007774 | elapsedTime: 12874.723796999999 | urlCount: 1844
+INDEXER | LATENCY | node: 7ff68 | startTime: 130285.283977 | endTime: 143160.007774 | elapsedTime: 12874.723796999999 | urlCount: 1844
+INDEXER | THROUGHPUT | node: 0e5f3 | startTime: 130133.871435 | endTime: 144987.264816 | elapsedTime: 14853.393381000016 | urlCount: 1932
+INDEXER | LATENCY | node: 0e5f3 | startTime: 130133.871435 | endTime: 144987.264816 | elapsedTime: 14853.393381000016 | urlCount: 1932
+INDEXER | THROUGHPUT | node: 69d79 | startTime: 129984.702726 | endTime: 144844.165607 | elapsedTime: 14859.462881 | urlCount: 1883
+INDEXER | LATENCY | node: 69d79 | startTime: 129984.702726 | endTime: 144844.165607 | elapsedTime: 14859.462881 | urlCount: 1883
+Welcome to a Distributed Book Search
+
+> 

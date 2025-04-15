@@ -1,0 +1,1500 @@
+author: Various
+author: null
+author: null
+author: William Dean Howells
+author: Ernest Poole
+author: Henry Morley
+author: C. Boden Kloss
+author: Henry N. Ogden
+author: Thomas Kyd
+author: Joseph A. Altsheler
+author: W. Tuckwell
+author: A. E. Holt White
+author: Eleanor H. Porter
+author: Edgar Rice Burroughs
+author: James A. Cooper
+author: Jack London
+author: Jerome K. Jerome
+author: Philip Gosse
+author: H. de Vere Stacpoole
+author: Lester Chadwick
+author: Jules Verne
+author: Joost van den Vondel
+author: 
+author: null
+author: null
+author: Henry Sloane Coffin
+author: Walt Mason
+author: Brian Flynn
+author: William H. Varnum
+author: Rudyard Kipling
+author: null
+author: Henry Van Dyke
+author: null
+author: Alexandre Dumas, Pere
+author: Meredith Nicholson
+author: Jean Jacques Rousseau
+author: null
+author: null
+author: Honore de Balzac
+author: Carl Axel Gottlund
+author: F. Scott Fitzgerald
+author: European Union
+author: [AKA Ohiyesa], Charles A. Eastman
+author: Jacques Porchat
+author: George Barton Cutten
+author: Unknown
+author: null
+author: null
+author: Harvey Riley
+author: David Hume
+author: null
+author: Lewis Spence
+author: Myra Kelly
+author: Various
+author: I. A. R. Wylie
+author: Henry Festing Jones
+author: William Trowbridge Larned
+author: null
+author: Victor Hehn
+author: Edmund Yates
+author: null
+author: Robert Louis Stevenson
+author: Randall Parrish
+author: null
+author: Aristotle
+author: Marion Harland
+author: Harold E. Stassen
+author: Duchesse
+author: Elizabeth Gaskell
+author: Kirj.
+author: Gertrude Weld Arnold
+author: Gertrude Forde
+author: Charles King
+author: null
+author: Lillian Elizabeth Roy
+author: Juliana Horatia Ewing
+author: Various
+author: Robinson [and] Overton, ed. and translation.
+author: Jakob Wassermann
+author: H. L. Hollingworth
+author: null
+author: null
+author: Lightheart
+author: Harold Bell Wright
+author: Charlotte Perkins Stetson Gilman
+author: null
+author: Mary Wollstonecraft Shelley
+author: Author: Carl August Cederborg
+author: Percival Lowell
+author: Sophia Reeve
+author: Lewis Carroll
+author: J. W. Powell
+author: Richard Henry Savage
+author: Alexandre Dumas, Pere
+author: Oliver Wendell Holmes, Sr.
+author: Will N. Harben
+author: Carolyn Wells
+author: null
+author: Carolyn Wells
+author: David Livingstone
+author: Frank H. Alfriend
+author: null
+author: 
+author: John Burroughs
+author: null
+author: Jean Armour Polly
+author: Upton Sinclair
+author: Emily Nevill Jackson
+author: Robert Kerr
+author: Basil King
+author: null
+author: Daniel Defoe
+author: Walter Scott
+author: Mark Lemon
+author: Henry James
+author: Flora Klickmann
+author: Robert Bloomfield
+author: Ernst Von Wildenbruch
+author: Various
+author: Edwin Thomas Sachs
+author: null
+author: Honore de Balzac
+author: James Whitcomb Riley
+author: null
+author: Thornton W. Burgess
+author: J. Meade Falkner
+author: Leo Edwards
+author: [AKA Ohiyesa], Charles A. Eastman
+author: John Alexander Logan
+author: null
+author: Mark Twain (Samuel Clemens)
+author: R. H. Busk
+author: null
+author: Charles Franklin Carter
+author: Sir John William Kaye
+author: null
+author: Saki
+author: null
+author: Charles Dickens
+author: 
+author: G. A. Henty
+author: Jane Austen
+author: Elizabeth Cleghorn Gaskell
+author: Dante Alighieri
+author: 
+author: Talbot Baines Reed
+author: Laurence Sterne
+author: null
+author: [AKA Ohiyesa], Charles A. Eastman
+author: null
+author: null
+author: Heinrich Lhotzky
+author: Fred. J. Melville
+author: Alexander Crombie
+author: Duc de Saint-Simon
+author: Harold Bell Wright
+author: Harry Leon Wilson
+author: Adolphe Thiers
+author: Kalle Kajander
+author: null
+author: 
+author: null
+author: Edmund Dane
+author: Edward Tennyson Reed
+author: null
+author: Virna Sheard
+author: Madelene Yale Wynne
+author: Jean de La Fontaine
+author: Various
+author: Song Yu
+author: H. Harold Hume
+author: Ebenezer Cook
+author: Unknown
+author: Herbert George Wells
+author: null
+author: null
+author: Aimee Crocker Gouraud
+author: Jonathan Swift
+author: H. G. Wells
+author: William Kirby
+author: null
+author: Beatrix Potter
+author: Grant Allen
+author: John Alexander
+author: Mary Roberts Rinehart
+author: William Makepeace Thackeray
+author: Louis Couperus
+author: Jean Webster
+author: Arthur Hoeber
+author: Roy Rockwood
+author: Thomas Hart Benton
+author: Mor Jokai
+author: Eleònore Riego de la Branchardiere
+author: Christopher Marlowe
+author: Willa Cather
+author: Thomas Babington Macaulay
+author: Arnold Bennett
+author: null
+author: Charles Dudley Warner
+author: Produced by: Tapio Riikonen
+author: William Charles Scully
+author: Jen-Ya Shiu
+author: Richard Burton
+author: Rémy de Gourmont
+author: null
+author: Robert Edouard Moritz
+author: Johan D. Frederiksen
+author: Winston Churchill
+author: Jules Verne
+author: Nat C. Goodwin
+author: Mrs. Humphry Ward
+author: Eliel Aspelin-Haapkyl�
+author: null
+author: Mayne Reid
+author: H. de Vere Stacpoole
+author: Rafael Sabatini
+author: Conde de Toreno
+author: Giovanni Battista Guarini
+author: null
+author: Charles Dickens
+author: null
+author: null
+author: Emma Look Scott
+author: Rafael Sabatini
+author: Robert Louis Stevenson
+author: Various
+author: Arthur Edward Waite
+author: Mrs. Ida Belle White
+author: J. Walker McSpadden
+author: Leigh Douglass Brackett
+author: William H. Elson and Christine Keck
+author: Eugene Field
+author: Edmund Spenser
+author: William Makepeace Thackeray
+author: William Dean Howells
+author: L. Frank Baum
+author: Harold Titus
+author: Anonymous
+author: null
+author: null
+author: Historiallinen seikkailukertomus
+author: null
+author: null
+author: Elizabeth-Charlotte, Duchesse
+author: Harold Frederic
+author: 
+author: Browning, Elizabeth Barrett
+author: Victor Bridges
+author: G. J. Whyte-Melville
+author: George Borrow
+author: Joseph Conrad
+author: Various
+author: null
+author: Marie van Vorst
+author: Margaret Sidney
+author: Peter Lund Simmonds
+author: Albert Robida
+author: Edward Strange
+author: Lord Byron
+author: 
+author: Desmond Byrne
+author: Sir Walter Scott
+author: Arthur W. Marchmont
+author: null
+author: C. J. Cutcliffe Hyne
+author: Robert Louis Stevenson
+author: Edward Gibbon
+author: Arnold Fredericks
+author: null
+author: Bliss, Sands, and Foster Publishers
+author: William Congreve
+author: Various
+author: Charles Victor Langlois
+author: John Masefield
+author: J.W. von Goethe
+author: Richard le Gallienne
+author: null
+author: Anton Checkov
+author: Hans Bethge
+author: Margaret Pedler
+author: George Edmund Street
+author: Will Lillibridge
+author: Wilcomb E. Washburn
+author: Various
+author: W. C. Tuttle
+author: null
+author: Oscar Wilde
+author: Upton Sinclair
+author: Thomas Malthus
+author: Mór Jókai
+author: Thomas Bailey Aldrich
+author: null
+author: null
+author: Various
+author: 
+author: Robert Louis Stevenson
+author: F. Berndtson
+author: Captain J. Kincaid
+author: Abraham Lincoln
+author: null
+author: null
+author: null
+author: Mary Roberts Rinehart
+author: Mary Raymond Shipman Andrews
+author: Time has little to do with reputation in the far West, and accordingly
+author: Anonymous
+author: Benjamin Franklin
+author: Hugh Lofting
+author: Mark Twain (Samuel Clemens)
+author: R. H. Busk
+author: Georg Ebers
+author: Margaret Fuller Ossoli
+author: Lucy Foster Madison
+author: Theodolinda Hahnsson
+author: null
+author: Giovanni Sforza
+author: null
+author: Harry Graham
+author: null
+author: null
+author: Pierre Loti
+author: Milo Hastings
+author: Christopher Leadem
+author: Natt Noyes Dodge
+author: Upton Sinclair
+author: Sara Jeannette Duncan
+author: null
+author: null
+author: Horace Plunkett
+author: null
+author: Various
+author: Various
+author: Horatio Alger
+author: E. P. Roe
+author: J. D. (John Davys) Beresford
+author: Erskine Childers
+author: Winston K. Marks
+author: H. P. Lovecraft
+author: Edgar Rice Burroughs
+author: Cleto R. Ignacio
+author: Frank H. Alfriend
+author: null
+author: null
+author: Edwin L. Sabin
+author: null
+author: Various
+author: Michael MacDonagh
+author: Horatio Alger
+author: Frederic Remington
+author: Elizabeth-Charlotte, Duchesse
+author: null
+author: A. B. (Alfred Benjamin) Meacham
+author: George Gissing
+author: Joaquim Maria Machado de Assis
+author: Talbot Baines Reed
+author: Edgar Rice Burroughs
+author: A. D. Crake
+author: Eliza Lee Follen
+author: Louis Couperus
+author: John P. Jones
+author: Canada
+author: John Galsworthy
+author: null
+author: James Grant
+author: Mary Roberts Rinehart
+author: null
+author: Alfred Joyce Kilmer
+author: Filson Young
+author: Richard de Bury
+author: James B. Stetson
+author: Juliette Low
+author: Jeffrey Farnol
+author: null
+author: Various
+author: Madame La Marquise De Montespan
+author: Robert Louis Stevenson
+author: Millie Ryan
+author: Antonio Giulio Barrili
+author: Marvin Dana
+author: Henry Van Dyke
+author: Maturin M. Ballou
+author: Fernand Desnoyers
+author: Daniel Defoe
+author: Emma Helen Blair
+author: Edgar Rice Burroughs
+author: Gertrude Forde
+author: Lucy Maud Montgomery
+author: W. B. Yeats
+author: Thorstein Veblen
+author: Ludwig van Beethoven
+author: Bertrand Russell
+author: François Guizot
+author: Charles Kingsley
+author: Various
+author: null
+author: Various
+author: J. E. Lamar
+author: Hanford Lennox Gordon
+author: Frances Hodgson Burnett
+author: Ethel Cook Eliot
+author: Rudyard Kipling
+author: Booth Tarkington
+author: Mariano Azuela
+author: George MacDonald
+author: Jerome K. Jerome
+author: Arthur Astor Carey
+author: Edward Keble Chatterton
+author: Edward Eggleston
+author: Nathaniel Hawthorne
+author: Brada
+author: Alfred Lord Tennyson
+author: Ovid
+author: Mrs Molesworth
+author: Various
+author: L. Onerva
+author: null
+author: null
+author: J. Vilbort
+author: null
+author: Cornelia Lewetzow
+author: Charles Hemstreet
+author: Georges Ohnet
+author: Lady Katie Magnus
+author: null
+author: Roy Chapman Andrews
+author: Madame La Marquise De Montespan
+author: null
+author: Lafcadio Hearn
+author: Dante Alighieri
+author: Philip Henry Gosse
+author: AEschylus
+author: null
+author: Herbert George Wells
+author: Edgar Saltus
+author: 
+author: Mary Heaton Vorse
+author: 
+author: George Borrow
+author: Nathaniel Hawthorne
+author: Anonymous
+author: Mrs Molesworth
+author: null
+author: null
+author: null
+author: William R. Eyster
+author: Anonymous
+author: Edgar Rice Burroughs
+author: Carolyn Sherwin Bailey
+author: null
+author: Loraine Daly
+author: Franklin Brewster Folsom
+author: William Edward Hartpole Lecky
+author: Roscoe Wilfred Thatcher
+author: Eugene Field
+author: Octave Thanet
+author: Randall Parrish
+author: null
+author: Anatole France
+author: null
+author: Carter Sprague
+author: Talbot Baines Reed
+author: R. E. Coker
+author: Horatio Alger
+author: null
+author: Manuel Pinheiro Chagas
+author: George M. Gould
+author: A. A. Milne
+author: William Morris
+author: Johann Wolfgang von Goethe
+author: Malcolm Bell
+author: Adolphe Dreyspring
+author: Emile Gaboriau
+author: Various
+author: null
+author: Henry Watterson
+author: Tcheng-Ki-Tong Tcheng-Ki-Tong
+author: George Bird Grinnell
+author: Ovid
+author: Albert Bigelow Paine
+author: null
+author: Gouverneur Morris
+author: Florence Morse Kingsley
+author: Richard Jefferies
+author: Percy Marks
+author: Anonymous
+author: Unknown
+author: George MacDonald
+author: Alexander Philip
+author: Robert Nemiroff and Jerry Bonnell
+author: Thomas Hardy
+author: H. M. Tomlinson
+author: Volrath Vogt
+author: Release Date: February, 1999 [eBook #670]
+author: 
+author: James Sully
+author: Henry Bore
+author: Various
+author: Edith Wharton
+author: Arthur Conan Doyle
+author: Ernest Bramah
+author: Abraham Lincoln
+author: null
+author: John Salkeld Bland
+author: null
+author: null
+author: Louis Joseph Vance
+author: Sylvester Mowry
+author: Margaret Penrose
+author: Mark Twain (Samuel Clemens)
+author: Clara Louise Burnham
+author: Charles Larcom Graves
+author: M de Chavannes
+author: United States. Central Intelligence Agency.
+author: E. M. Forster
+author: null
+author: Mario Rapisardi
+author: Alfred Lord Tennyson
+author: John Greenleaf Whittier
+author: Various
+author: Ambrogia Bazzero
+author: Mark Twain
+author: Frank L. Packard
+author: Edward Gibbon
+author: Produced by: Roger Frank and Sue Clark
+author: Henry James
+author: null
+author: Randolph Caldecott
+author: William Shakespeare
+author: Ticul Alvarez
+author: Elbert Hubbard
+author: Am�d�e Achard
+author: 
+author: A. D. Lumb
+author: Charles Reade
+author: Samuel Butler
+author: null
+author: Willa Cather
+author: null
+author: Georg Ebers
+author: null
+author: James Whitcomb Riley
+author: null
+author: null
+author: null
+author: Lucy Foster Madison
+author: Stendhal
+author: Hjalmar Hjorth Boysen
+author: Arnold Castle
+author: M. G. Lewis
+author: Emma Look Scott
+author: P. H. Sheridan
+author: null
+author: Honore de Balzac
+author: John Fothergill
+author: Franciscus Wagner
+author: null
+author: William Henry Holcombe
+author: Caroline Crowninshield Bascom
+author: null
+author: Albert Ross
+author: Felicitas Rose
+author: Dick Purcell
+author: P. B. Williams
+author: E. F. (Edward Frederic) Benson
+author: null
+author: Lucy Maud Montgomery
+author: null
+author: Anonymous
+author: Jane Pentzer Myers
+author: Charles Lever
+author: Frank Norris
+author: Pierre Loti
+author: Arthur Conan Doyle
+author: Bernard Capes
+author: J. Frank Dobie
+author: J. M. Barrie
+author: Marion Harland
+author: Heikki Meril�inen
+author: John Milton
+author: null
+author: Herbert Spencer, Henry Fawcett, Frederic Harrison and Other
+author: null
+author: Guy de Maupassant
+author: Thomas Sprat
+author: Princess of Belgium Louise
+author: E. R. Suffling
+author: G. Maspero
+author: George Bernard Shaw
+author: Stendhal
+author: null
+author: null
+author: Nathaniel Hawthorne
+author: John Lothrop Motley
+author: Alice Elizabeth Dracott
+author: Thomas Dixon
+author: Alessandro Manzoni
+author: Henry Seton Merriman
+author: Henry James
+author: null
+author: Alfred de Vigny
+author: Various
+author: Edward Gibbon
+author: S. D. Gordon
+author: THE DEAD-LINE
+author: Albert Robida
+author: Charles James Lever
+author: Basil King
+author: Slason Thompson
+author: Flora Annie Steel
+author: W.H.G. Kingston
+author: Eliza McHatton-Ripley
+author: Lord Charnwood
+author: Francis Leopold McClintock
+author: Edgar Wallace
+author: Thomas Chandler Haliburton
+author: Alexandre Dumas, Pere
+author: Rudyard Kipling
+author: null
+author: M. Y. Lermontov
+author: Various
+author: Horace Petherick
+author: Various
+author: Max Heindel
+author: Selma Lagerlöf
+author: Thomas Jefferson
+author: Oscar Wilde
+author: Vaughan Kester
+author: Anonymous
+author: Anonymous
+author: George Meredith
+author: Louisa M. Alcott
+author: null
+author: Edgar Allan Poe
+author: Oliver Wendell Holmes, Sr.
+author: null
+author: Hamilton Drummond
+author: Ouida
+author: H. G. Wells
+author: J. S. Fletcher
+author: Richard Hakluyt
+author: William D. Howells
+author: Various
+author: null
+author: Susanna Moodie
+author: William H. G. Kingston
+author: John P. Jones
+author: Susanna Rowson
+author: Annie Payson Call
+author: Various
+author: null
+author: H. Stanley Redgrove
+author: Christoper Marlowe
+author: Victor Hehn
+author: Alfred Russell Wallace
+author: Arthur Johnston
+author: null
+author: Mrs George de Horne Vaizey
+author: Helen D. Longstreet
+author: null
+author: Auguste Comte
+author: Various
+author: B. H. Roberts
+author: Robert Louis Stevenson
+author: null
+author: G. W. E. Russell
+author: by W. C. Tuttle
+author: Wallace Irwin
+author: Grant Allen
+author: Emily Paret Atwater
+author: Thomas Hart Benton
+author: Various
+author: Charles Dickens
+author: William Bradford
+author: Mihai Nadin
+author: Eginhard von Barfus
+author: William Shakespeare
+author: Hilaire Belloc
+author: Franklin Delano Roosevelt
+author: Albert Payson Terhune
+author: Gustav Kobb�
+author: 
+author: Maria Am�lia Vaz de Carvalho
+author: null
+author: Baron Edward John Moreton Drax Plunkett Dunsany
+author: Various
+author: Madame La Marquise De Montespan
+author: Michael Hart
+author: I.B. Pole Evans
+author: William Sewel
+author: Honore de Balzac
+author: Edgar Rice Burroughs
+author: Various
+author: Anthony Hope
+author: Various
+author: Bayard Taylor
+author: Various
+author: No�mie Dondel Du Faou�dic
+author: Maria Callcott
+author: null
+author: Bret Harte
+author: null
+author: Various
+author: null
+author: Jane Taylor
+author: Release Date: November 25, 2021 [eBook #66821]
+author: null
+author: Aarni Kouta and Friedrich Nietzsche
+author: Anonymous
+author: null
+author: Caroline Crowninshield Bascom
+author: Frances Hodgson Burnett
+author: George Melville Baker
+author: H. Rider Haggard
+author: Giuseppe Chiarini
+author: null
+author: Honore de Balzac
+author: Edward William Bok
+author: I. A. R. Wylie
+author: null
+author: Angel de los Reyes
+author: John Knox Laughton
+author: Edward Gibbon
+author: United States Bureau of the Census
+author: Jussi
+author: Thomas Hardy
+author: Ludvig Holberg
+author: Charles Prelini
+author: Jules Verne
+author: Henry David Thoreau
+author: H. G. Wells
+author: Guy Boothby
+author: Samuel White Baker
+author: H. Rider Haggard
+author: null
+author: Samuel Butler
+author: Madison Grant
+author: William Makepeace Thackeray
+author: A. B. (Alfred Benjamin) Meacham
+author: Ralph Adams Cram
+author: James Oliver Curwood
+author: Francis Thompson
+author: null
+author: null
+author: null
+author: Henry James
+author: E. C. Pickering
+author: E. Marlitt
+author: Samuel Richardson
+author: William Dobein James
+author: E. M. Smith-Dampier
+author: null
+author: Louey Chisholm
+author: William H. Fitzgerald
+author: Sinclair Lewis
+author: Robert Southey
+author: David Graham Phillips
+author: Ethel and James Dorrance
+author: John Morley
+author: Jane Pentzer Myers
+author: null
+author: Benedict of Spinoza
+author: Geraldine Fleming
+author: Alfred Ollivant
+author: Anatole France
+author: Georg Ebers
+author: Edwin J. Houston
+author: Winston Marks
+author: Edgar Rice Burroughs
+author: William Kirby
+author: W. W. Jacobs
+author: United States National Aeronautics and Space Administration
+author: Unknown
+author: Alberto Santos-Dumont
+author: null
+author: null
+author: Elizabeth-Charlotte, Duchesse
+author: Eliza Leslie
+author: Wilkie Collins
+author: Charles Dickens
+author: Alexandre Dumas, Pere
+author: null
+author: Hugo Muensterberg
+author: Benjamin Franklin
+author: John C. Van Dyke
+author: Annie T. Colcock
+author: J. Stark Munro
+author: Edgar Rice Burroughs
+author: Talbot Baines Reed
+author: John Knox
+author: Madame La Marquise De Montespan
+author: Charles Dickens
+author: null
+author: Edgar Vine Hall
+author: Frank Hamilton Cushing
+author: Helen Beecher Long
+author: null
+author: Gustave Aimard
+author: Oliver W. Nixon
+author: Japan
+author: Thomas Carlyle
+author: Produced by: Roger Frank and Sue Clark.
+author: Jean Paul Friedrich Richter
+author: null
+author: Marfa Mouchanow
+author: Andrew Lang.
+author: Horatio Alger
+author: Marion Harland
+author: Francis Douce
+author: null
+author: Arlo Bates
+author: David Graham Phillips
+author: John Richard Green
+author: Maud Wilder Goodwin
+author: null
+author: Margaret Fuller Ossoli
+author: John Buchan
+author: George MacDonald
+author: Laura Lee Hope
+author: null
+author: John Morley
+author: L. P. Jacks
+author: Loraine Daly
+author: Elizabeth Robins
+author: Richard F. Burton
+author: Charles Dickens
+author: George Bernard Shaw
+author: Anonymous
+author: Honore de Balzac
+author: Various
+author: Mary Carolyn Davies
+author: Alan Seeger
+author: William H. Elson
+author: James Allan
+author: James Bruce
+author: Project Gutenberg
+author: null
+author: Horatio Alger
+author: Benedict of Spinoza
+author: Robert Browning
+author: Max Wilhelm Meyer
+author: Alfred L. Kroeber
+author: James A. Mackereth
+author: Albert Payson Terhune
+author: Robert Norwood
+author: Charlotte Perkins Gilman
+author: William Le Queux
+author: Author: W. C. Tuttle
+author: Auguste Gilbert de Voisins
+author: Eva Scott
+author: Karl Eugen Neumann
+author: William Petty
+author: E. W. Hornung
+author: Wilton Wallace Blancke
+author: Mary Grant Bruce
+author: Laurence Sterne
+author: Walter de la Mare
+author: null
+author: William Morris
+author: John Church
+author: W. Harrison Ainsworth
+author: Thomas Dick Lauder
+author: The Men of the 1st. and 2nd. Provisional Training Regiments, Plattsburg, New York.
+author: Randall Parrish
+author: null
+author: null
+author: null
+author: Various
+author: Hilma Pylkkänen
+author: Various
+author: Philip Meadows Taylor
+author: Robert Service
+author: 
+author: H. G. Wells
+author: null
+author: Albert Teichner
+author: Geoffrey Chaucer
+author: Robert Louis Stevenson
+author: Honore de Balzac
+author: Robert Louis Stevenson
+author: Various
+author: Frances E. Lord
+author: null
+author: Malcolm B. Morehart
+author: Wiliam Cabell Bruce
+author: Thomas Hardy
+author: Louise Imogen Guiney
+author: null
+author: L. Maria Child
+author: Ilya Tolstoy
+author: Anonymous
+author: David Hume
+author: R. F. Foster
+author: Frances (Fanny) Burney (Madame
+author: Joseph Ritson
+author: Various
+author: Louis Antoine Fauvelet de Bourrienne
+author: William Shakespeare
+author: Ellen Glasgow
+author: Jules Verne
+author: Oscar Wilde
+author: Manuel Fern�ndez Y Gonz�lez
+author: Cyrus Pringle
+author: Adolfo Albertazzi
+author: Arthur Conan Doyle
+author: Elliott Whitney
+author: George Meredith
+author: . G. Wodehouse
+author: George MacDonald
+author: Tucídides
+author: Frances E. Nesbitt
+author: Charles Hemstreet
+author: Donald A. Mackenzie
+author: Postmaster General - Canadian Post Office
+author: Emile Gaboriau
+author: R Lakeland
+author: F. Max Müller
+author: null
+author: null
+author: null
+author: Brander Matthews
+author: George Puttenham
+author: Mrs. Georgie Sheldon
+author: James W. Head
+author: Unknown
+author: null
+author: J. G. Patterson
+author: Mary Roberts Rinehart
+author: Zitkala-Sa
+author: Henriette Jeanrenaud
+author: Margaret J. Preston
+author: Ambrose Bierce
+author: Hippolyte A. Taine
+author: Thomas A. Janvier
+author: Lucy Maud Montgomery
+author: Sebasti�o de Magalh�es Lima
+author: Mary Austin
+author: John Kimberly Mumford
+author: Benjamin M. Anderson, Jr.
+author: Bayard Taylor
+author: Thomas Browne
+author: Max Brand
+author: Charles Lever
+author: Hippolyte A. Taine
+author: Caroline Snowden Guild
+author: John Galsworthy
+author: Knut Hamsun
+author: Archibald K. Murray
+author: Jan Schenkman
+author: null
+author: null
+author: Louise Gerard
+author: Dwight Sanderson
+author: null
+author: Oscar Wilde
+author: George Grote
+author: Archibald Forbes
+author: Wilhelm Busch
+author: Mark Twain (Samuel Clemens)
+author: Mark Twain (Samuel Clemens)
+author: U. P. Hedrick
+author: Lucy Maud Montgomery
+author: null
+author: Andrew Lang
+author: Morris Jastrow
+author: null
+author: Various
+author: Various
+author: Frederick Adam Wright
+author: W. Bourne Cooke
+author: Anonymous
+author: Daniel Carter Beard
+author: Victor Hugo
+author: John Minton Westgate
+author: Théophile Gautier
+author: Apollonius Rhodius
+author: John Ogilvie
+author: George Thomas Daly
+author: Arthur John Butler
+author: Amy Redpath Roddick
+author: Mark Twain
+author: Wilbur Lawton
+author: Oll Coomes
+author: Jules Verne
+author: United States Central Intelligence Agency
+author: Robert Louis Stevenson and Lloyd Osbourne
+author: R. Austin Freeman
+author: Robert W. Chambers
+author: null
+author: null
+author: Alexander Whyte
+author: null
+author: Gardner F. Fox
+author: Charles Darwin
+author: null
+author: Aristoteles
+author: Grace S. Richmond
+author: Gaston Derreaux
+author: Henry Francis Cary
+author: Martha Grassham Purcell
+author: Aristophanes
+author: Eliza Lee Follen
+author: Alexandre Dumas (Pere)
+author: J. Henri Fabre
+author: Robert W. Service
+author: Nathaniel Hawthorne
+author: George MacDonald
+author: Catherine Parr Traill
+author: Thomas Dykes Beasley
+author: null
+author: Charles Dickens
+author: Various
+author: Nevin O. Winter
+author: Edwin Ray Lankester
+author: B.M. Sinclair, AKA B. M. Bower
+author: Charles Foster Kent and Jeremiah Whipple Jenks
+author: Allan Ramsay
+author: null
+author: Zsigmond Kemény
+author: null
+author: J. Newton Terrill
+author: Madame La Marquise De Montespan
+author: Lewis Carroll
+author: Henry W. Longfellow
+author: Michael Faraday
+author: Harold Bindloss
+author: null
+author: Edgar Rice Burroughs
+author: Jean de la Bruy�re
+author: Emilio Salgari
+author: Joseph Conrad
+author: null
+author: W. H. Koebel
+author: James Oliver Curwood
+author: null
+author: Clara E. Laughlin
+author: James Fenimore Cooper
+author: Charles Dickens
+author: Elmer Harry Kreps
+author: Produced by: Roger Frank and Sue Clark. This file was produced from
+author: Abraham Lincoln
+author: Talbot Hughes
+author: Christopher Crowfield
+author: null
+author: Sir Walter Scott
+author: Various
+author: Mark Twain (Samuel Clemens)
+author: Mark Twain (Samuel Clemens)
+author: Hjalmar Hjorth Boysen
+author: null
+author: George Gilfillan
+author: Paul H
+author: null
+author: Jeffery Farnol
+author: Edward Everett Hale
+author: G. A. Henty
+author: Maria Edgeworth
+author: Thomas Wentworth Higginson
+author: John Milton
+author: Elizabeth Bonhote
+author: Allen Chapman
+author: Heinrich Heine
+author: Joseph Grimaldi
+author: William Hayley
+author: Friedrich Dannemann
+author: Henry Smith Williams
+author: Frank Tymon
+author: White Sands Missile Range Public Affairs Office
+author: Henry Wadsworth Longfellow
+author: Louisa May Alcott
+author: James Matthew Barrie
+author: L. Frank Baum.
+author: Ferdinand Raimund
+author: George E. Waring
+author: Charles Dickens
+author: Archibald H. Grimke, Theophilus G. Steward, Lafayette M.
+author: Various
+author: Mary D. Brine
+author: Thomas Wentworth Higginson
+author: William S. Gilbert
+author: John Galt
+author: Stendhal
+author: John Galsworthy
+author: A. E. Ingman
+author: null
+author: Colonel Prentiss Ingraham
+author: Plato
+author: Charles G. Harper
+author: null
+author: Denison Olmsted
+author: E. Everett Evans
+author: H. G. Gilliland
+author: Samuel Richardson
+author: Elizabeth Blackwell
+author: null
+author: Albert Bigelow Paine
+author: null
+author: H. Rider Haggard
+author: Anonymous
+author: Andrew Barton Paterson
+author: Charles Dudley Warner
+author: William Shakespeare
+author: Ruth M. Sprague
+author: Henri Bois
+author: George Meredith
+author: null
+author: Henry Ford
+author: Various
+author: Various
+author: Winston Churchill
+author: Joseph Rodman Drake
+author: Miss Watts
+author: George Hastings McNair
+author: Joseph Holden Pott
+author: Edgar Rice Burroughs
+author: Gordon Home
+author: 
+author: Joel Cook
+author: Thomas Henry Huxley
+author: Henry James
+author: null
+author: James L. (James Laughlin) Hughes
+author: null
+author: Max Kemmerich
+author: Joseph Hergesheimer
+author: Joseph Conrad
+author: Plato
+author: Various
+author: null
+author: Cornelius Shea
+author: Paul Verlaine
+author: Gustave Aimard
+author: Charles Egbert Craddock (AKA Mary Noailles Murfree)
+author: Reginald R. Sharpe
+author: null
+author: Thomas K. Bullock
+author: AEschylus
+author: Kasimir Edschmid
+author: Anonymous
+author: null
+author: null
+author: Gerald Campbell
+author: Dante Alighieri
+author: null
+author: Martin Luther
+author: Jackson Gregory
+author: Jeffery Farnol
+author: Robert Zacks
+author: United States
+author: Various
+author: Daniel Defoe
+author: Richard Rogers Bowker
+author: Various
+author: Various
+author: Arthur Conan Doyle
+author: T. S. Arthur
+author: null
+author: null
+author: Nathaniel Hawthorne
+author: null
+author: Henry White Warren
+author: Mrs. Henry Clarke
+author: Benjamin Nathaniel Bogue
+author: Anonymous
+author: Elisabeth Sanxay Holding
+author: Anonymous
+author: null
+author: Various
+author: Various
+author: Jules Verne
+author: Ida Saint-Elme
+author: William D. Howells
+author: Ledyard Bill
+author: null
+author: Meredith Nicholson
+author: null
+author: Frank Frankfort Moore
+author: Don Marquis
+author: W. F. Alder
+author: T. G. Steward
+author: Amelia E. Barr
+author: Roderick
+author: Louisa May Alcott
+author: Various
+author: Arthur Scott Bailey
+author: null
+author: Edwin G. Rundle
+author: John Milton
+author: null
+author: J. M. Barrie
+author: Various
+author: J. M. Barrie
+author: null
+author: Hans Holbein
+author: Nathaniel Hawthorne
+author: Juan Valera
+author: Bret Harte
+author: H. Rider Haggard
+author: Winston Churchill
+author: null
+author: Wesley Long
+author: S. M. Tenneshaw
+author: �mile Zola
+author: Lafcadio Hearn
+author: J. M. Synge
+author: Thornton W. (Thornton Waldo) Burgess
+author: Various
+author: Frank V. Webster
+author: null
+author: Andr� Theuriet
+author: null
+author: Robert Neilson Stephens
+author: Thomas Alexander Browne, AKA Rolf Boldrewood
+author: Charles Egbert Craddock (AKA Mary Noailles Murfree)
+author: Anonymous
+author: Charles James Lever
+author: James Gall
+author: Mrs. A. D. T. Whitney
+author: Various
+author: Giorgio Vasari
+author: Gildas
+author: null
+author: null
+author: G. K. Chesterton
+author: Jules Verne
+author: Charles Dickens
+author: Douglas Dewar
+author: Willa Cather
+author: null
+author: George William Curtis
+author: null
+author: K. ten Bruggencate
+author: Dante Alighieri
+author: Jerome K. Jerome
+author: Stanley F. Horn
+author: Sebasti�o de Magalh�es Lima
+author: Mark Twain (Samuel Clemens)
+author: William H. Elson
+author: Christopher Evans
+author: Alexandre Dumas, Pere
+author: Kate Chopin
+author: null
+author: Henry Seton Merriman
+author: Clarence Edgar Johnson
+author: Gordon Randall Garrett
+author: John Fox, Jr.
+author: Charles L. Fontenay
+author: Various
+author: Felix Adler
+author: null
+author: Minerva Delight Kellogg
+author: null
+author: Conrad Aiken
+author: Robert Louis Stevenson
+author: Rev. Joseph Mather
+author: Robert L. Drake
+author: Edith Wharton
+author: Robert Harris
+author: null
+author: Various
+author: W. Harrison Ainsworth
+author: John T. McCutcheon
+author: Marcus J. Martin
+author: Henry James
+author: Robert W. Chambers
+author: null
+author: null
+author: Johann Christoph Friedrich von Schiller
+author: 
+author: Winston Churchill
+author: null
+author: null
+author: null
+author: Stanley Weyman
+author: null
+author: Bj�rnstjerne Bj�rnson
+author: Various
+author: Ivan Tourgueneff
+author: Anthony Trollope
+author: Ella Wheeler Wilcox
+author: Frederick Douglass
+author: Louis Tracy
+author: James Godkin
+author: null
+author: Gustav Kobb�
+author: Charles Dickens
+author: Joseph C. Lincoln
+author: Lola Ridge
+author: Kenneth Grahame
+author: null
+author: Edward Bulwer-Lytton
+author: null
+author: Robert Louis Stevenson
+author: Rudolfus Pohl
+author: Charles Dickens
+author: Saki
+author: Henry A. Shute
+author: Pierre Loti
+author: Jerome K. Jerome
+author: G. H. Palmer
+author: Charles Mackay
+author: William Hurrell Mallock
+author: Francois Pierre Guillaume Guizot
+author: Henry James
+author: Anonymous
+author: Ann Radcliffe
+author: Various
+author: null
+author: J. M. Bacon
+author: Henry James
+author: null
+author: Alexandre Dumas
+author: Oliver George Ready
+author: Aesop
+author: Thomas Tapper
+author: W. H. Mallock
+author: null
+author: null
+author: Charles Dickens
+author: Elizabeth Gaskell
+author: null
+author: null
+author: Henry Charles Beeching
+author: Carter H. Harrison
+author: Fox B. Holden
+author: R.M. Ballantyne
+author: Various
+author: Eleanor Hallowell Abbott
+author: null
+author: Zoltán Ambrus
+author: Henri Durand-Brager
+author: Friedrich de La Motte-Fouque
+author: Charles M. Scanlan
+author: null
+author: Victor Appleton
+author: Frederick Treves
+author: Mark Twain (Samuel Clemens)
+author: William Dean Howells
+author: Mark Twain (Samuel Clemens)
+author: Richard Twiss
+author: Henry Churchill King
+author: Frank Norris
+author: Booth Tarkington
+author: Carl Becker
+author: R. D. Blackmore
+author: null
+author: Charles Dickens
+author: Oscar Wilde
+author: null
+author: Grace Brooks Hill
+author: Jerome K. Jerome
+author: Jeremiah
+author: F. Omelka
+author: Various
+author: null
+author: Isaac McBride
+author: William Henry Bennett
+author: Kate Drumgoold
+author: Edmond About
+author: François-Marie Arouet Voltaire
+author: Philip Melancthon
+author: George Chetwynd Griffith
+author: null
+author: Zane Grey
+author: George Herbert Betts
+author: F. Hopkinson Smith
+author: E. Phillips Oppenheim
+author: null
+author: Charles Francis Abdy Williams
+author: James Branch Cabell
+author: Arthur Conan Doyle
+author: James Legge
+author: Eva Scott
+author: Raymond Auzias-Turenne
+author: William Hunt
+author: Eug�ne-Emmanuel Viollet-Le-Duc
+author: Mrs Molesworth
+author: Ivar Jorgensen
+author: null
+author: Frank Norris
+author: G. W. E. Russell
+author: Anonymous
+author: James Oliver Curwood
+author: null
+author: null
+author: Joseph Conrad
+author: null
+author: Joseph Conrad
+author: Release Date: February, 1999 [EBook #669]
+author: Various
+author: null
+author: Marshall P. Wilder
+author: Dante Aligheri
+author: Augusta Groner
+author: Harold Frederic
+author: Oscar D. Skelton
+author: Max Brand
+author: W.W. Jacobs
+author: Jules Verne
+author: Fred. J. Melville
+author: Reynold Nicholson
+author: Charlotte M. Yonge
+author: Mary Wollstonecraft
+author: Gertrude Atherton
+author: Charles Felton Pidgin
+author: Rosalía de Castro
+author: Harry Graham
+author: Ernst Eckstein
+author: Thomas Babington Macaulay
+author: Ethel Hume Patterson Bennett
+author: James Denney
+author: Holland Thompson
+author: Marcel Thibault
+author: null
+author: A.C. Seward and Others
+author: John Ruskin
+author: United States
+author: null
+author: Ernest Bramah
+author: Vachel Lindsay
+author: Bret Harte
+author: John Jay Smith
+author: null
+author: Henry Wheeler Shaw
+author: Saki
+author: Sarah Orne Jewett
+author: Edgar Rice Burroughs
+author: A. A. Milne
+author: Hal G. Evarts
+author: Alice Brown
+author: null
+author: Honore de Balzac
+author: Honore de Balzac
+author: Various
+author: Various
+author: null
+author: Oscar Wilde
+author: Josiah Quincy
+author: Charles Dudley Warner
+author: Pérès Jean-Baptiste
+author: Joseph Keppler
+author: null
+author: Frank Frankfort Moore
+author: Sabine Baring-Gould
+author: Zygmunt Krasiñski
+author: Mary Roberts Rinehart
+author: Various
+author: Booth Tarkington
+author: Jacques Casanova de Seingalt
+author: Anonymous
+author: Various
+author: null
+author: null
+author: Winston Churchill
+author: Rebecca Harding Davis
+author: Endre Ady
+author: Various
+author: Frederick Starr
+author: Various
+author: Lanier McKee
+author: Michael Husted
+author: Various
+author: Virgil
+author: null
+author: Ellingwood Beach
+author: Matilda Betham-Edwards
+author: George Gilfillan
+author: Edgar Rice Burroughs
+author: Yasumasa Kanada
+author: null
+author: null
+author: Sax Rohmer
+author: Abraham Lincoln
+author: Walter Raleigh
+author: null
+author: John R. Carling
+author: Saki
+author: John A. Bensel
+author: P. J. Proudhon
+author: Henry Kitchell Webster
+author: David Graham Phillips
+author: Charles Dudley Warner
+author: Sarah Orne Jewett
+author: Various
+author: David Slowinski
+author: null
+author: William Shakespeare
+author: Charles Dickens
+author: Washington Irving
+author: Robert Burns
+author: Napoleone Colajanni
+author: Benedict of Spinoza
+author: George Herbert Betts
+author: Robert Louis Stevenson
+author: George Moore
+author: Various
+author: Samuel Johnson
+author: Roy J. Snell
+author: M. Y. Lermontov
+author: Edward Lucas White
+author: null

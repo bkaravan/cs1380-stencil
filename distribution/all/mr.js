@@ -107,7 +107,8 @@ function mr(config) {
                       const elapsedTime = Number(endTime - startTime);
                       // console.log('here now: ', processedCount, data.length);
                       // put into seconds
-                      console.log('node:', global.moreStatus.sid, startTime, endTime, elapsedTime, (urlsVisited / elapsedTime) * 1000);
+                      console.log(`CRAWLER | THROUGHPUT | node: ${global.moreStatus.sid} | startTime: ${startTime} | endTime: ${endTime} | elapsedTime: ${elapsedTime} | urlCount: ${urlsVisited}`);
+                      console.log(`CRAWLER | LATENCY | node: ${global.moreStatus.sid} | startTime: ${startTime} | endTime: ${endTime} | elapsedTime: ${elapsedTime} | urlCount: ${urlsVisited}`);
                     }
                     let finalResults = mappedResults;
                     // if compaction is defined, we run it here before
@@ -221,7 +222,8 @@ function mr(config) {
                           const endTime = performance.now();
                           const elapsedTime = Number(endTime - startTime);
                           // console.log('here now: ', processedCount, data.length);
-                          console.log('node:', global.moreStatus.sid, startTime, endTime, elapsedTime, (urlCount / elapsedTime) * 1000);
+                          console.log(`INDEXER | THROUGHPUT | node: ${global.moreStatus.sid} | startTime: ${startTime} | endTime: ${endTime} | elapsedTime: ${elapsedTime} | urlCount: ${urlCount}`);
+                          console.log(`INDEXER | LATENCY | node: ${global.moreStatus.sid} | startTime: ${startTime} | endTime: ${endTime} | elapsedTime: ${elapsedTime} | urlCount: ${urlCount}`);
                           // at this point, either callback like normal
                           // or store results in the out group if it was provided
                           if (this.out) {
