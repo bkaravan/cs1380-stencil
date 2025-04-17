@@ -152,7 +152,7 @@ async function runCrawler(replCb) {
 
       const fs = require('fs');
       const path = require('path');
-      
+
       function processDocument(data, url) {
         // data: the first 1000 characters of the html/text file
         // prettier-ignore
@@ -276,10 +276,10 @@ async function runCrawler(replCb) {
   const doMapReduce = (cb) => {
     distribution.mygroup.store.get(null, (e, v) => {
       distribution.mygroup.mr.exec(
-        { keys: v, map: mapper, reduce: reducer, rounds: 5},
+        { keys: v, map: mapper, reduce: reducer, rounds: 5 },
         (e, v) => {
           if (e) console.error('MapReduce error:', e);
-          
+
           // console.error('calling the repl callback')
           replCb();
         },
@@ -407,31 +407,31 @@ function startNodes(cb) {
       // prettier-ignore
       distribution.local.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
         distribution.mygroup.groups.put(mygroupConfig, myAwsGroup, (e, v) => {
-            distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
-              distribution.visited.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
-                // duplicating code but it should work later on aws
-                const path = require('path');
-                const basePath = path.join(
-                  path.dirname(path.resolve('main.js')),
-                  'debugging',
-                );
+          distribution.local.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
+            distribution.visited.groups.put(myVisitedConfig, myAwsGroup, (e, v) => {
+              // duplicating code but it should work later on aws
+              const path = require('path');
+              const basePath = path.join(
+                path.dirname(path.resolve('main.js')),
+                'debugging',
+              );
 
-                if (!fs.existsSync(basePath)) {
-                  // console.log("doesn't exist: " + basePath);
-                  fs.mkdirSync(basePath);
-                }
+              if (!fs.existsSync(basePath)) {
+                // console.log("doesn't exist: " + basePath);
+                fs.mkdirSync(basePath);
+              }
 
-                distribution.mygroup.routes.put(debuggingService, 'debugging', (e, v) => {
-                  distribution.mygroup.comm.send([{}], { service: 'debugging', method: 'debug' }, async (e, v) => {
-                    // after setup, we run the crawler
-                    // we can use this to call del later! 
-                    //debugNodeIds = v; 
-                    await runCrawler(cb);
-                  });
+              distribution.mygroup.routes.put(debuggingService, 'debugging', (e, v) => {
+                distribution.mygroup.comm.send([{}], { service: 'debugging', method: 'debug' }, async (e, v) => {
+                  // after setup, we run the crawler
+                  // we can use this to call del later! 
+                  //debugNodeIds = v; 
+                  await runCrawler(cb);
                 });
-              })
-            });
-          })
+              });
+            })
+          });
+        })
       });
     });
   });
@@ -508,7 +508,7 @@ function main() {
         return;
       }
 
-      // Standard search (unchanged)
+      // Standard search
       const filePath = 'authors/' + global.moreStatus.sid;
 
       try {
@@ -558,16 +558,12 @@ function main() {
       }
 
       function performHyperspaceSearch(data, query) {
-        // Hyperspace hashing implementation
-        // Using LSH (Locality-Sensitive Hashing) approach for approximate matching
-
+        // Hyperspace hashing implementation using LSH
         // Remove the hyper flag from the query object for processing
         const { hyper, ...searchTerms } = query;
 
         // Generate feature vectors for the search terms
         const queryFeatures = generateFeatureVector(searchTerms);
-
-        // Results array to store matches
         const results = [];
 
         // For each book in the database
@@ -588,6 +584,7 @@ function main() {
 
           // Use threshold to determine matches
           // Higher threshold = more precise results, but potentially fewer matches
+          // Still might need some tweaking
           const threshold = 0.6;
           if (similarity >= threshold) {
             results.push(`[Similarity: ${similarity.toFixed(2)}] ${line}`);
@@ -601,7 +598,7 @@ function main() {
           return simB - simA;
         });
 
-        // Return top results (limit to 20 if too many)
+        // Return top results (limit to 20 if too many, could be tweaked)
         return results.length > 20 ? results.slice(0, 20) : results;
       }
 
@@ -615,7 +612,6 @@ function main() {
           langTokens: new Set()
         };
 
-        // Tokenize author name
         if (item.author) {
           const authorTokens = item.author.toLowerCase().split(/\s+/);
           authorTokens.forEach(token => {
@@ -623,7 +619,6 @@ function main() {
           });
         }
 
-        // Tokenize title
         if (item.title) {
           const titleTokens = item.title.toLowerCase().split(/\s+/);
           titleTokens.forEach(token => {
@@ -833,8 +828,8 @@ function main() {
         console.log('  debug-log - Show most recent nodes\' debug information');
         console.log('  debug-start - Start debug logging of the nodes');
         console.log(
-              '  hyper: author: name | title: book title | year: yyyy | lang: language'
-            );
+          '  hyper: author: name | title: book title | year: yyyy | lang: language'
+        );
         console.log('  debug-stop - Stop debug logging of the nodes');
       }
 
@@ -889,7 +884,7 @@ function main() {
           return;
         }
 
-        
+
         if (trimmedLine === 'debug-log') {
           console.log('Showing most recent nodes\' debug information:');
           const remote = { service: 'debugging', method: 'log' };
